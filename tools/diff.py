@@ -8,7 +8,7 @@ so unresolved address references don't poison the comparison.
 
 Usage:
     python tools/diff.py --func 0x00401000 --obj build/obj/foo.obj \
-        --exe reference/MW4Mercs.exe --csv build/ghidra/MW4_project/dumps/functions.csv
+        --exe reference/MW4Mercs.exe --csv reference/functions/MW4Mercs.csv
 
 Exit code 0 if match >= --threshold (default 100), else 1.
 """
@@ -155,10 +155,9 @@ def main():
     ap.add_argument("--obj", required=True, help="Compiled .obj containing the function")
     ap.add_argument("--exe", required=True, help="Reference MW4Mercs.exe")
     ap.add_argument("--csv", required=False, default=None,
-                    help="functions.csv from Ghidra dump (omit if --size given)")
+                    help="function inventory CSV (omit if --size given)")
     ap.add_argument("--size", type=lambda x: int(x, 0), default=None,
-                    help="Override function size in bytes (for Ghidra-missed entries; "
-                         "skips CSV lookup)")
+                    help="Override function size in bytes (skips CSV lookup)")
     ap.add_argument("--threshold", type=int, default=100, help="Pass threshold in %%")
     ap.add_argument("--full", action="store_true", help="Print full hexdiff")
     ap.add_argument("--offset", type=lambda x: int(x, 0), default=0,

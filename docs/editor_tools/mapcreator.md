@@ -1,8 +1,8 @@
 # MapCreator.exe — bitmap → .mw4 map authoring tool (deep-dive)
 
-> Reference record; not an oracle target. Analysis via the Ghidra project at
-> `build\ghidra\modules\mapcreator\mapcreator_proj` (dumps in
-> `build\ghidra\modules\mapcreator\dumps\`). No source tree, no byte-identity gate.
+> Reference record; not an oracle target. Analyzed with Ghidra; the analysis
+> project and dumps are not part of this repository. No source tree, no
+> byte-identity gate.
 
 ## 1. Binary facts
 

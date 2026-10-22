@@ -5,8 +5,8 @@ Source of truth = OUR OWN transcription inventory: every func_<VA>.c source
 (each byte-verified 100% against the reference), plus the committed
 src\mw4mercs\artifacts\extra_functions.csv table for the functions we intentionally have no
 source for (31 IAT jump thunks + the out-of-scope .txt2 FUN_00769000).
-Ghidra is NOT used: its functions.csv misses ~3,165 functions we found and
-nothing in the build/debug pipeline depends on it.
+The function inventory is our own committed CSV; nothing in the build/debug
+pipeline depends on an external analysis database.
 
 Artifacts:
   build\\MW4Mercs.map        - MSVC "Publics by Value" format (reference)

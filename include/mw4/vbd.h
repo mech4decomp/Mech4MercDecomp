@@ -51,9 +51,8 @@
  *     archive; the byte at offset 3 varies per member. Likely a custom
  *     LZ77/LZSS-derived codec parametrised by `key`.
  *
- * Open Phase 4 task: identify the per-entry compression algorithm via
- * Ghidra analysis of the game's resource loader (look up the
- * `#VBD` magic cross-reference in the `.text` section).
+ * Open task: identify the per-entry compression algorithm by tracing the
+ * resource loader from the `#VBD` magic cross-reference in `.text`.
  *
  * NOTE: member paths can contain braces from the WinFS-style
  *   `name.data{gamemodel}` / `{effects}` family used by LOD-aware

@@ -2,7 +2,7 @@
 #define MW4_ABL_GLOBALS_H
 
 /* ABL (scripting language) runtime global variables.
- * Source: Ghidra analysis of FUN_00569ff0 and related ABL functions.
+ * Source: disassembly analysis of FUN_00569ff0 and related ABL functions.
  *
  * These are absolute-address globals in the .data section.
  */

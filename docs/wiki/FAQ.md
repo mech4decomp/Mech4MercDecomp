@@ -34,5 +34,5 @@ A few EXE IAT thunks and the `.txt2` SafeDisc leftover are out of scope. See
 **Can I contribute code?**
 No. Documentation corrections only.
 
-**Does the build need Ghidra?**
-No. Ghidra is optional for analysis.
+**Does the build need an external analysis database?**
+No. The committed sources and function inventories are sufficient.

@@ -43,7 +43,7 @@ and the canonical SHA-256 hashes. See `docs/VERIFICATION.md`.
 No. The oracle is frozen. Documentation corrections are welcome; see
 `CONTRIBUTING.md`.
 
-**Does the build need Ghidra?**
-No. Ghidra is optional for RE and for the optional analysis tools. The build
-and verification pipeline uses the committed source, metadata, and the
-reference binaries.
+**Does the build need an external analysis database?**
+No. The build and verification pipeline uses the committed sources, the
+committed function inventories in `reference/functions/`, and the reference
+binaries.

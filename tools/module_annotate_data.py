@@ -68,11 +68,9 @@ MIN_FLOAT = 4           # consecutive finite floats to call it a float run
 def load_functions(key):
     """entry VA -> name from the committed module function inventory."""
     out = {}
-    candidates = [
-        os.path.join(ROOT, "reference", "functions", "%s.csv" % key),
-        os.path.join(ROOT, "build", "ghidra", "modules", key, "dumps", "functions.csv"),
-    ]
-    p = next((q for q in candidates if os.path.isfile(q)), None)
+    p = os.path.join(ROOT, "reference", "functions", "%s.csv" % key)
+    if not os.path.isfile(p):
+        p = None
     if p is None:
         return out
     with open(p, newline="") as f:
@@ -85,10 +83,9 @@ def load_functions(key):
 
 
 def load_exports(key):
-    """entry VA -> (name, ordinal) from the module's exports.csv."""
+    """entry VA -> (name, ordinal) from an optional exports.csv."""
     out = {}
-    p = os.path.join(ROOT, "build", "ghidra", "modules", key, "dumps",
-                     "exports.csv")
+    p = os.path.join(ROOT, "reference", "exports", "%s.csv" % key)
     if not os.path.isfile(p):
         return out
     with open(p, newline="") as f:

@@ -6,8 +6,9 @@ track's text_assemble.py (which lives under tools/ for the DLLs).
 
 VA resolution for each obj:
   - func_XXXXXXXX.obj          -> VA from the hex in the filename
-  - semantic-named .obj        -> rename_map.csv (old_name func_XXXX -> new_name
-                                  semantic); else first FUN_XXXX token in source
+  - semantic-named .obj        -> optional reference/rename_map.csv (old_name
+                                  func_XXXX -> new_name); else first FUN_XXXX
+                                  token in source
 
 Usage:
   python tools/exe_text_assemble.py            # masked fidelity
@@ -21,7 +22,7 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 BASE = 0x00400000
 EXE  = os.path.join(ROOT, "reference", "MW4Mercs.exe")
 OBJDIR = os.path.join(ROOT, "build", "obj")
-RENAME = os.path.join(ROOT, "build", "ghidra", "rename_map.csv")
+RENAME = os.path.join(ROOT, "reference", "rename_map.csv")
 
 MASK_TYPES = (6, 7, 10, 11, 0x14)
 REL32 = (0x14,)

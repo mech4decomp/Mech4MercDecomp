@@ -2,8 +2,8 @@
 
 The four authoring/config EXEs shipped with MW4:Mercenaries. These are
 **record + RE-documentation assets only** — never oracle targets
-(see `AGENTS.md` "Reference assets"). Hashes in `reference\SHA256.txt`;
-Ghidra projects under `build\ghidra\modules\{autoconfig,mapcreator,nfmeditor,mw4ed2}\`.
+(reference assets only). Hashes in `reference\SHA256.txt`;
+Analyzed with Ghidra; the analysis projects and dumps are not part of this repository.
 
 | Tool | File | Purpose | Functions | Doc |
 |---|---|---|---|---|

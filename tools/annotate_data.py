@@ -53,11 +53,9 @@ MIN_FLOAT = 4           # consecutive finite floats to call it a float run
 def load_functions():
     """entry VA -> name from the committed function inventory."""
     out = {}
-    candidates = [
-        os.path.join(ROOT, "reference", "functions", "MW4Mercs.csv"),
-        os.path.join(ROOT, "build", "ghidra", "MW4_project", "dumps", "functions.csv"),
-    ]
-    p = next((q for q in candidates if os.path.isfile(q)), None)
+    p = os.path.join(ROOT, "reference", "functions", "MW4Mercs.csv")
+    if not os.path.isfile(p):
+        p = None
     if p is None:
         return out
     with open(p, newline="") as f:

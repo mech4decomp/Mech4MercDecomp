@@ -33,17 +33,12 @@ BASER = {
     "gundll": ("GunDll.dll", 0x10000000),
 }
 
-CSVROOT = os.path.join(ROOT, "build", "ghidra", "modules")
-
-
 def csv_name_map(key):
     """functions.csv name -> entry VA, for semantic-named (non-func_) objs."""
     m = {}
-    candidates = [
-        os.path.join(ROOT, "reference", "functions", "%s.csv" % key),
-        os.path.join(CSVROOT, key, "dumps", "functions.csv"),
-    ]
-    p = next((q for q in candidates if os.path.isfile(q)), None)
+    p = os.path.join(ROOT, "reference", "functions", "%s.csv" % key)
+    if not os.path.isfile(p):
+        p = None
     if p is None:
         return m
     with open(p, newline="") as f:
@@ -151,7 +146,7 @@ def decode_export_va(name, base):
         return v, kind, n
     m = HEXF_RE.match(n)
     if m:
-        # pointer-array member externs (write_data_runs "p" suffix)
+        # pointer-array member externs ("p" suffix)
         v = int(m.group(1), 16)
         if v < base:
             v += base

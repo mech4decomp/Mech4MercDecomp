@@ -4,7 +4,7 @@ from capstone import *
 
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 EXE = 'reference/MW4Mercs.exe'
-CSV = 'build/ghidra/MW4_project/dumps/functions.csv'
+CSV = 'reference/functions/MW4Mercs.csv'
 
 
 def load_functions():
