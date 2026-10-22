@@ -2552,6 +2552,21 @@ different bytes, so the oracle transcribes the original machine code instead.</p
 <p><strong>Does this repository include the game or its assets?</strong>
 No. You must own the game and supply the reference binaries. No art, audio,
 maps, missions, or other assets are hosted here.</p>
+<p><strong>Which game version do I need?</strong>
+The official Microsoft <strong>MechWarrior 4: Mercenaries Point Release 1 (PR1)</strong>
+build, file version <code>50.07.01.2105</code>. Apply the official PR1 patch
+(<code>Mercpr1.exe</code>) to a retail install and verify the supplied binaries against
+<code>reference/SHA256.txt</code>. The canonical EXE is the PR1 image with the SafeDisc
+wrapper removed. See <a href="../BUILD/#game-version">the build guide</a>.</p>
+<p><strong>Can I use the MekTek free release?</strong>
+Not for the oracle. The final MekTek 3.1 release is a different build
+(<code>51.03.01</code>) with MekPak content and different binaries. It is a legitimate
+way to play, but it cannot match the official PR1 bytes or pass the byte gates.</p>
+<p><strong>Can I use a NoCD crack?</strong>
+Community NoCD executables exist, but they are not provided or supported here.
+Most are modified or packed differently, so their hashes do not match the
+reference. You can use one to play, but the build needs an unmodified,
+hash-matching PR1 image.</p>
 <p><strong>Why are the data sections missing, but in-<code>.text</code> tables included?</strong>
 In-<code>.text</code> tables (switch/jump/pointer tables) are part of the function layout
 and are required to reproduce the <code>.text</code> bytes; they are small and

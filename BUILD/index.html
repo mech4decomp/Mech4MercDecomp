@@ -547,6 +547,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#game-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game version
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Game version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unwrapped-and-nocd-executables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unwrapped and NoCD executables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting a copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-the-official-pr1-build-not-the-mektek-free-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the official PR1 build, not the MekTek free release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-configure-the-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -606,6 +656,17 @@
     <span class="md-ellipsis">
       
         Per-function workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-11-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 11 notes
       
     </span>
   </a>
@@ -2672,6 +2733,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#game-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game version
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Game version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unwrapped-and-nocd-executables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unwrapped and NoCD executables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting a copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-the-official-pr1-build-not-the-mektek-free-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the official PR1 build, not the MekTek free release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-configure-the-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2738,6 +2849,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#windows-11-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 11 notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2787,14 +2909,86 @@
 <h1 id="build-guide">Build guide<a class="headerlink" href="#build-guide" title="Permanent link">&para;</a></h1>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Windows (the pinned toolchain is 32-bit MSVC6).</li>
-<li>Microsoft Visual C++ 6.0 with SP6 — <code>cl.exe</code> 12.00.8804.</li>
-<li>DirectX 8.1 SDK.</li>
+<li>Windows 10 or 11. The build tools are 32-bit and run on 64-bit Windows.</li>
+<li>Microsoft Visual C++ 6.0 with SP6: <code>cl.exe</code> 12.00.8804, <code>link.exe</code>
+  6.00.8447, and the matching <code>nmake.exe</code>. SP6 matters; earlier VC6 builds do
+  not produce the oracle's instruction encoding.</li>
+<li>DirectX 8.1 SDK headers and libraries.</li>
 <li>Python 3.8+ on <code>PATH</code>.</li>
-<li>A legitimate copy of MechWarrior 4: Mercenaries.</li>
+<li>A legitimate copy of MechWarrior 4: Mercenaries updated to <strong>Point Release 1
+  (PR1)</strong>.</li>
 </ul>
 <p>The build uses <code>nmake</code>. Run commands from a <code>cmd.exe</code> prompt in the repository
 root.</p>
+<h2 id="game-version">Game version<a class="headerlink" href="#game-version" title="Permanent link">&para;</a></h2>
+<p>The oracle target is the official Microsoft <strong>MechWarrior 4: Mercenaries Point
+Release 1 (PR1)</strong> build:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Release</td>
+<td>Point Release 1 (PR1), the final official point release</td>
+</tr>
+<tr>
+<td>Patch installer</td>
+<td><code>Mercpr1.exe</code></td>
+</tr>
+<tr>
+<td>EXE file version</td>
+<td><code>50.07.01.2105</code></td>
+</tr>
+<tr>
+<td>EXE size</td>
+<td>3,915,776 bytes</td>
+</tr>
+<tr>
+<td>EXE SHA-256</td>
+<td><code>deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f</code></td>
+</tr>
+</tbody>
+</table>
+<p>This was confirmed from the PR1 readme included in a normal install and the
+EXE's version resource. A normal PR1 install includes the patch readme
+(<code>mw mercs patch 1 readme.rtf</code>).
+The reference <code>MW4Mercs.exe</code> is the PR1 image with the SafeDisc wrapper
+removed. The six DLLs in <code>reference/</code> must come from the same PR1 install.</p>
+<p>The base retail release (before PR1) and later community builds do not match.
+Before building, verify every supplied binary against <code>reference/SHA256.txt</code>.
+The byte gates are keyed to these exact files; a different EXE or DLL will
+fail at the final diff even if the game version string looks similar.</p>
+<p>See <a href="../GAME_VERSIONING/">game versioning</a> for how the EXE uses
+<code>50.07.01.2105</code> in multiplayer and saved data.</p>
+<h3 id="unwrapped-and-nocd-executables">Unwrapped and NoCD executables<a class="headerlink" href="#unwrapped-and-nocd-executables" title="Permanent link">&para;</a></h3>
+<p>The retail PR1 disc uses SafeDisc. The canonical reference is an unwrapped
+PR1 image, not a modified "NoCD" executable. Community NoCD or unprotected
+executables exist because the original disc check is inconvenient on modern
+Windows; they are not provided or supported here. Most have modified code or
+packing, so their SHA-256 will not match the reference.</p>
+<p>If you use a NoCD executable to run the game, keep a separate canonical PR1
+image for the build and verify its hash. A NoCD EXE that does not match
+<code>reference/SHA256.txt</code> cannot be used as the oracle reference.</p>
+<h3 id="getting-a-copy">Getting a copy<a class="headerlink" href="#getting-a-copy" title="Permanent link">&para;</a></h3>
+<p>The game is out of print and is not distributed by this project. The official
+PR1 patch and retail disc images are preserved on general software archives
+(for example, the Internet Archive and archived Microsoft download mirrors).
+We do not link to or host them. Use a source you trust, scan the files, and
+verify the hashes against <code>reference/SHA256.txt</code>. Applying the official PR1
+patch to a retail install is the expected way to produce the target set.</p>
+<h3 id="why-the-official-pr1-build-not-the-mektek-free-release">Why the official PR1 build, not the MekTek free release<a class="headerlink" href="#why-the-official-pr1-build-not-the-mektek-free-release" title="Permanent link">&para;</a></h3>
+<p>MekTek's authorized 2010 free release is a different product build. The final
+MekTek 3.1 release identifies as version <code>51.03.01</code>, includes MekPak content,
+and ships different binaries. The oracle is keyed to the official PR1
+<code>50.07.01.2105</code> bytes: function addresses, data sections, artifacts, and the
+SHA-256 gates all assume that exact build.</p>
+<p>The MekTek release is a legitimate way to play the game, but it is not the
+oracle target and cannot pass the byte-identity gates. Use it for play if you
+like; use an official PR1 install for the build.</p>
 <h2 id="1-configure-the-environment">1. Configure the environment<a class="headerlink" href="#1-configure-the-environment" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">call</span> tools\env.bat
 </code></pre></div>
@@ -2889,6 +3083,43 @@ nmake nomask FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
 </code></pre></div>
 <p>The masked diff ignores relocation slots. The no-mask check resolves them from
 the committed table and compares every byte.</p>
+<h2 id="windows-11-notes">Windows 11 notes<a class="headerlink" href="#windows-11-notes" title="Permanent link">&para;</a></h2>
+<p>The compiler and linker are 32-bit, so they run on 64-bit Windows 11. The
+installers are the problem: Visual Studio 6.0 and the DirectX 8.1 SDK predate
+64-bit Windows and may refuse to run or register components.</p>
+<p><strong>Visual C++ 6.0 installation fails.</strong> The original VS6 installer predates
+64-bit Windows and often fails on Windows 11. Try <code>setup.exe</code> in Windows XP
+(SP3) compatibility mode as administrator first. If it still fails:</p>
+<ul>
+<li>Install VC6 with SP6 in a 32-bit Windows VM and share the repository into
+  the VM.</li>
+<li>Use a pre-extracted or portable VC98 tree and point <code>VC98</code> at it.</li>
+<li>Copy an existing VC98 installation from a 32-bit machine.</li>
+</ul>
+<p>The build only needs the VC98 <code>Bin</code>, <code>Include</code>, and <code>Lib</code> directories; a full
+IDE installation is not required. Short paths without spaces are safest:</p>
+<div class="highlight"><pre><span></span><code><span class="k">set</span> <span class="nv">VC98</span><span class="p">=</span>C:\VC98
+<span class="k">set</span> <span class="nv">DXSDK</span><span class="p">=</span>C:\dx81full\DXF\DXSDK
+<span class="k">call</span> tools\env.bat
+</code></pre></div>
+<p><strong>The DirectX 8.1 SDK installer fails.</strong> The old installer may refuse to run.
+Extract or copy the SDK files and point <code>DXSDK</code> at the directory containing
+<code>Include</code> and <code>Lib</code>. The build does not need the SDK installer to run.</p>
+<p><strong><code>cl</code> or <code>nmake</code> is the wrong version.</strong> A modern Visual Studio installation
+may be earlier on <code>PATH</code>. Run <code>tools\env.bat</code> in the same <code>cmd.exe</code> session and
+check <code>cl</code> reports 12.00.8804. Do not use <code>nmake</code> from Visual Studio 2022.</p>
+<p><strong>PowerShell environment.</strong> <code>tools\env.bat</code> is a batch file. Run it from
+<code>cmd.exe</code>; invoking a <code>.bat</code> from PowerShell runs it in a child process, so the
+environment does not persist.</p>
+<p><strong>The game will not start.</strong> For multiplayer, enable the legacy <strong>DirectPlay</strong>
+component in Windows Features. If the game or an old tool still fails, try
+Windows XP (SP3) compatibility mode and "Run as administrator". For display
+scaling problems, use the shortcut's compatibility settings and set "Override
+high DPI scaling behavior" to "Application".</p>
+<p><strong>Old binaries are quarantined.</strong> Antivirus and SmartScreen may flag VC6
+tools, the SafeDisc-era game files, or a NoCD executable. Add a local exclusion
+for the build and game directories if you trust the files; do not disable
+real-time protection globally.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p><strong><code>cl</code> not found or wrong version</strong> — <code>tools\env.bat</code> did not find VC6. Set
 <code>VC98</code> explicitly and rerun it.</p>
