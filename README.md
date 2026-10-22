@@ -94,6 +94,8 @@ See [`docs/VERIFICATION.md`](docs/VERIFICATION.md) for the methodology.
 - [`docs/VERIFICATION.md`](docs/VERIFICATION.md) — byte gates and tooling
 - [`docs/ORACLE_STATUS.md`](docs/ORACLE_STATUS.md) — target inventory
 - [`docs/MASTER_INDEX.md`](docs/MASTER_INDEX.md) — per-VA subsystem indexes
+- [`docs/SUBSYSTEM_CATALOG.md`](docs/SUBSYSTEM_CATALOG.md) — system catalog
+- [`docs/SUBSYSTEM_SEAMS.md`](docs/SUBSYSTEM_SEAMS.md) — subsystem seams
 - [`docs/data_annotation.md`](docs/data_annotation.md) — data-section annotations
 - [`docs/MODULE_NOTES.md`](docs/MODULE_NOTES.md) — module summaries
 - [`docs/editor_tools/`](docs/editor_tools/) — shipped editor/config tools

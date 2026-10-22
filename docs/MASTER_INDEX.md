@@ -1,12 +1,14 @@
 # Master Oracle Source Index
 
-One simple subsystem index per binary (EXE + each module). Every VA appears
-under exactly one subsystem section (no duplicates); the rule is stated in each
-file. The indexes are static documentation snapshots of the oracle binaries.
+One per-VA subsystem index per binary (EXE + each module). Every VA appears
+under exactly one subsystem/detail section (no duplicates). `role` is
+`core`, `shared`, `boundary`, `data`, or `unknown`; `confidence` and `evidence`
+record how the classification was derived.
 
-Data-section source paths in these indexes refer to files generated locally
-from your own reference (`nmake data` / `nmake module-data`). Those files are
-not committed; see `docs/BUILD.md`.
+These are static documentation snapshots of the oracle binaries. Data-section
+source paths refer to files generated locally from your own reference
+(`nmake data` / `nmake module-data`); those files are not committed. See
+[`BUILD.md`](BUILD.md).
 
 ## Per-binary subsystem indexes
 
@@ -20,7 +22,13 @@ not committed; see `docs/BUILD.md`.
 | MissionLang_MERCS.dll | 69 | [open](master_index/MissionLang_MERCS_dll.md) |
 | ZlogLib.dll | 33 | [open](master_index/ZlogLib_dll.md) |
 
+## System map
+
+- [Subsystem catalog](SUBSYSTEM_CATALOG.md) - system descriptions, details, and counts.
+- [Subsystem seams](SUBSYSTEM_SEAMS.md) - boundary and shared functions per system.
+- [`subsystem_surface.csv`](subsystem_surface.csv) - committed surface labels used by the seam tables.
+
 ## Updating
 
 These files are documentation. Corrections with disassembly/hex evidence are
-welcome; see `CONTRIBUTING.md`.
+welcome; see [`CONTRIBUTING.md`](../CONTRIBUTING.md).

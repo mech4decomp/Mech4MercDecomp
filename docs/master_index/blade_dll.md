@@ -1,803 +1,816 @@
-# blade.dll — Subsystem Index
+# blade.dll - Subsystem Index
 
-> **Purpose:** a simple per-VA subsystem classification of every VA in this binary. It exists so you can quickly see which functions belong to which subsystem and jump to them.
+> **Purpose:** per-VA subsystem classification for every VA in this binary. Use it to find the functions that implement a system and the functions that sit on its boundary.
 
-> **Rule: every VA appears under exactly ONE subsystem section.** No VA is listed twice. Overlaps are resolved by a fixed priority (subsystem priority: net > ai > mlr); anything not classified is listed under `unclassified`.
+> **Rule:** every VA appears under exactly one subsystem/detail section. `role` is `core` (system implementation), `shared` (used by multiple systems), `boundary` (called by the system but implemented elsewhere), `data` (non-code section or table), or `unknown`. `confidence`/`reason` record the evidence used.
 
-> Static classification of the oracle binary. Data-section source paths refer to locally generated files (see `docs/BUILD.md`).
+> Static snapshot of the oracle binary. See [the subsystem catalog](../SUBSYSTEM_CATALOG.md) and [the seam summary](../SUBSYSTEM_SEAMS.md).
+
+## Summary
+
+| Role | VAs |
+|------|-----|
+| core | 733 |
+| data | 6 |
 
 ## Table of Contents
 
-- [wrapper](#wrapper) — 228 VAs
-- [crt](#crt) — 155 VAs
-- [facade](#facade) — 116 VAs
-- [caps](#caps) — 108 VAs
-- [accessors](#accessors) — 53 VAs
-- [render](#render) — 47 VAs
-- [stubs](#stubs) — 17 VAs
-- [exports](#exports) — 9 VAs
-- [unclassified](#unclassified) — 6 VAs
+- [blade / wrapper](#blade--wrapper) - 228 VAs
+- [blade / crt](#blade--crt) - 155 VAs
+- [blade / facade](#blade--facade) - 116 VAs
+- [blade / caps](#blade--caps) - 108 VAs
+- [blade / accessors](#blade--accessors) - 53 VAs
+- [blade / render](#blade--render) - 47 VAs
+- [blade / stubs](#blade--stubs) - 17 VAs
+- [blade / exports](#blade--exports) - 9 VAs
+- [data / data](#data--data) - 3 VAs
+- [data / rdata](#data--rdata) - 3 VAs
 
-## wrapper
+## blade / wrapper
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E00EB00 | text | `src/blade/text/func_5e00eb00.c` |
-| 0x5E00EB0C | text | `src/blade/text/func_5e00eb0c.c` |
-| 0x5E00ECF0 | text | `src/blade/text/func_5e00ecf0.c` |
-| 0x5E00EE5C | text | `src/blade/text/func_5e00ee5c.c` |
-| 0x5E00EE60 | text | `src/blade/text/func_5e00ee60.c` |
-| 0x5E00EE70 | text | `src/blade/text/func_5e00ee70.c` |
-| 0x5E00EEFE | text | `src/blade/text/func_5e00eefe.c` |
-| 0x5E00EF00 | text | `src/blade/text/func_5e00ef00.c` |
-| 0x5E00EF10 | text | `src/blade/text/func_5e00ef10.c` |
-| 0x5E00EF2F | text | `src/blade/text/func_5e00ef2f.c` |
-| 0x5E00EF30 | text | `src/blade/text/func_5e00ef30.c` |
-| 0x5E00EF54 | text | `src/blade/text/func_5e00ef54.c` |
-| 0x5E00EF60 | text | `src/blade/text/func_5e00ef60.c` |
-| 0x5E00F062 | text | `src/blade/text/func_5e00f062.c` |
-| 0x5E00F070 | text | `src/blade/text/func_5e00f070.c` |
-| 0x5E00F1B2 | text | `src/blade/text/func_5e00f1b2.c` |
-| 0x5E00F380 | text | `src/blade/text/func_5e00f380.c` |
-| 0x5E00F390 | text | `src/blade/text/func_5e00f390.c` |
-| 0x5E00F508 | text | `src/blade/text/func_5e00f508.c` |
-| 0x5E00F530 | text | `src/blade/text/func_5e00f530.c` |
-| 0x5E00F54A | text | `src/blade/text/func_5e00f54a.c` |
-| 0x5E00F570 | text | `src/blade/text/func_5e00f570.c` |
-| 0x5E00F585 | text | `src/blade/text/func_5e00f585.c` |
-| 0x5E00F590 | text | `src/blade/text/func_5e00f590.c` |
-| 0x5E00F5A5 | text | `src/blade/text/func_5e00f5a5.c` |
-| 0x5E00F5B0 | text | `src/blade/text/func_5e00f5b0.c` |
-| 0x5E00F5C5 | text | `src/blade/text/func_5e00f5c5.c` |
-| 0x5E00F5D0 | text | `src/blade/text/func_5e00f5d0.c` |
-| 0x5E00F5E5 | text | `src/blade/text/func_5e00f5e5.c` |
-| 0x5E00F5F0 | text | `src/blade/text/func_5e00f5f0.c` |
-| 0x5E00F600 | text | `src/blade/text/func_5e00f600.c` |
-| 0x5E00F627 | text | `src/blade/text/func_5e00f627.c` |
-| 0x5E00F650 | text | `src/blade/text/func_5e00f650.c` |
-| 0x5E00F66A | text | `src/blade/text/func_5e00f66a.c` |
-| 0x5E00F6B0 | text | `src/blade/text/func_5e00f6b0.c` |
-| 0x5E00F775 | text | `src/blade/text/func_5e00f775.c` |
-| 0x5E00F820 | text | `src/blade/text/func_5e00f820.c` |
-| 0x5E00F865 | text | `src/blade/text/func_5e00f865.c` |
-| 0x5E00F8B0 | text | `src/blade/text/func_5e00f8b0.c` |
-| 0x5E00F8F8 | text | `src/blade/text/func_5e00f8f8.c` |
-| 0x5E00F900 | text | `src/blade/text/func_5e00f900.c` |
-| 0x5E00F92B | text | `src/blade/text/func_5e00f92b.c` |
-| 0x5E00F970 | text | `src/blade/text/func_5e00f970.c` |
-| 0x5E00F98C | text | `src/blade/text/func_5e00f98c.c` |
-| 0x5E00F990 | text | `src/blade/text/func_5e00f990.c` |
-| 0x5E00F9A9 | text | `src/blade/text/func_5e00f9a9.c` |
-| 0x5E00FB68 | text | `src/blade/text/func_5e00fb68.c` |
-| 0x5E00FB70 | text | `src/blade/text/func_5e00fb70.c` |
-| 0x5E00FBAF | text | `src/blade/text/func_5e00fbaf.c` |
-| 0x5E00FBF0 | text | `src/blade/text/func_5e00fbf0.c` |
-| 0x5E00FC88 | text | `src/blade/text/func_5e00fc88.c` |
-| 0x5E00FEB0 | text | `src/blade/text/func_5e00feb0.c` |
-| 0x5E00FFB0 | text | `src/blade/text/func_5e00ffb0.c` |
-| 0x5E00FFCC | text | `src/blade/text/func_5e00ffcc.c` |
-| 0x5E00FFD0 | text | `src/blade/text/func_5e00ffd0.c` |
-| 0x5E00FFEC | text | `src/blade/text/func_5e00ffec.c` |
-| 0x5E00FFF0 | text | `src/blade/text/func_5e00fff0.c` |
-| 0x5E010002 | text | `src/blade/text/func_5e010002.c` |
-| 0x5E010010 | text | `src/blade/text/func_5e010010.c` |
-| 0x5E010043 | text | `src/blade/text/func_5e010043.c` |
-| 0x5E0104C9 | text | `src/blade/text/func_5e0104c9.c` |
-| 0x5E0104E0 | text | `src/blade/text/func_5e0104e0.c` |
-| 0x5E0104F0 | text | `src/blade/text/func_5e0104f0.c` |
-| 0x5E010500 | text | `src/blade/text/func_5e010500.c` |
-| 0x5E010510 | text | `src/blade/text/func_5e010510.c` |
-| 0x5E010520 | text | `src/blade/text/func_5e010520.c` |
-| 0x5E010530 | text | `src/blade/text/func_5e010530.c` |
-| 0x5E010540 | text | `src/blade/text/func_5e010540.c` |
-| 0x5E010550 | text | `src/blade/text/func_5e010550.c` |
-| 0x5E010560 | text | `src/blade/text/func_5e010560.c` |
-| 0x5E010570 | text | `src/blade/text/func_5e010570.c` |
-| 0x5E010580 | text | `src/blade/text/func_5e010580.c` |
-| 0x5E010590 | text | `src/blade/text/func_5e010590.c` |
-| 0x5E0105A0 | text | `src/blade/text/func_5e0105a0.c` |
-| 0x5E0105B0 | text | `src/blade/text/func_5e0105b0.c` |
-| 0x5E0105C0 | text | `src/blade/text/func_5e0105c0.c` |
-| 0x5E0105D0 | text | `src/blade/text/func_5e0105d0.c` |
-| 0x5E0105E0 | text | `src/blade/text/func_5e0105e0.c` |
-| 0x5E0105F0 | text | `src/blade/text/func_5e0105f0.c` |
-| 0x5E010600 | text | `src/blade/text/func_5e010600.c` |
-| 0x5E010610 | text | `src/blade/text/func_5e010610.c` |
-| 0x5E010620 | text | `src/blade/text/func_5e010620.c` |
-| 0x5E010630 | text | `src/blade/text/func_5e010630.c` |
-| 0x5E010640 | text | `src/blade/text/func_5e010640.c` |
-| 0x5E010650 | text | `src/blade/text/func_5e010650.c` |
-| 0x5E010660 | text | `src/blade/text/func_5e010660.c` |
-| 0x5E010670 | text | `src/blade/text/func_5e010670.c` |
-| 0x5E010680 | text | `src/blade/text/func_5e010680.c` |
-| 0x5E010690 | text | `src/blade/text/func_5e010690.c` |
-| 0x5E0106A0 | text | `src/blade/text/func_5e0106a0.c` |
-| 0x5E0106B0 | text | `src/blade/text/func_5e0106b0.c` |
-| 0x5E0106C0 | text | `src/blade/text/func_5e0106c0.c` |
-| 0x5E0106D0 | text | `src/blade/text/func_5e0106d0.c` |
-| 0x5E0106E0 | text | `src/blade/text/func_5e0106e0.c` |
-| 0x5E0106F0 | text | `src/blade/text/func_5e0106f0.c` |
-| 0x5E010700 | text | `src/blade/text/func_5e010700.c` |
-| 0x5E010710 | text | `src/blade/text/func_5e010710.c` |
-| 0x5E010720 | text | `src/blade/text/func_5e010720.c` |
-| 0x5E010730 | text | `src/blade/text/func_5e010730.c` |
-| 0x5E010740 | text | `src/blade/text/func_5e010740.c` |
-| 0x5E010750 | text | `src/blade/text/func_5e010750.c` |
-| 0x5E010760 | text | `src/blade/text/func_5e010760.c` |
-| 0x5E010770 | text | `src/blade/text/func_5e010770.c` |
-| 0x5E010780 | text | `src/blade/text/func_5e010780.c` |
-| 0x5E010790 | text | `src/blade/text/func_5e010790.c` |
-| 0x5E0107A0 | text | `src/blade/text/func_5e0107a0.c` |
-| 0x5E0107B0 | text | `src/blade/text/func_5e0107b0.c` |
-| 0x5E0107C0 | text | `src/blade/text/func_5e0107c0.c` |
-| 0x5E0107D0 | text | `src/blade/text/func_5e0107d0.c` |
-| 0x5E0107E0 | text | `src/blade/text/func_5e0107e0.c` |
-| 0x5E0107F0 | text | `src/blade/text/func_5e0107f0.c` |
-| 0x5E010800 | text | `src/blade/text/func_5e010800.c` |
-| 0x5E010810 | text | `src/blade/text/func_5e010810.c` |
-| 0x5E010820 | text | `src/blade/text/func_5e010820.c` |
-| 0x5E010830 | text | `src/blade/text/func_5e010830.c` |
-| 0x5E010840 | text | `src/blade/text/func_5e010840.c` |
-| 0x5E010850 | text | `src/blade/text/func_5e010850.c` |
-| 0x5E010860 | text | `src/blade/text/func_5e010860.c` |
-| 0x5E010870 | text | `src/blade/text/func_5e010870.c` |
-| 0x5E010880 | text | `src/blade/text/func_5e010880.c` |
-| 0x5E010890 | text | `src/blade/text/func_5e010890.c` |
-| 0x5E0108A0 | text | `src/blade/text/func_5e0108a0.c` |
-| 0x5E0108B0 | text | `src/blade/text/func_5e0108b0.c` |
-| 0x5E0108C0 | text | `src/blade/text/func_5e0108c0.c` |
-| 0x5E0108D0 | text | `src/blade/text/func_5e0108d0.c` |
-| 0x5E0108E0 | text | `src/blade/text/func_5e0108e0.c` |
-| 0x5E0108F0 | text | `src/blade/text/func_5e0108f0.c` |
-| 0x5E010900 | text | `src/blade/text/func_5e010900.c` |
-| 0x5E010910 | text | `src/blade/text/func_5e010910.c` |
-| 0x5E010920 | text | `src/blade/text/func_5e010920.c` |
-| 0x5E010930 | text | `src/blade/text/func_5e010930.c` |
-| 0x5E010940 | text | `src/blade/text/func_5e010940.c` |
-| 0x5E010950 | text | `src/blade/text/func_5e010950.c` |
-| 0x5E010960 | text | `src/blade/text/func_5e010960.c` |
-| 0x5E010970 | text | `src/blade/text/func_5e010970.c` |
-| 0x5E010980 | text | `src/blade/text/func_5e010980.c` |
-| 0x5E010990 | text | `src/blade/text/func_5e010990.c` |
-| 0x5E0109A0 | text | `src/blade/text/func_5e0109a0.c` |
-| 0x5E0109B0 | text | `src/blade/text/func_5e0109b0.c` |
-| 0x5E0109C0 | text | `src/blade/text/func_5e0109c0.c` |
-| 0x5E0109D0 | text | `src/blade/text/func_5e0109d0.c` |
-| 0x5E0109E0 | text | `src/blade/text/func_5e0109e0.c` |
-| 0x5E0109F0 | text | `src/blade/text/func_5e0109f0.c` |
-| 0x5E010A00 | text | `src/blade/text/func_5e010a00.c` |
-| 0x5E010A10 | text | `src/blade/text/func_5e010a10.c` |
-| 0x5E010A20 | text | `src/blade/text/func_5e010a20.c` |
-| 0x5E010A30 | text | `src/blade/text/func_5e010a30.c` |
-| 0x5E010A40 | text | `src/blade/text/func_5e010a40.c` |
-| 0x5E010A50 | text | `src/blade/text/func_5e010a50.c` |
-| 0x5E010A60 | text | `src/blade/text/func_5e010a60.c` |
-| 0x5E010A70 | text | `src/blade/text/func_5e010a70.c` |
-| 0x5E010BA0 | text | `src/blade/text/func_5e010ba0.c` |
-| 0x5E010BB0 | text | `src/blade/text/func_5e010bb0.c` |
-| 0x5E010C28 | text | `src/blade/text/func_5e010c28.c` |
-| 0x5E010CB0 | text | `src/blade/text/func_5e010cb0.c` |
-| 0x5E010CD1 | text | `src/blade/text/func_5e010cd1.c` |
-| 0x5E010D30 | text | `src/blade/text/func_5e010d30.c` |
-| 0x5E010D5B | text | `src/blade/text/func_5e010d5b.c` |
-| 0x5E010DB0 | text | `src/blade/text/func_5e010db0.c` |
-| 0x5E010E14 | text | `src/blade/text/func_5e010e14.c` |
-| 0x5E010E20 | text | `src/blade/text/func_5e010e20.c` |
-| 0x5E010E46 | text | `src/blade/text/func_5e010e46.c` |
-| 0x5E010E50 | text | `src/blade/text/func_5e010e50.c` |
-| 0x5E010E7B | text | `src/blade/text/func_5e010e7b.c` |
-| 0x5E010FF0 | text | `src/blade/text/func_5e010ff0.c` |
-| 0x5E011011 | text | `src/blade/text/func_5e011011.c` |
-| 0x5E011020 | text | `src/blade/text/func_5e011020.c` |
-| 0x5E011041 | text | `src/blade/text/func_5e011041.c` |
-| 0x5E011050 | text | `src/blade/text/func_5e011050.c` |
-| 0x5E011071 | text | `src/blade/text/func_5e011071.c` |
-| 0x5E011088 | text | `src/blade/text/func_5e011088.c` |
-| 0x5E011090 | text | `src/blade/text/func_5e011090.c` |
-| 0x5E0110B1 | text | `src/blade/text/func_5e0110b1.c` |
-| 0x5E0110C0 | text | `src/blade/text/func_5e0110c0.c` |
-| 0x5E0110E1 | text | `src/blade/text/func_5e0110e1.c` |
-| 0x5E0110F0 | text | `src/blade/text/func_5e0110f0.c` |
-| 0x5E011116 | text | `src/blade/text/func_5e011116.c` |
-| 0x5E011120 | text | `src/blade/text/func_5e011120.c` |
-| 0x5E011141 | text | `src/blade/text/func_5e011141.c` |
-| 0x5E011150 | text | `src/blade/text/func_5e011150.c` |
-| 0x5E011171 | text | `src/blade/text/func_5e011171.c` |
-| 0x5E011180 | text | `src/blade/text/func_5e011180.c` |
-| 0x5E0111B7 | text | `src/blade/text/func_5e0111b7.c` |
-| 0x5E0111C0 | text | `src/blade/text/func_5e0111c0.c` |
-| 0x5E0111E6 | text | `src/blade/text/func_5e0111e6.c` |
-| 0x5E0111F0 | text | `src/blade/text/func_5e0111f0.c` |
-| 0x5E01120C | text | `src/blade/text/func_5e01120c.c` |
-| 0x5E011210 | text | `src/blade/text/func_5e011210.c` |
-| 0x5E011243 | text | `src/blade/text/func_5e011243.c` |
-| 0x5E011250 | text | `src/blade/text/func_5e011250.c` |
-| 0x5E011271 | text | `src/blade/text/func_5e011271.c` |
-| 0x5E011280 | text | `src/blade/text/func_5e011280.c` |
-| 0x5E01129C | text | `src/blade/text/func_5e01129c.c` |
-| 0x5E0112A0 | text | `src/blade/text/func_5e0112a0.c` |
-| 0x5E0112C1 | text | `src/blade/text/func_5e0112c1.c` |
-| 0x5E0112D8 | text | `src/blade/text/func_5e0112d8.c` |
-| 0x5E0112E0 | text | `src/blade/text/func_5e0112e0.c` |
-| 0x5E011306 | text | `src/blade/text/func_5e011306.c` |
-| 0x5E011310 | text | `src/blade/text/func_5e011310.c` |
-| 0x5E011331 | text | `src/blade/text/func_5e011331.c` |
-| 0x5E011340 | text | `src/blade/text/func_5e011340.c` |
-| 0x5E011364 | text | `src/blade/text/func_5e011364.c` |
-| 0x5E0113B0 | text | `src/blade/text/func_5e0113b0.c` |
-| 0x5E0113D4 | text | `src/blade/text/func_5e0113d4.c` |
-| 0x5E011720 | text | `src/blade/text/func_5e011720.c` |
-| 0x5E011741 | text | `src/blade/text/func_5e011741.c` |
-| 0x5E011750 | text | `src/blade/text/func_5e011750.c` |
-| 0x5E011857 | text | `src/blade/text/func_5e011857.c` |
-| 0x5E011870 | text | `src/blade/text/func_5e011870.c` |
-| 0x5E01198A | text | `src/blade/text/func_5e01198a.c` |
-| 0x5E011990 | text | `src/blade/text/func_5e011990.c` |
-| 0x5E0119B4 | text | `src/blade/text/func_5e0119b4.c` |
-| 0x5E011A50 | text | `src/blade/text/func_5e011a50.c` |
-| 0x5E011A82 | text | `src/blade/text/func_5e011a82.c` |
-| 0x5E011A98 | text | `src/blade/text/func_5e011a98.c` |
-| 0x5E011AA8 | text | `src/blade/text/func_5e011aa8.c` |
-| 0x5E011AB8 | text | `src/blade/text/func_5e011ab8.c` |
-| 0x5E011AC8 | text | `src/blade/text/func_5e011ac8.c` |
-| 0x5E011AD8 | text | `src/blade/text/func_5e011ad8.c` |
-| 0x5E011AE8 | text | `src/blade/text/func_5e011ae8.c` |
-| 0x5E011AF8 | text | `src/blade/text/func_5e011af8.c` |
-| 0x5E011B08 | text | `src/blade/text/func_5e011b08.c` |
-| 0x5E011BD0 | text | `src/blade/text/func_5e011bd0.c` |
-| 0x5E011BE2 | text | `src/blade/text/func_5e011be2.c` |
-| 0x5E011BF0 | text | `src/blade/text/func_5e011bf0.c` |
-| 0x5E011DB0 | text | `src/blade/text/func_5e011db0.c` |
-| 0x5E011EB0 | text | `src/blade/text/func_5e011eb0.c` |
-| 0x5E011F3D | text | `src/blade/text/func_5e011f3d.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E00EB00 | text | `src/blade/text/func_5e00eb00.c` | core | high | module-map |
+| 0x5E00EB0C | text | `src/blade/text/func_5e00eb0c.c` | core | high | module-map |
+| 0x5E00ECF0 | text | `src/blade/text/func_5e00ecf0.c` | core | high | module-map |
+| 0x5E00EE5C | text | `src/blade/text/func_5e00ee5c.c` | core | high | module-map |
+| 0x5E00EE60 | text | `src/blade/text/func_5e00ee60.c` | core | high | module-map |
+| 0x5E00EE70 | text | `src/blade/text/func_5e00ee70.c` | core | high | module-map |
+| 0x5E00EEFE | text | `src/blade/text/func_5e00eefe.c` | core | high | module-map |
+| 0x5E00EF00 | text | `src/blade/text/func_5e00ef00.c` | core | high | module-map |
+| 0x5E00EF10 | text | `src/blade/text/func_5e00ef10.c` | core | high | module-map |
+| 0x5E00EF2F | text | `src/blade/text/func_5e00ef2f.c` | core | high | module-map |
+| 0x5E00EF30 | text | `src/blade/text/func_5e00ef30.c` | core | high | module-map |
+| 0x5E00EF54 | text | `src/blade/text/func_5e00ef54.c` | core | high | module-map |
+| 0x5E00EF60 | text | `src/blade/text/func_5e00ef60.c` | core | high | module-map |
+| 0x5E00F062 | text | `src/blade/text/func_5e00f062.c` | core | high | module-map |
+| 0x5E00F070 | text | `src/blade/text/func_5e00f070.c` | core | high | module-map |
+| 0x5E00F1B2 | text | `src/blade/text/func_5e00f1b2.c` | core | high | module-map |
+| 0x5E00F380 | text | `src/blade/text/func_5e00f380.c` | core | high | module-map |
+| 0x5E00F390 | text | `src/blade/text/func_5e00f390.c` | core | high | module-map |
+| 0x5E00F508 | text | `src/blade/text/func_5e00f508.c` | core | high | module-map |
+| 0x5E00F530 | text | `src/blade/text/func_5e00f530.c` | core | high | module-map |
+| 0x5E00F54A | text | `src/blade/text/func_5e00f54a.c` | core | high | module-map |
+| 0x5E00F570 | text | `src/blade/text/func_5e00f570.c` | core | high | module-map |
+| 0x5E00F585 | text | `src/blade/text/func_5e00f585.c` | core | high | module-map |
+| 0x5E00F590 | text | `src/blade/text/func_5e00f590.c` | core | high | module-map |
+| 0x5E00F5A5 | text | `src/blade/text/func_5e00f5a5.c` | core | high | module-map |
+| 0x5E00F5B0 | text | `src/blade/text/func_5e00f5b0.c` | core | high | module-map |
+| 0x5E00F5C5 | text | `src/blade/text/func_5e00f5c5.c` | core | high | module-map |
+| 0x5E00F5D0 | text | `src/blade/text/func_5e00f5d0.c` | core | high | module-map |
+| 0x5E00F5E5 | text | `src/blade/text/func_5e00f5e5.c` | core | high | module-map |
+| 0x5E00F5F0 | text | `src/blade/text/func_5e00f5f0.c` | core | high | module-map |
+| 0x5E00F600 | text | `src/blade/text/func_5e00f600.c` | core | high | module-map |
+| 0x5E00F627 | text | `src/blade/text/func_5e00f627.c` | core | high | module-map |
+| 0x5E00F650 | text | `src/blade/text/func_5e00f650.c` | core | high | module-map |
+| 0x5E00F66A | text | `src/blade/text/func_5e00f66a.c` | core | high | module-map |
+| 0x5E00F6B0 | text | `src/blade/text/func_5e00f6b0.c` | core | high | module-map |
+| 0x5E00F775 | text | `src/blade/text/func_5e00f775.c` | core | high | module-map |
+| 0x5E00F820 | text | `src/blade/text/func_5e00f820.c` | core | high | module-map |
+| 0x5E00F865 | text | `src/blade/text/func_5e00f865.c` | core | high | module-map |
+| 0x5E00F8B0 | text | `src/blade/text/func_5e00f8b0.c` | core | high | module-map |
+| 0x5E00F8F8 | text | `src/blade/text/func_5e00f8f8.c` | core | high | module-map |
+| 0x5E00F900 | text | `src/blade/text/func_5e00f900.c` | core | high | module-map |
+| 0x5E00F92B | text | `src/blade/text/func_5e00f92b.c` | core | high | module-map |
+| 0x5E00F970 | text | `src/blade/text/func_5e00f970.c` | core | high | module-map |
+| 0x5E00F98C | text | `src/blade/text/func_5e00f98c.c` | core | high | module-map |
+| 0x5E00F990 | text | `src/blade/text/func_5e00f990.c` | core | high | module-map |
+| 0x5E00F9A9 | text | `src/blade/text/func_5e00f9a9.c` | core | high | module-map |
+| 0x5E00FB68 | text | `src/blade/text/func_5e00fb68.c` | core | high | module-map |
+| 0x5E00FB70 | text | `src/blade/text/func_5e00fb70.c` | core | high | module-map |
+| 0x5E00FBAF | text | `src/blade/text/func_5e00fbaf.c` | core | high | module-map |
+| 0x5E00FBF0 | text | `src/blade/text/func_5e00fbf0.c` | core | high | module-map |
+| 0x5E00FC88 | text | `src/blade/text/func_5e00fc88.c` | core | high | module-map |
+| 0x5E00FEB0 | text | `src/blade/text/func_5e00feb0.c` | core | high | module-map |
+| 0x5E00FFB0 | text | `src/blade/text/func_5e00ffb0.c` | core | high | module-map |
+| 0x5E00FFCC | text | `src/blade/text/func_5e00ffcc.c` | core | high | module-map |
+| 0x5E00FFD0 | text | `src/blade/text/func_5e00ffd0.c` | core | high | module-map |
+| 0x5E00FFEC | text | `src/blade/text/func_5e00ffec.c` | core | high | module-map |
+| 0x5E00FFF0 | text | `src/blade/text/func_5e00fff0.c` | core | high | module-map |
+| 0x5E010002 | text | `src/blade/text/func_5e010002.c` | core | high | module-map |
+| 0x5E010010 | text | `src/blade/text/func_5e010010.c` | core | high | module-map |
+| 0x5E010043 | text | `src/blade/text/func_5e010043.c` | core | high | module-map |
+| 0x5E0104C9 | text | `src/blade/text/func_5e0104c9.c` | core | high | module-map |
+| 0x5E0104E0 | text | `src/blade/text/func_5e0104e0.c` | core | high | module-map |
+| 0x5E0104F0 | text | `src/blade/text/func_5e0104f0.c` | core | high | module-map |
+| 0x5E010500 | text | `src/blade/text/func_5e010500.c` | core | high | module-map |
+| 0x5E010510 | text | `src/blade/text/func_5e010510.c` | core | high | module-map |
+| 0x5E010520 | text | `src/blade/text/func_5e010520.c` | core | high | module-map |
+| 0x5E010530 | text | `src/blade/text/func_5e010530.c` | core | high | module-map |
+| 0x5E010540 | text | `src/blade/text/func_5e010540.c` | core | high | module-map |
+| 0x5E010550 | text | `src/blade/text/func_5e010550.c` | core | high | module-map |
+| 0x5E010560 | text | `src/blade/text/func_5e010560.c` | core | high | module-map |
+| 0x5E010570 | text | `src/blade/text/func_5e010570.c` | core | high | module-map |
+| 0x5E010580 | text | `src/blade/text/func_5e010580.c` | core | high | module-map |
+| 0x5E010590 | text | `src/blade/text/func_5e010590.c` | core | high | module-map |
+| 0x5E0105A0 | text | `src/blade/text/func_5e0105a0.c` | core | high | module-map |
+| 0x5E0105B0 | text | `src/blade/text/func_5e0105b0.c` | core | high | module-map |
+| 0x5E0105C0 | text | `src/blade/text/func_5e0105c0.c` | core | high | module-map |
+| 0x5E0105D0 | text | `src/blade/text/func_5e0105d0.c` | core | high | module-map |
+| 0x5E0105E0 | text | `src/blade/text/func_5e0105e0.c` | core | high | module-map |
+| 0x5E0105F0 | text | `src/blade/text/func_5e0105f0.c` | core | high | module-map |
+| 0x5E010600 | text | `src/blade/text/func_5e010600.c` | core | high | module-map |
+| 0x5E010610 | text | `src/blade/text/func_5e010610.c` | core | high | module-map |
+| 0x5E010620 | text | `src/blade/text/func_5e010620.c` | core | high | module-map |
+| 0x5E010630 | text | `src/blade/text/func_5e010630.c` | core | high | module-map |
+| 0x5E010640 | text | `src/blade/text/func_5e010640.c` | core | high | module-map |
+| 0x5E010650 | text | `src/blade/text/func_5e010650.c` | core | high | module-map |
+| 0x5E010660 | text | `src/blade/text/func_5e010660.c` | core | high | module-map |
+| 0x5E010670 | text | `src/blade/text/func_5e010670.c` | core | high | module-map |
+| 0x5E010680 | text | `src/blade/text/func_5e010680.c` | core | high | module-map |
+| 0x5E010690 | text | `src/blade/text/func_5e010690.c` | core | high | module-map |
+| 0x5E0106A0 | text | `src/blade/text/func_5e0106a0.c` | core | high | module-map |
+| 0x5E0106B0 | text | `src/blade/text/func_5e0106b0.c` | core | high | module-map |
+| 0x5E0106C0 | text | `src/blade/text/func_5e0106c0.c` | core | high | module-map |
+| 0x5E0106D0 | text | `src/blade/text/func_5e0106d0.c` | core | high | module-map |
+| 0x5E0106E0 | text | `src/blade/text/func_5e0106e0.c` | core | high | module-map |
+| 0x5E0106F0 | text | `src/blade/text/func_5e0106f0.c` | core | high | module-map |
+| 0x5E010700 | text | `src/blade/text/func_5e010700.c` | core | high | module-map |
+| 0x5E010710 | text | `src/blade/text/func_5e010710.c` | core | high | module-map |
+| 0x5E010720 | text | `src/blade/text/func_5e010720.c` | core | high | module-map |
+| 0x5E010730 | text | `src/blade/text/func_5e010730.c` | core | high | module-map |
+| 0x5E010740 | text | `src/blade/text/func_5e010740.c` | core | high | module-map |
+| 0x5E010750 | text | `src/blade/text/func_5e010750.c` | core | high | module-map |
+| 0x5E010760 | text | `src/blade/text/func_5e010760.c` | core | high | module-map |
+| 0x5E010770 | text | `src/blade/text/func_5e010770.c` | core | high | module-map |
+| 0x5E010780 | text | `src/blade/text/func_5e010780.c` | core | high | module-map |
+| 0x5E010790 | text | `src/blade/text/func_5e010790.c` | core | high | module-map |
+| 0x5E0107A0 | text | `src/blade/text/func_5e0107a0.c` | core | high | module-map |
+| 0x5E0107B0 | text | `src/blade/text/func_5e0107b0.c` | core | high | module-map |
+| 0x5E0107C0 | text | `src/blade/text/func_5e0107c0.c` | core | high | module-map |
+| 0x5E0107D0 | text | `src/blade/text/func_5e0107d0.c` | core | high | module-map |
+| 0x5E0107E0 | text | `src/blade/text/func_5e0107e0.c` | core | high | module-map |
+| 0x5E0107F0 | text | `src/blade/text/func_5e0107f0.c` | core | high | module-map |
+| 0x5E010800 | text | `src/blade/text/func_5e010800.c` | core | high | module-map |
+| 0x5E010810 | text | `src/blade/text/func_5e010810.c` | core | high | module-map |
+| 0x5E010820 | text | `src/blade/text/func_5e010820.c` | core | high | module-map |
+| 0x5E010830 | text | `src/blade/text/func_5e010830.c` | core | high | module-map |
+| 0x5E010840 | text | `src/blade/text/func_5e010840.c` | core | high | module-map |
+| 0x5E010850 | text | `src/blade/text/func_5e010850.c` | core | high | module-map |
+| 0x5E010860 | text | `src/blade/text/func_5e010860.c` | core | high | module-map |
+| 0x5E010870 | text | `src/blade/text/func_5e010870.c` | core | high | module-map |
+| 0x5E010880 | text | `src/blade/text/func_5e010880.c` | core | high | module-map |
+| 0x5E010890 | text | `src/blade/text/func_5e010890.c` | core | high | module-map |
+| 0x5E0108A0 | text | `src/blade/text/func_5e0108a0.c` | core | high | module-map |
+| 0x5E0108B0 | text | `src/blade/text/func_5e0108b0.c` | core | high | module-map |
+| 0x5E0108C0 | text | `src/blade/text/func_5e0108c0.c` | core | high | module-map |
+| 0x5E0108D0 | text | `src/blade/text/func_5e0108d0.c` | core | high | module-map |
+| 0x5E0108E0 | text | `src/blade/text/func_5e0108e0.c` | core | high | module-map |
+| 0x5E0108F0 | text | `src/blade/text/func_5e0108f0.c` | core | high | module-map |
+| 0x5E010900 | text | `src/blade/text/func_5e010900.c` | core | high | module-map |
+| 0x5E010910 | text | `src/blade/text/func_5e010910.c` | core | high | module-map |
+| 0x5E010920 | text | `src/blade/text/func_5e010920.c` | core | high | module-map |
+| 0x5E010930 | text | `src/blade/text/func_5e010930.c` | core | high | module-map |
+| 0x5E010940 | text | `src/blade/text/func_5e010940.c` | core | high | module-map |
+| 0x5E010950 | text | `src/blade/text/func_5e010950.c` | core | high | module-map |
+| 0x5E010960 | text | `src/blade/text/func_5e010960.c` | core | high | module-map |
+| 0x5E010970 | text | `src/blade/text/func_5e010970.c` | core | high | module-map |
+| 0x5E010980 | text | `src/blade/text/func_5e010980.c` | core | high | module-map |
+| 0x5E010990 | text | `src/blade/text/func_5e010990.c` | core | high | module-map |
+| 0x5E0109A0 | text | `src/blade/text/func_5e0109a0.c` | core | high | module-map |
+| 0x5E0109B0 | text | `src/blade/text/func_5e0109b0.c` | core | high | module-map |
+| 0x5E0109C0 | text | `src/blade/text/func_5e0109c0.c` | core | high | module-map |
+| 0x5E0109D0 | text | `src/blade/text/func_5e0109d0.c` | core | high | module-map |
+| 0x5E0109E0 | text | `src/blade/text/func_5e0109e0.c` | core | high | module-map |
+| 0x5E0109F0 | text | `src/blade/text/func_5e0109f0.c` | core | high | module-map |
+| 0x5E010A00 | text | `src/blade/text/func_5e010a00.c` | core | high | module-map |
+| 0x5E010A10 | text | `src/blade/text/func_5e010a10.c` | core | high | module-map |
+| 0x5E010A20 | text | `src/blade/text/func_5e010a20.c` | core | high | module-map |
+| 0x5E010A30 | text | `src/blade/text/func_5e010a30.c` | core | high | module-map |
+| 0x5E010A40 | text | `src/blade/text/func_5e010a40.c` | core | high | module-map |
+| 0x5E010A50 | text | `src/blade/text/func_5e010a50.c` | core | high | module-map |
+| 0x5E010A60 | text | `src/blade/text/func_5e010a60.c` | core | high | module-map |
+| 0x5E010A70 | text | `src/blade/text/func_5e010a70.c` | core | high | module-map |
+| 0x5E010BA0 | text | `src/blade/text/func_5e010ba0.c` | core | high | module-map |
+| 0x5E010BB0 | text | `src/blade/text/func_5e010bb0.c` | core | high | module-map |
+| 0x5E010C28 | text | `src/blade/text/func_5e010c28.c` | core | high | module-map |
+| 0x5E010CB0 | text | `src/blade/text/func_5e010cb0.c` | core | high | module-map |
+| 0x5E010CD1 | text | `src/blade/text/func_5e010cd1.c` | core | high | module-map |
+| 0x5E010D30 | text | `src/blade/text/func_5e010d30.c` | core | high | module-map |
+| 0x5E010D5B | text | `src/blade/text/func_5e010d5b.c` | core | high | module-map |
+| 0x5E010DB0 | text | `src/blade/text/func_5e010db0.c` | core | high | module-map |
+| 0x5E010E14 | text | `src/blade/text/func_5e010e14.c` | core | high | module-map |
+| 0x5E010E20 | text | `src/blade/text/func_5e010e20.c` | core | high | module-map |
+| 0x5E010E46 | text | `src/blade/text/func_5e010e46.c` | core | high | module-map |
+| 0x5E010E50 | text | `src/blade/text/func_5e010e50.c` | core | high | module-map |
+| 0x5E010E7B | text | `src/blade/text/func_5e010e7b.c` | core | high | module-map |
+| 0x5E010FF0 | text | `src/blade/text/func_5e010ff0.c` | core | high | module-map |
+| 0x5E011011 | text | `src/blade/text/func_5e011011.c` | core | high | module-map |
+| 0x5E011020 | text | `src/blade/text/func_5e011020.c` | core | high | module-map |
+| 0x5E011041 | text | `src/blade/text/func_5e011041.c` | core | high | module-map |
+| 0x5E011050 | text | `src/blade/text/func_5e011050.c` | core | high | module-map |
+| 0x5E011071 | text | `src/blade/text/func_5e011071.c` | core | high | module-map |
+| 0x5E011088 | text | `src/blade/text/func_5e011088.c` | core | high | module-map |
+| 0x5E011090 | text | `src/blade/text/func_5e011090.c` | core | high | module-map |
+| 0x5E0110B1 | text | `src/blade/text/func_5e0110b1.c` | core | high | module-map |
+| 0x5E0110C0 | text | `src/blade/text/func_5e0110c0.c` | core | high | module-map |
+| 0x5E0110E1 | text | `src/blade/text/func_5e0110e1.c` | core | high | module-map |
+| 0x5E0110F0 | text | `src/blade/text/func_5e0110f0.c` | core | high | module-map |
+| 0x5E011116 | text | `src/blade/text/func_5e011116.c` | core | high | module-map |
+| 0x5E011120 | text | `src/blade/text/func_5e011120.c` | core | high | module-map |
+| 0x5E011141 | text | `src/blade/text/func_5e011141.c` | core | high | module-map |
+| 0x5E011150 | text | `src/blade/text/func_5e011150.c` | core | high | module-map |
+| 0x5E011171 | text | `src/blade/text/func_5e011171.c` | core | high | module-map |
+| 0x5E011180 | text | `src/blade/text/func_5e011180.c` | core | high | module-map |
+| 0x5E0111B7 | text | `src/blade/text/func_5e0111b7.c` | core | high | module-map |
+| 0x5E0111C0 | text | `src/blade/text/func_5e0111c0.c` | core | high | module-map |
+| 0x5E0111E6 | text | `src/blade/text/func_5e0111e6.c` | core | high | module-map |
+| 0x5E0111F0 | text | `src/blade/text/func_5e0111f0.c` | core | high | module-map |
+| 0x5E01120C | text | `src/blade/text/func_5e01120c.c` | core | high | module-map |
+| 0x5E011210 | text | `src/blade/text/func_5e011210.c` | core | high | module-map |
+| 0x5E011243 | text | `src/blade/text/func_5e011243.c` | core | high | module-map |
+| 0x5E011250 | text | `src/blade/text/func_5e011250.c` | core | high | module-map |
+| 0x5E011271 | text | `src/blade/text/func_5e011271.c` | core | high | module-map |
+| 0x5E011280 | text | `src/blade/text/func_5e011280.c` | core | high | module-map |
+| 0x5E01129C | text | `src/blade/text/func_5e01129c.c` | core | high | module-map |
+| 0x5E0112A0 | text | `src/blade/text/func_5e0112a0.c` | core | high | module-map |
+| 0x5E0112C1 | text | `src/blade/text/func_5e0112c1.c` | core | high | module-map |
+| 0x5E0112D8 | text | `src/blade/text/func_5e0112d8.c` | core | high | module-map |
+| 0x5E0112E0 | text | `src/blade/text/func_5e0112e0.c` | core | high | module-map |
+| 0x5E011306 | text | `src/blade/text/func_5e011306.c` | core | high | module-map |
+| 0x5E011310 | text | `src/blade/text/func_5e011310.c` | core | high | module-map |
+| 0x5E011331 | text | `src/blade/text/func_5e011331.c` | core | high | module-map |
+| 0x5E011340 | text | `src/blade/text/func_5e011340.c` | core | high | module-map |
+| 0x5E011364 | text | `src/blade/text/func_5e011364.c` | core | high | module-map |
+| 0x5E0113B0 | text | `src/blade/text/func_5e0113b0.c` | core | high | module-map |
+| 0x5E0113D4 | text | `src/blade/text/func_5e0113d4.c` | core | high | module-map |
+| 0x5E011720 | text | `src/blade/text/func_5e011720.c` | core | high | module-map |
+| 0x5E011741 | text | `src/blade/text/func_5e011741.c` | core | high | module-map |
+| 0x5E011750 | text | `src/blade/text/func_5e011750.c` | core | high | module-map |
+| 0x5E011857 | text | `src/blade/text/func_5e011857.c` | core | high | module-map |
+| 0x5E011870 | text | `src/blade/text/func_5e011870.c` | core | high | module-map |
+| 0x5E01198A | text | `src/blade/text/func_5e01198a.c` | core | high | module-map |
+| 0x5E011990 | text | `src/blade/text/func_5e011990.c` | core | high | module-map |
+| 0x5E0119B4 | text | `src/blade/text/func_5e0119b4.c` | core | high | module-map |
+| 0x5E011A50 | text | `src/blade/text/func_5e011a50.c` | core | high | module-map |
+| 0x5E011A82 | text | `src/blade/text/func_5e011a82.c` | core | high | module-map |
+| 0x5E011A98 | text | `src/blade/text/func_5e011a98.c` | core | high | module-map |
+| 0x5E011AA8 | text | `src/blade/text/func_5e011aa8.c` | core | high | module-map |
+| 0x5E011AB8 | text | `src/blade/text/func_5e011ab8.c` | core | high | module-map |
+| 0x5E011AC8 | text | `src/blade/text/func_5e011ac8.c` | core | high | module-map |
+| 0x5E011AD8 | text | `src/blade/text/func_5e011ad8.c` | core | high | module-map |
+| 0x5E011AE8 | text | `src/blade/text/func_5e011ae8.c` | core | high | module-map |
+| 0x5E011AF8 | text | `src/blade/text/func_5e011af8.c` | core | high | module-map |
+| 0x5E011B08 | text | `src/blade/text/func_5e011b08.c` | core | high | module-map |
+| 0x5E011BD0 | text | `src/blade/text/func_5e011bd0.c` | core | high | module-map |
+| 0x5E011BE2 | text | `src/blade/text/func_5e011be2.c` | core | high | module-map |
+| 0x5E011BF0 | text | `src/blade/text/func_5e011bf0.c` | core | high | module-map |
+| 0x5E011DB0 | text | `src/blade/text/func_5e011db0.c` | core | high | module-map |
+| 0x5E011EB0 | text | `src/blade/text/func_5e011eb0.c` | core | high | module-map |
+| 0x5E011F3D | text | `src/blade/text/func_5e011f3d.c` | core | high | module-map |
 
-## crt
+## blade / crt
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E02B468 | text | `src/blade/text/func_5e02b468.c` |
-| 0x5E02B46C | text | `src/blade/text/func_5e02b46c.c` |
-| 0x5E02B483 | text | `src/blade/text/func_5e02b483.c` |
-| 0x5E02B484 | text | `src/blade/text/func_5e02b484.c` |
-| 0x5E02B4BC | text | `src/blade/text/func_5e02b4bc.c` |
-| 0x5E02B4F3 | text | `src/blade/text/func_5e02b4f3.c` |
-| 0x5E02B5CC | text | `src/blade/text/func_5e02b5cc.c` |
-| 0x5E02E35D | text | `src/blade/text/func_5e02e35d.c` |
-| 0x5E02E360 | text | `src/blade/text/func_5e02e360.c` |
-| 0x5E02E370 | text | `src/blade/text/func_5e02e370.c` |
-| 0x5E02E6B0 | text | `src/blade/text/func_5e02e6b0.c` |
-| 0x5E02E72B | text | `src/blade/text/func_5e02e72b.c` |
-| 0x5E02E734 | text | `src/blade/text/func_5e02e734.c` |
-| 0x5E02E7C1 | text | `src/blade/text/func_5e02e7c1.c` |
-| 0x5E02E8FF | text | `src/blade/text/func_5e02e8ff.c` |
-| 0x5E02E939 | text | `src/blade/text/func_5e02e939.c` |
-| 0x5E02EAE6 | text | `src/blade/text/func_5e02eae6.c` |
-| 0x5E02EB30 | text | `src/blade/text/func_5e02eb30.c` |
-| 0x5E02EB63 | text | `src/blade/text/func_5e02eb63.c` |
-| 0x5E02EB8C | text | `src/blade/text/func_5e02eb8c.c` |
-| 0x5E02ED11 | text | `src/blade/text/func_5e02ed11.c` |
-| 0x5E02ED21 | text | `src/blade/text/func_5e02ed21.c` |
-| 0x5E02ED3D | text | `src/blade/text/func_5e02ed3d.c` |
-| 0x5E02ED40 | text | `src/blade/text/func_5e02ed40.c` |
-| 0x5E02F075 | text | `src/blade/text/func_5e02f075.c` |
-| 0x5E02F0FE | text | `src/blade/text/func_5e02f0fe.c` |
-| 0x5E02F100 | text | `src/blade/text/func_5e02f100.c` |
-| 0x5E02F1FE | text | `src/blade/text/func_5e02f1fe.c` |
-| 0x5E02F380 | text | `src/blade/text/func_5e02f380.c` |
-| 0x5E02F3E2 | text | `src/blade/text/func_5e02f3e2.c` |
-| 0x5E02F564 | text | `src/blade/text/func_5e02f564.c` |
-| 0x5E02F5A1 | text | `src/blade/text/func_5e02f5a1.c` |
-| 0x5E02F5B3 | text | `src/blade/text/func_5e02f5b3.c` |
-| 0x5E02F6FC | text | `src/blade/text/func_5e02f6fc.c` |
-| 0x5E02F942 | text | `src/blade/text/func_5e02f942.c` |
-| 0x5E02FA5D | text | `src/blade/text/func_5e02fa5d.c` |
-| 0x5E02FB16 | text | `src/blade/text/func_5e02fb16.c` |
-| 0x5E02FC2E | text | `src/blade/text/func_5e02fc2e.c` |
-| 0x5E02FC31 | text | `src/blade/text/func_5e02fc31.c` |
-| 0x5E02FC56 | text | `src/blade/text/func_5e02fc56.c` |
-| 0x5E02FD22 | text | `src/blade/text/func_5e02fd22.c` |
-| 0x5E02FD75 | text | `src/blade/text/func_5e02fd75.c` |
-| 0x5E02FF99 | text | `src/blade/text/func_5e02ff99.c` |
-| 0x5E02FFC4 | text | `src/blade/text/func_5e02ffc4.c` |
-| 0x5E02FFE5 | text | `src/blade/text/func_5e02ffe5.c` |
-| 0x5E030043 | text | `src/blade/text/func_5e030043.c` |
-| 0x5E030071 | text | `src/blade/text/func_5e030071.c` |
-| 0x5E03009E | text | `src/blade/text/func_5e03009e.c` |
-| 0x5E030165 | text | `src/blade/text/func_5e030165.c` |
-| 0x5E030606 | text | `src/blade/text/func_5e030606.c` |
-| 0x5E030636 | text | `src/blade/text/func_5e030636.c` |
-| 0x5E030672 | text | `src/blade/text/func_5e030672.c` |
-| 0x5E030905 | text | `src/blade/text/func_5e030905.c` |
-| 0x5E030978 | text | `src/blade/text/func_5e030978.c` |
-| 0x5E030981 | text | `src/blade/text/func_5e030981.c` |
-| 0x5E03098A | text | `src/blade/text/func_5e03098a.c` |
-| 0x5E03098C | text | `src/blade/text/func_5e03098c.c` |
-| 0x5E0309AC | text | `src/blade/text/func_5e0309ac.c` |
-| 0x5E0309CE | text | `src/blade/text/func_5e0309ce.c` |
-| 0x5E030A36 | text | `src/blade/text/func_5e030a36.c` |
-| 0x5E030A62 | text | `src/blade/text/func_5e030a62.c` |
-| 0x5E030A7A | text | `src/blade/text/func_5e030a7a.c` |
-| 0x5E030B41 | text | `src/blade/text/func_5e030b41.c` |
-| 0x5E030B5C | text | `src/blade/text/func_5e030b5c.c` |
-| 0x5E030B60 | text | `src/blade/text/func_5e030b60.c` |
-| 0x5E030B8F | text | `src/blade/text/func_5e030b8f.c` |
-| 0x5E030C20 | text | `src/blade/text/func_5e030c20.c` |
-| 0x5E030F6E | text | `src/blade/text/func_5e030f6e.c` |
-| 0x5E0310FE | text | `src/blade/text/func_5e0310fe.c` |
-| 0x5E0312D3 | text | `src/blade/text/func_5e0312d3.c` |
-| 0x5E03130A | text | `src/blade/text/func_5e03130a.c` |
-| 0x5E0313D5 | text | `src/blade/text/func_5e0313d5.c` |
-| 0x5E0314F7 | text | `src/blade/text/func_5e0314f7.c` |
-| 0x5E03152E | text | `src/blade/text/func_5e03152e.c` |
-| 0x5E03157C | text | `src/blade/text/func_5e03157c.c` |
-| 0x5E0317C1 | text | `src/blade/text/func_5e0317c1.c` |
-| 0x5E0317D0 | text | `src/blade/text/func_5e0317d0.c` |
-| 0x5E031854 | text | `src/blade/text/func_5e031854.c` |
-| 0x5E031860 | text | `src/blade/text/func_5e031860.c` |
-| 0x5E03189E | text | `src/blade/text/func_5e03189e.c` |
-| 0x5E0318A0 | text | `src/blade/text/func_5e0318a0.c` |
-| 0x5E0318D8 | text | `src/blade/text/func_5e0318d8.c` |
-| 0x5E0318E0 | text | `src/blade/text/func_5e0318e0.c` |
-| 0x5E03191A | text | `src/blade/text/func_5e03191a.c` |
-| 0x5E031A97 | text | `src/blade/text/func_5e031a97.c` |
-| 0x5E031AEF | text | `src/blade/text/func_5e031aef.c` |
-| 0x5E031B76 | text | `src/blade/text/func_5e031b76.c` |
-| 0x5E031D7A | text | `src/blade/text/func_5e031d7a.c` |
-| 0x5E031DD0 | text | `src/blade/text/func_5e031dd0.c` |
-| 0x5E031E8D | text | `src/blade/text/func_5e031e8d.c` |
-| 0x5E031EC4 | text | `src/blade/text/func_5e031ec4.c` |
-| 0x5E031F4A | text | `src/blade/text/func_5e031f4a.c` |
-| 0x5E031F64 | text | `src/blade/text/func_5e031f64.c` |
-| 0x5E031FCA | text | `src/blade/text/func_5e031fca.c` |
-| 0x5E031FE9 | text | `src/blade/text/func_5e031fe9.c` |
-| 0x5E03204B | text | `src/blade/text/func_5e03204b.c` |
-| 0x5E032081 | text | `src/blade/text/func_5e032081.c` |
-| 0x5E032167 | text | `src/blade/text/func_5e032167.c` |
-| 0x5E0321A0 | text | `src/blade/text/func_5e0321a0.c` |
-| 0x5E0321C1 | text | `src/blade/text/func_5e0321c1.c` |
-| 0x5E0323E1 | text | `src/blade/text/func_5e0323e1.c` |
-| 0x5E03245D | text | `src/blade/text/func_5e03245d.c` |
-| 0x5E0324EC | text | `src/blade/text/func_5e0324ec.c` |
-| 0x5E032581 | text | `src/blade/text/func_5e032581.c` |
-| 0x5E0327B3 | text | `src/blade/text/func_5e0327b3.c` |
-| 0x5E0327CE | text | `src/blade/text/func_5e0327ce.c` |
-| 0x5E0328C8 | text | `src/blade/text/func_5e0328c8.c` |
-| 0x5E032CB7 | text | `src/blade/text/func_5e032cb7.c` |
-| 0x5E032CDE | text | `src/blade/text/func_5e032cde.c` |
-| 0x5E032D4D | text | `src/blade/text/func_5e032d4d.c` |
-| 0x5E032D96 | text | `src/blade/text/func_5e032d96.c` |
-| 0x5E033065 | text | `src/blade/text/func_5e033065.c` |
-| 0x5E03319D | text | `src/blade/text/func_5e03319d.c` |
-| 0x5E0331A3 | text | `src/blade/text/func_5e0331a3.c` |
-| 0x5E033368 | text | `src/blade/text/func_5e033368.c` |
-| 0x5E033395 | text | `src/blade/text/func_5e033395.c` |
-| 0x5E0333F1 | text | `src/blade/text/func_5e0333f1.c` |
-| 0x5E03341B | text | `src/blade/text/func_5e03341b.c` |
-| 0x5E033436 | text | `src/blade/text/func_5e033436.c` |
-| 0x5E033467 | text | `src/blade/text/func_5e033467.c` |
-| 0x5E0334ED | text | `src/blade/text/func_5e0334ed.c` |
-| 0x5E033508 | text | `src/blade/text/func_5e033508.c` |
-| 0x5E033510 | text | `src/blade/text/func_5e033510.c` |
-| 0x5E0335E0 | text | `src/blade/text/func_5e0335e0.c` |
-| 0x5E0336E1 | text | `src/blade/text/func_5e0336e1.c` |
-| 0x5E03376C | text | `src/blade/text/func_5e03376c.c` |
-| 0x5E033831 | text | `src/blade/text/func_5e033831.c` |
-| 0x5E03385F | text | `src/blade/text/func_5e03385f.c` |
-| 0x5E033875 | text | `src/blade/text/func_5e033875.c` |
-| 0x5E033AFC | text | `src/blade/text/func_5e033afc.c` |
-| 0x5E033B1D | text | `src/blade/text/func_5e033b1d.c` |
-| 0x5E033CC9 | text | `src/blade/text/func_5e033cc9.c` |
-| 0x5E033E09 | text | `src/blade/text/func_5e033e09.c` |
-| 0x5E033F1C | text | `src/blade/text/func_5e033f1c.c` |
-| 0x5E03403A | text | `src/blade/text/func_5e03403a.c` |
-| 0x5E034040 | text | `src/blade/text/func_5e034040.c` |
-| 0x5E0340A8 | text | `src/blade/text/func_5e0340a8.c` |
-| 0x5E0340B0 | text | `src/blade/text/func_5e0340b0.c` |
-| 0x5E034125 | text | `src/blade/text/func_5e034125.c` |
-| 0x5E034185 | text | `src/blade/text/func_5e034185.c` |
-| 0x5E034202 | text | `src/blade/text/func_5e034202.c` |
-| 0x5E034241 | text | `src/blade/text/func_5e034241.c` |
-| 0x5E0342AF | text | `src/blade/text/func_5e0342af.c` |
-| 0x5E03452C | text | `src/blade/text/func_5e03452c.c` |
-| 0x5E034557 | text | `src/blade/text/func_5e034557.c` |
-| 0x5E0346DE | text | `src/blade/text/func_5e0346de.c` |
-| 0x5E034736 | text | `src/blade/text/func_5e034736.c` |
-| 0x5E03479D | text | `src/blade/text/func_5e03479d.c` |
-| 0x5E0348D5 | text | `src/blade/text/func_5e0348d5.c` |
-| 0x5E03496C | text | `src/blade/text/func_5e03496c.c` |
-| 0x5E034997 | text | `src/blade/text/func_5e034997.c` |
-| 0x5E0349B0 | text | `src/blade/text/func_5e0349b0.c` |
-| 0x5E034A6C | text | `src/blade/text/func_5e034a6c.c` |
-| 0x5E034B98 | text | `src/blade/text/func_5e034b98.c` |
-| 0x5E034B9E | text | `src/blade/text/func_5e034b9e.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E02B468 | text | `src/blade/text/func_5e02b468.c` | core | high | module-map |
+| 0x5E02B46C | text | `src/blade/text/func_5e02b46c.c` | core | high | module-map |
+| 0x5E02B483 | text | `src/blade/text/func_5e02b483.c` | core | high | module-map |
+| 0x5E02B484 | text | `src/blade/text/func_5e02b484.c` | core | high | module-map |
+| 0x5E02B4BC | text | `src/blade/text/func_5e02b4bc.c` | core | high | module-map |
+| 0x5E02B4F3 | text | `src/blade/text/func_5e02b4f3.c` | core | high | module-map |
+| 0x5E02B5CC | text | `src/blade/text/func_5e02b5cc.c` | core | high | module-map |
+| 0x5E02E35D | text | `src/blade/text/func_5e02e35d.c` | core | high | module-map |
+| 0x5E02E360 | text | `src/blade/text/func_5e02e360.c` | core | high | module-map |
+| 0x5E02E370 | text | `src/blade/text/func_5e02e370.c` | core | high | module-map |
+| 0x5E02E6B0 | text | `src/blade/text/func_5e02e6b0.c` | core | high | module-map |
+| 0x5E02E72B | text | `src/blade/text/func_5e02e72b.c` | core | high | module-map |
+| 0x5E02E734 | text | `src/blade/text/func_5e02e734.c` | core | high | module-map |
+| 0x5E02E7C1 | text | `src/blade/text/func_5e02e7c1.c` | core | high | module-map |
+| 0x5E02E8FF | text | `src/blade/text/func_5e02e8ff.c` | core | high | module-map |
+| 0x5E02E939 | text | `src/blade/text/func_5e02e939.c` | core | high | module-map |
+| 0x5E02EAE6 | text | `src/blade/text/func_5e02eae6.c` | core | high | module-map |
+| 0x5E02EB30 | text | `src/blade/text/func_5e02eb30.c` | core | high | module-map |
+| 0x5E02EB63 | text | `src/blade/text/func_5e02eb63.c` | core | high | module-map |
+| 0x5E02EB8C | text | `src/blade/text/func_5e02eb8c.c` | core | high | module-map |
+| 0x5E02ED11 | text | `src/blade/text/func_5e02ed11.c` | core | high | module-map |
+| 0x5E02ED21 | text | `src/blade/text/func_5e02ed21.c` | core | high | module-map |
+| 0x5E02ED3D | text | `src/blade/text/func_5e02ed3d.c` | core | high | module-map |
+| 0x5E02ED40 | text | `src/blade/text/func_5e02ed40.c` | core | high | module-map |
+| 0x5E02F075 | text | `src/blade/text/func_5e02f075.c` | core | high | module-map |
+| 0x5E02F0FE | text | `src/blade/text/func_5e02f0fe.c` | core | high | module-map |
+| 0x5E02F100 | text | `src/blade/text/func_5e02f100.c` | core | high | module-map |
+| 0x5E02F1FE | text | `src/blade/text/func_5e02f1fe.c` | core | high | module-map |
+| 0x5E02F380 | text | `src/blade/text/func_5e02f380.c` | core | high | module-map |
+| 0x5E02F3E2 | text | `src/blade/text/func_5e02f3e2.c` | core | high | module-map |
+| 0x5E02F564 | text | `src/blade/text/func_5e02f564.c` | core | high | module-map |
+| 0x5E02F5A1 | text | `src/blade/text/func_5e02f5a1.c` | core | high | module-map |
+| 0x5E02F5B3 | text | `src/blade/text/func_5e02f5b3.c` | core | high | module-map |
+| 0x5E02F6FC | text | `src/blade/text/func_5e02f6fc.c` | core | high | module-map |
+| 0x5E02F942 | text | `src/blade/text/func_5e02f942.c` | core | high | module-map |
+| 0x5E02FA5D | text | `src/blade/text/func_5e02fa5d.c` | core | high | module-map |
+| 0x5E02FB16 | text | `src/blade/text/func_5e02fb16.c` | core | high | module-map |
+| 0x5E02FC2E | text | `src/blade/text/func_5e02fc2e.c` | core | high | module-map |
+| 0x5E02FC31 | text | `src/blade/text/func_5e02fc31.c` | core | high | module-map |
+| 0x5E02FC56 | text | `src/blade/text/func_5e02fc56.c` | core | high | module-map |
+| 0x5E02FD22 | text | `src/blade/text/func_5e02fd22.c` | core | high | module-map |
+| 0x5E02FD75 | text | `src/blade/text/func_5e02fd75.c` | core | high | module-map |
+| 0x5E02FF99 | text | `src/blade/text/func_5e02ff99.c` | core | high | module-map |
+| 0x5E02FFC4 | text | `src/blade/text/func_5e02ffc4.c` | core | high | module-map |
+| 0x5E02FFE5 | text | `src/blade/text/func_5e02ffe5.c` | core | high | module-map |
+| 0x5E030043 | text | `src/blade/text/func_5e030043.c` | core | high | module-map |
+| 0x5E030071 | text | `src/blade/text/func_5e030071.c` | core | high | module-map |
+| 0x5E03009E | text | `src/blade/text/func_5e03009e.c` | core | high | module-map |
+| 0x5E030165 | text | `src/blade/text/func_5e030165.c` | core | high | module-map |
+| 0x5E030606 | text | `src/blade/text/func_5e030606.c` | core | high | module-map |
+| 0x5E030636 | text | `src/blade/text/func_5e030636.c` | core | high | module-map |
+| 0x5E030672 | text | `src/blade/text/func_5e030672.c` | core | high | module-map |
+| 0x5E030905 | text | `src/blade/text/func_5e030905.c` | core | high | module-map |
+| 0x5E030978 | text | `src/blade/text/func_5e030978.c` | core | high | module-map |
+| 0x5E030981 | text | `src/blade/text/func_5e030981.c` | core | high | module-map |
+| 0x5E03098A | text | `src/blade/text/func_5e03098a.c` | core | high | module-map |
+| 0x5E03098C | text | `src/blade/text/func_5e03098c.c` | core | high | module-map |
+| 0x5E0309AC | text | `src/blade/text/func_5e0309ac.c` | core | high | module-map |
+| 0x5E0309CE | text | `src/blade/text/func_5e0309ce.c` | core | high | module-map |
+| 0x5E030A36 | text | `src/blade/text/func_5e030a36.c` | core | high | module-map |
+| 0x5E030A62 | text | `src/blade/text/func_5e030a62.c` | core | high | module-map |
+| 0x5E030A7A | text | `src/blade/text/func_5e030a7a.c` | core | high | module-map |
+| 0x5E030B41 | text | `src/blade/text/func_5e030b41.c` | core | high | module-map |
+| 0x5E030B5C | text | `src/blade/text/func_5e030b5c.c` | core | high | module-map |
+| 0x5E030B60 | text | `src/blade/text/func_5e030b60.c` | core | high | module-map |
+| 0x5E030B8F | text | `src/blade/text/func_5e030b8f.c` | core | high | module-map |
+| 0x5E030C20 | text | `src/blade/text/func_5e030c20.c` | core | high | module-map |
+| 0x5E030F6E | text | `src/blade/text/func_5e030f6e.c` | core | high | module-map |
+| 0x5E0310FE | text | `src/blade/text/func_5e0310fe.c` | core | high | module-map |
+| 0x5E0312D3 | text | `src/blade/text/func_5e0312d3.c` | core | high | module-map |
+| 0x5E03130A | text | `src/blade/text/func_5e03130a.c` | core | high | module-map |
+| 0x5E0313D5 | text | `src/blade/text/func_5e0313d5.c` | core | high | module-map |
+| 0x5E0314F7 | text | `src/blade/text/func_5e0314f7.c` | core | high | module-map |
+| 0x5E03152E | text | `src/blade/text/func_5e03152e.c` | core | high | module-map |
+| 0x5E03157C | text | `src/blade/text/func_5e03157c.c` | core | high | module-map |
+| 0x5E0317C1 | text | `src/blade/text/func_5e0317c1.c` | core | high | module-map |
+| 0x5E0317D0 | text | `src/blade/text/func_5e0317d0.c` | core | high | module-map |
+| 0x5E031854 | text | `src/blade/text/func_5e031854.c` | core | high | module-map |
+| 0x5E031860 | text | `src/blade/text/func_5e031860.c` | core | high | module-map |
+| 0x5E03189E | text | `src/blade/text/func_5e03189e.c` | core | high | module-map |
+| 0x5E0318A0 | text | `src/blade/text/func_5e0318a0.c` | core | high | module-map |
+| 0x5E0318D8 | text | `src/blade/text/func_5e0318d8.c` | core | high | module-map |
+| 0x5E0318E0 | text | `src/blade/text/func_5e0318e0.c` | core | high | module-map |
+| 0x5E03191A | text | `src/blade/text/func_5e03191a.c` | core | high | module-map |
+| 0x5E031A97 | text | `src/blade/text/func_5e031a97.c` | core | high | module-map |
+| 0x5E031AEF | text | `src/blade/text/func_5e031aef.c` | core | high | module-map |
+| 0x5E031B76 | text | `src/blade/text/func_5e031b76.c` | core | high | module-map |
+| 0x5E031D7A | text | `src/blade/text/func_5e031d7a.c` | core | high | module-map |
+| 0x5E031DD0 | text | `src/blade/text/func_5e031dd0.c` | core | high | module-map |
+| 0x5E031E8D | text | `src/blade/text/func_5e031e8d.c` | core | high | module-map |
+| 0x5E031EC4 | text | `src/blade/text/func_5e031ec4.c` | core | high | module-map |
+| 0x5E031F4A | text | `src/blade/text/func_5e031f4a.c` | core | high | module-map |
+| 0x5E031F64 | text | `src/blade/text/func_5e031f64.c` | core | high | module-map |
+| 0x5E031FCA | text | `src/blade/text/func_5e031fca.c` | core | high | module-map |
+| 0x5E031FE9 | text | `src/blade/text/func_5e031fe9.c` | core | high | module-map |
+| 0x5E03204B | text | `src/blade/text/func_5e03204b.c` | core | high | module-map |
+| 0x5E032081 | text | `src/blade/text/func_5e032081.c` | core | high | module-map |
+| 0x5E032167 | text | `src/blade/text/func_5e032167.c` | core | high | module-map |
+| 0x5E0321A0 | text | `src/blade/text/func_5e0321a0.c` | core | high | module-map |
+| 0x5E0321C1 | text | `src/blade/text/func_5e0321c1.c` | core | high | module-map |
+| 0x5E0323E1 | text | `src/blade/text/func_5e0323e1.c` | core | high | module-map |
+| 0x5E03245D | text | `src/blade/text/func_5e03245d.c` | core | high | module-map |
+| 0x5E0324EC | text | `src/blade/text/func_5e0324ec.c` | core | high | module-map |
+| 0x5E032581 | text | `src/blade/text/func_5e032581.c` | core | high | module-map |
+| 0x5E0327B3 | text | `src/blade/text/func_5e0327b3.c` | core | high | module-map |
+| 0x5E0327CE | text | `src/blade/text/func_5e0327ce.c` | core | high | module-map |
+| 0x5E0328C8 | text | `src/blade/text/func_5e0328c8.c` | core | high | module-map |
+| 0x5E032CB7 | text | `src/blade/text/func_5e032cb7.c` | core | high | module-map |
+| 0x5E032CDE | text | `src/blade/text/func_5e032cde.c` | core | high | module-map |
+| 0x5E032D4D | text | `src/blade/text/func_5e032d4d.c` | core | high | module-map |
+| 0x5E032D96 | text | `src/blade/text/func_5e032d96.c` | core | high | module-map |
+| 0x5E033065 | text | `src/blade/text/func_5e033065.c` | core | high | module-map |
+| 0x5E03319D | text | `src/blade/text/func_5e03319d.c` | core | high | module-map |
+| 0x5E0331A3 | text | `src/blade/text/func_5e0331a3.c` | core | high | module-map |
+| 0x5E033368 | text | `src/blade/text/func_5e033368.c` | core | high | module-map |
+| 0x5E033395 | text | `src/blade/text/func_5e033395.c` | core | high | module-map |
+| 0x5E0333F1 | text | `src/blade/text/func_5e0333f1.c` | core | high | module-map |
+| 0x5E03341B | text | `src/blade/text/func_5e03341b.c` | core | high | module-map |
+| 0x5E033436 | text | `src/blade/text/func_5e033436.c` | core | high | module-map |
+| 0x5E033467 | text | `src/blade/text/func_5e033467.c` | core | high | module-map |
+| 0x5E0334ED | text | `src/blade/text/func_5e0334ed.c` | core | high | module-map |
+| 0x5E033508 | text | `src/blade/text/func_5e033508.c` | core | high | module-map |
+| 0x5E033510 | text | `src/blade/text/func_5e033510.c` | core | high | module-map |
+| 0x5E0335E0 | text | `src/blade/text/func_5e0335e0.c` | core | high | module-map |
+| 0x5E0336E1 | text | `src/blade/text/func_5e0336e1.c` | core | high | module-map |
+| 0x5E03376C | text | `src/blade/text/func_5e03376c.c` | core | high | module-map |
+| 0x5E033831 | text | `src/blade/text/func_5e033831.c` | core | high | module-map |
+| 0x5E03385F | text | `src/blade/text/func_5e03385f.c` | core | high | module-map |
+| 0x5E033875 | text | `src/blade/text/func_5e033875.c` | core | high | module-map |
+| 0x5E033AFC | text | `src/blade/text/func_5e033afc.c` | core | high | module-map |
+| 0x5E033B1D | text | `src/blade/text/func_5e033b1d.c` | core | high | module-map |
+| 0x5E033CC9 | text | `src/blade/text/func_5e033cc9.c` | core | high | module-map |
+| 0x5E033E09 | text | `src/blade/text/func_5e033e09.c` | core | high | module-map |
+| 0x5E033F1C | text | `src/blade/text/func_5e033f1c.c` | core | high | module-map |
+| 0x5E03403A | text | `src/blade/text/func_5e03403a.c` | core | high | module-map |
+| 0x5E034040 | text | `src/blade/text/func_5e034040.c` | core | high | module-map |
+| 0x5E0340A8 | text | `src/blade/text/func_5e0340a8.c` | core | high | module-map |
+| 0x5E0340B0 | text | `src/blade/text/func_5e0340b0.c` | core | high | module-map |
+| 0x5E034125 | text | `src/blade/text/func_5e034125.c` | core | high | module-map |
+| 0x5E034185 | text | `src/blade/text/func_5e034185.c` | core | high | module-map |
+| 0x5E034202 | text | `src/blade/text/func_5e034202.c` | core | high | module-map |
+| 0x5E034241 | text | `src/blade/text/func_5e034241.c` | core | high | module-map |
+| 0x5E0342AF | text | `src/blade/text/func_5e0342af.c` | core | high | module-map |
+| 0x5E03452C | text | `src/blade/text/func_5e03452c.c` | core | high | module-map |
+| 0x5E034557 | text | `src/blade/text/func_5e034557.c` | core | high | module-map |
+| 0x5E0346DE | text | `src/blade/text/func_5e0346de.c` | core | high | module-map |
+| 0x5E034736 | text | `src/blade/text/func_5e034736.c` | core | high | module-map |
+| 0x5E03479D | text | `src/blade/text/func_5e03479d.c` | core | high | module-map |
+| 0x5E0348D5 | text | `src/blade/text/func_5e0348d5.c` | core | high | module-map |
+| 0x5E03496C | text | `src/blade/text/func_5e03496c.c` | core | high | module-map |
+| 0x5E034997 | text | `src/blade/text/func_5e034997.c` | core | high | module-map |
+| 0x5E0349B0 | text | `src/blade/text/func_5e0349b0.c` | core | high | module-map |
+| 0x5E034A6C | text | `src/blade/text/func_5e034a6c.c` | core | high | module-map |
+| 0x5E034B98 | text | `src/blade/text/func_5e034b98.c` | core | high | module-map |
+| 0x5E034B9E | text | `src/blade/text/func_5e034b9e.c` | core | high | module-map |
 
-## facade
+## blade / facade
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E001032 | text | `src/blade/text/func_5e001032.c` |
-| 0x5E0011B1 | text | `src/blade/text/func_5e0011b1.c` |
-| 0x5E0013B3 | text | `src/blade/text/func_5e0013b3.c` |
-| 0x5E0013E8 | text | `src/blade/text/func_5e0013e8.c` |
-| 0x5E001413 | text | `src/blade/text/func_5e001413.c` |
-| 0x5E001443 | text | `src/blade/text/func_5e001443.c` |
-| 0x5E001478 | text | `src/blade/text/func_5e001478.c` |
-| 0x5E0014E4 | text | `src/blade/text/func_5e0014e4.c` |
-| 0x5E001510 | text | `src/blade/text/func_5e001510.c` |
-| 0x5E001601 | text | `src/blade/text/func_5e001601.c` |
-| 0x5E0019B0 | text | `src/blade/text/func_5e0019b0.c` |
-| 0x5E0019C0 | text | `src/blade/text/func_5e0019c0.c` |
-| 0x5E001AB0 | text | `src/blade/text/func_5e001ab0.c` |
-| 0x5E001AC0 | text | `src/blade/text/func_5e001ac0.c` |
-| 0x5E001B00 | text | `src/blade/text/func_5e001b00.c` |
-| 0x5E001B30 | text | `src/blade/text/func_5e001b30.c` |
-| 0x5E001B60 | text | `src/blade/text/func_5e001b60.c` |
-| 0x5E001DE0 | text | `src/blade/text/func_5e001de0.c` |
-| 0x5E001FA2 | text | `src/blade/text/func_5e001fa2.c` |
-| 0x5E001FD0 | text | `src/blade/text/func_5e001fd0.c` |
-| 0x5E00201D | text | `src/blade/text/func_5e00201d.c` |
-| 0x5E002020 | text | `src/blade/text/func_5e002020.c` |
-| 0x5E00211D | text | `src/blade/text/func_5e00211d.c` |
-| 0x5E002120 | text | `src/blade/text/func_5e002120.c` |
-| 0x5E0021C7 | text | `src/blade/text/func_5e0021c7.c` |
-| 0x5E002220 | text | `src/blade/text/func_5e002220.c` |
-| 0x5E002334 | text | `src/blade/text/func_5e002334.c` |
-| 0x5E0023DB | text | `src/blade/text/func_5e0023db.c` |
-| 0x5E00242B | text | `src/blade/text/func_5e00242b.c` |
-| 0x5E002430 | text | `src/blade/text/func_5e002430.c` |
-| 0x5E0025F0 | text | `src/blade/text/func_5e0025f0.c` |
-| 0x5E00267A | text | `src/blade/text/func_5e00267a.c` |
-| 0x5E0026A0 | text | `src/blade/text/func_5e0026a0.c` |
-| 0x5E002827 | text | `src/blade/text/func_5e002827.c` |
-| 0x5E002B70 | text | `src/blade/text/func_5e002b70.c` |
-| 0x5E002CAB | text | `src/blade/text/func_5e002cab.c` |
-| 0x5E002E50 | text | `src/blade/text/func_5e002e50.c` |
-| 0x5E002E60 | text | `src/blade/text/func_5e002e60.c` |
-| 0x5E002F30 | text | `src/blade/text/func_5e002f30.c` |
-| 0x5E002F68 | text | `src/blade/text/func_5e002f68.c` |
-| 0x5E003000 | text | `src/blade/text/func_5e003000.c` |
-| 0x5E003029 | text | `src/blade/text/func_5e003029.c` |
-| 0x5E003050 | text | `src/blade/text/func_5e003050.c` |
-| 0x5E00306F | text | `src/blade/text/func_5e00306f.c` |
-| 0x5E003070 | text | `src/blade/text/func_5e003070.c` |
-| 0x5E00308C | text | `src/blade/text/func_5e00308c.c` |
-| 0x5E003390 | text | `src/blade/text/func_5e003390.c` |
-| 0x5E0033F7 | text | `src/blade/text/func_5e0033f7.c` |
-| 0x5E003400 | text | `src/blade/text/func_5e003400.c` |
-| 0x5E003416 | text | `src/blade/text/func_5e003416.c` |
-| 0x5E003420 | text | `src/blade/text/func_5e003420.c` |
-| 0x5E00353E | text | `src/blade/text/func_5e00353e.c` |
-| 0x5E003550 | text | `src/blade/text/func_5e003550.c` |
-| 0x5E0035A5 | text | `src/blade/text/func_5e0035a5.c` |
-| 0x5E003630 | text | `src/blade/text/func_5e003630.c` |
-| 0x5E003683 | text | `src/blade/text/func_5e003683.c` |
-| 0x5E003750 | text | `src/blade/text/func_5e003750.c` |
-| 0x5E003780 | text | `src/blade/text/func_5e003780.c` |
-| 0x5E00389E | text | `src/blade/text/func_5e00389e.c` |
-| 0x5E003910 | text | `src/blade/text/func_5e003910.c` |
-| 0x5E00392E | text | `src/blade/text/func_5e00392e.c` |
-| 0x5E003930 | text | `src/blade/text/func_5e003930.c` |
-| 0x5E00394E | text | `src/blade/text/func_5e00394e.c` |
-| 0x5E003950 | text | `src/blade/text/func_5e003950.c` |
-| 0x5E00395A | text | `src/blade/text/func_5e00395a.c` |
-| 0x5E003960 | text | `src/blade/text/func_5e003960.c` |
-| 0x5E003968 | text | `src/blade/text/func_5e003968.c` |
-| 0x5E003970 | text | `src/blade/text/func_5e003970.c` |
-| 0x5E003A71 | text | `src/blade/text/func_5e003a71.c` |
-| 0x5E003A80 | text | `src/blade/text/func_5e003a80.c` |
-| 0x5E003CB8 | text | `src/blade/text/func_5e003cb8.c` |
-| 0x5E0040A6 | text | `src/blade/text/func_5e0040a6.c` |
-| 0x5E0042BE | text | `src/blade/text/func_5e0042be.c` |
-| 0x5E00448E | text | `src/blade/text/func_5e00448e.c` |
-| 0x5E0045AC | text | `src/blade/text/func_5e0045ac.c` |
-| 0x5E004676 | text | `src/blade/text/func_5e004676.c` |
-| 0x5E00479C | text | `src/blade/text/func_5e00479c.c` |
-| 0x5E004866 | text | `src/blade/text/func_5e004866.c` |
-| 0x5E00498C | text | `src/blade/text/func_5e00498c.c` |
-| 0x5E004A56 | text | `src/blade/text/func_5e004a56.c` |
-| 0x5E004B81 | text | `src/blade/text/func_5e004b81.c` |
-| 0x5E004C5C | text | `src/blade/text/func_5e004c5c.c` |
-| 0x5E004D7C | text | `src/blade/text/func_5e004d7c.c` |
-| 0x5E004E46 | text | `src/blade/text/func_5e004e46.c` |
-| 0x5E004F71 | text | `src/blade/text/func_5e004f71.c` |
-| 0x5E00504C | text | `src/blade/text/func_5e00504c.c` |
-| 0x5E005217 | text | `src/blade/text/func_5e005217.c` |
-| 0x5E005416 | text | `src/blade/text/func_5e005416.c` |
-| 0x5E005588 | text | `src/blade/text/func_5e005588.c` |
-| 0x5E005590 | text | `src/blade/text/func_5e005590.c` |
-| 0x5E00562A | text | `src/blade/text/func_5e00562a.c` |
-| 0x5E005630 | text | `src/blade/text/func_5e005630.c` |
-| 0x5E0056A3 | text | `src/blade/text/func_5e0056a3.c` |
-| 0x5E0056B0 | text | `src/blade/text/func_5e0056b0.c` |
-| 0x5E005780 | text | `src/blade/text/func_5e005780.c` |
-| 0x5E0092D2 | text | `src/blade/text/func_5e0092d2.c` |
-| 0x5E00DF0A | text | `src/blade/text/func_5e00df0a.c` |
-| 0x5E00DFD8 | text | `src/blade/text/func_5e00dfd8.c` |
-| 0x5E00DFE8 | text | `src/blade/text/func_5e00dfe8.c` |
-| 0x5E00E018 | text | `src/blade/text/func_5e00e018.c` |
-| 0x5E00E020 | text | `src/blade/text/func_5e00e020.c` |
-| 0x5E00E056 | text | `src/blade/text/func_5e00e056.c` |
-| 0x5E00E060 | text | `src/blade/text/func_5e00e060.c` |
-| 0x5E00E0EC | text | `src/blade/text/func_5e00e0ec.c` |
-| 0x5E00E0F0 | text | `src/blade/text/func_5e00e0f0.c` |
-| 0x5E00E102 | text | `src/blade/text/func_5e00e102.c` |
-| 0x5E00E111 | text | `src/blade/text/func_5e00e111.c` |
-| 0x5E00E120 | text | `src/blade/text/func_5e00e120.c` |
-| 0x5E00E156 | text | `src/blade/text/func_5e00e156.c` |
-| 0x5E00E160 | text | `src/blade/text/func_5e00e160.c` |
-| 0x5E00E18D | text | `src/blade/text/func_5e00e18d.c` |
-| 0x5E00E190 | text | `src/blade/text/func_5e00e190.c` |
-| 0x5E00E211 | text | `src/blade/text/func_5e00e211.c` |
-| 0x5E00E342 | text | `src/blade/text/func_5e00e342.c` |
-| 0x5E02852D | text | `src/blade/text/func_5e02852d.c` |
-| 0x5E0288CA | text | `src/blade/text/func_5e0288ca.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E001032 | text | `src/blade/text/func_5e001032.c` | core | high | module-map |
+| 0x5E0011B1 | text | `src/blade/text/func_5e0011b1.c` | core | high | module-map |
+| 0x5E0013B3 | text | `src/blade/text/func_5e0013b3.c` | core | high | module-map |
+| 0x5E0013E8 | text | `src/blade/text/func_5e0013e8.c` | core | high | module-map |
+| 0x5E001413 | text | `src/blade/text/func_5e001413.c` | core | high | module-map |
+| 0x5E001443 | text | `src/blade/text/func_5e001443.c` | core | high | module-map |
+| 0x5E001478 | text | `src/blade/text/func_5e001478.c` | core | high | module-map |
+| 0x5E0014E4 | text | `src/blade/text/func_5e0014e4.c` | core | high | module-map |
+| 0x5E001510 | text | `src/blade/text/func_5e001510.c` | core | high | module-map |
+| 0x5E001601 | text | `src/blade/text/func_5e001601.c` | core | high | module-map |
+| 0x5E0019B0 | text | `src/blade/text/func_5e0019b0.c` | core | high | module-map |
+| 0x5E0019C0 | text | `src/blade/text/func_5e0019c0.c` | core | high | module-map |
+| 0x5E001AB0 | text | `src/blade/text/func_5e001ab0.c` | core | high | module-map |
+| 0x5E001AC0 | text | `src/blade/text/func_5e001ac0.c` | core | high | module-map |
+| 0x5E001B00 | text | `src/blade/text/func_5e001b00.c` | core | high | module-map |
+| 0x5E001B30 | text | `src/blade/text/func_5e001b30.c` | core | high | module-map |
+| 0x5E001B60 | text | `src/blade/text/func_5e001b60.c` | core | high | module-map |
+| 0x5E001DE0 | text | `src/blade/text/func_5e001de0.c` | core | high | module-map |
+| 0x5E001FA2 | text | `src/blade/text/func_5e001fa2.c` | core | high | module-map |
+| 0x5E001FD0 | text | `src/blade/text/func_5e001fd0.c` | core | high | module-map |
+| 0x5E00201D | text | `src/blade/text/func_5e00201d.c` | core | high | module-map |
+| 0x5E002020 | text | `src/blade/text/func_5e002020.c` | core | high | module-map |
+| 0x5E00211D | text | `src/blade/text/func_5e00211d.c` | core | high | module-map |
+| 0x5E002120 | text | `src/blade/text/func_5e002120.c` | core | high | module-map |
+| 0x5E0021C7 | text | `src/blade/text/func_5e0021c7.c` | core | high | module-map |
+| 0x5E002220 | text | `src/blade/text/func_5e002220.c` | core | high | module-map |
+| 0x5E002334 | text | `src/blade/text/func_5e002334.c` | core | high | module-map |
+| 0x5E0023DB | text | `src/blade/text/func_5e0023db.c` | core | high | module-map |
+| 0x5E00242B | text | `src/blade/text/func_5e00242b.c` | core | high | module-map |
+| 0x5E002430 | text | `src/blade/text/func_5e002430.c` | core | high | module-map |
+| 0x5E0025F0 | text | `src/blade/text/func_5e0025f0.c` | core | high | module-map |
+| 0x5E00267A | text | `src/blade/text/func_5e00267a.c` | core | high | module-map |
+| 0x5E0026A0 | text | `src/blade/text/func_5e0026a0.c` | core | high | module-map |
+| 0x5E002827 | text | `src/blade/text/func_5e002827.c` | core | high | module-map |
+| 0x5E002B70 | text | `src/blade/text/func_5e002b70.c` | core | high | module-map |
+| 0x5E002CAB | text | `src/blade/text/func_5e002cab.c` | core | high | module-map |
+| 0x5E002E50 | text | `src/blade/text/func_5e002e50.c` | core | high | module-map |
+| 0x5E002E60 | text | `src/blade/text/func_5e002e60.c` | core | high | module-map |
+| 0x5E002F30 | text | `src/blade/text/func_5e002f30.c` | core | high | module-map |
+| 0x5E002F68 | text | `src/blade/text/func_5e002f68.c` | core | high | module-map |
+| 0x5E003000 | text | `src/blade/text/func_5e003000.c` | core | high | module-map |
+| 0x5E003029 | text | `src/blade/text/func_5e003029.c` | core | high | module-map |
+| 0x5E003050 | text | `src/blade/text/func_5e003050.c` | core | high | module-map |
+| 0x5E00306F | text | `src/blade/text/func_5e00306f.c` | core | high | module-map |
+| 0x5E003070 | text | `src/blade/text/func_5e003070.c` | core | high | module-map |
+| 0x5E00308C | text | `src/blade/text/func_5e00308c.c` | core | high | module-map |
+| 0x5E003390 | text | `src/blade/text/func_5e003390.c` | core | high | module-map |
+| 0x5E0033F7 | text | `src/blade/text/func_5e0033f7.c` | core | high | module-map |
+| 0x5E003400 | text | `src/blade/text/func_5e003400.c` | core | high | module-map |
+| 0x5E003416 | text | `src/blade/text/func_5e003416.c` | core | high | module-map |
+| 0x5E003420 | text | `src/blade/text/func_5e003420.c` | core | high | module-map |
+| 0x5E00353E | text | `src/blade/text/func_5e00353e.c` | core | high | module-map |
+| 0x5E003550 | text | `src/blade/text/func_5e003550.c` | core | high | module-map |
+| 0x5E0035A5 | text | `src/blade/text/func_5e0035a5.c` | core | high | module-map |
+| 0x5E003630 | text | `src/blade/text/func_5e003630.c` | core | high | module-map |
+| 0x5E003683 | text | `src/blade/text/func_5e003683.c` | core | high | module-map |
+| 0x5E003750 | text | `src/blade/text/func_5e003750.c` | core | high | module-map |
+| 0x5E003780 | text | `src/blade/text/func_5e003780.c` | core | high | module-map |
+| 0x5E00389E | text | `src/blade/text/func_5e00389e.c` | core | high | module-map |
+| 0x5E003910 | text | `src/blade/text/func_5e003910.c` | core | high | module-map |
+| 0x5E00392E | text | `src/blade/text/func_5e00392e.c` | core | high | module-map |
+| 0x5E003930 | text | `src/blade/text/func_5e003930.c` | core | high | module-map |
+| 0x5E00394E | text | `src/blade/text/func_5e00394e.c` | core | high | module-map |
+| 0x5E003950 | text | `src/blade/text/func_5e003950.c` | core | high | module-map |
+| 0x5E00395A | text | `src/blade/text/func_5e00395a.c` | core | high | module-map |
+| 0x5E003960 | text | `src/blade/text/func_5e003960.c` | core | high | module-map |
+| 0x5E003968 | text | `src/blade/text/func_5e003968.c` | core | high | module-map |
+| 0x5E003970 | text | `src/blade/text/func_5e003970.c` | core | high | module-map |
+| 0x5E003A71 | text | `src/blade/text/func_5e003a71.c` | core | high | module-map |
+| 0x5E003A80 | text | `src/blade/text/func_5e003a80.c` | core | high | module-map |
+| 0x5E003CB8 | text | `src/blade/text/func_5e003cb8.c` | core | high | module-map |
+| 0x5E0040A6 | text | `src/blade/text/func_5e0040a6.c` | core | high | module-map |
+| 0x5E0042BE | text | `src/blade/text/func_5e0042be.c` | core | high | module-map |
+| 0x5E00448E | text | `src/blade/text/func_5e00448e.c` | core | high | module-map |
+| 0x5E0045AC | text | `src/blade/text/func_5e0045ac.c` | core | high | module-map |
+| 0x5E004676 | text | `src/blade/text/func_5e004676.c` | core | high | module-map |
+| 0x5E00479C | text | `src/blade/text/func_5e00479c.c` | core | high | module-map |
+| 0x5E004866 | text | `src/blade/text/func_5e004866.c` | core | high | module-map |
+| 0x5E00498C | text | `src/blade/text/func_5e00498c.c` | core | high | module-map |
+| 0x5E004A56 | text | `src/blade/text/func_5e004a56.c` | core | high | module-map |
+| 0x5E004B81 | text | `src/blade/text/func_5e004b81.c` | core | high | module-map |
+| 0x5E004C5C | text | `src/blade/text/func_5e004c5c.c` | core | high | module-map |
+| 0x5E004D7C | text | `src/blade/text/func_5e004d7c.c` | core | high | module-map |
+| 0x5E004E46 | text | `src/blade/text/func_5e004e46.c` | core | high | module-map |
+| 0x5E004F71 | text | `src/blade/text/func_5e004f71.c` | core | high | module-map |
+| 0x5E00504C | text | `src/blade/text/func_5e00504c.c` | core | high | module-map |
+| 0x5E005217 | text | `src/blade/text/func_5e005217.c` | core | high | module-map |
+| 0x5E005416 | text | `src/blade/text/func_5e005416.c` | core | high | module-map |
+| 0x5E005588 | text | `src/blade/text/func_5e005588.c` | core | high | module-map |
+| 0x5E005590 | text | `src/blade/text/func_5e005590.c` | core | high | module-map |
+| 0x5E00562A | text | `src/blade/text/func_5e00562a.c` | core | high | module-map |
+| 0x5E005630 | text | `src/blade/text/func_5e005630.c` | core | high | module-map |
+| 0x5E0056A3 | text | `src/blade/text/func_5e0056a3.c` | core | high | module-map |
+| 0x5E0056B0 | text | `src/blade/text/func_5e0056b0.c` | core | high | module-map |
+| 0x5E005780 | text | `src/blade/text/func_5e005780.c` | core | high | module-map |
+| 0x5E0092D2 | text | `src/blade/text/func_5e0092d2.c` | core | high | module-map |
+| 0x5E00DF0A | text | `src/blade/text/func_5e00df0a.c` | core | high | module-map |
+| 0x5E00DFD8 | text | `src/blade/text/func_5e00dfd8.c` | core | high | module-map |
+| 0x5E00DFE8 | text | `src/blade/text/func_5e00dfe8.c` | core | high | module-map |
+| 0x5E00E018 | text | `src/blade/text/func_5e00e018.c` | core | high | module-map |
+| 0x5E00E020 | text | `src/blade/text/func_5e00e020.c` | core | high | module-map |
+| 0x5E00E056 | text | `src/blade/text/func_5e00e056.c` | core | high | module-map |
+| 0x5E00E060 | text | `src/blade/text/func_5e00e060.c` | core | high | module-map |
+| 0x5E00E0EC | text | `src/blade/text/func_5e00e0ec.c` | core | high | module-map |
+| 0x5E00E0F0 | text | `src/blade/text/func_5e00e0f0.c` | core | high | module-map |
+| 0x5E00E102 | text | `src/blade/text/func_5e00e102.c` | core | high | module-map |
+| 0x5E00E111 | text | `src/blade/text/func_5e00e111.c` | core | high | module-map |
+| 0x5E00E120 | text | `src/blade/text/func_5e00e120.c` | core | high | module-map |
+| 0x5E00E156 | text | `src/blade/text/func_5e00e156.c` | core | high | module-map |
+| 0x5E00E160 | text | `src/blade/text/func_5e00e160.c` | core | high | module-map |
+| 0x5E00E18D | text | `src/blade/text/func_5e00e18d.c` | core | high | module-map |
+| 0x5E00E190 | text | `src/blade/text/func_5e00e190.c` | core | high | module-map |
+| 0x5E00E211 | text | `src/blade/text/func_5e00e211.c` | core | high | module-map |
+| 0x5E00E342 | text | `src/blade/text/func_5e00e342.c` | core | high | module-map |
+| 0x5E02852D | text | `src/blade/text/func_5e02852d.c` | core | high | module-map |
+| 0x5E0288CA | text | `src/blade/text/func_5e0288ca.c` | core | high | module-map |
 
-## caps
+## blade / caps
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E01220D | text | `src/blade/text/func_5e01220d.c` |
-| 0x5E012426 | text | `src/blade/text/func_5e012426.c` |
-| 0x5E012CF0 | text | `src/blade/text/func_5e012cf0.c` |
-| 0x5E012DE6 | text | `src/blade/text/func_5e012de6.c` |
-| 0x5E012DF0 | text | `src/blade/text/func_5e012df0.c` |
-| 0x5E012EAA | text | `src/blade/text/func_5e012eaa.c` |
-| 0x5E0131F2 | text | `src/blade/text/func_5e0131f2.c` |
-| 0x5E013200 | text | `src/blade/text/func_5e013200.c` |
-| 0x5E013662 | text | `src/blade/text/func_5e013662.c` |
-| 0x5E013670 | text | `src/blade/text/func_5e013670.c` |
-| 0x5E01367F | text | `src/blade/text/func_5e01367f.c` |
-| 0x5E013680 | text | `src/blade/text/func_5e013680.c` |
-| 0x5E0136B0 | text | `src/blade/text/func_5e0136b0.c` |
-| 0x5E0136BF | text | `src/blade/text/func_5e0136bf.c` |
-| 0x5E0136C0 | text | `src/blade/text/func_5e0136c0.c` |
-| 0x5E0136CF | text | `src/blade/text/func_5e0136cf.c` |
-| 0x5E013730 | text | `src/blade/text/func_5e013730.c` |
-| 0x5E013976 | text | `src/blade/text/func_5e013976.c` |
-| 0x5E013980 | text | `src/blade/text/func_5e013980.c` |
-| 0x5E013B41 | text | `src/blade/text/func_5e013b41.c` |
-| 0x5E013B50 | text | `src/blade/text/func_5e013b50.c` |
-| 0x5E013BC2 | text | `src/blade/text/func_5e013bc2.c` |
-| 0x5E013BD0 | text | `src/blade/text/func_5e013bd0.c` |
-| 0x5E013CB1 | text | `src/blade/text/func_5e013cb1.c` |
-| 0x5E013CC0 | text | `src/blade/text/func_5e013cc0.c` |
-| 0x5E01404F | text | `src/blade/text/func_5e01404f.c` |
-| 0x5E014050 | text | `src/blade/text/func_5e014050.c` |
-| 0x5E014498 | text | `src/blade/text/func_5e014498.c` |
-| 0x5E0144A0 | text | `src/blade/text/func_5e0144a0.c` |
-| 0x5E014661 | text | `src/blade/text/func_5e014661.c` |
-| 0x5E014670 | text | `src/blade/text/func_5e014670.c` |
-| 0x5E0147A2 | text | `src/blade/text/func_5e0147a2.c` |
-| 0x5E0147B0 | text | `src/blade/text/func_5e0147b0.c` |
-| 0x5E014BB2 | text | `src/blade/text/func_5e014bb2.c` |
-| 0x5E014BC0 | text | `src/blade/text/func_5e014bc0.c` |
-| 0x5E014FB9 | text | `src/blade/text/func_5e014fb9.c` |
-| 0x5E014FC0 | text | `src/blade/text/func_5e014fc0.c` |
-| 0x5E01528A | text | `src/blade/text/func_5e01528a.c` |
-| 0x5E015290 | text | `src/blade/text/func_5e015290.c` |
-| 0x5E01534A | text | `src/blade/text/func_5e01534a.c` |
-| 0x5E015350 | text | `src/blade/text/func_5e015350.c` |
-| 0x5E015586 | text | `src/blade/text/func_5e015586.c` |
-| 0x5E015590 | text | `src/blade/text/func_5e015590.c` |
-| 0x5E01589F | text | `src/blade/text/func_5e01589f.c` |
-| 0x5E0158A0 | text | `src/blade/text/func_5e0158a0.c` |
-| 0x5E01597E | text | `src/blade/text/func_5e01597e.c` |
-| 0x5E015980 | text | `src/blade/text/func_5e015980.c` |
-| 0x5E015CB2 | text | `src/blade/text/func_5e015cb2.c` |
-| 0x5E015CC0 | text | `src/blade/text/func_5e015cc0.c` |
-| 0x5E015E81 | text | `src/blade/text/func_5e015e81.c` |
-| 0x5E015E90 | text | `src/blade/text/func_5e015e90.c` |
-| 0x5E0166C4 | text | `src/blade/text/func_5e0166c4.c` |
-| 0x5E0166D0 | text | `src/blade/text/func_5e0166d0.c` |
-| 0x5E01695C | text | `src/blade/text/func_5e01695c.c` |
-| 0x5E016960 | text | `src/blade/text/func_5e016960.c` |
-| 0x5E0169F6 | text | `src/blade/text/func_5e0169f6.c` |
-| 0x5E016A00 | text | `src/blade/text/func_5e016a00.c` |
-| 0x5E016BF7 | text | `src/blade/text/func_5e016bf7.c` |
-| 0x5E016C00 | text | `src/blade/text/func_5e016c00.c` |
-| 0x5E016ED1 | text | `src/blade/text/func_5e016ed1.c` |
-| 0x5E016EE0 | text | `src/blade/text/func_5e016ee0.c` |
-| 0x5E016F9A | text | `src/blade/text/func_5e016f9a.c` |
-| 0x5E016FA0 | text | `src/blade/text/func_5e016fa0.c` |
-| 0x5E017290 | text | `src/blade/text/func_5e017290.c` |
-| 0x5E017451 | text | `src/blade/text/func_5e017451.c` |
-| 0x5E017460 | text | `src/blade/text/func_5e017460.c` |
-| 0x5E017B7F | text | `src/blade/text/func_5e017b7f.c` |
-| 0x5E017B80 | text | `src/blade/text/func_5e017b80.c` |
-| 0x5E018048 | text | `src/blade/text/func_5e018048.c` |
-| 0x5E018050 | text | `src/blade/text/func_5e018050.c` |
-| 0x5E0181CA | text | `src/blade/text/func_5e0181ca.c` |
-| 0x5E0181D0 | text | `src/blade/text/func_5e0181d0.c` |
-| 0x5E018747 | text | `src/blade/text/func_5e018747.c` |
-| 0x5E018750 | text | `src/blade/text/func_5e018750.c` |
-| 0x5E018C5D | text | `src/blade/text/func_5e018c5d.c` |
-| 0x5E018C60 | text | `src/blade/text/func_5e018c60.c` |
-| 0x5E018DFE | text | `src/blade/text/func_5e018dfe.c` |
-| 0x5E018E00 | text | `src/blade/text/func_5e018e00.c` |
-| 0x5E01945B | text | `src/blade/text/func_5e01945b.c` |
-| 0x5E019460 | text | `src/blade/text/func_5e019460.c` |
-| 0x5E019621 | text | `src/blade/text/func_5e019621.c` |
-| 0x5E019630 | text | `src/blade/text/func_5e019630.c` |
-| 0x5E019D27 | text | `src/blade/text/func_5e019d27.c` |
-| 0x5E019D30 | text | `src/blade/text/func_5e019d30.c` |
-| 0x5E01A264 | text | `src/blade/text/func_5e01a264.c` |
-| 0x5E01A290 | text | `src/blade/text/func_5e01a290.c` |
-| 0x5E01A75E | text | `src/blade/text/func_5e01a75e.c` |
-| 0x5E01A760 | text | `src/blade/text/func_5e01a760.c` |
-| 0x5E01A921 | text | `src/blade/text/func_5e01a921.c` |
-| 0x5E01A930 | text | `src/blade/text/func_5e01a930.c` |
-| 0x5E01AA9A | text | `src/blade/text/func_5e01aa9a.c` |
-| 0x5E01AAA0 | text | `src/blade/text/func_5e01aaa0.c` |
-| 0x5E01B0D9 | text | `src/blade/text/func_5e01b0d9.c` |
-| 0x5E01B670 | text | `src/blade/text/func_5e01b670.c` |
-| 0x5E01BBBE | text | `src/blade/text/func_5e01bbbe.c` |
-| 0x5E01BBC0 | text | `src/blade/text/func_5e01bbc0.c` |
-| 0x5E01BD72 | text | `src/blade/text/func_5e01bd72.c` |
-| 0x5E01BD80 | text | `src/blade/text/func_5e01bd80.c` |
-| 0x5E01C52C | text | `src/blade/text/func_5e01c52c.c` |
-| 0x5E01C530 | text | `src/blade/text/func_5e01c530.c` |
-| 0x5E01CAC2 | text | `src/blade/text/func_5e01cac2.c` |
-| 0x5E01CAD0 | text | `src/blade/text/func_5e01cad0.c` |
-| 0x5E01CCA6 | text | `src/blade/text/func_5e01cca6.c` |
-| 0x5E01CCB0 | text | `src/blade/text/func_5e01ccb0.c` |
-| 0x5E01D540 | text | `src/blade/text/func_5e01d540.c` |
-| 0x5E01D701 | text | `src/blade/text/func_5e01d701.c` |
-| 0x5E01D710 | text | `src/blade/text/func_5e01d710.c` |
-| 0x5E01DFE0 | text | `src/blade/text/func_5e01dfe0.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E01220D | text | `src/blade/text/func_5e01220d.c` | core | high | module-map |
+| 0x5E012426 | text | `src/blade/text/func_5e012426.c` | core | high | module-map |
+| 0x5E012CF0 | text | `src/blade/text/func_5e012cf0.c` | core | high | module-map |
+| 0x5E012DE6 | text | `src/blade/text/func_5e012de6.c` | core | high | module-map |
+| 0x5E012DF0 | text | `src/blade/text/func_5e012df0.c` | core | high | module-map |
+| 0x5E012EAA | text | `src/blade/text/func_5e012eaa.c` | core | high | module-map |
+| 0x5E0131F2 | text | `src/blade/text/func_5e0131f2.c` | core | high | module-map |
+| 0x5E013200 | text | `src/blade/text/func_5e013200.c` | core | high | module-map |
+| 0x5E013662 | text | `src/blade/text/func_5e013662.c` | core | high | module-map |
+| 0x5E013670 | text | `src/blade/text/func_5e013670.c` | core | high | module-map |
+| 0x5E01367F | text | `src/blade/text/func_5e01367f.c` | core | high | module-map |
+| 0x5E013680 | text | `src/blade/text/func_5e013680.c` | core | high | module-map |
+| 0x5E0136B0 | text | `src/blade/text/func_5e0136b0.c` | core | high | module-map |
+| 0x5E0136BF | text | `src/blade/text/func_5e0136bf.c` | core | high | module-map |
+| 0x5E0136C0 | text | `src/blade/text/func_5e0136c0.c` | core | high | module-map |
+| 0x5E0136CF | text | `src/blade/text/func_5e0136cf.c` | core | high | module-map |
+| 0x5E013730 | text | `src/blade/text/func_5e013730.c` | core | high | module-map |
+| 0x5E013976 | text | `src/blade/text/func_5e013976.c` | core | high | module-map |
+| 0x5E013980 | text | `src/blade/text/func_5e013980.c` | core | high | module-map |
+| 0x5E013B41 | text | `src/blade/text/func_5e013b41.c` | core | high | module-map |
+| 0x5E013B50 | text | `src/blade/text/func_5e013b50.c` | core | high | module-map |
+| 0x5E013BC2 | text | `src/blade/text/func_5e013bc2.c` | core | high | module-map |
+| 0x5E013BD0 | text | `src/blade/text/func_5e013bd0.c` | core | high | module-map |
+| 0x5E013CB1 | text | `src/blade/text/func_5e013cb1.c` | core | high | module-map |
+| 0x5E013CC0 | text | `src/blade/text/func_5e013cc0.c` | core | high | module-map |
+| 0x5E01404F | text | `src/blade/text/func_5e01404f.c` | core | high | module-map |
+| 0x5E014050 | text | `src/blade/text/func_5e014050.c` | core | high | module-map |
+| 0x5E014498 | text | `src/blade/text/func_5e014498.c` | core | high | module-map |
+| 0x5E0144A0 | text | `src/blade/text/func_5e0144a0.c` | core | high | module-map |
+| 0x5E014661 | text | `src/blade/text/func_5e014661.c` | core | high | module-map |
+| 0x5E014670 | text | `src/blade/text/func_5e014670.c` | core | high | module-map |
+| 0x5E0147A2 | text | `src/blade/text/func_5e0147a2.c` | core | high | module-map |
+| 0x5E0147B0 | text | `src/blade/text/func_5e0147b0.c` | core | high | module-map |
+| 0x5E014BB2 | text | `src/blade/text/func_5e014bb2.c` | core | high | module-map |
+| 0x5E014BC0 | text | `src/blade/text/func_5e014bc0.c` | core | high | module-map |
+| 0x5E014FB9 | text | `src/blade/text/func_5e014fb9.c` | core | high | module-map |
+| 0x5E014FC0 | text | `src/blade/text/func_5e014fc0.c` | core | high | module-map |
+| 0x5E01528A | text | `src/blade/text/func_5e01528a.c` | core | high | module-map |
+| 0x5E015290 | text | `src/blade/text/func_5e015290.c` | core | high | module-map |
+| 0x5E01534A | text | `src/blade/text/func_5e01534a.c` | core | high | module-map |
+| 0x5E015350 | text | `src/blade/text/func_5e015350.c` | core | high | module-map |
+| 0x5E015586 | text | `src/blade/text/func_5e015586.c` | core | high | module-map |
+| 0x5E015590 | text | `src/blade/text/func_5e015590.c` | core | high | module-map |
+| 0x5E01589F | text | `src/blade/text/func_5e01589f.c` | core | high | module-map |
+| 0x5E0158A0 | text | `src/blade/text/func_5e0158a0.c` | core | high | module-map |
+| 0x5E01597E | text | `src/blade/text/func_5e01597e.c` | core | high | module-map |
+| 0x5E015980 | text | `src/blade/text/func_5e015980.c` | core | high | module-map |
+| 0x5E015CB2 | text | `src/blade/text/func_5e015cb2.c` | core | high | module-map |
+| 0x5E015CC0 | text | `src/blade/text/func_5e015cc0.c` | core | high | module-map |
+| 0x5E015E81 | text | `src/blade/text/func_5e015e81.c` | core | high | module-map |
+| 0x5E015E90 | text | `src/blade/text/func_5e015e90.c` | core | high | module-map |
+| 0x5E0166C4 | text | `src/blade/text/func_5e0166c4.c` | core | high | module-map |
+| 0x5E0166D0 | text | `src/blade/text/func_5e0166d0.c` | core | high | module-map |
+| 0x5E01695C | text | `src/blade/text/func_5e01695c.c` | core | high | module-map |
+| 0x5E016960 | text | `src/blade/text/func_5e016960.c` | core | high | module-map |
+| 0x5E0169F6 | text | `src/blade/text/func_5e0169f6.c` | core | high | module-map |
+| 0x5E016A00 | text | `src/blade/text/func_5e016a00.c` | core | high | module-map |
+| 0x5E016BF7 | text | `src/blade/text/func_5e016bf7.c` | core | high | module-map |
+| 0x5E016C00 | text | `src/blade/text/func_5e016c00.c` | core | high | module-map |
+| 0x5E016ED1 | text | `src/blade/text/func_5e016ed1.c` | core | high | module-map |
+| 0x5E016EE0 | text | `src/blade/text/func_5e016ee0.c` | core | high | module-map |
+| 0x5E016F9A | text | `src/blade/text/func_5e016f9a.c` | core | high | module-map |
+| 0x5E016FA0 | text | `src/blade/text/func_5e016fa0.c` | core | high | module-map |
+| 0x5E017290 | text | `src/blade/text/func_5e017290.c` | core | high | module-map |
+| 0x5E017451 | text | `src/blade/text/func_5e017451.c` | core | high | module-map |
+| 0x5E017460 | text | `src/blade/text/func_5e017460.c` | core | high | module-map |
+| 0x5E017B7F | text | `src/blade/text/func_5e017b7f.c` | core | high | module-map |
+| 0x5E017B80 | text | `src/blade/text/func_5e017b80.c` | core | high | module-map |
+| 0x5E018048 | text | `src/blade/text/func_5e018048.c` | core | high | module-map |
+| 0x5E018050 | text | `src/blade/text/func_5e018050.c` | core | high | module-map |
+| 0x5E0181CA | text | `src/blade/text/func_5e0181ca.c` | core | high | module-map |
+| 0x5E0181D0 | text | `src/blade/text/func_5e0181d0.c` | core | high | module-map |
+| 0x5E018747 | text | `src/blade/text/func_5e018747.c` | core | high | module-map |
+| 0x5E018750 | text | `src/blade/text/func_5e018750.c` | core | high | module-map |
+| 0x5E018C5D | text | `src/blade/text/func_5e018c5d.c` | core | high | module-map |
+| 0x5E018C60 | text | `src/blade/text/func_5e018c60.c` | core | high | module-map |
+| 0x5E018DFE | text | `src/blade/text/func_5e018dfe.c` | core | high | module-map |
+| 0x5E018E00 | text | `src/blade/text/func_5e018e00.c` | core | high | module-map |
+| 0x5E01945B | text | `src/blade/text/func_5e01945b.c` | core | high | module-map |
+| 0x5E019460 | text | `src/blade/text/func_5e019460.c` | core | high | module-map |
+| 0x5E019621 | text | `src/blade/text/func_5e019621.c` | core | high | module-map |
+| 0x5E019630 | text | `src/blade/text/func_5e019630.c` | core | high | module-map |
+| 0x5E019D27 | text | `src/blade/text/func_5e019d27.c` | core | high | module-map |
+| 0x5E019D30 | text | `src/blade/text/func_5e019d30.c` | core | high | module-map |
+| 0x5E01A264 | text | `src/blade/text/func_5e01a264.c` | core | high | module-map |
+| 0x5E01A290 | text | `src/blade/text/func_5e01a290.c` | core | high | module-map |
+| 0x5E01A75E | text | `src/blade/text/func_5e01a75e.c` | core | high | module-map |
+| 0x5E01A760 | text | `src/blade/text/func_5e01a760.c` | core | high | module-map |
+| 0x5E01A921 | text | `src/blade/text/func_5e01a921.c` | core | high | module-map |
+| 0x5E01A930 | text | `src/blade/text/func_5e01a930.c` | core | high | module-map |
+| 0x5E01AA9A | text | `src/blade/text/func_5e01aa9a.c` | core | high | module-map |
+| 0x5E01AAA0 | text | `src/blade/text/func_5e01aaa0.c` | core | high | module-map |
+| 0x5E01B0D9 | text | `src/blade/text/func_5e01b0d9.c` | core | high | module-map |
+| 0x5E01B670 | text | `src/blade/text/func_5e01b670.c` | core | high | module-map |
+| 0x5E01BBBE | text | `src/blade/text/func_5e01bbbe.c` | core | high | module-map |
+| 0x5E01BBC0 | text | `src/blade/text/func_5e01bbc0.c` | core | high | module-map |
+| 0x5E01BD72 | text | `src/blade/text/func_5e01bd72.c` | core | high | module-map |
+| 0x5E01BD80 | text | `src/blade/text/func_5e01bd80.c` | core | high | module-map |
+| 0x5E01C52C | text | `src/blade/text/func_5e01c52c.c` | core | high | module-map |
+| 0x5E01C530 | text | `src/blade/text/func_5e01c530.c` | core | high | module-map |
+| 0x5E01CAC2 | text | `src/blade/text/func_5e01cac2.c` | core | high | module-map |
+| 0x5E01CAD0 | text | `src/blade/text/func_5e01cad0.c` | core | high | module-map |
+| 0x5E01CCA6 | text | `src/blade/text/func_5e01cca6.c` | core | high | module-map |
+| 0x5E01CCB0 | text | `src/blade/text/func_5e01ccb0.c` | core | high | module-map |
+| 0x5E01D540 | text | `src/blade/text/func_5e01d540.c` | core | high | module-map |
+| 0x5E01D701 | text | `src/blade/text/func_5e01d701.c` | core | high | module-map |
+| 0x5E01D710 | text | `src/blade/text/func_5e01d710.c` | core | high | module-map |
+| 0x5E01DFE0 | text | `src/blade/text/func_5e01dfe0.c` | core | high | module-map |
 
-## accessors
+## blade / accessors
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E00E350 | text | `src/blade/text/func_5e00e350.c` |
-| 0x5E00E37D | text | `src/blade/text/func_5e00e37d.c` |
-| 0x5E00E380 | text | `src/blade/text/func_5e00e380.c` |
-| 0x5E00E39D | text | `src/blade/text/func_5e00e39d.c` |
-| 0x5E00E3A0 | text | `src/blade/text/func_5e00e3a0.c` |
-| 0x5E00E3BC | text | `src/blade/text/func_5e00e3bc.c` |
-| 0x5E00E3C0 | text | `src/blade/text/func_5e00e3c0.c` |
-| 0x5E00E3C7 | text | `src/blade/text/func_5e00e3c7.c` |
-| 0x5E00E3D0 | text | `src/blade/text/func_5e00e3d0.c` |
-| 0x5E00E400 | text | `src/blade/text/func_5e00e400.c` |
-| 0x5E00E43B | text | `src/blade/text/func_5e00e43b.c` |
-| 0x5E00E440 | text | `src/blade/text/func_5e00e440.c` |
-| 0x5E00E478 | text | `src/blade/text/func_5e00e478.c` |
-| 0x5E00E480 | text | `src/blade/text/func_5e00e480.c` |
-| 0x5E00E4AE | text | `src/blade/text/func_5e00e4ae.c` |
-| 0x5E00E4B0 | text | `src/blade/text/func_5e00e4b0.c` |
-| 0x5E00E4D9 | text | `src/blade/text/func_5e00e4d9.c` |
-| 0x5E00E4E0 | text | `src/blade/text/func_5e00e4e0.c` |
-| 0x5E00E52E | text | `src/blade/text/func_5e00e52e.c` |
-| 0x5E00E530 | text | `src/blade/text/func_5e00e530.c` |
-| 0x5E00E576 | text | `src/blade/text/func_5e00e576.c` |
-| 0x5E00E580 | text | `src/blade/text/func_5e00e580.c` |
-| 0x5E00E5F8 | text | `src/blade/text/func_5e00e5f8.c` |
-| 0x5E00E600 | text | `src/blade/text/func_5e00e600.c` |
-| 0x5E00E60F | text | `src/blade/text/func_5e00e60f.c` |
-| 0x5E00E610 | text | `src/blade/text/func_5e00e610.c` |
-| 0x5E00E61E | text | `src/blade/text/func_5e00e61e.c` |
-| 0x5E00E620 | text | `src/blade/text/func_5e00e620.c` |
-| 0x5E00E627 | text | `src/blade/text/func_5e00e627.c` |
-| 0x5E00E630 | text | `src/blade/text/func_5e00e630.c` |
-| 0x5E00E637 | text | `src/blade/text/func_5e00e637.c` |
-| 0x5E00E640 | text | `src/blade/text/func_5e00e640.c` |
-| 0x5E00E647 | text | `src/blade/text/func_5e00e647.c` |
-| 0x5E00E650 | text | `src/blade/text/func_5e00e650.c` |
-| 0x5E00E657 | text | `src/blade/text/func_5e00e657.c` |
-| 0x5E00E660 | text | `src/blade/text/func_5e00e660.c` |
-| 0x5E00E66A | text | `src/blade/text/func_5e00e66a.c` |
-| 0x5E00E670 | text | `src/blade/text/func_5e00e670.c` |
-| 0x5E00E67C | text | `src/blade/text/func_5e00e67c.c` |
-| 0x5E00E680 | text | `src/blade/text/func_5e00e680.c` |
-| 0x5E00E687 | text | `src/blade/text/func_5e00e687.c` |
-| 0x5E00EA50 | text | `src/blade/text/func_5e00ea50.c` |
-| 0x5E00EA6E | text | `src/blade/text/func_5e00ea6e.c` |
-| 0x5E00EA70 | text | `src/blade/text/func_5e00ea70.c` |
-| 0x5E00EA7E | text | `src/blade/text/func_5e00ea7e.c` |
-| 0x5E00EA80 | text | `src/blade/text/func_5e00ea80.c` |
-| 0x5E00EA8F | text | `src/blade/text/func_5e00ea8f.c` |
-| 0x5E00EA90 | text | `src/blade/text/func_5e00ea90.c` |
-| 0x5E00EA9F | text | `src/blade/text/func_5e00ea9f.c` |
-| 0x5E00EAA0 | text | `src/blade/text/func_5e00eaa0.c` |
-| 0x5E00EAC6 | text | `src/blade/text/func_5e00eac6.c` |
-| 0x5E00EAD0 | text | `src/blade/text/func_5e00ead0.c` |
-| 0x5E00EAF6 | text | `src/blade/text/func_5e00eaf6.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E00E350 | text | `src/blade/text/func_5e00e350.c` | core | high | module-map |
+| 0x5E00E37D | text | `src/blade/text/func_5e00e37d.c` | core | high | module-map |
+| 0x5E00E380 | text | `src/blade/text/func_5e00e380.c` | core | high | module-map |
+| 0x5E00E39D | text | `src/blade/text/func_5e00e39d.c` | core | high | module-map |
+| 0x5E00E3A0 | text | `src/blade/text/func_5e00e3a0.c` | core | high | module-map |
+| 0x5E00E3BC | text | `src/blade/text/func_5e00e3bc.c` | core | high | module-map |
+| 0x5E00E3C0 | text | `src/blade/text/func_5e00e3c0.c` | core | high | module-map |
+| 0x5E00E3C7 | text | `src/blade/text/func_5e00e3c7.c` | core | high | module-map |
+| 0x5E00E3D0 | text | `src/blade/text/func_5e00e3d0.c` | core | high | module-map |
+| 0x5E00E400 | text | `src/blade/text/func_5e00e400.c` | core | high | module-map |
+| 0x5E00E43B | text | `src/blade/text/func_5e00e43b.c` | core | high | module-map |
+| 0x5E00E440 | text | `src/blade/text/func_5e00e440.c` | core | high | module-map |
+| 0x5E00E478 | text | `src/blade/text/func_5e00e478.c` | core | high | module-map |
+| 0x5E00E480 | text | `src/blade/text/func_5e00e480.c` | core | high | module-map |
+| 0x5E00E4AE | text | `src/blade/text/func_5e00e4ae.c` | core | high | module-map |
+| 0x5E00E4B0 | text | `src/blade/text/func_5e00e4b0.c` | core | high | module-map |
+| 0x5E00E4D9 | text | `src/blade/text/func_5e00e4d9.c` | core | high | module-map |
+| 0x5E00E4E0 | text | `src/blade/text/func_5e00e4e0.c` | core | high | module-map |
+| 0x5E00E52E | text | `src/blade/text/func_5e00e52e.c` | core | high | module-map |
+| 0x5E00E530 | text | `src/blade/text/func_5e00e530.c` | core | high | module-map |
+| 0x5E00E576 | text | `src/blade/text/func_5e00e576.c` | core | high | module-map |
+| 0x5E00E580 | text | `src/blade/text/func_5e00e580.c` | core | high | module-map |
+| 0x5E00E5F8 | text | `src/blade/text/func_5e00e5f8.c` | core | high | module-map |
+| 0x5E00E600 | text | `src/blade/text/func_5e00e600.c` | core | high | module-map |
+| 0x5E00E60F | text | `src/blade/text/func_5e00e60f.c` | core | high | module-map |
+| 0x5E00E610 | text | `src/blade/text/func_5e00e610.c` | core | high | module-map |
+| 0x5E00E61E | text | `src/blade/text/func_5e00e61e.c` | core | high | module-map |
+| 0x5E00E620 | text | `src/blade/text/func_5e00e620.c` | core | high | module-map |
+| 0x5E00E627 | text | `src/blade/text/func_5e00e627.c` | core | high | module-map |
+| 0x5E00E630 | text | `src/blade/text/func_5e00e630.c` | core | high | module-map |
+| 0x5E00E637 | text | `src/blade/text/func_5e00e637.c` | core | high | module-map |
+| 0x5E00E640 | text | `src/blade/text/func_5e00e640.c` | core | high | module-map |
+| 0x5E00E647 | text | `src/blade/text/func_5e00e647.c` | core | high | module-map |
+| 0x5E00E650 | text | `src/blade/text/func_5e00e650.c` | core | high | module-map |
+| 0x5E00E657 | text | `src/blade/text/func_5e00e657.c` | core | high | module-map |
+| 0x5E00E660 | text | `src/blade/text/func_5e00e660.c` | core | high | module-map |
+| 0x5E00E66A | text | `src/blade/text/func_5e00e66a.c` | core | high | module-map |
+| 0x5E00E670 | text | `src/blade/text/func_5e00e670.c` | core | high | module-map |
+| 0x5E00E67C | text | `src/blade/text/func_5e00e67c.c` | core | high | module-map |
+| 0x5E00E680 | text | `src/blade/text/func_5e00e680.c` | core | high | module-map |
+| 0x5E00E687 | text | `src/blade/text/func_5e00e687.c` | core | high | module-map |
+| 0x5E00EA50 | text | `src/blade/text/func_5e00ea50.c` | core | high | module-map |
+| 0x5E00EA6E | text | `src/blade/text/func_5e00ea6e.c` | core | high | module-map |
+| 0x5E00EA70 | text | `src/blade/text/func_5e00ea70.c` | core | high | module-map |
+| 0x5E00EA7E | text | `src/blade/text/func_5e00ea7e.c` | core | high | module-map |
+| 0x5E00EA80 | text | `src/blade/text/func_5e00ea80.c` | core | high | module-map |
+| 0x5E00EA8F | text | `src/blade/text/func_5e00ea8f.c` | core | high | module-map |
+| 0x5E00EA90 | text | `src/blade/text/func_5e00ea90.c` | core | high | module-map |
+| 0x5E00EA9F | text | `src/blade/text/func_5e00ea9f.c` | core | high | module-map |
+| 0x5E00EAA0 | text | `src/blade/text/func_5e00eaa0.c` | core | high | module-map |
+| 0x5E00EAC6 | text | `src/blade/text/func_5e00eac6.c` | core | high | module-map |
+| 0x5E00EAD0 | text | `src/blade/text/func_5e00ead0.c` | core | high | module-map |
+| 0x5E00EAF6 | text | `src/blade/text/func_5e00eaf6.c` | core | high | module-map |
 
-## render
+## blade / render
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E002340 | text | `src/blade/text/func_5e002340.c` |
-| 0x5E0023E0 | text | `src/blade/text/func_5e0023e0.c` |
-| 0x5E003CC0 | text | `src/blade/text/func_5e003cc0.c` |
-| 0x5E0040B0 | text | `src/blade/text/func_5e0040b0.c` |
-| 0x5E0042C0 | text | `src/blade/text/func_5e0042c0.c` |
-| 0x5E004490 | text | `src/blade/text/func_5e004490.c` |
-| 0x5E0045B0 | text | `src/blade/text/func_5e0045b0.c` |
-| 0x5E004680 | text | `src/blade/text/func_5e004680.c` |
-| 0x5E0047A0 | text | `src/blade/text/func_5e0047a0.c` |
-| 0x5E004870 | text | `src/blade/text/func_5e004870.c` |
-| 0x5E004990 | text | `src/blade/text/func_5e004990.c` |
-| 0x5E004A60 | text | `src/blade/text/func_5e004a60.c` |
-| 0x5E004B90 | text | `src/blade/text/func_5e004b90.c` |
-| 0x5E004C60 | text | `src/blade/text/func_5e004c60.c` |
-| 0x5E004D80 | text | `src/blade/text/func_5e004d80.c` |
-| 0x5E004E50 | text | `src/blade/text/func_5e004e50.c` |
-| 0x5E004F80 | text | `src/blade/text/func_5e004f80.c` |
-| 0x5E005050 | text | `src/blade/text/func_5e005050.c` |
-| 0x5E005220 | text | `src/blade/text/func_5e005220.c` |
-| 0x5E005420 | text | `src/blade/text/func_5e005420.c` |
-| 0x5E0057C0 | text | `src/blade/text/func_5e0057c0.c` |
-| 0x5E0093A0 | text | `src/blade/text/func_5e0093a0.c` |
-| 0x5E00E220 | text | `src/blade/text/func_5e00e220.c` |
-| 0x5E0121D0 | text | `src/blade/text/func_5e0121d0.c` |
-| 0x5E012210 | text | `src/blade/text/func_5e012210.c` |
-| 0x5E012EB0 | text | `src/blade/text/func_5e012eb0.c` |
-| 0x5E01E6E0 | text | `src/blade/text/func_5e01e6e0.c` |
-| 0x5E01E6F6 | text | `src/blade/text/func_5e01e6f6.c` |
-| 0x5E01E700 | text | `src/blade/text/func_5e01e700.c` |
-| 0x5E01E71A | text | `src/blade/text/func_5e01e71a.c` |
-| 0x5E01E721 | text | `src/blade/text/func_5e01e721.c` |
-| 0x5E01E730 | text | `src/blade/text/func_5e01e730.c` |
-| 0x5E01E786 | text | `src/blade/text/func_5e01e786.c` |
-| 0x5E01E7B0 | text | `src/blade/text/func_5e01e7b0.c` |
-| 0x5E01E8DD | text | `src/blade/text/func_5e01e8dd.c` |
-| 0x5E01E930 | text | `src/blade/text/func_5e01e930.c` |
-| 0x5E01E996 | text | `src/blade/text/func_5e01e996.c` |
-| 0x5E01E9A0 | text | `src/blade/text/func_5e01e9a0.c` |
-| 0x5E01EA0F | text | `src/blade/text/func_5e01ea0f.c` |
-| 0x5E01EA10 | text | `src/blade/text/func_5e01ea10.c` |
-| 0x5E01EA75 | text | `src/blade/text/func_5e01ea75.c` |
-| 0x5E0280B5 | text | `src/blade/text/func_5e0280b5.c` |
-| 0x5E028100 | text | `src/blade/text/func_5e028100.c` |
-| 0x5E02825A | text | `src/blade/text/func_5e02825a.c` |
-| 0x5E028260 | text | `src/blade/text/func_5e028260.c` |
-| 0x5E02843D | text | `src/blade/text/func_5e02843d.c` |
-| 0x5E0284E0 | text | `src/blade/text/func_5e0284e0.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E002340 | text | `src/blade/text/func_5e002340.c` | core | high | module-map |
+| 0x5E0023E0 | text | `src/blade/text/func_5e0023e0.c` | core | high | module-map |
+| 0x5E003CC0 | text | `src/blade/text/func_5e003cc0.c` | core | high | module-map |
+| 0x5E0040B0 | text | `src/blade/text/func_5e0040b0.c` | core | high | module-map |
+| 0x5E0042C0 | text | `src/blade/text/func_5e0042c0.c` | core | high | module-map |
+| 0x5E004490 | text | `src/blade/text/func_5e004490.c` | core | high | module-map |
+| 0x5E0045B0 | text | `src/blade/text/func_5e0045b0.c` | core | high | module-map |
+| 0x5E004680 | text | `src/blade/text/func_5e004680.c` | core | high | module-map |
+| 0x5E0047A0 | text | `src/blade/text/func_5e0047a0.c` | core | high | module-map |
+| 0x5E004870 | text | `src/blade/text/func_5e004870.c` | core | high | module-map |
+| 0x5E004990 | text | `src/blade/text/func_5e004990.c` | core | high | module-map |
+| 0x5E004A60 | text | `src/blade/text/func_5e004a60.c` | core | high | module-map |
+| 0x5E004B90 | text | `src/blade/text/func_5e004b90.c` | core | high | module-map |
+| 0x5E004C60 | text | `src/blade/text/func_5e004c60.c` | core | high | module-map |
+| 0x5E004D80 | text | `src/blade/text/func_5e004d80.c` | core | high | module-map |
+| 0x5E004E50 | text | `src/blade/text/func_5e004e50.c` | core | high | module-map |
+| 0x5E004F80 | text | `src/blade/text/func_5e004f80.c` | core | high | module-map |
+| 0x5E005050 | text | `src/blade/text/func_5e005050.c` | core | high | module-map |
+| 0x5E005220 | text | `src/blade/text/func_5e005220.c` | core | high | module-map |
+| 0x5E005420 | text | `src/blade/text/func_5e005420.c` | core | high | module-map |
+| 0x5E0057C0 | text | `src/blade/text/func_5e0057c0.c` | core | high | module-map |
+| 0x5E0093A0 | text | `src/blade/text/func_5e0093a0.c` | core | high | module-map |
+| 0x5E00E220 | text | `src/blade/text/func_5e00e220.c` | core | high | module-map |
+| 0x5E0121D0 | text | `src/blade/text/func_5e0121d0.c` | core | high | module-map |
+| 0x5E012210 | text | `src/blade/text/func_5e012210.c` | core | high | module-map |
+| 0x5E012EB0 | text | `src/blade/text/func_5e012eb0.c` | core | high | module-map |
+| 0x5E01E6E0 | text | `src/blade/text/func_5e01e6e0.c` | core | high | module-map |
+| 0x5E01E6F6 | text | `src/blade/text/func_5e01e6f6.c` | core | high | module-map |
+| 0x5E01E700 | text | `src/blade/text/func_5e01e700.c` | core | high | module-map |
+| 0x5E01E71A | text | `src/blade/text/func_5e01e71a.c` | core | high | module-map |
+| 0x5E01E721 | text | `src/blade/text/func_5e01e721.c` | core | high | module-map |
+| 0x5E01E730 | text | `src/blade/text/func_5e01e730.c` | core | high | module-map |
+| 0x5E01E786 | text | `src/blade/text/func_5e01e786.c` | core | high | module-map |
+| 0x5E01E7B0 | text | `src/blade/text/func_5e01e7b0.c` | core | high | module-map |
+| 0x5E01E8DD | text | `src/blade/text/func_5e01e8dd.c` | core | high | module-map |
+| 0x5E01E930 | text | `src/blade/text/func_5e01e930.c` | core | high | module-map |
+| 0x5E01E996 | text | `src/blade/text/func_5e01e996.c` | core | high | module-map |
+| 0x5E01E9A0 | text | `src/blade/text/func_5e01e9a0.c` | core | high | module-map |
+| 0x5E01EA0F | text | `src/blade/text/func_5e01ea0f.c` | core | high | module-map |
+| 0x5E01EA10 | text | `src/blade/text/func_5e01ea10.c` | core | high | module-map |
+| 0x5E01EA75 | text | `src/blade/text/func_5e01ea75.c` | core | high | module-map |
+| 0x5E0280B5 | text | `src/blade/text/func_5e0280b5.c` | core | high | module-map |
+| 0x5E028100 | text | `src/blade/text/func_5e028100.c` | core | high | module-map |
+| 0x5E02825A | text | `src/blade/text/func_5e02825a.c` | core | high | module-map |
+| 0x5E028260 | text | `src/blade/text/func_5e028260.c` | core | high | module-map |
+| 0x5E02843D | text | `src/blade/text/func_5e02843d.c` | core | high | module-map |
+| 0x5E0284E0 | text | `src/blade/text/func_5e0284e0.c` | core | high | module-map |
 
-## stubs
+## blade / stubs
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E00DFD0 | text | `src/blade/text/func_5e00dfd0.c` |
-| 0x5E00DFE0 | text | `src/blade/text/func_5e00dfe0.c` |
-| 0x5E00E010 | text | `src/blade/text/func_5e00e010.c` |
-| 0x5E00E110 | text | `src/blade/text/func_5e00e110.c` |
-| 0x5E00FB60 | text | `src/blade/text/func_5e00fb60.c` |
-| 0x5E011080 | text | `src/blade/text/func_5e011080.c` |
-| 0x5E0112D0 | text | `src/blade/text/func_5e0112d0.c` |
-| 0x5E011860 | text | `src/blade/text/func_5e011860.c` |
-| 0x5E011A90 | text | `src/blade/text/func_5e011a90.c` |
-| 0x5E011AA0 | text | `src/blade/text/func_5e011aa0.c` |
-| 0x5E011AB0 | text | `src/blade/text/func_5e011ab0.c` |
-| 0x5E011AC0 | text | `src/blade/text/func_5e011ac0.c` |
-| 0x5E011AD0 | text | `src/blade/text/func_5e011ad0.c` |
-| 0x5E011AE0 | text | `src/blade/text/func_5e011ae0.c` |
-| 0x5E011AF0 | text | `src/blade/text/func_5e011af0.c` |
-| 0x5E011B00 | text | `src/blade/text/func_5e011b00.c` |
-| 0x5E01E720 | text | `src/blade/text/func_5e01e720.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E00DFD0 | text | `src/blade/text/func_5e00dfd0.c` | core | high | module-map |
+| 0x5E00DFE0 | text | `src/blade/text/func_5e00dfe0.c` | core | high | module-map |
+| 0x5E00E010 | text | `src/blade/text/func_5e00e010.c` | core | high | module-map |
+| 0x5E00E110 | text | `src/blade/text/func_5e00e110.c` | core | high | module-map |
+| 0x5E00FB60 | text | `src/blade/text/func_5e00fb60.c` | core | high | module-map |
+| 0x5E011080 | text | `src/blade/text/func_5e011080.c` | core | high | module-map |
+| 0x5E0112D0 | text | `src/blade/text/func_5e0112d0.c` | core | high | module-map |
+| 0x5E011860 | text | `src/blade/text/func_5e011860.c` | core | high | module-map |
+| 0x5E011A90 | text | `src/blade/text/func_5e011a90.c` | core | high | module-map |
+| 0x5E011AA0 | text | `src/blade/text/func_5e011aa0.c` | core | high | module-map |
+| 0x5E011AB0 | text | `src/blade/text/func_5e011ab0.c` | core | high | module-map |
+| 0x5E011AC0 | text | `src/blade/text/func_5e011ac0.c` | core | high | module-map |
+| 0x5E011AD0 | text | `src/blade/text/func_5e011ad0.c` | core | high | module-map |
+| 0x5E011AE0 | text | `src/blade/text/func_5e011ae0.c` | core | high | module-map |
+| 0x5E011AF0 | text | `src/blade/text/func_5e011af0.c` | core | high | module-map |
+| 0x5E011B00 | text | `src/blade/text/func_5e011b00.c` | core | high | module-map |
+| 0x5E01E720 | text | `src/blade/text/func_5e01e720.c` | core | high | module-map |
 
-## exports
+## blade / exports
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E001000 | text | `src/blade/text/func_5e001000.c` |
-| 0x5E001040 | text | `src/blade/text/func_5e001040.c` |
-| 0x5E0011C0 | text | `src/blade/text/func_5e0011c0.c` |
-| 0x5E0013C0 | text | `src/blade/text/func_5e0013c0.c` |
-| 0x5E0013F0 | text | `src/blade/text/func_5e0013f0.c` |
-| 0x5E001420 | text | `src/blade/text/func_5e001420.c` |
-| 0x5E001450 | text | `src/blade/text/func_5e001450.c` |
-| 0x5E001480 | text | `src/blade/text/func_5e001480.c` |
-| 0x5E010480 | text | `src/blade/text/func_5e010480.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E001000 | text | `src/blade/text/func_5e001000.c` | core | high | module-map |
+| 0x5E001040 | text | `src/blade/text/func_5e001040.c` | core | high | module-map |
+| 0x5E0011C0 | text | `src/blade/text/func_5e0011c0.c` | core | high | module-map |
+| 0x5E0013C0 | text | `src/blade/text/func_5e0013c0.c` | core | high | module-map |
+| 0x5E0013F0 | text | `src/blade/text/func_5e0013f0.c` | core | high | module-map |
+| 0x5E001420 | text | `src/blade/text/func_5e001420.c` | core | high | module-map |
+| 0x5E001450 | text | `src/blade/text/func_5e001450.c` | core | high | module-map |
+| 0x5E001480 | text | `src/blade/text/func_5e001480.c` | core | high | module-map |
+| 0x5E010480 | text | `src/blade/text/func_5e010480.c` | core | high | module-map |
 
-## unclassified
+## data / data
 
-| VA | Section | Source |
-|----|---------|--------|
-| 0x5E035000 | rdata | `src/blade/rdata/data_0x5e035000.c` |
-| 0x5E036000 | rdata | `src/blade/rdata/data_0x5e036000.c` |
-| 0x5E037000 | rdata | `src/blade/rdata/data_0x5e037000.c` |
-| 0x5E038000 | data | `src/blade/data/data_0x5e038000.c` |
-| 0x5E039000 | data | `src/blade/data/data_0x5e039000.c` |
-| 0x5E03A000 | data | `src/blade/data/data_0x5e03a000.c` |
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E038000 | data | `src/blade/data/data_0x5e038000.c` | data | high | section |
+| 0x5E039000 | data | `src/blade/data/data_0x5e039000.c` | data | high | section |
+| 0x5E03A000 | data | `src/blade/data/data_0x5e03a000.c` | data | high | section |
+
+## data / rdata
+
+| VA | Section | Source | Role | Confidence | Evidence |
+|----|---------|--------|------|------------|----------|
+| 0x5E035000 | rdata | `src/blade/rdata/data_0x5e035000.c` | data | high | section |
+| 0x5E036000 | rdata | `src/blade/rdata/data_0x5e036000.c` | data | high | section |
+| 0x5E037000 | rdata | `src/blade/rdata/data_0x5e037000.c` | data | high | section |
