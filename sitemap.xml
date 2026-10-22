@@ -73,34 +73,6 @@
          <lastmod>2026-10-22</lastmod>
     </url>
     <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/GunDll_dll/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/Language_dll/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/MW4Mercs_exe/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/MW4Stats_dll/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/MissionLang_MERCS_dll/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/ZlogLib_dll/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
-         <loc>https://mech4decomp.github.io/Mech4MercDecomp/master_index/blade_dll/</loc>
-         <lastmod>2026-10-22</lastmod>
-    </url>
-    <url>
          <loc>https://mech4decomp.github.io/Mech4MercDecomp/module_data_annotation/blade/</loc>
          <lastmod>2026-10-22</lastmod>
     </url>
@@ -230,6 +202,34 @@
     </url>
     <url>
          <loc>https://mech4decomp.github.io/Mech4MercDecomp/subsystems/zloglib/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/GunDll_dll/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/Language_dll/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/MW4Mercs_exe/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/MW4Stats_dll/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/MissionLang_MERCS_dll/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/ZlogLib_dll/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://mech4decomp.github.io/Mech4MercDecomp/va_index/blade_dll/</loc>
          <lastmod>2026-10-22</lastmod>
     </url>
 </urlset>
