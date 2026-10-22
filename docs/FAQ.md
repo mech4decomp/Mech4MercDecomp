@@ -15,16 +15,10 @@ does include transcribed code and reference-derived data sections, so the
 default build is self-contained.
 
 **Do I need to supply the game EXE or DLLs?**
-No. The generated non-`.text` data sources and the reference-derived `.bin`
-artifacts are committed. You can build and verify the oracle without owning the
-game. The reference binaries are optional and are needed only to regenerate
-data/artifacts or to run byte diffs. See [the build guide](BUILD.md).
-
-**Why are the data sections included now?**
-The earlier layout regenerated them from a user-supplied reference. To make the
-repository buildable as-is, the byte-exact data sources and artifacts are now
-committed. `nmake data` and `nmake init` remain available as the optional
-"how they were created" regeneration path.
+No. The byte-exact non-`.text` data sources and the reference-derived `.bin`
+artifacts are committed, so you can build and verify the oracle without owning
+the game. A reference binary is needed only to regenerate data/artifacts or to
+run a byte diff. See [the build guide](BUILD.md).
 
 **Which game version was used as the baseline?**
 The official Microsoft **MechWarrior 4: Mercenaries Point Release 1 (PR1)**

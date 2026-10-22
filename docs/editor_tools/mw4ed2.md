@@ -1,8 +1,6 @@
 # MW4Ed2.exe — Mission/Level Editor (deep-dive)
 
-> Reference record; not an oracle target. Analyzed with Ghidra; the analysis
-> project and dumps are not part of this repository. No source tree, no
-> byte-identity gate.
+> Reference record; not an oracle target. See the [editor-tools overview](README.md).
 
 ## 1. Binary facts
 
@@ -276,15 +274,12 @@ engine's big per-frame/update loops and the ABL VM.
 `UserMission` (0x7542B8) · `options.mw4` (0x763AA4) · `coliseum`/`factory`/
 `gladiatorpit`/`rubblepile`/`jungle` (per-map tuning tags).
 
-## 9. Notes / follow-ups
+## 9. Open questions
 
 - **#VBD directory encoding**: the mission archives' multi-group directory
   (shared-filetime row runs, 23-byte prefix) does not match the map archives'
-  single-group layout captured in `include/mw4/vbd.h`. Worth a dedicated
-  decode pass of a mission archive's directory + data-offset rule.
-- **Runtime integration**: the editor can load `blade`/`gundll` and run the
-  real renderer — the deepest value here is the *format* of the serialized
-  `MechWarrior4::MWMission` object graph, which the game itself loads from
-  the same `Resource\Missions\*.mw4` files (and which MW4Ed2 writes).
-- **Scale**: 11,388 functions across a ~3.3 MB `.text`; this doc maps the
-  mission-format surface and framework seams, not every editor dialog.
+  single-group layout captured in `include/mw4/vbd.h`. A dedicated decode pass
+  of the mission directory and data-offset rule is still needed.
+- **Mission object graph**: decoding the serialized
+  `MechWarrior4::MWMission` graph is the highest-value follow-up; the game
+  loads the same `Resource\Missions\*.mw4` files.

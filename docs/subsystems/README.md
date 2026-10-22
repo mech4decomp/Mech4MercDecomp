@@ -1,8 +1,6 @@
 # Subsystem Documentation
 
-Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes; this overview and the subsystem pages link to them instead of repeating them.
-
-Shared VAs are described once in [shared.md](shared.md). Boundary calls are in [../SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md).
+Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes. Shared VAs are described once in [shared.md](shared.md); boundary calls are in [SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md); the exhaustive lookup starts at [MASTER_INDEX.md](../MASTER_INDEX.md).
 
 ## EXE subsystems
 
@@ -16,7 +14,7 @@ Shared VAs are described once in [shared.md](shared.md). Boundary calls are in [
 | [UI](ui.md) | 672 | gosScript-driven 2D UI: HUD, menus, dialogs, cursor, and screen state. |
 | [Network](net.md) | 382 | Multiplayer transport, lobby/session state, GameSpy discovery, and ZoneMatch matchmaking. |
 | [Archive](archive.md) | 285 | `#VBD` archives, streams, file I/O, and path handling. |
-| [Platform](platform.md) | 256 | Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper. |
+| [Platform](platform.md) | 256 | Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the in-image SafeDisc/anti-tamper wrapper. |
 | [Log](log.md) | 192 | Logging, assertions, error reporting, and diagnostic output. |
 | [Combat](combat.md) | 141 | In-mission weapon fire, launch/guidance, hit resolution, and damage application. |
 | [C Runtime](crt.md) | 21 | C/C++ runtime helpers: strings, memory primitives, formatting, and math. |
@@ -43,13 +41,3 @@ Shared VAs are described once in [shared.md](shared.md). Boundary calls are in [
 | [Language.dll](language.md) | 104 | Codepage-aware localizable string-table loader. |
 | [MissionLang_MERCS.dll](missionlang.md) | 69 | Mission/string-table loader mirroring Language.dll. |
 | [ZlogLib.dll](zloglib.md) | 33 | Logging API (`GetngLogAPI`) with lifecycle, emit, MD5, and memory helpers. |
-
-## Common references
-
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Master index](../MASTER_INDEX.md)
-
-## How to read a page
-
-The narrative and key entry points come first. The detail table gives the full count and responsibility for each sub-surface; the exhaustive VA table (role, size, source, evidence) is in the per-binary index. Shared VAs are described once in [shared.md](shared.md), and boundary calls once in [SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md).

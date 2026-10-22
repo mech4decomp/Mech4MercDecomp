@@ -1,9 +1,9 @@
 # Editor Tools — reference records
 
-The four authoring/config EXEs shipped with MW4:Mercenaries. These are
-**record + RE-documentation assets only** — never oracle targets
-(reference assets only). Hashes in `reference\SHA256.txt`;
-Analyzed with Ghidra; the analysis projects and dumps are not part of this repository.
+The four authoring/config EXEs shipped with MW4: Mercenaries. They are
+**reference records only** — never oracle targets. Hashes are in
+`reference\SHA256.txt`; the Ghidra analysis projects and dumps are not part of
+this repository.
 
 | Tool | File | Purpose | Functions | Doc |
 |---|---|---|---|---|
@@ -26,11 +26,11 @@ Analyzed with Ghidra; the analysis projects and dumps are not part of this repos
 
 - **Common base**: NFMEditor, MapCreator and autoconfig are thin MFC shells
   (dynamic MFC42) over the bundled GameOS framework; MW4Ed2 is the same but
-  at ~10× the scale, embedding the full game runtime (blade/gundll/
+  at roughly 10× the scale, embedding the full game runtime (blade/gundll/
   DirectPlay/ABL/localization) — 11,388 functions.
 - **Format of record**: MW4Ed2's mission `#VBD` member layout is the deepest
   remaining open question (multi-group directory encoding — see the
   `include/mw4/vbd.h` follow-up note).
 - **Cross-references**: the game's own CLI/option surface (`-noautoconfig`,
-  option table `0x0076C918`) matches what autoconfig writes; these docs
+  option table `0x0076C918`) matches what autoconfig writes. These docs are
   reference material for the oracle analysis only.

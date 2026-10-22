@@ -1,10 +1,8 @@
 # Master Oracle Source Index
 
-> **Start here:** [subsystems/README.md](subsystems/README.md) explains how each subsystem works and lists its key entry points. Shared VAs are listed once in [subsystems/shared.md](subsystems/shared.md); the per-binary tables below are the exhaustive lookup indexes.
+> **Start here:** [subsystems/README.md](subsystems/README.md) explains how each subsystem works and lists its key entry points. Shared VAs are listed once in [subsystems/shared.md](subsystems/shared.md); boundary calls are in [SUBSYSTEM_SEAMS.md](SUBSYSTEM_SEAMS.md). The per-binary tables below are exhaustive lookup indexes, not the best starting point for understanding a subsystem; every VA appears under exactly one subsystem/detail section, and `role`/`confidence`/`reason` record its classification and evidence.
 
-> The per-binary tables below are exhaustive VA indexes kept for lookup; they are not the best starting point for understanding a subsystem. Every VA appears under exactly one subsystem/detail section; `role` is core/shared/boundary/data/unknown and `confidence`/`reason` record the evidence.
-
-> Machine-readable table: `build/master_index.csv` (va, binary, section, source, size, subsystem, detail, role, confidence, reason). Boundary table: `build/subsystem_seams.csv`; surface labels: `docs/subsystem_surface.csv`.
+> The development tree also emits `build/master_index.csv` (va, binary, section, source, size, subsystem, detail, role, confidence, reason) and `build/subsystem_seams.csv`; surface labels are in `docs/subsystem_surface.csv`. The public snapshot ships the generated docs, not the development CSVs.
 
 ## Exhaustive per-VA indexes
 
@@ -17,12 +15,6 @@
 | Language.dll | 104 | [open](va_index/Language_dll.md) |
 | MissionLang_MERCS.dll | 69 | [open](va_index/MissionLang_MERCS_dll.md) |
 | ZlogLib.dll | 33 | [open](va_index/ZlogLib_dll.md) |
-
-## Common references
-
-- [Subsystem overview](subsystems/README.md) - how each system works and its key entry points.
-- [Shared VAs](subsystems/shared.md) - helpers used by more than one subsystem.
-- [Subsystem seams](SUBSYSTEM_SEAMS.md) - outbound boundary calls and cross-system dependencies.
 
 ## Regenerate
 

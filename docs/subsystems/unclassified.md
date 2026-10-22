@@ -4,14 +4,6 @@
 
 Helpers that could not be assigned to a system from the available evidence.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 These are mostly small functions in the 0x0051-0x0057, 0x0062-0x0065, 0x006E-0x0072, and 0x0075 clusters. They are listed so they are not silently dropped; classify them by inspecting the source header and callers.
@@ -49,13 +41,6 @@ No single entry point is representative; use the detail map below and the per-VA
 | 0x006F0000-0x006FFFFF | 37 |
 | 0x00520000-0x0052FFFF | 36 |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 1137 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence.

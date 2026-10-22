@@ -27,10 +27,12 @@ build target.
   listed in `src/mw4mercs/artifacts/extra_functions.csv`. They are not at the
   end of `.text`: `.text` continues to `0x76809E`, and `.txt2` begins at
   `0x769000`.
-- The `.txt2` SafeDisc leftover (`FUN_00769000`). Its bytes are preserved only
-  as generated data for layout; it is not decompiled.
-- SafeDisc/DRM components and the bundled DRM DLLs.
-- CRT/middleware code outside game logic.
+- The `.txt2` SafeDisc leftover (`FUN_00769000`). Its bytes are preserved as
+  committed data for layout; it is not decompiled.
+- External SafeDisc/DRM components and the bundled DRM DLLs. The EXE's
+  in-image wrapper/tail is part of the platform surface.
+- External CRT/middleware code; CRT ranges inside a target module are part of
+  that module's surface.
 - The four editor/config tools (`autoconfig_MERCS.exe`, `MapCreator.exe`,
   `NFMEditor.exe`, `MW4Ed2.exe`). They are documented as reference records
   under `docs/editor_tools/`, not oracle targets.

@@ -15,7 +15,8 @@ documentation. It is not a rebuilt original-source tree.
   - `blade.dll`, `GunDll.dll`, `MW4Stats.dll`, `ZlogLib.dll`,
     `Language.dll`, `MissionLang_MERCS.dll`
 - 18,483 transcribed `func_*.c` sources (plus in-`.text` data tables).
-- A reference-free image assembler and a per-function diff / no-mask verifier.
+- A reference-free image assembler, plus per-function diff and no-mask
+  verification tools.
 - Documentation of the binary layout, data annotations, editor tools, and
   verification methodology.
 
@@ -65,9 +66,9 @@ nmake dll-all MOD=gundll
 ```
 
 The full build order, troubleshooting, and per-module commands are in
-[`docs/BUILD.md`](docs/BUILD.md). The default build is reference-free. The
-reference binaries are only needed for optional regeneration
-(`nmake data`, `nmake init`, `nmake dll-init`) and optional byte diffs
+[`docs/BUILD.md`](docs/BUILD.md). The default build is reference-free. A
+reference binary is only needed for optional regeneration (`nmake data`,
+`nmake init`, `nmake dll-init`) or to run the byte diff after a build
 (`nmake exe`, `nmake dll`, `nmake diff`).
 
 ## Verification

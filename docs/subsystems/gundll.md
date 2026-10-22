@@ -4,14 +4,6 @@
 
 COM lobby/account client: registration, string/GUID and hash tables, crypto, HTTP, sockets, and the lobby object model.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 `DllGetClassObject` at 0x100010B0 exposes the COM class factory. Registration and the shared registration/teardown handler are around 0x10001970; the string/GUID/codepage helpers are around 0x10001450.
@@ -58,12 +50,6 @@ The lobby object model is the large 0x1002C970 family. It drives HTTP (0x100080D
 | md5 | 1 | MD5 helper. |
 | platform | 1 | Win32/CRT glue. |
 
-## Inventory
+## Coverage
 
-The detail table above gives the full count for this module. The exhaustive per-VA table (role, size, source, evidence) is in [the GunDll.dll index](../va_index/GunDll_dll.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/GunDll_dll.md)
+All 3213 classified VAs are in [the GunDll.dll index](../va_index/GunDll_dll.md), which lists role, size, source, and evidence.

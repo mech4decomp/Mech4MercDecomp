@@ -4,14 +4,6 @@
 
 Keyboard/mouse/joystick state and command bindings.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 The window procedure is 0x0072E580. Keyboard and mouse state is kept in a 256-bit bitmap: 0x007238D0 sets a bit, 0x007239A0 clears it, and 0x007239F0 copies the per-frame snapshot. Queries are 0x00723A30 and 0x00723B40.
@@ -37,13 +29,6 @@ The command table at 0x0077B9D8 maps command IDs to handlers. Bindings are loade
 | directinput | 1 | DirectInput device enumeration and GUID/name lookup. |
 | window | 1 | Window procedure and message routing. |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 11 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence.

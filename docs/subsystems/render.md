@@ -4,14 +4,6 @@
 
 Owns the MidLevelRenderer (MLR) scene pipeline and the D3D7 immediate-mode device boundary. It turns game state into sorted draw records, evaluates animation and lighting, streams terrain and textures, and hands final primitives to the device and present paths.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 The frame path starts at 0x00496280, which walks the active scene nodes and updates their render records. Camera and visibility code at 0x004C35B0 and 0x004C40E0 builds the view/frustum used by the traversal.
@@ -57,17 +49,6 @@ Geometry families under `mesh` and `vertex` build buffers and transforms. The `a
 | font | 9 | Font/log-text glyph rendering. |
 | frame | 2 | Per-frame renderer update and node dispatch. |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-**Shared VAs:** 146. They are described once in [shared.md](shared.md#render); this page does not repeat the list.
-
-**Boundary VAs:** 316 outbound calls. The full table is in [SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 2708 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence. 146 are shared ([shared.md](shared.md#render)). 316 are outbound boundary calls ([SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md)).

@@ -7,7 +7,7 @@ RE.
 
 ## TL;DR
 
-- **One version value, stored in two hardcoded copies**: `"50.07.01.2105"`
+- **One version value, stored in two live hardcoded copies**: `"50.07.01.2105"`
   (`.rdata` `0x0076CB3C`, loaded at startup into `g_game_version`
   `0x00858924`, and `0x00773040`, read by the join handshake and saved-data
   paths). This is the official Point Release 1 (PR1) build.
@@ -24,21 +24,21 @@ RE.
   failure string is `"Incompatible Protocol version mismatch."`
   (`0x007A04DC`, ZoneTech error `0xC1120C05`).
 - **There *is* an in-game join handshake** (net event `0x0A`, `FUN_0053F210`,
-  §7): the joiner sends a packed 64-bit **version code** (derived from
+  see §7): the joiner sends a packed 64-bit **version code** (derived from
   `"50.07.01.2105"`) and an 8-byte **content checksum**; the receiver compares
   both against its own computation and answers `0x0B` (reject + status) or
   `0x0C` (accept + checksum echo the joiner re-verifies in `FUN_0053F9B0`).
   Mismatches log `Player_Reject\t%d\t%d` (`0x0077B730`) with status `4`
   (content), `5` (version), `6` (banned IP) or `8` (duplicate player GUID).
   The content checksum covers the code bytes of the 15 resource-loader
-  functions plus one mission archive entry (§8).
+  functions plus one mission archive entry (see §8).
 - The connect path's DirectPlay *application GUID* (`0x007A2E30` =
   `{36E95EE0-8577-11CF-960C-0080C7534E82}`) is game identity only, identical
   across builds. The advertisement + browser filter/sort is advisory; the join
   handshake is the actual same-build gate.
 - The handshake and the variant self-digest are the game's two integrity
-  checks; §10 describes what each one covers, and §11 lists the observed
-  limitations.
+  checks; see §8 and §9 for what each one covers, and §11 for the
+  observed limitations.
 
 ## 1. The version value
 
@@ -61,7 +61,7 @@ registry key is `"Software\Microsoft\Microsoft Games\%s"` (format `0x007A6918`)
 and `FUN_007086D0` / `FUN_00708880` read/write a value named by `g_858924`
 (window size, perf counter, exe date). So each build keeps its own settings.
 
-### 1.1 The four fields (and the two hardcoded copies)
+### 1.1 The four fields (and the two live copies)
 
 The string is four `.`-separated decimal fields of **2+2+2+4 digits**
 (`50` `07` `01` `2105`). Nothing in the game assigns meaning to them
@@ -78,8 +78,8 @@ family shows the convention:
 (`50` = MW4 family, field 2 = title/generation, field 3 = minor series,
 field 4 = build number; see `docs/editor_tools/` for the tool versions.)
 
-There are **two hardcoded copies**, both read-only literals, and they are read
-by different subsystems:
+There are **two live hardcoded copies**, both read-only literals, read by
+different subsystems:
 
 | Copy | Address | Consumers |
 |---|---|---|
@@ -254,18 +254,18 @@ errors such as `"The requested component version in not available."`
   same for every build, so it does not separate versions.
 - **The advertised `GameVersion` attribute is not what the join handshake
   checks.** The handshake's version code is computed from the second hardcoded
-  copy `DAT_00773040` (§1.1), not from the advertised string nor from
+  copy `DAT_00773040` (see §1.1), not from the advertised string nor from
   `g_858924`; so a host can advertise an arbitrary `GameVersion` yet the
   in-session check still validates the real build (and vice versa).
 - **The browser filter/sort is advisory.** A client can reach a session whose
   advertised version differs (join directly, or disable the browser version
-  filters); the lobby protocol check and the join handshake (§7) are the
+  filters); the lobby protocol check and the join handshake (see §7) are the
   enforcement, and the UI deliberately surfaces both versions
   (`ReferenceVersion` vs `LocalGameVersion`) so the player can decide.
 - **What is not gated at all:** content outside the 15 hashed loader functions
   and the mission entry, the peer's actual variant files (only a local
-  self-digest, §9), the peer's identity/IP fields (self-reported), and
-  anything after join (no runtime re-validation, §10).
+  self-digest, see §9), the peer's identity/IP fields (self-reported), and
+  anything after join (no runtime re-validation, see §10).
 
 ## 6. Related version checks (not multiplayer)
 
@@ -296,8 +296,7 @@ client compatibility:
 ## 7. Join-time validation — net event `0x0A` (`FUN_0053F210`)
 
 This is the actual same-build/content gate, and it happens **in-session** (after
-the DirectPlay connect). It corrects an earlier reading of this doc: there *is*
-a join-time build check.
+the DirectPlay connect).
 
 ### 7.1 The message path
 

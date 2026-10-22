@@ -2,19 +2,11 @@
 
 > **Binary:** `MW4Mercs.exe` | **Classified VAs:** 256 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
 
-Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper.
-
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
+Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the in-image SafeDisc/anti-tamper wrapper.
 
 ## How it works
 
-The IAT jump thunks occupy 0x0075DB4A-0x0076015C, inside the SafeDisc/anti-tamper region 0x0075DB4A-0x0076A381 (which spans the end of `.text` and the `.txt2` section); representative functions include 0x00762410 (anti-tamper jump chains) and 0x00760530 (SafeDisc call setup).
+The IAT jump thunks occupy 0x0075DB4A-0x0076015C. The SafeDisc/anti-tamper tail runs from the end of the thunks through `.txt2` (0x0076015C-0x0076A381); representative functions include 0x00762410 (anti-tamper jump chains) and 0x00760530 (SafeDisc call setup).
 
 COM, DLL loading, registry access, and DirectDraw/D3D glue also live here. This is the OS boundary used by render, audio, input, and net.
 
@@ -36,13 +28,6 @@ COM, DLL loading, registry access, and DirectDraw/D3D glue also live here. This 
 | (general) | 7 | Win32/COM/DLL/registry glue outside the named platform details. |
 | dll | 1 | Runtime DLL load/resolve glue. |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 256 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence.

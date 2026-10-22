@@ -60,12 +60,12 @@ The default build does not read the reference binaries. The repository
 contains the generated non-`.text` data sources and the reference-derived
 `.bin` artifacts, so you can build without owning or supplying the game.
 
-The reference binaries are needed only for these optional operations:
+The reference binaries are used only for these optional operations:
 
 - `nmake data` / `nmake module-data` - regenerate data sources from a reference.
 - `nmake init` / `nmake dll-init` - regenerate metadata artifacts.
-- `nmake exe` / `nmake dll` - run the final byte diff (skipped if the
-  reference file is absent).
+- `nmake exe` / `nmake dll` - run the final byte diff after the build (skipped
+  if the reference file is absent).
 - `nmake diff` / `nmake nomask` - per-function comparison.
 
 If you want those checks, copy your own files into `reference/` and verify them
@@ -132,21 +132,14 @@ nmake verify
 ```
 
 Expected hashes are in `reference/SHA256.txt`. The command checks the EXE and
-all six built DLLs, so build every module first if you want a full pass.
+all six DLLs, so build every target first for a full pass; a missing image is
+reported as a failure.
 
 ## Per-function workflow (optional)
 
-These checks compare one source file against a reference binary, so they need
-the corresponding file under `reference/`:
-
-```bat
-nmake one SRC=src\mw4mercs\text\func_00401000.c
-nmake diff FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
-nmake nomask FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
-```
-
-The masked diff ignores relocation slots. The no-mask check resolves them from
-the committed table and compares every byte.
+Per-function checks are documented in
+[Verification](VERIFICATION.md#3-per-function-checks-optional); they need the
+corresponding reference binary.
 
 ## Windows 11 notes
 
@@ -206,11 +199,12 @@ so `/Iinclude` resolves, or use `tools\compile_one.bat`.
 **`missing committed artifacts` / empty extern table** — run `nmake objs`
 before `nmake init`. `init` learns symbols from the compiled objects.
 
-**Data-section mismatch** — your reference binary does not match the expected
-hash. Verify `reference/SHA256.txt`.
+**Data-section mismatch after `nmake data`** — the reference binary does not
+match the expected hash. Verify `reference/SHA256.txt`.
 
-**Module data mismatch** — make sure the matching DLL in `reference/` is the
-canonical one; each module is diffed against its own binary.
+**Module data mismatch after `nmake module-data`** — make sure the matching DLL
+in `reference/` is the canonical one; each module is regenerated against its
+own binary.
 
 **Build is slow** — the first EXE build compiles ~13,800 translation units.
 Subsequent builds are incremental. `build_text_objs.py` skips objects that are

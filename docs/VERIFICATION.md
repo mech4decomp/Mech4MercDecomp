@@ -80,8 +80,9 @@ Both checks need the corresponding reference binary.
 
 ## Reproducibility notes
 
-- The PE timestamp/checksum/Rich header are pinned by the committed
-  `pe_headers.bin` artifact, not by the current clock.
+- The EXE PE timestamp/checksum/Rich header are pinned by the committed
+  `pe_headers.bin`; module headers are pinned by each module's `header.bin`.
+  Neither depends on the current clock.
 - The generated non-`.text` data sources and `.bin` artifacts are committed.
   The default build reads no reference content.
 - `nmake data`, `nmake init`, and `nmake dll-init` are the optional

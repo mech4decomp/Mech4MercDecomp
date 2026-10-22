@@ -1,8 +1,6 @@
 # autoconfig_MERCS.exe — GameOS AutoConfig / Driver-Diagnostics Tool (deep-dive)
 
-> Reference record; not an oracle target. Analyzed with Ghidra; the analysis
-> project and dumps are not part of this repository. No source tree, no
-> byte-identity gate.
+> Reference record; not an oracle target. See the [editor-tools overview](README.md).
 
 ## 1. Binary facts
 
@@ -55,7 +53,7 @@ The tool is the standalone, interactive form of the game's built-in
 autoconfig — the same GameOS code paths that MW4Mercs' `-noautoconfig`
 switch skips.
 
-## 3. Layout — .text regions
+## 3. Layout — code and data ranges
 
 | Range | Size | Content |
 |---|---|---|

@@ -4,14 +4,6 @@
 
 Engine/runtime services: memory, reference counting, threads and locks, object lifetime, and virtual/command dispatch.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 Allocation wrappers at 0x004084D0 and 0x004084E0 sit under most object construction. Reference-counted buffers, vtable helpers, and object-lifetime code make up the `object` detail; dispatch and jump-table glue make up `dispatch`.
@@ -34,13 +26,6 @@ Threads, critical sections, events, and message queues are grouped under the gen
 | (general) | 296 | Runtime services outside the object/memory/dispatch details. |
 | memory | 130 | Allocation, reference counting, and buffer ownership. |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 2626 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence.

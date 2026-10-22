@@ -4,14 +4,6 @@
 
 Logging API (`GetngLogAPI`) with lifecycle, emit, MD5, and memory helpers.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 `GetngLogAPI` at 0x10001C6E returns an 8-slot method table. The lifecycle detail initializes/shuts down the log; emit writes messages; md5 and mem are support helpers.
@@ -35,12 +27,6 @@ Logging API (`GetngLogAPI`) with lifecycle, emit, MD5, and memory helpers.
 | data | 1 | Initialized data. |
 | rdata | 1 | Read-only constants and vtables. |
 
-## Inventory
+## Coverage
 
-The detail table above gives the full count for this module. The exhaustive per-VA table (role, size, source, evidence) is in [the ZlogLib.dll index](../va_index/ZlogLib_dll.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/ZlogLib_dll.md)
+All 33 classified VAs are in [the ZlogLib.dll index](../va_index/ZlogLib_dll.md), which lists role, size, source, and evidence.

@@ -4,14 +4,6 @@
 
 Non-code sections and in-.text jump/pointer tables.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 `.rdata` holds constants, vtables, and import tables; `.data` holds initialized state; `.rsrc` is the PE resource directory; `.txt2` is the SafeDisc leftover. In-.text data blocks are jump or pointer tables emitted as data placeholders.
@@ -37,13 +29,6 @@ These data sources are committed, so the default build is reference-free. `nmake
 | rsrc | 4 | PE resource directory. |
 | txt2 | 2 | SafeDisc .txt2 section (out of scope). |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 638 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence.

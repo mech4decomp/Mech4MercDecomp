@@ -15,8 +15,7 @@ byte-identical; changing them would break that guarantee.
 
 - Changes to `src/`, `include/`, `Makefile`, or build tooling that alter the
   oracle output.
-- Game binaries, game assets, extracted data sections, or other copyrighted
-  material.
+- Reference binaries, original game assets, or private build outputs.
 - Personal information, tokens, or private paths.
 
 If you believe a source transcription is wrong, open an issue first. Include:
@@ -59,12 +58,13 @@ Maintainers publish merged documentation changes with:
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/publish_docs.ps1
 ```
 
-The script builds the site, adds `.nojekyll`, and pushes the `gh-pages` branch
-that GitHub Pages serves.
+The script builds the site and pushes the `gh-pages` branch that GitHub Pages
+serves.
 
 ## Pull requests
 
 - Keep changes focused on documentation.
 - Explain what was wrong and how you verified the correction.
-- Do not include generated build outputs, reference binaries, or data dumps.
+- Do not include build outputs or reference binaries; committed data sources
+  are part of the repository and should not be regenerated in a PR.
 - A maintainer will review for accuracy and scope.

@@ -4,14 +4,6 @@
 
 `#VBD` archives, streams, file I/O, and path handling.
 
-## Contents
-
-- [How it works](#how-it-works)
-- [Key entry points](#key-entry-points)
-- [Details](#details)
-- [Inventory](#inventory)
-- [Related](#related)
-
 ## How it works
 
 The archive layer owns the #VBD directory, entry hash chains, lazy member fetch/decompression, and the stream vtable. Open and close are at 0x004145E0 and 0x004148F0; open-from-stream is 0x00414820; the empty-archive initializer is 0x00413E90.
@@ -40,13 +32,6 @@ Member fetch is 0x00413830; the by-index, by-name, and iterator dispatchers are 
 | stream | 30 | Stream vtable and memory/file stream implementations. |
 | (general) | 2 | Archive helpers outside the #VBD/stream details. |
 
-## Inventory
+## Coverage
 
-The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
-
-## Related
-
-- [All subsystems](README.md)
-- [Shared VAs](shared.md)
-- [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
+All 285 classified VAs are in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md), which lists role, size, source, and evidence.
