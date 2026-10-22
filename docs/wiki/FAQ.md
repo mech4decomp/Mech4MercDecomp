@@ -5,16 +5,20 @@ No. It is disassembly transcription in MSVC6 inline assembly; it recompiles to
 the original bytes.
 
 **Why not clean C++?**
-Byte identity is the gate. Clean reimplementations belong to a separate
-fork/mod project.
+Byte identity is the gate. Reconstructed C++ would compile to different bytes,
+so the oracle transcribes the original machine code.
 
 **Does it include the game or assets?**
 No. Supply your own reference binaries and verify them against
 `reference/SHA256.txt`.
 
-**Why are data sections missing?**
-They are original game data and are not committed. `nmake data` regenerates
-them from your reference.
+**Why are data sections missing, but in-`.text` tables included?**
+In-`.text` tables (switch/jump/pointer tables) are part of the function layout
+and are required to reproduce the `.text` bytes; they are small and
+code-structural. `.rdata`/`.data`/`.rsrc`/`.txt2` are whole PE data sections
+containing bulk game data, strings, resources, and the SafeDisc leftover.
+Committing them would redistribute a large part of the original binary; they
+are regenerated from your reference by `nmake data`.
 
 **Can I build a playable EXE?**
 Yes, if you own the game and supply the canonical reference.

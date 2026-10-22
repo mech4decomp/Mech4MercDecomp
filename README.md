@@ -4,10 +4,9 @@ A complete, byte-identical recompilation of the MechWarrior 4: Mercenaries
 binaries, produced by transcribing the original machine code into MSVC6 inline
 assembly and verifying every function against the reference bytes.
 
-This repository is the **oracle track only**: the byte-matching decompilation
-source, its build/verification tooling, and the research documentation. It is
-not a rebuilt original-source tree, and it does not contain the fork/mod work
-that is developed separately.
+This repository is the **oracle recompilation**: the byte-matching
+decompilation source, its build/verification tooling, and the research
+documentation. It is not a rebuilt original-source tree.
 
 ## What this is
 
@@ -26,8 +25,6 @@ that is developed separately.
   transcription, not a reconstructed C++ implementation.
 - **Not a game distribution.** No executables, DLLs, art, audio, maps, or other
   game assets are included. You must own a legitimate copy of the game.
-- **Not a fork/mod base in this repository.** Fork and mod work lives in a
-  separate project; this repository is the stable oracle source of truth.
 - **Not accepting code changes.** The oracle is complete and frozen; only
   documentation corrections are accepted.
 

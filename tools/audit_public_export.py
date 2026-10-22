@@ -2,13 +2,12 @@
 """Audit the public oracle export before publishing.
 
 This is deliberately stricter than a normal lint: it enforces the separation
-between the private development/fork tree and the public oracle snapshot.
+between private development material and the public oracle snapshot.
 
 Checks:
-  * forbidden paths (fork/, generated data sections, binary artifacts, etc.)
+  * forbidden paths (generated data sections, binary artifacts, etc.)
   * forbidden binary files (reference EXEs/DLLs, objs, PDBs, archives)
-  * forbidden text markers (tokens, personal identifiers, absolute paths,
-    private fork markers)
+  * forbidden text markers (tokens, personal identifiers, absolute paths)
   * required public files and source inventory
 
 Usage:
@@ -22,24 +21,10 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 FORBIDDEN_DIRS = {
-    "fork", ".opencode", ".vscode", "build",
+    ".opencode", ".vscode", "build",
     "Mech_tools", "MechCommander2-Source", "Mechwarrior 4 Mercenaries",
 }
 FORBIDDEN_TOP_FILES = {"opencode.jsonc"}
-FORBIDDEN_DOC_DIRS = {"docs/fork", "docs/draft_ideas"}
-FORBIDDEN_DOC_FILES = {
-    "BLADE_CLEAN_REIMPLEMENTATION.md", "BLADE_MODERNIZATION_PLAN.md",
-    "CAMERA_DISPLAY_CLEAN_REIMPLEMENTATION.md", "COMBAT_CLEAN_REIMPLEMENTATION.md",
-    "FORK_EXE_BOUNDARIES.md", "FORK_PLAN.md",
-    "GUNDLL_CLEAN_REIMPLEMENTATION.md", "GUNDLL_MODERNIZATION_PLAN.md",
-    "I18N_CLEAN_REIMPLEMENTATION.md", "MECHPAK_CLEAN_REIMPLEMENTATION.md",
-    "MLR_CLEAN_REIMPLEMENTATION.md", "MLR_TERRAIN_CLEAN_REIMPLEMENTATION.md",
-    "MODULE_FORK_PLAN.md", "NET_CLEAN_REIMPLEMENTATION.md",
-    "NET_RELAY_SCALING.md", "OPTIONS_CLEAN_REIMPLEMENTATION.md",
-    "RENDER_SWAP_PLAN.md", "SELF_DAMAGE_INVESTIGATION.md",
-    "SHADER_MODERNIZATION_PLAN.md", "STATS_CLEAN_REIMPLEMENTATION.md",
-    "ZLOG_CLEAN_REIMPLEMENTATION.md", "ZOOM_CLEAN_REIMPLEMENTATION.md",
-}
 FORBIDDEN_BINARY_EXT = {
     ".exe", ".dll", ".obj", ".pdb", ".lib", ".bin", ".mw4",
     ".zip", ".7z", ".iso", ".icd",
@@ -47,8 +32,6 @@ FORBIDDEN_BINARY_EXT = {
 FORBIDDEN_MARKERS = [
     "ghp_", "github_pat_", "dkelly123190", "dkelly@",
     "D:\\MW4_DECOMP", "D:/MW4_DECOMP",
-    "mw4fork", "fork_map.csv", "FORK_PLAN", "FORK_EXE_BOUNDARIES",
-    "CLEAN_REIMPLEMENTATION", "RENDER_SWAP_PLAN", "MODULE_FORK_PLAN",
 ]
 TEXT_EXT = {
     ".c", ".h", ".py", ".md", ".txt", ".csv", ".bat", ".ps1",
@@ -117,10 +100,6 @@ def main():
             errors.append("legacy link stubs: %s" % rel)
         if "/artifacts/" in rel and rel.endswith(".bin"):
             errors.append("binary build artifact: %s" % rel)
-        if rel.startswith("docs/") and parts[1] in ("fork", "draft_ideas"):
-            errors.append("private docs directory: %s" % rel)
-        if rel.startswith("docs/") and parts[-1] in FORBIDDEN_DOC_FILES:
-            errors.append("private/fork doc: %s" % rel)
         if rel.startswith("reference/") and os.path.splitext(rel)[1].lower() in (".exe", ".dll", ".icd"):
             errors.append("reference binary must not be committed: %s" % rel)
         ext = os.path.splitext(rel)[1].lower()

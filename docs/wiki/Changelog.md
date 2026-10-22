@@ -8,5 +8,5 @@
   gate.
 - Added the public build guide, verification methodology, architecture notes,
   per-VA indexes, data annotation indexes, and module notes.
-- Excluded fork/mod work, reference binaries, game assets, generated data
-  sections, and private build artifacts.
+- Excluded reference binaries, game assets, generated data sections, and
+  private build artifacts.

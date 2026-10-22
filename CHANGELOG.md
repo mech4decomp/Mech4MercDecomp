@@ -8,5 +8,5 @@
   diff/no-mask verification tools.
 - Added the public build guide, verification methodology, architecture notes,
   per-VA subsystem indexes, data annotation indexes, and module notes.
-- Excluded all fork/mod work, reference binaries, game assets, generated data
-  sections, and private build artifacts.
+- Excluded reference binaries, game assets, generated data sections, and
+  private build artifacts.

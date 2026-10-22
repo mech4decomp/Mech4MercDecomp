@@ -98,5 +98,3 @@ relocation, and section-composition errors that per-function checks cannot.
 - The four editor/config tools shipped with the game (documented under
   `docs/editor_tools/`, not oracle targets).
 - `ScriptStrings_MERCS.dll` (resource-only, no code).
-- Fork/mod/hook implementations. This repository is the oracle source of truth;
-  fork work is a separate project.

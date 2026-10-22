@@ -7,16 +7,20 @@ source reconstruction.
 
 **Why not write clean C++?**
 Byte identity is the acceptance criterion. Reconstructed C++ would compile to
-different bytes. Clean reimplementations belong to a separate fork/mod project.
+different bytes, so the oracle transcribes the original machine code instead.
 
 **Does this repository include the game or its assets?**
 No. You must own the game and supply the reference binaries. No art, audio,
 maps, missions, or other assets are hosted here.
 
-**Why are the data sections missing?**
-The `.rdata`/`.data`/`.rsrc`/`.txt2` byte runs are original game data and are
-intentionally not committed. `nmake data` generates them from your own
-reference. The build remains fully reproducible.
+**Why are the data sections missing, but in-`.text` tables included?**
+In-`.text` tables (switch/jump/pointer tables) are part of the function layout
+and are required to reproduce the `.text` bytes; they are small and
+code-structural. `.rdata`/`.data`/`.rsrc`/`.txt2` are whole PE data sections
+containing bulk game data, strings, resources, and the SafeDisc leftover. They
+are not needed as source, and committing them would redistribute a large part
+of the original binary. `nmake data` regenerates them from your own reference,
+so the build remains fully reproducible.
 
 **Can I build a playable EXE?**
 If you own the game and supply the canonical reference, the build produces a
@@ -38,14 +42,6 @@ and the canonical SHA-256 hashes. See `docs/VERIFICATION.md`.
 **Can I contribute code?**
 No. The oracle is frozen. Documentation corrections are welcome; see
 `CONTRIBUTING.md`.
-
-**Can I use this for my own fork/mod?**
-This repository is the oracle source of truth. Fork/mod work is a separate
-project; see `LICENSE` and `NOTICE.md` for the licensing position.
-
-**Why is the fork/mod work not here?**
-The goal is a clean public oracle that others can use as a reference. Fork
-code, hook implementations, and design plans are intentionally kept separate.
 
 **Does the build need Ghidra?**
 No. Ghidra is optional for RE and for the optional analysis tools. The build

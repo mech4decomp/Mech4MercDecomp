@@ -56,8 +56,8 @@
 
 ## Repository policy
 
-`audit_public_export.py` enforces the public export policy (no fork work, no
-reference binaries, no generated data sections, no tokens/private paths).
+`audit_public_export.py` enforces the public export policy (no reference
+binaries, no generated data sections, no tokens or private paths).
 `publish_wiki.ps1` publishes `docs/wiki/*.md` to the GitHub wiki.
 
-Fork/hook/clean-reimplementation tooling is intentionally not included.
+Additional analysis tooling is intentionally not included.

@@ -15,7 +15,6 @@ It is **not** the original source code and is not a game distribution.
 - No art, audio, maps, missions, localization data, or other game assets.
 - No extracted `.rdata`/`.data`/`.rsrc`/`.txt2` byte dumps.
 - No SafeDisc/DRM implementation.
-- No fork/mod/hook implementation.
 
 The non-`.text` sections are generated locally from the user's own reference by
 `nmake data` / `nmake module-data`. The generated files are gitignored.

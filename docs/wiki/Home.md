@@ -1,12 +1,11 @@
 # MechWarrior 4: Mercenaries — Oracle Recompilation
 
-This wiki documents the **oracle track**: a byte-identical recompilation of
-`MW4Mercs.exe` and the six code-bearing game DLLs, produced by transcribing the
-original machine code into MSVC6 inline assembly.
+This wiki documents the **oracle recompilation**: a byte-identical reproduction
+of `MW4Mercs.exe` and the six code-bearing game DLLs, produced by transcribing
+the original machine code into MSVC6 inline assembly.
 
 The repository contains the source, build/verification tooling, and research
-notes. It does **not** contain the game, its assets, or the separate fork/mod
-work.
+notes. It does **not** contain the game or its assets.
 
 ## Start here
 

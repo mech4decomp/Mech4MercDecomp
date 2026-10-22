@@ -1,14 +1,10 @@
-# Agent / contributor guide — oracle track only
+# Agent / contributor guide
 
 ## Scope
 
-This repository is the **byte-identical oracle track**. The sources are
-complete and frozen. Do not modify `src/`, `include/`, or the build tooling to
-change behavior. Documentation corrections are welcome.
-
-The fork/mod/clean-reimplementation work is intentionally **not** part of this
-repository. Do not add hook code, fork design docs, or source-reconstruction
-work here.
+This repository is the **byte-identical oracle**. The sources are complete and
+frozen. Do not modify `src/`, `include/`, or the build tooling to change
+behavior. Documentation corrections are welcome.
 
 ## Canonical targets
 
@@ -64,5 +60,4 @@ Generated data sections (`src/*/rdata`, `src/*/data`, `src/*/rsrc`,
   artifacts.
 - Never add personal information, tokens, or absolute local paths.
 - Keep docs factual and evidence-based (binary, VA, section, hash).
-- Do not add fork/mod code or fork-specific design documents.
 - Do not change oracle sources without maintainer approval and a byte gate.

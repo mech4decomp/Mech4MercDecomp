@@ -1,7 +1,7 @@
 # Contributing
 
-This is the frozen oracle track. Documentation corrections are welcome; code
-changes are not.
+This is the frozen oracle. Documentation corrections are welcome; code changes
+are not.
 
 ## Accept
 
@@ -12,7 +12,6 @@ changes are not.
 ## Do not submit
 
 - Changes to `src/`, `include/`, or build tooling that alter output.
-- Fork/mod/hook code or fork design documents.
 - Game binaries, assets, extracted data sections, or other copyrighted
   material.
 - Personal information, tokens, or absolute private paths.

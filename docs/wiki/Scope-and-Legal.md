@@ -10,7 +10,6 @@
 
 - Not the original source code.
 - Not a game distribution: no binaries, art, audio, maps, or assets.
-- Not the fork/mod project. Fork work is separate.
 - Not accepting code changes; documentation corrections only.
 
 ## Reference binaries

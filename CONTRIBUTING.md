@@ -1,7 +1,7 @@
 # Contributing
 
-This repository is the frozen oracle track. The recompiled sources are
-complete and byte-identical; changing them would break that guarantee.
+This repository is the frozen oracle. The recompiled sources are complete and
+byte-identical; changing them would break that guarantee.
 **Documentation contributions are welcome. Code contributions are not.**
 
 ## What we accept
@@ -15,12 +15,9 @@ complete and byte-identical; changing them would break that guarantee.
 
 - Changes to `src/`, `include/`, `Makefile`, or build tooling that alter the
   oracle output.
-- Fork/mod/hook code or fork-specific design documents.
 - Game binaries, game assets, extracted data sections, or other copyrighted
   material.
 - Personal information, tokens, or private paths.
-- "Clean reimplementation" or source-reconstruction work. That is a separate
-  project; this repository documents the byte-matching oracle.
 
 If you believe a source transcription is wrong, open an issue first. Include:
 
@@ -38,7 +35,7 @@ If you believe a source transcription is wrong, open an issue first. Include:
 - Cite evidence: binary, VA, section, and hash.
 - Do not paste large blocks of original game data or assets. Short
   disassembly/hex excerpts for evidence are fine.
-- Keep the tone factual; this is a reference project, not a mod showcase.
+- Keep the tone factual; this is a reference project, not a showcase.
 
 ## Licensing of contributions
 
@@ -52,4 +49,4 @@ publish.
 - Keep changes focused on documentation.
 - Explain what was wrong and how you verified the correction.
 - Do not include generated build outputs, reference binaries, or data dumps.
-- A maintainer will review for accuracy and separation from fork work.
+- A maintainer will review for accuracy and scope.
