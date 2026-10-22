@@ -1,0 +1,36 @@
+/*
+ * FUN_10041eae (46 B) — __thiscall.
+ * Wraps two helper calls with a stack-built argument block.
+ *
+ * CFLAGS: /O1
+ */
+
+extern void __cdecl FUN_100444a8(void);
+extern void __cdecl FUN_10041e07(void);
+
+__declspec(naked) void FUN_10041eae(void)
+{
+    __asm {
+        push    ebp
+        mov     ebp, esp
+        sub     esp, 0xc
+        xor     eax, eax
+        push    eax
+        push    eax
+        push    eax
+        push    0x1
+        push    dword ptr [ebp + 0xc]
+        lea     eax, [ebp + 0xc]
+        push    eax
+        lea     eax, [ebp - 0xc]
+        push    eax
+        call    FUN_100444a8
+        push    dword ptr [ebp + 0x8]
+        lea     eax, [ebp - 0xc]
+        push    eax
+        call    FUN_10041e07
+        add     esp, 0x24
+        leave
+        ret
+    }
+}

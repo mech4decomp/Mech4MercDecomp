@@ -1,0 +1,17 @@
+/*
+ * FUN_0073BAC0 (18 bytes) - .text data block 0x73A900.
+ */
+#pragma warning(disable : 4035 4793)
+
+extern int g_007b73f4;
+
+__declspec(naked) void FUN_0073BAC0(void)
+{
+    __asm {
+        mov    ecx, dword ptr [g_007b73f4]
+        xor    eax, eax
+        cmp    ecx, 0x2000000
+        sete   al
+        ret
+    }
+}

@@ -1,0 +1,95 @@
+/*
+ * DATA_0046fbfb (0x55 bytes @ 0x46fbfb-0x46fc50) - verbatim .text data (jump-table / pointer table; relocated entries reproduced). gen via tools/gen_data.py.
+ */
+#pragma warning(disable : 4035 4793)
+
+__declspec(naked) void DATA_0046fbfb(void)
+{
+    __asm {
+        __emit 0x90
+        __emit 0x90
+        __emit 0x90
+        __emit 0x90
+        __emit 0x90
+        __emit 0xA1
+        __emit 0x88
+        __emit 0x99
+        __emit 0x7D
+        __emit 0x00
+        __emit 0x56
+        __emit 0x50
+        __emit 0xE8
+        __emit 0x44
+        __emit 0x4D
+        __emit 0x28
+        __emit 0x00
+        __emit 0x68
+        __emit 0x88
+        __emit 0x00
+        __emit 0x00
+        __emit 0x00
+        __emit 0xE8
+        __emit 0xBA
+        __emit 0x88
+        __emit 0xF9
+        __emit 0xFF
+        __emit 0x83
+        __emit 0xC4
+        __emit 0x04
+        __emit 0x85
+        __emit 0xC0
+        __emit 0x74
+        __emit 0x23
+        __emit 0x8B
+        __emit 0x4C
+        __emit 0x24
+        __emit 0x0C
+        __emit 0x8B
+        __emit 0x54
+        __emit 0x24
+        __emit 0x08
+        __emit 0x51
+        __emit 0x8B
+        __emit 0x0D
+        __emit 0x84
+        __emit 0x99
+        __emit 0x7D
+        __emit 0x00
+        __emit 0x52
+        __emit 0x51
+        __emit 0x8B
+        __emit 0xC8
+        __emit 0xE8
+        __emit 0xCB
+        __emit 0xFE
+        __emit 0xFF
+        __emit 0xFF
+        __emit 0x8B
+        __emit 0xF0
+        __emit 0xE8
+        __emit 0x64
+        __emit 0x4D
+        __emit 0x28
+        __emit 0x00
+        __emit 0x8B
+        __emit 0xC6
+        __emit 0x5E
+        __emit 0xC3
+        __emit 0x33
+        __emit 0xF6
+        __emit 0xE8
+        __emit 0x59
+        __emit 0x4D
+        __emit 0x28
+        __emit 0x00
+        __emit 0x8B
+        __emit 0xC6
+        __emit 0x5E
+        __emit 0xC3
+        __emit 0x90
+        __emit 0x90
+        __emit 0x90
+        __emit 0x90
+        __emit 0x90
+    }
+}

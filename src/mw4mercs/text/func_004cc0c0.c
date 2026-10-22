@@ -1,0 +1,55 @@
+/*
+ * FUN_004CC0C0 (59 B) — Allocator/init for Adept::InBox singleton.
+ *
+ * __cdecl. Allocates 0x20 bytes via FUN_004084d0, then calls
+ * FUN_004d5c10 to construct an object. Stores result in DAT_007db084.
+ *
+ * CFLAGS: /O1
+ * Match: target 100%
+ */
+
+extern void * __stdcall FUN_004084d0(int size);
+extern int __fastcall FUN_004d5c10(int size, const char *name, void *parent, int flags, void *vtable);
+
+__declspec(naked) void __cdecl FUN_004cc0c0(void)
+{
+    __asm {
+        push    0x20
+        call    FUN_004084d0
+        add     esp, 4
+        test    eax, eax
+        jz      l_set_null
+        _emit 0x8B
+        _emit 0x0D
+        _emit 0x40
+        _emit 0xC1
+        _emit 0x7D
+        _emit 0x00
+        push    0
+        push    0
+        push    ecx
+        push    0x7719b8
+        push    0x1d6
+        mov     ecx, eax
+        call    FUN_004d5c10
+        _emit 0xA3
+        _emit 0x84
+        _emit 0xB0
+        _emit 0x7D
+        _emit 0x00
+        ret
+
+    l_set_null:
+        _emit 0xC7
+        _emit 0x05
+        _emit 0x84
+        _emit 0xB0
+        _emit 0x7D
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        ret
+    }
+}

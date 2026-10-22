@@ -1,0 +1,26 @@
+Mech4MercDecomp — licensing
+
+Documentation
+-------------
+All documentation in this repository (Markdown files, diagrams, tables, and
+other prose) is licensed under the Creative Commons Attribution 4.0
+International License (CC BY 4.0).
+
+You are free to share and adapt the documentation for any purpose, provided
+you give appropriate credit, link to the license, and indicate if changes were
+made.
+
+License text: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+Recompiled source code
+----------------------
+The recompiled source code (the `src/` and `include/` trees and the build
+tooling) is provided for educational and interoperability purposes only.
+No license is granted to the original game code, game assets, or trademarks.
+No license is granted to redistribute or commercially exploit the recompiled
+source. See `NOTICE.md` for the full disclaimer.
+
+Rights in the original MechWarrior 4: Mercenaries code and assets remain with
+their respective owners. This project is not affiliated with or endorsed by any
+rights holder.

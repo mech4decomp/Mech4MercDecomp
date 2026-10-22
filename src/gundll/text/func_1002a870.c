@@ -1,0 +1,28 @@
+/*
+ * FUN_1002a870 (30 B) - __thiscall dtor. Calls FUN_1002aa40, frees via
+ * FUN_10001d60 if (param_1 & 1).
+ *
+ * CFLAGS: /O1
+ * Match: target 100%
+ */
+
+extern void __cdecl FUN_1002aa40(void);   /* rel32 call */
+extern void __cdecl FUN_10001d60(void);   /* rel32 call */
+
+__declspec(naked) void FUN_1002a870(void)
+{
+    __asm {
+        push    esi
+        mov     esi, ecx
+        call    FUN_1002aa40
+        test    byte ptr [esp + 8], 1
+        jz      L_skip
+        push    esi
+        call    FUN_10001d60
+        add     esp, 4
+L_skip:
+        mov     eax, esi
+        pop     esi
+        ret     4
+    }
+}

@@ -1,0 +1,245 @@
+/*
+ * FUN_0065b33e (extent 0x65b33e-0x65b514) - gen via tools/gen_bigfunc.py.
+ */
+#pragma warning(disable : 4035 4793)
+
+extern float  g_0076d040;
+extern float  g_0076d070;
+extern float  g_007748c8;
+extern void __cdecl FUN_004084e0(void);
+extern void __cdecl FUN_0041fd80(void);
+extern void __cdecl FUN_005c1720(void);
+extern void __cdecl FUN_005c9850(void);
+extern void __cdecl FUN_005c98a0(void);
+extern void __cdecl FUN_005dd7a0(void);
+extern void __cdecl FUN_0065a840(void);
+extern void __cdecl FUN_0065a910(void);
+extern void __cdecl FUN_0069eb70(void);
+extern void __cdecl FUN_00707e70(void);
+
+__declspec(naked) void FUN_0065b33e(void)
+{
+    __asm {
+        nop    
+        nop    
+        sub    esp, 8
+        push    esi
+        push    edi
+        mov    edi, ecx
+        mov    esi, dword ptr [edi + 4]
+        mov    eax, dword ptr [esi + 0x170]
+        cmp    byte ptr [eax + 0xdc], 1
+        je    L_b461
+        mov    ecx, eax
+        mov    edx, dword ptr [ecx]
+        push    ebx
+        call    dword ptr [edx + 0x60]
+        cmp    dword ptr [esi + 0x570], eax
+        jne    L_b386
+        fld    dword ptr [esi + 0x56c]
+        fcomp    dword ptr [g_0076d070]
+        fnstsw  ax
+        test    ah, 0x41
+        jne    L_b386
+        mov    eax, dword ptr [edi + 8]
+        push    eax
+        jmp    L_b3bc
+L_b386:
+        lea    ebx, [esi + 0x1c8]
+        mov    ecx, ebx
+        call    FUN_0041fd80
+        cmp    dword ptr [edi + 0x14], eax
+        je    L_b3c5
+        mov    ecx, ebx
+        call    FUN_0041fd80
+        test    eax, eax
+        je    L_b3b8
+        mov    ecx, ebx
+        call    FUN_0041fd80
+        mov    ecx, dword ptr [eax + 0x10]
+        shr    ecx, 0x13
+        and    cl, 1
+        cmp    cl, 1
+        jne    L_b3c5
+L_b3b8:
+        mov    edx, dword ptr [edi + 8]
+        push    edx
+L_b3bc:
+        push    esi
+        call    FUN_0065a840
+        add    esp, 8
+L_b3c5:
+        lea    ecx, [esi + 0x1c8]
+        call    FUN_0041fd80
+        mov    dword ptr [edi + 0x14], eax
+        mov    eax, dword ptr [edi + 8]
+        push    eax
+        push    esi
+        call    FUN_0065a910
+        add    esp, 8
+        sub    eax, 0
+        pop    ebx
+        je    L_b457
+        dec    eax
+        je    L_b402
+        dec    eax
+        jne    L_b461
+        push    0
+        call    FUN_00707e70
+        fsub    dword ptr [g_0076d040]
+        fstp    dword ptr [edi + 0x18]
+        pop    edi
+        pop    esi
+        add    esp, 8
+        ret    
+L_b402:
+        mov    ecx, dword ptr [esi + 0x170]
+        mov    edx, dword ptr [ecx + 0x30]
+        and    edx, 0x80000007
+        jns    L_b418
+        dec    edx
+        or    edx, 0xfffffff8
+        inc    edx
+L_b418:
+        mov    dword ptr [esp + 8], edx
+        fild    dword ptr [esp + 8]
+        push    0
+        fadd    dword ptr [g_007748c8]
+        fadd    dword ptr [edi + 0x18]
+        fstp    qword ptr [esp + 0xc]
+        call    FUN_00707e70
+        fcomp    qword ptr [esp + 8]
+        fnstsw  ax
+        test    ah, 0x41
+        jne    L_b461
+        mov    ecx, esi
+        call    FUN_005c98a0
+        test    al, al
+        jne    L_b461
+        mov    ecx, esi
+        call    FUN_005c9850
+        pop    edi
+        pop    esi
+        add    esp, 8
+        ret    
+L_b457:
+        push    0
+        call    FUN_00707e70
+        fstp    dword ptr [edi + 0x18]
+L_b461:
+        pop    edi
+        pop    esi
+        add    esp, 8
+        ret    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        mov    al, 1
+        ret    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        mov    al, 1
+        ret    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        push    esi
+        mov    esi, ecx
+        mov    ecx, dword ptr [esi + 4]
+        push    1
+        call    FUN_005c1720
+        mov    eax, dword ptr [esi]
+        mov    ecx, esi
+        call    dword ptr [eax]
+        pop    esi
+        ret    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        nop    
+        push    ecx
+        push    esi
+        mov    esi, ecx
+        mov    eax, dword ptr [esi + 0x14]
+        test    eax, eax
+        jne    L_b4c0
+        mov    al, 1
+        pop    esi
+        pop    ecx
+        ret    
+L_b4c0:
+        mov    eax, dword ptr [eax + 0x10]
+        shr    eax, 0x13
+        and    al, 1
+        cmp    al, 1
+        jne    L_b50f
+        mov    edx, dword ptr [esi]
+        mov    ecx, esi
+        call    dword ptr [edx + 0x2c]
+        test    al, al
+        je    L_b50a
+        mov    ecx, dword ptr [esi + 4]
+        lea    eax, [esp + 4]
+        push    eax
+        call    FUN_005dd7a0
+        mov    ecx, dword ptr [esi + 0xc]
+        push    eax
+        push    7
+        call    FUN_0069eb70
+        mov    eax, dword ptr [esp + 4]
+        test    eax, eax
+        je    L_b50a
+        mov    cl, byte ptr [eax - 1]
+        dec    eax
+        dec    cl
+        mov    byte ptr [eax], cl
+        jne    L_b50a
+        push    eax
+        call    FUN_004084e0
+        add    esp, 4
+L_b50a:
+        mov    al, 1
+        pop    esi
+        pop    ecx
+        ret    
+L_b50f:
+        xor    al, al
+        pop    esi
+        pop    ecx
+        ret    
+    }
+}

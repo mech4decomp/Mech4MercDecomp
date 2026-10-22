@@ -1,0 +1,59 @@
+/*
+ * FUN_0x00556200 (104 B)
+ *
+ * __thiscall (ECX = this), RET 4 (one stack param).
+ *
+ * CFLAGS: /O1
+ * Match: target 100%
+ */
+
+__declspec(naked) void __stdcall func_00556200(void)
+{
+    
+
+extern void __cdecl FUN_0061acc8(void);
+extern void __cdecl FUN_0061acf1(void);
+extern void __cdecl FUN_005ba203(void);
+extern void __cdecl FUN_0055b4a7(void);
+__asm {
+push    esi
+        mov     esi, ecx
+        push    edi
+        mov     edi, [esi + 0x384]
+        mov     eax, [edi + 0x10]
+        shr     eax, 0x13
+        test    al, 1
+        jne     L_exit
+        mov     al, [esi + 0x589]
+        test    al, al
+        jne     L_exit
+        mov     al, [esi + 0x5AC]
+        test    al, al
+        jne     L_exit
+        push    0x8000
+        call FUN_0061acc8
+        mov     ecx, eax
+        call FUN_0061acf1
+        test    al, al
+        je      L_exit
+        mov     ecx, [esp + 0x0C]
+        mov     eax, [ecx + 0x10]
+        test    eax, eax
+        jle     L_exit
+        mov     ecx, [edi + 0x3D4]
+        test    ecx, ecx
+        je      L_exit
+        call FUN_005ba203
+        test    eax, eax
+        je      L_exit
+        push    eax
+        mov     ecx, esi
+        call FUN_0055b4a7
+L_exit:
+        pop     edi
+        pop     esi
+        ret     4
+    }
+
+
+}

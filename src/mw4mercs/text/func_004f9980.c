@@ -1,0 +1,33 @@
+/*
+ * FUN_004F9980 (36 B) — Scalar deleting destructor.
+ *
+ * __thiscall (ECX = this), RET 4, 1 stack param (flags byte).
+ * Sets vtable to 0x00775948, calls FUN_00500950() as destructor body.
+ * If (flags & 1), calls FUN_004084E0(this) to free.
+ * Returns this.
+ *
+ * CFLAGS: /O1
+ * Match: target 100%
+ */
+
+extern void __cdecl FUN_00500950(void);
+extern void __cdecl FUN_004084e0(void *ptr);
+
+__declspec(naked) void __stdcall FUN_004f9980(void)
+{
+    __asm {
+        PUSH ESI
+        MOV ESI, ECX
+        MOV DWORD PTR [ESI], 0x00775948
+        CALL FUN_00500950
+        TEST byte ptr [ESP + 0x8], 0x1
+        JZ l_skip_free
+        PUSH ESI
+        CALL FUN_004084e0
+        ADD ESP, 0x4
+    l_skip_free:
+        MOV EAX, ESI
+        POP ESI
+        RET 0x4
+    }
+}

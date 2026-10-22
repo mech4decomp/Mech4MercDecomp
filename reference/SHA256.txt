@@ -1,0 +1,59 @@
+# Reference binary verification
+#
+# The canonical target is the SafeDisc-unwrapped MW4Mercs.exe from the
+# game install root. This file is NOT committed (copyright); supply your
+# own copy and verify it matches:
+#
+#   sha256sum reference/MW4Mercs.exe
+#
+# Expected:
+#   deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f  reference/MW4Mercs.exe
+#   size: 3,915,776 bytes (0x3BC000)
+#
+# Source: "Mechwarrior 4 Mercenaries" (Cypron Studios / Microsoft, 2002),
+# install root, with SafeDisc wrapper removed. The pristine .ICD is NOT
+# the primary target.
+deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f *MW4Mercs.exe
+
+# =============================================================
+# Copied from the game install root, NOT committed (copyright). No SafeDisc
+# wrappers present (no .txt2 section; verified via pe_fingerprint.ps1).
+# Toolchain: Linker 6.0 (MSVC6) for blade/GunDll/MW4Stats/ZlogLib.
+# Each DLL is diffed against its OWN bytes: diff.py --exe reference\<bin>.
+#
+#   sha256sum reference/blade.dll
+03af8be5d047ba02076253009523461ab25922376e2af6a3db1d523df259b295 *ZlogLib.dll
+61de52cb1606422181e03f87e1eeb944b705d69da1ab1e564a566d588ab814d5 *MW4Stats.dll
+d774c9fd2473e069c5c183333e07518392f2782b35582e2672a9479164652c6a *blade.dll
+1e441bc27cf7779d893dc59d2cf52b39c28dee17172f0ae08edd183e481b2410 *GunDll.dll
+
+# Joined the Phase 7 module track (2026-08): localizable string-table DLLs.
+# All Linker 6.0 (MSVC6), ImageBase 0x10000000, no SafeDisc wrapper (no .txt2).
+# Language.dll / MissionLang_MERCS.dll have small .text loaders + statically
+# linked MSVCRT; ScriptStrings_MERCS.dll is a pure resource table (no code).
+# Each must be diffed against its OWN bytes: diff.py --exe reference\<bin>.
+#
+#   sha256sum reference/Language.dll
+8cacab8c2eb11ba1829ca2e57920bd8e191be8c8178dbb7e00352e65ef80c1d6 *Language.dll
+280d422c13d428bc4b4b17d7809ace628b10927047c2f5e37aadeb337f0db1b3 *MissionLang_MERCS.dll
+588114d0ce5a8956785df13093276bafb617ad8ac1d2a271c3f1362dd9dd2620 *ScriptStrings_MERCS.dll
+
+# =============================================================
+# Editor/authoring tool EXEs (2026-08) - RECORD ONLY, NOT oracle targets.
+# Copied from the game install root, NOT committed (copyright). These are the
+# off-line authoring/config tools shipped with the game:
+#   autoconfig_MERCS.exe - graphics settings configuration
+#   MapCreator.exe       - bitmap -> .mw4 map file authoring
+#   NFMEditor.exe        - .nfm multiplayer/server config editing
+#   MW4Ed2.exe           - Mission/Map editor (custom missions)
+# All MSVC6 (Linker 6.0), MFC42 statically/dynamically linked, ImageBase
+# 0x00400000, Subsystem GUI. Kept as reference assets for targeted RE and
+# format documentation only (see docs/editor_tools/). No source trees, no
+# byte-identity gates, no oracle transcription. See docs/editor_tools/ for the
+# per-EXE deep-dives.
+#
+#   sha256sum reference/autoconfig_MERCS.exe
+844058f3ba1ad4bd4cedd81028e3f8ed71260433fd00b0b39cc83902c62f5f5c *autoconfig_MERCS.exe
+4f1a37548b352fd36e99a71aded94db13253f9ec84c6d350237b525f5936ea7d *MapCreator.exe
+173db0b5f7c7000febf86e7c21519c24f8e11cdab41730d049a1fd22aaf3aa21 *NFMEditor.exe
+7b19a1cbc18b2f4c16fd8fdeb9e44c2861c97464e8275e28817b28bbdae03b60 *MW4Ed2.exe
