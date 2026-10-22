@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/SUBSYSTEM_SEAMS/">
       
       
-        <link rel="prev" href="../SUBSYSTEM_CATALOG/">
+        <link rel="prev" href="../MASTER_INDEX/">
       
       
-        <link rel="next" href="../data_annotation/">
+        <link rel="next" href="../GAME_VERSIONING/">
       
       
         
@@ -535,34 +535,6 @@
     
   
     Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
   
 
     
@@ -1546,34 +1518,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Subsystem catalog
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1718,6 +1662,17 @@
     <span class="md-ellipsis">
       
         combat / fire-damage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crypto-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        crypto / md5
       
     </span>
   </a>
@@ -1970,6 +1925,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2471,34 +2454,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2516,10 +2471,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -2537,8 +2492,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2989,6 +2944,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#crypto-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        crypto / md5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#net-gamespy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3258,6 +3224,7 @@
 <h1 id="subsystem-seams">Subsystem Seams<a class="headerlink" href="#subsystem-seams" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p>Boundary calls between systems. For how each subsystem works, start with <a href="../subsystems/">subsystems/README.md</a>. Shared VAs are listed once in <a href="../subsystems/shared/">subsystems/shared.md</a>; this page records only outbound boundary calls and cross-system dependencies.</p>
+<p>The summary lists details with committed surface labels. Core counts are the full count from the master index; boundary and shared counts are the surface-labeled subset. Subsystem pages give the complete detail breakdown.</p>
 </blockquote>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <table>
@@ -3274,14 +3241,14 @@
 <tr>
 <td>ai</td>
 <td>abl</td>
-<td>20</td>
+<td>207</td>
 <td>27</td>
 <td>590</td>
 </tr>
 <tr>
 <td>ai</td>
 <td>brain</td>
-<td>45</td>
+<td>46</td>
 <td>53</td>
 <td>67</td>
 </tr>
@@ -3295,7 +3262,7 @@
 <tr>
 <td>ai</td>
 <td>nav</td>
-<td>15</td>
+<td>20</td>
 <td>26</td>
 <td>3</td>
 </tr>
@@ -3309,16 +3276,23 @@
 <tr>
 <td>ai</td>
 <td>targeting</td>
-<td>15</td>
+<td>33</td>
 <td>7</td>
 <td>0</td>
 </tr>
 <tr>
 <td>combat</td>
 <td>fire-damage</td>
-<td>31</td>
+<td>49</td>
 <td>21</td>
 <td>71</td>
+</tr>
+<tr>
+<td>crypto</td>
+<td>md5</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr>
 <td>net</td>
@@ -3330,8 +3304,8 @@
 <tr>
 <td>net</td>
 <td>session</td>
-<td>45</td>
-<td>41</td>
+<td>46</td>
+<td>38</td>
 <td>149</td>
 </tr>
 <tr>
@@ -3351,28 +3325,28 @@
 <tr>
 <td>render</td>
 <td>2d</td>
-<td>8</td>
+<td>41</td>
 <td>5</td>
 <td>3</td>
 </tr>
 <tr>
 <td>render</td>
 <td>animation</td>
-<td>20</td>
+<td>470</td>
 <td>40</td>
 <td>11</td>
 </tr>
 <tr>
 <td>render</td>
 <td>camera</td>
-<td>24</td>
+<td>59</td>
 <td>35</td>
 <td>35</td>
 </tr>
 <tr>
 <td>render</td>
 <td>device</td>
-<td>8</td>
+<td>40</td>
 <td>2</td>
 <td>0</td>
 </tr>
@@ -3386,7 +3360,7 @@
 <tr>
 <td>render</td>
 <td>font</td>
-<td>4</td>
+<td>6</td>
 <td>2</td>
 <td>1</td>
 </tr>
@@ -3400,7 +3374,7 @@
 <tr>
 <td>render</td>
 <td>lighting</td>
-<td>94</td>
+<td>107</td>
 <td>41</td>
 <td>22</td>
 </tr>
@@ -3414,7 +3388,7 @@
 <tr>
 <td>render</td>
 <td>present</td>
-<td>22</td>
+<td>35</td>
 <td>43</td>
 <td>11</td>
 </tr>
@@ -3428,14 +3402,14 @@
 <tr>
 <td>render</td>
 <td>terrain</td>
-<td>12</td>
+<td>25</td>
 <td>9</td>
 <td>3</td>
 </tr>
 <tr>
 <td>render</td>
 <td>texture</td>
-<td>10</td>
+<td>125</td>
 <td>4</td>
 <td>0</td>
 </tr>
@@ -3449,7 +3423,7 @@
 </tbody>
 </table>
 <h2 id="ai-abl">ai / abl<a class="headerlink" href="#ai-abl" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 20, boundary: 27, shared: 590 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 207, boundary: 27, shared: 590 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -3492,7 +3466,7 @@
 </tr>
 <tr>
 <td>0x00566B60</td>
-<td><code>src/mw4mercs/text/func_00566B60.c</code></td>
+<td><code>src/mw4mercs/text/func_00566b60.c</code></td>
 <td>46</td>
 </tr>
 <tr>
@@ -3502,7 +3476,7 @@
 </tr>
 <tr>
 <td>0x00566BF0</td>
-<td><code>src/mw4mercs/text/func_00566BF0.c</code></td>
+<td><code>src/mw4mercs/text/func_00566bf0.c</code></td>
 <td>20</td>
 </tr>
 <tr>
@@ -3598,7 +3572,7 @@
 </tbody>
 </table>
 <h2 id="ai-brain">ai / brain<a class="headerlink" href="#ai-brain" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 45, boundary: 53, shared: 67 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 46, boundary: 53, shared: 67 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -3961,7 +3935,7 @@
 </tbody>
 </table>
 <h2 id="ai-nav">ai / nav<a class="headerlink" href="#ai-nav" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 15, boundary: 26, shared: 3 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 20, boundary: 26, shared: 3 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -4189,7 +4163,7 @@
 </tbody>
 </table>
 <h2 id="ai-targeting">ai / targeting<a class="headerlink" href="#ai-targeting" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 15, boundary: 7, shared: 0 (shared listed in <a href="../subsystems/shared/#ai">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/ai/">ai</a>. Core: 33, boundary: 7, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -4238,7 +4212,7 @@
 </tbody>
 </table>
 <h2 id="combat-fire-damage">combat / fire-damage<a class="headerlink" href="#combat-fire-damage" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/combat/">combat</a>. Core: 31, boundary: 21, shared: 71 (shared listed in <a href="../subsystems/shared/#combat">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/combat/">combat</a>. Core: 49, boundary: 21, shared: 71 (shared listed in <a href="../subsystems/shared/#combat">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -4356,8 +4330,11 @@
 </tr>
 </tbody>
 </table>
+<h2 id="crypto-md5">crypto / md5<a class="headerlink" href="#crypto-md5" title="Permanent link">&para;</a></h2>
+<p>Subsystem page: <a href="../subsystems/crypto/">crypto</a>. Core: 4, boundary: 0, shared: 0.</p>
+<p>No outbound boundary calls recorded.</p>
 <h2 id="net-gamespy">net / gamespy<a class="headerlink" href="#net-gamespy" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 37, boundary: 16, shared: 0 (shared listed in <a href="../subsystems/shared/#net">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 37, boundary: 16, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -4451,7 +4428,7 @@
 </tbody>
 </table>
 <h2 id="net-session">net / session<a class="headerlink" href="#net-session" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 45, boundary: 41, shared: 149 (shared listed in <a href="../subsystems/shared/#net">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 46, boundary: 38, shared: 149 (shared listed in <a href="../subsystems/shared/#net">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -4638,28 +4615,13 @@
 <td>354</td>
 </tr>
 <tr>
-<td>0x0070E390</td>
-<td><code>src/mw4mercs/text/func_0070e390.c</code></td>
-<td>42</td>
-</tr>
-<tr>
-<td>0x0070E3C0</td>
-<td><code>src/mw4mercs/text/func_0070e3c0.c</code></td>
-<td>160</td>
-</tr>
-<tr>
-<td>0x0070E460</td>
-<td><code>src/mw4mercs/text/func_0070e460.c</code></td>
-<td>106</td>
-</tr>
-<tr>
 <td>0x0072DC20</td>
 <td><code>src/mw4mercs/text/func_0072dc20.c</code></td>
 <td>136</td>
 </tr>
 <tr>
 <td>0x0072DCF0</td>
-<td><code>src/mw4mercs/text/func_0072DCF0.c</code></td>
+<td><code>src/mw4mercs/text/func_0072dcf0.c</code></td>
 <td>124</td>
 </tr>
 <tr>
@@ -4670,7 +4632,7 @@
 </tbody>
 </table>
 <h2 id="net-transport">net / transport<a class="headerlink" href="#net-transport" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 33, boundary: 0, shared: 0 (shared listed in <a href="../subsystems/shared/#net">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 33, boundary: 0, shared: 0.</p>
 <p>No outbound boundary calls recorded.</p>
 <h2 id="net-zonematch">net / zonematch<a class="headerlink" href="#net-zonematch" title="Permanent link">&para;</a></h2>
 <p>Subsystem page: <a href="../subsystems/net/">net</a>. Core: 19, boundary: 28, shared: 13 (shared listed in <a href="../subsystems/shared/#net">shared.md</a>).</p>
@@ -4827,7 +4789,7 @@
 </tbody>
 </table>
 <h2 id="render-2d">render / 2d<a class="headerlink" href="#render-2d" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 8, boundary: 5, shared: 3 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 41, boundary: 5, shared: 3 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -4866,7 +4828,7 @@
 </tbody>
 </table>
 <h2 id="render-animation">render / animation<a class="headerlink" href="#render-animation" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 20, boundary: 40, shared: 11 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 470, boundary: 40, shared: 11 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -5080,7 +5042,7 @@
 </tbody>
 </table>
 <h2 id="render-camera">render / camera<a class="headerlink" href="#render-camera" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 24, boundary: 35, shared: 35 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 59, boundary: 35, shared: 35 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -5248,7 +5210,7 @@
 </tr>
 <tr>
 <td>0x00713D10</td>
-<td><code>src/mw4mercs/text/func_00713D10.c</code></td>
+<td><code>src/mw4mercs/text/func_00713d10.c</code></td>
 <td>90</td>
 </tr>
 <tr>
@@ -5269,7 +5231,7 @@
 </tbody>
 </table>
 <h2 id="render-device">render / device<a class="headerlink" href="#render-device" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 8, boundary: 2, shared: 0 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 40, boundary: 2, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -5327,7 +5289,7 @@
 </tbody>
 </table>
 <h2 id="render-font">render / font<a class="headerlink" href="#render-font" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 4, boundary: 2, shared: 1 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 6, boundary: 2, shared: 1 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -5351,7 +5313,7 @@
 </tbody>
 </table>
 <h2 id="render-frame">render / frame<a class="headerlink" href="#render-frame" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 1, boundary: 1, shared: 0 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 1, boundary: 1, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -5370,7 +5332,7 @@
 </tbody>
 </table>
 <h2 id="render-lighting">render / lighting<a class="headerlink" href="#render-lighting" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 94, boundary: 41, shared: 22 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 107, boundary: 41, shared: 22 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -5908,7 +5870,7 @@
 </tbody>
 </table>
 <h2 id="render-present">render / present<a class="headerlink" href="#render-present" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 22, boundary: 43, shared: 11 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 35, boundary: 43, shared: 11 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -6137,7 +6099,7 @@
 </tbody>
 </table>
 <h2 id="render-records">render / records<a class="headerlink" href="#render-records" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 5, boundary: 7, shared: 0 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 5, boundary: 7, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -6186,7 +6148,7 @@
 </tbody>
 </table>
 <h2 id="render-terrain">render / terrain<a class="headerlink" href="#render-terrain" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 12, boundary: 9, shared: 3 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 25, boundary: 9, shared: 3 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -6245,7 +6207,7 @@
 </tbody>
 </table>
 <h2 id="render-texture">render / texture<a class="headerlink" href="#render-texture" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 10, boundary: 4, shared: 0 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 125, boundary: 4, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -6279,7 +6241,7 @@
 </tbody>
 </table>
 <h2 id="render-vertex">render / vertex<a class="headerlink" href="#render-vertex" title="Permanent link">&para;</a></h2>
-<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 9, boundary: 5, shared: 0 (shared listed in <a href="../subsystems/shared/#render">shared.md</a>).</p>
+<p>Subsystem page: <a href="../subsystems/render/">render</a>. Core: 9, boundary: 5, shared: 0.</p>
 <p><strong>Outbound boundary</strong></p>
 <table>
 <thead>
@@ -6536,7 +6498,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

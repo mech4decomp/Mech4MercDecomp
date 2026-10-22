@@ -626,34 +626,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1622,14 +1594,14 @@
   
   
     <li class="md-nav__item">
-      <a href="SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1650,14 +1622,14 @@
   
   
     <li class="md-nav__item">
-      <a href="SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2161,34 +2133,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2203,10 +2147,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -2224,8 +2168,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2649,8 +2593,12 @@
 <p>This site documents the <strong>oracle recompilation</strong>: a byte-identical reproduction
 of <code>MW4Mercs.exe</code> and the six code-bearing game DLLs, produced by transcribing
 the original machine code into MSVC6 inline assembly.</p>
-<p>The repository contains the source, build/verification tooling, and research
-notes. It does <strong>not</strong> contain the game or its assets.</p>
+<p>The target is the PR1 <code>MW4Mercs.exe</code> build identified by the SHA-256 in
+<code>reference/SHA256.txt</code>; see <a href="BUILD/#provenance">the build guide</a>. The
+repository contains the transcribed source, the generated data sections,
+build/verification tooling, and research notes. It does <strong>not</strong> contain the
+original game executables, DLLs, art, audio, or maps. The default build does
+not need the game binaries.</p>
 <h2 id="start-here">Start here<a class="headerlink" href="#start-here" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2673,8 +2621,8 @@ notes. It does <strong>not</strong> contain the game or its assets.</p>
 <td>Byte gates, diff/no-mask verification, hashes</td>
 </tr>
 <tr>
-<td><a href="subsystems/">Subsystem guides</a></td>
-<td>How each subsystem works, key entry points, and VA lists</td>
+<td><a href="subsystems/">Subsystem and module guides</a></td>
+<td>How each EXE subsystem and game DLL works, with key entry points</td>
 </tr>
 <tr>
 <td><a href="subsystems/shared/">Shared VAs</a></td>
@@ -2683,10 +2631,6 @@ notes. It does <strong>not</strong> contain the game or its assets.</p>
 <tr>
 <td><a href="ORACLE_STATUS/">Oracle status</a></td>
 <td>Target inventory and completeness status</td>
-</tr>
-<tr>
-<td><a href="MODULE_NOTES/">Module notes</a></td>
-<td>Oracle summaries for the six game DLLs</td>
 </tr>
 </tbody>
 </table>
@@ -2702,10 +2646,6 @@ notes. It does <strong>not</strong> contain the game or its assets.</p>
 <tr>
 <td><a href="MASTER_INDEX/">Master index</a></td>
 <td>Exhaustive per-VA subsystem indexes</td>
-</tr>
-<tr>
-<td><a href="SUBSYSTEM_CATALOG/">Subsystem catalog</a></td>
-<td>Stable subsystem entry point</td>
 </tr>
 <tr>
 <td><a href="SUBSYSTEM_SEAMS/">Subsystem seams</a></td>
@@ -2794,7 +2734,7 @@ request; maintainers publish the merged changes with <code>tools/publish_docs.ps
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

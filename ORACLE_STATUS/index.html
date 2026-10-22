@@ -16,7 +16,7 @@
         <link rel="prev" href="../editor_tools/nfmeditor/">
       
       
-        <link rel="next" href="../MODULE_NOTES/">
+        <link rel="next" href="../va_index/MW4Mercs_exe/">
       
       
         
@@ -535,34 +535,6 @@
     
   
     Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
   
 
     
@@ -1549,14 +1521,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1577,14 +1549,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2185,34 +2157,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2230,10 +2174,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -2251,8 +2195,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2747,8 +2691,10 @@ canonical references.</p>
 build target.</p>
 <h2 id="out-of-scope">Out of scope<a class="headerlink" href="#out-of-scope" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The 31 IAT jump thunks at the end of the EXE <code>.text</code> (<code>0x75DB4A</code>–<code>0x76015C</code>),
-  listed in <code>src/mw4mercs/artifacts/extra_functions.csv</code>.</li>
+<li>The 31 IAT jump thunks in the EXE platform tail (<code>0x75DB4A</code>–<code>0x76015C</code>),
+  listed in <code>src/mw4mercs/artifacts/extra_functions.csv</code>. They are not at the
+  end of <code>.text</code>: <code>.text</code> continues to <code>0x76809E</code>, and <code>.txt2</code> begins at
+  <code>0x769000</code>.</li>
 <li>The <code>.txt2</code> SafeDisc leftover (<code>FUN_00769000</code>). Its bytes are preserved only
   as generated data for layout; it is not decompiled.</li>
 <li>SafeDisc/DRM components and the bundled DRM DLLs.</li>
@@ -2761,19 +2707,19 @@ build target.</p>
 <h2 id="reproduce">Reproduce<a class="headerlink" href="#reproduce" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">call</span> tools\env.bat
 nmake objs
-nmake data
-nmake init
+nmake data-objs
 nmake exe
 nmake verify
 </code></pre></div>
-<p>Module builds are described in <code>BUILD.md</code>. The hashes are in
-<code>reference/SHA256.txt</code>.</p>
+<p>The default build does not need the reference binaries. <code>nmake data</code> and
+<code>nmake init</code> are optional regeneration steps; the hashes remain in
+<code>reference/SHA256.txt</code>. Module builds are described in <code>BUILD.md</code>.</p>
 <h2 id="documentation-indexes">Documentation indexes<a class="headerlink" href="#documentation-indexes" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>docs/MASTER_INDEX.md</code> — per-VA subsystem index for every binary.</li>
 <li><code>docs/data_annotation.md</code> — EXE data-run annotations.</li>
 <li><code>docs/module_data_annotation/</code> — per-module data-run annotations.</li>
-<li><code>docs/MODULE_NOTES.md</code> — concise module summaries.</li>
+<li><code>docs/subsystems/</code> — subsystem and module pages.</li>
 <li><code>docs/GAME_VERSIONING.md</code> — build/version identity and multiplayer gates.</li>
 <li><code>docs/editor_tools/</code> — shipped authoring/config tool records.</li>
 </ul>
@@ -2812,7 +2758,7 @@ nmake verify
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

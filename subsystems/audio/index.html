@@ -548,34 +548,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1171,30 +1143,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#vas" class="md-nav__link">
+  <a href="#inventory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        VAs
+        Inventory
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="VAs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#general" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        (general)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1679,14 +1634,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1707,14 +1662,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2218,34 +2173,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2260,10 +2187,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -2281,8 +2208,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2689,30 +2616,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#vas" class="md-nav__link">
+  <a href="#inventory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        VAs
+        Inventory
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="VAs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#general" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        (general)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2754,7 +2664,7 @@
 
 <h1 id="audio-subsystem">Audio Subsystem<a class="headerlink" href="#audio-subsystem" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>VAs:</strong> 8 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
+<p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 8 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Sound, music, and audio-device delivery.</p>
 <h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
@@ -2762,13 +2672,13 @@
 <li><a href="#how-it-works">How it works</a></li>
 <li><a href="#key-entry-points">Key entry points</a></li>
 <li><a href="#details">Details</a></li>
-<li><a href="#vas">VAs</a></li>
+<li><a href="#inventory">Inventory</a></li>
 <li><a href="#related">Related</a></li>
 </ul>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The audio surface is small; most content is data-driven and the device delivery goes through the platform layer. The VA table lists the sound/music entry points that remain in the EXE.</p>
+<p>The audio surface is small; most content is data-driven and the device delivery goes through the platform layer. The detail table records the sound/music entry points that remain in the EXE; the per-VA index has their addresses.</p>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
-<p>No single entry point is representative; use the detail map and VA table below.</p>
+<p>No single entry point is representative; use the detail map below and the per-VA index.</p>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2782,82 +2692,12 @@
 <tr>
 <td>(general)</td>
 <td>8</td>
-<td></td>
+<td>Sound/music entry points that remain in the EXE.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="vas">VAs<a class="headerlink" href="#vas" title="Permanent link">&para;</a></h2>
-<p>Every VA in this subsystem is listed below, grouped by detail. <code>Evidence</code> is the classification source (<code>surface</code>, <code>range</code>, <code>keyword</code>, <code>band</code>, <code>structural</code>, or <code>section</code>).</p>
-<h3 id="general">(general)<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>VA</th>
-<th>Role</th>
-<th>Size</th>
-<th>Source</th>
-<th>Evidence</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x00505A40</td>
-<td>core</td>
-<td>588</td>
-<td><code>src/mw4mercs/text/func_00505a40.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x00505D5F</td>
-<td>core</td>
-<td>-</td>
-<td><code>src/mw4mercs/text/func_00505d5f.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x00505E10</td>
-<td>core</td>
-<td>771</td>
-<td><code>src/mw4mercs/text/func_00505e10.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x005309A0</td>
-<td>core</td>
-<td>449</td>
-<td><code>src/mw4mercs/text/func_005309a0.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x00532970</td>
-<td>core</td>
-<td>305</td>
-<td><code>src/mw4mercs/text/func_00532970.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x00559810</td>
-<td>core</td>
-<td>323</td>
-<td><code>src/mw4mercs/text/func_00559810.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x00559960</td>
-<td>core</td>
-<td>323</td>
-<td><code>src/mw4mercs/text/func_00559960.c</code></td>
-<td>keyword</td>
-</tr>
-<tr>
-<td>0x00752680</td>
-<td>core</td>
-<td>478</td>
-<td><code>src/mw4mercs/text/func_00752680.c</code></td>
-<td>keyword</td>
-</tr>
-</tbody>
-</table>
+<h2 id="inventory">Inventory<a class="headerlink" href="#inventory" title="Permanent link">&para;</a></h2>
+<p>The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in <a href="../../va_index/MW4Mercs_exe/">the MW4Mercs.exe index</a>.</p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../">All subsystems</a></li>
@@ -2900,7 +2740,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/subsystems/">
       
       
-        <link rel="prev" href="../GAME_VERSIONING/">
+        <link rel="prev" href="../ARCHITECTURE/">
       
       
         <link rel="next" href="render/">
@@ -535,34 +535,6 @@
     
   
     Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
   
 
     
@@ -1651,14 +1623,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1679,14 +1651,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2190,34 +2162,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2232,10 +2176,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -2253,8 +2197,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2697,7 +2641,7 @@
 
 
 <h1 id="subsystem-documentation">Subsystem Documentation<a class="headerlink" href="#subsystem-documentation" title="Permanent link">&para;</a></h1>
-<p>Each subsystem has its own page: what it is responsible for, how the main path works, its key entry points, and the VAs that implement it. Start with the subsystem you care about; the exhaustive per-binary indexes are linked from every page.</p>
+<p>Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes; this overview and the subsystem pages link to them instead of repeating them.</p>
 <p>Shared VAs are described once in <a href="shared/">shared.md</a>. Boundary calls are in <a href="../SUBSYSTEM_SEAMS/">../SUBSYSTEM_SEAMS.md</a>.</p>
 <h2 id="exe-subsystems">EXE subsystems<a class="headerlink" href="#exe-subsystems" title="Permanent link">&para;</a></h2>
 <table>
@@ -2741,7 +2685,7 @@
 </tr>
 <tr>
 <td><a href="net/">Network</a></td>
-<td>385</td>
+<td>382</td>
 <td>Multiplayer transport, lobby/session state, GameSpy discovery, and ZoneMatch matchmaking.</td>
 </tr>
 <tr>
@@ -2751,7 +2695,7 @@
 </tr>
 <tr>
 <td><a href="platform/">Platform</a></td>
-<td>255</td>
+<td>256</td>
 <td>Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper.</td>
 </tr>
 <tr>
@@ -2785,14 +2729,14 @@
 <td>Sound, music, and audio-device delivery.</td>
 </tr>
 <tr>
-<td><a href="codec/">Codec</a></td>
-<td>3</td>
-<td>LZW compression/decompression and related byte codecs.</td>
+<td><a href="crypto/">Crypto</a></td>
+<td>6</td>
+<td>MD5, hashing, and base64 helpers.</td>
 </tr>
 <tr>
-<td><a href="crypto/">Crypto</a></td>
-<td>3</td>
-<td>MD5, hashing, and base64 helpers.</td>
+<td><a href="codec/">Codec</a></td>
+<td>2</td>
+<td>LZW compression/decompression and related byte codecs.</td>
 </tr>
 </tbody>
 </table>
@@ -2865,10 +2809,9 @@
 <li><a href="shared/">Shared VAs</a></li>
 <li><a href="../SUBSYSTEM_SEAMS/">Boundary seams</a></li>
 <li><a href="../MASTER_INDEX/">Master index</a></li>
-<li><a href="../SUBSYSTEM_CATALOG/">Subsystem catalog</a></li>
 </ul>
 <h2 id="how-to-read-a-page">How to read a page<a class="headerlink" href="#how-to-read-a-page" title="Permanent link">&para;</a></h2>
-<p>The narrative comes first; the VA inventory is at the bottom, grouped by detail. <code>Evidence</code> records whether the VA came from a committed surface label, an address range, a header keyword, a broad band, or a structural rule. If a VA is shared, the page links to <a href="shared/">shared.md</a> instead of repeating it.</p>
+<p>The narrative and key entry points come first. The detail table gives the full count and responsibility for each sub-surface; the exhaustive VA table (role, size, source, evidence) is in the per-binary index. Shared VAs are described once in <a href="shared/">shared.md</a>, and boundary calls once in <a href="../SUBSYSTEM_SEAMS/">SUBSYSTEM_SEAMS.md</a>.</p>
 
 
 
@@ -2904,7 +2847,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

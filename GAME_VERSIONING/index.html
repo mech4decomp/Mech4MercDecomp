@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/GAME_VERSIONING/">
       
       
-        <link rel="prev" href="../ARCHITECTURE/">
+        <link rel="prev" href="../SUBSYSTEM_SEAMS/">
       
       
-        <link rel="next" href="../subsystems/">
+        <link rel="next" href="../data_annotation/">
       
       
         
@@ -242,12 +242,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../BUILD/" class="md-tabs__link">
           
   
@@ -304,10 +302,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../MASTER_INDEX/" class="md-tabs__link">
           
   
@@ -416,31 +416,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -458,7 +453,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -548,369 +543,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#tldr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TL;DR
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-version-value" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The version value
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. The version value">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-the-four-fields-and-the-two-hardcoded-copies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.1 The four fields (and the two hardcoded copies)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#where-the-player-sees-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where the player sees it
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-how-it-is-advertised-host-side" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. How it is advertised (host side)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-client-side-matching-server-browser" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Client-side matching (server browser)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Client-side matching (server browser)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-the-filter-callback" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 The filter callback
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-the-ui-filter-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 The UI filter parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-the-version-sort" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 The version sort
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-list-ingestion-gate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 List ingestion gate
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-the-lobby-zonetech-protocol-gate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. The lobby (ZoneTech) protocol gate
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-what-is-and-is-not-version-gated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. What is and is not version-gated
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-related-version-checks-not-multiplayer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Related version checks (not multiplayer)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-join-time-validation-net-event-0x0a-fun_0053f210" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Join-time validation — net event 0x0A (FUN_0053F210)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Join-time validation — net event 0x0A (FUN_0053F210)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71-the-message-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.1 The message path
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72-the-0x0a-payload-as-read-by-fun_0053f210" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.2 The 0x0A payload as read by FUN_0053F210
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#73-the-ban-lists" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.3 The ban lists
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-the-content-checksum-what-the-peers-must-match" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. The content checksum — what the peers must match
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-variant-mech-file-integrity-and-loadout-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Variant (mech) file integrity and loadout validation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Variant (mech) file integrity and loadout validation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#91-the-variant-self-digest" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.1 The variant self-digest
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#92-loadout-legality" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.2 Loadout legality
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-trust-model-what-actually-happens-to-a-modded-client" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Trust model — what actually happens to a modded client
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#11-design-flaws" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. Design flaws
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#12-recommended-improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12. Recommended improvements
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1801,26 +1433,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1838,7 +1475,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1884,14 +1521,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1909,17 +1546,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -1928,6 +1592,303 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-version-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The version value
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The version value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-four-fields-and-the-two-hardcoded-copies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The four fields (and the two hardcoded copies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-player-sees-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the player sees it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-it-is-advertised-host-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. How it is advertised (host side)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-client-side-matching-server-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Client-side matching (server browser)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Client-side matching (server browser)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-the-filter-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 The filter callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-the-ui-filter-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The UI filter parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-the-version-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 The version sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-list-ingestion-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 List ingestion gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-lobby-zonetech-protocol-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The lobby (ZoneTech) protocol gate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-and-is-not-version-gated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What is and is not version-gated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-related-version-checks-not-multiplayer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Related version checks (not multiplayer)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-join-time-validation-net-event-0x0a-fun_0053f210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Join-time validation — net event 0x0A (FUN_0053F210)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Join-time validation — net event 0x0A (FUN_0053F210)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-the-message-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 The message path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-the-0x0a-payload-as-read-by-fun_0053f210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 The 0x0A payload as read by FUN_0053F210
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-the-ban-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 The ban lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-content-checksum-what-the-peers-must-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The content checksum — what the peers must match
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-variant-mech-file-integrity-and-loadout-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Variant (mech) file integrity and loadout validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Variant (mech) file integrity and loadout validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-the-variant-self-digest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 The variant self-digest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-loadout-legality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Loadout legality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-trust-model-what-actually-happens-to-a-modded-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Trust model — what actually happens to a modded client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-observed-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Observed limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1974,17 +1935,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -2202,17 +2166,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -2423,52 +2390,27 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -2486,8 +2428,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3116,21 +3058,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#11-design-flaws" class="md-nav__link">
+  <a href="#11-observed-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11. Design flaws
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#12-recommended-improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12. Recommended improvements
+        11. Observed limitations
       
     </span>
   </a>
@@ -3169,9 +3100,10 @@ function names are the oracle's <code>func_&lt;VA&gt;</code> names. This is refe
 RE.</p>
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>One hardcoded version string</strong> <code>"50.07.01.2105"</code> (<code>.rdata</code> <code>0x0076CB3C</code>),
-  loaded at startup into the global pointer <code>g_game_version</code> (<code>0x00858924</code>).
-  This is the official Point Release 1 (PR1) build.</li>
+<li><strong>One version value, stored in two hardcoded copies</strong>: <code>"50.07.01.2105"</code>
+  (<code>.rdata</code> <code>0x0076CB3C</code>, loaded at startup into <code>g_game_version</code>
+  <code>0x00858924</code>, and <code>0x00773040</code>, read by the join handshake and saved-data
+  paths). This is the official Point Release 1 (PR1) build.</li>
 <li><strong>Hosts advertise it</strong> as the DirectPlay session attribute <code>GameVersion</code>
   (and inside the session config blob as the <code>\v</code> directive).</li>
 <li><strong>The server browser compares</strong> each enumerated session's <code>GameVersion</code>
@@ -3197,9 +3129,9 @@ RE.</p>
   <code>{36E95EE0-8577-11CF-960C-0080C7534E82}</code>) is game identity only, identical
   across builds. The advertisement + browser filter/sort is advisory; the join
   handshake is the actual same-build gate.</li>
-<li>The handshake and the variant self-digest are the game's whole anti-mod
-  story, and both are defeatable (no secret, tiny hashed surface, local-only
-  variant check) — see §10–§11.</li>
+<li>The handshake and the variant self-digest are the game's two integrity
+  checks; §10 describes what each one covers, and §11 lists the observed
+  limitations.</li>
 </ul>
 <h2 id="1-the-version-value">1. The version value<a class="headerlink" href="#1-the-version-value" title="Permanent link">&para;</a></h2>
 <table>
@@ -3938,14 +3870,14 @@ a legal mech is but are not cross-checked with peers.</p>
 </table>
 <p>Runtime is peer-to-peer with no server authority: the net event table (<code>0x0A</code>–
 <code>0x31</code>, <code>FUN_00546C60</code>) contains join/team/decal/mission/state handlers but
-<strong>no armor or damage message</strong>; the anti-mod effort is concentrated at
+<strong>no armor or damage message</strong>; the integrity checks are concentrated at
 join/load time, and each client simulates the shared world from its own local
 data.</p>
-<h2 id="11-design-flaws">11. Design flaws<a class="headerlink" href="#11-design-flaws" title="Permanent link">&para;</a></h2>
+<h2 id="11-observed-limitations">11. Observed limitations<a class="headerlink" href="#11-observed-limitations" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>No secret, no challenge.</strong> The handshake is a self-report of a constant:
    the expected pair is a pure function of the shipped binary and mission data.
-   Any client can compute or replay it regardless of the code it actually runs.
+   A client can compute or replay it regardless of the code it actually runs.
    Without a host nonce (and a keyed response) the check cannot attest to the
    sender's binary.</li>
 <li><strong>Tiny hashed surface.</strong> Only the 15 resource-loader functions and one
@@ -3956,10 +3888,10 @@ data.</p>
    digest to 8 bits (<code>digest[0] ^ digest[8]</code>), so the content side of the
    checksum has ≤ 256 effective values; the strength rests on the loader-code
    hash alone.</li>
-<li><strong>Variant digest is defeatable and local-only.</strong> The salt is a constant in
-   the binary, the digest is stored in the file it protects, and the check
-   compares the receiver's own file with itself. It stops casual hex-editing,
-   not a modder.</li>
+<li><strong>Variant digest is local-only.</strong> The salt is a constant in the binary, the
+   digest is stored in the file it protects, and the check compares the
+   receiver's own file with itself. A client that recomputes the digest is not
+   detected.</li>
 <li><strong>Ban lists are IP-only and self-reported.</strong> The <code>0x0A</code> IP fields come from
    the peer; the ban list is a local <code>ban.txt</code>, with no server-side or shared
    enforcement.</li>
@@ -3968,43 +3900,13 @@ data.</p>
    values.</li>
 <li><strong>No runtime re-validation.</strong> Once in, nothing re-checks the peer; a
    patched process passes forever. The <code>+0x357C</code> flag is computed locally and
-   is self-enforced (a modded client simply patches the flag or the check).</li>
+   is self-enforced.</li>
 <li><strong>Divergence is undetected.</strong> Because variant data is not cross-checked,
    two clients can simulate different mechs and the game only notices when
    visible state conflicts.</li>
 <li><strong>Reporting is opaque.</strong> Failures surface as <code>Player_Reject &lt;index&gt;
    &lt;code&gt;</code>; there is no user-facing "modified files" message (the variant flag
    becomes event code 1 in an internal queue with no dedicated string).</li>
-</ol>
-<h2 id="12-recommended-improvements">12. Recommended improvements<a class="headerlink" href="#12-recommended-improvements" title="Permanent link">&para;</a></h2>
-<p>(Keep reference behavior where wire-visible unless deliberately changing the protocol.)</p>
-<ol>
-<li><strong>Keyed challenge-response at join.</strong> Host sends a random nonce; peer
-   answers <code>HMAC(K, nonce || digest(running code+content))</code>. Defeatable by a
-   determined attacker in P2P, but it removes replay/spoofing of a constant and
-   forces the peer to run the digest routine.</li>
-<li><strong>Hash the running code, not constants.</strong> Prefer a page/PE-image digest
-   computed at runtime over the loaded modules, plus all content files the
-   session will use (every <code>.mw4</code> entry referenced by the mission), instead of
-   a hardcoded list of 15 functions.</li>
-<li><strong>Cross-check variant content.</strong> Put the variant's content digest (not just
-   its name) in the creation message and compare it against the receiver's
-   locally computed digest of its own copy; reject/mark on mismatch. That turns
-   the local tripwire into a real divergence check.</li>
-<li><strong>Server/host-authoritative loadouts and damage.</strong> Validate tonnage, armor
-   distribution and weapon mounts host-side against the <em>sender's</em> claimed
-   loadout (or run damage/armor simulation host-side and replicate results),
-   so inflated armor/extra weapons cannot be locally simulated.</li>
-<li><strong>Use the transport address for bans.</strong> Take the peer IP from DirectPlay,
-   not from the message body; consider a shared/session-level ban list.</li>
-<li><strong>Periodic re-validation.</strong> Re-issue nonce challenges during play
-   (jittered) and drop peers on mismatch, so memory patches after join are
-   caught.</li>
-<li><strong>Don't trust self-reported identity.</strong> Bind GUIDs/player ids to the
-   transport peer and reject duplicates by transport identity.</li>
-<li><strong>Report clearly.</strong> Add an explicit UI/log message for content/variant
-   mismatches ("client has modified game files") and record the failing check
-   (the status code already carries it).</li>
 </ol>
 
 
@@ -4041,7 +3943,7 @@ data.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

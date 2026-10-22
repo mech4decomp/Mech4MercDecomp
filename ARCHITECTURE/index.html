@@ -16,7 +16,7 @@
         <link rel="prev" href="../VERIFICATION/">
       
       
-        <link rel="next" href="../GAME_VERSIONING/">
+        <link rel="next" href="../subsystems/">
       
       
         
@@ -661,34 +661,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1662,14 +1634,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1690,14 +1662,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2201,34 +2173,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2243,10 +2187,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -2264,8 +2208,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2736,40 +2680,46 @@ binary. It is not an attempt to recover the original C++ source.</p>
 <div class="highlight"><pre><span></span><code>src/
   mw4mercs/
     text/        func_&lt;VA&gt;.c + in-.text data_&lt;VA&gt;.c
-    artifacts/   committed CSV metadata
-  blade/
-  gundll/
-  language/
-  missionlang_mercs/
-  mw4stats/
-  zloglib/
+    rdata/       data_0x*.c section runs
+    data/        data_0x*.c section runs
+    rsrc/        data_0x*.c section runs
+    txt2/        SafeDisc .txt2 leftover
+    artifacts/   committed PE build artifacts + CSV metadata
+  blade/         text/ rdata/ data/ artifacts/
+  gundll/        text/ rdata/ data/ artifacts/
+  language/      text/ rdata/ data/ artifacts/
+  missionlang_mercs/  text/ rdata/ data/ artifacts/
+  mw4stats/      text/ rdata/ data/ artifacts/
+  zloglib/       text/ rdata/ data/ artifacts/
 </code></pre></div>
 <p>Filenames are canonical: <code>func_&lt;8-hex-va&gt;.c</code> and <code>data_&lt;8-hex-va&gt;.c</code>. Semantics
 live in the file header and inline comments, never in the filename. The
 per-binary subsystem indexes under <code>docs/va_index/</code> provide the semantic
 map.</p>
 <p>Non-<code>.text</code> sections (<code>.rdata</code>, <code>.data</code>, <code>.rsrc</code>, <code>.txt2</code>) are byte-exact data
-runs. They are generated locally from the user's reference and are not
-committed; see <code>BUILD.md</code>.</p>
+runs. The generated <code>data_0x*.c</code> sources are committed, so the default build
+does not need the reference. <code>nmake data</code> remains the optional regeneration
+path; see <code>BUILD.md</code>.</p>
 <h2 id="building-an-image">Building an image<a class="headerlink" href="#building-an-image" title="Permanent link">&para;</a></h2>
-<p>The EXE build has four stages:</p>
+<p>The default EXE build has three stages:</p>
 <ol>
 <li><strong>Compile <code>.text</code> sources</strong> — all <code>src/mw4mercs/text/*.c</code> are compiled with
    the pinned MSVC6 flags into <code>build/obj/</code>.</li>
-<li><strong>Generate data sections</strong> — <code>exe_data_assemble.py --files</code> reads the
-   reference, emits byte-exact <code>data_0x*.c</code> sources for the non-<code>.text</code>
-   sections, compiles them into <code>build/obj/data/</code>, and verifies their bytes.</li>
-<li><strong>Extract metadata</strong> — <code>exe_image_assemble.py --init</code> writes the PE header,
-   inter-function pad bytes, and the residual extern-address table. The extern
-   table is learned from the compiled <code>.text</code> objects, so this step must run
-   after step 1.</li>
+<li><strong>Compile data sources</strong> — the committed
+   <code>src/mw4mercs/{rdata,data,rsrc,txt2}/data_0x*.c</code> runs are compiled into
+   <code>build/obj/data/</code>.</li>
 <li><strong>Assemble</strong> — <code>exe_image_assemble.py</code> places every object at its reference
-   RVA, resolves relocation sites, fills pads, composes the sections, and
-   writes <code>build/MW4Mercs.exe</code>. <code>--diff</code> compares the result to the reference.</li>
+   RVA, resolves relocation sites, fills pads from the committed artifact,
+   composes the sections, and writes <code>build/MW4Mercs.exe</code>. <code>--diff</code> compares
+   the result to the reference when it is present.</li>
 </ol>
+<p>The PE header, inter-function pad bytes, and residual extern table are
+committed artifacts. <code>exe_image_assemble.py --init</code> is the optional
+regeneration path that rebuilds them from a reference EXE.</p>
 <p>Module DLLs use the same model with <code>data_assemble.py</code> and
-<code>image_assemble.py</code>. gundll's in-scope VA list is provided at
-<code>reference/in_scope/gundll.txt</code> for its coverage report.</p>
+<code>image_assemble.py</code>; their data sources and <code>.bin</code> artifacts are committed.
+gundll's in-scope VA list is provided at <code>reference/in_scope/gundll.txt</code> for
+its coverage report.</p>
 <h2 id="relocation-resolution">Relocation resolution<a class="headerlink" href="#relocation-resolution" title="Permanent link">&para;</a></h2>
 <p>An unlinked object's relocation slots contain placeholder values. The
 assembler resolves each slot from the symbol name:</p>
@@ -2783,17 +2733,20 @@ assembler resolves each slot from the symbol name:</p>
 legacy and must never drive the build; the assembler hard-errors if a symbol
 would resolve that way.</p>
 <h2 id="verification-model">Verification model<a class="headerlink" href="#verification-model" title="Permanent link">&para;</a></h2>
-<p>There are three levels of checking:</p>
+<p>There are four levels of checking:</p>
 <ul>
+<li><strong>Hash gate</strong> — compares the built image to the canonical SHA-256; this is
+  the reference-free acceptance check.</li>
+<li><strong>Full-image byte diff</strong> — composes the complete binary and compares it to a
+  reference binary when one is present. It catches ordering, padding,
+  alignment, relocation, and section-composition errors.</li>
 <li><strong>Masked per-function diff</strong> — compares one compiled object against the
   reference function, masking 4-byte relocation sites.</li>
 <li><strong>No-mask per-function check</strong> — places the object at its VA, resolves every
   relocation, and compares every byte.</li>
-<li><strong>Full-image assembly</strong> — composes the complete binary and compares it to the
-  reference with no masking. This is the acceptance gate.</li>
 </ul>
-<p>The full-image gate is the strongest: it catches ordering, padding, alignment,
-relocation, and section-composition errors that per-function checks cannot.</p>
+<p>The hash gate is the default gate. The byte-level checks are optional
+diagnostics that require the reference binaries.</p>
 <h2 id="what-is-intentionally-out-of-scope">What is intentionally out of scope<a class="headerlink" href="#what-is-intentionally-out-of-scope" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The <code>.txt2</code> SafeDisc leftover (preserved only as generated bytes for layout).</li>
@@ -2838,7 +2791,7 @@ relocation, and section-composition errors that per-function checks cannot.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

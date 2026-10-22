@@ -546,34 +546,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1542,14 +1514,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1570,14 +1542,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2081,34 +2053,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2123,10 +2067,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -2144,8 +2088,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2529,6 +2473,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-is-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is included
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-not-included" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2637,6 +2592,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-is-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is included
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-not-included" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2723,19 +2689,29 @@ MechWarrior 4: Mercenaries binaries. It records the machine code as
 byte-exact, annotated MSVC6 assembly and provides the tooling to rebuild and
 verify the canonical images.</p>
 <p>It is <strong>not</strong> the original source code and is not a game distribution.</p>
+<h2 id="what-is-included">What is included<a class="headerlink" href="#what-is-included" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Transcribed code (<code>func_*.c</code>) and in-<code>.text</code> data tables.</li>
+<li>Byte-exact non-<code>.text</code> data runs (<code>.rdata</code>, <code>.data</code>, <code>.rsrc</code>, <code>.txt2</code>) and
+  the metadata artifacts needed to assemble the images.</li>
+</ul>
+<p>These are derived from the original game and are included so the default
+build is self-contained.</p>
 <h2 id="what-is-not-included">What is not included<a class="headerlink" href="#what-is-not-included" title="Permanent link">&para;</a></h2>
 <ul>
-<li>No <code>MW4Mercs.exe</code> or game DLLs.</li>
-<li>No art, audio, maps, missions, localization data, or other game assets.</li>
-<li>No extracted <code>.rdata</code>/<code>.data</code>/<code>.rsrc</code>/<code>.txt2</code> byte dumps.</li>
+<li>No original <code>MW4Mercs.exe</code> or game DLLs.</li>
+<li>No art, audio, maps, missions, localization data, or other standalone game
+  assets.</li>
 <li>No SafeDisc/DRM implementation.</li>
 </ul>
-<p>The non-<code>.text</code> sections are generated locally from the user's own reference by
-<code>nmake data</code> / <code>nmake module-data</code>. The generated files are gitignored.</p>
-<h2 id="user-responsibility">User responsibility<a class="headerlink" href="#user-responsibility" title="Permanent link">&para;</a></h2>
-<p>You must own a legitimate copy of the game and comply with its license/EULA.
-The reference binaries are not distributed here. Verify them against
+<p>The reference binaries are optional. They are not distributed here and are
+only needed for regeneration or byte-diff checks; verify them against
 <code>reference/SHA256.txt</code>.</p>
+<h2 id="user-responsibility">User responsibility<a class="headerlink" href="#user-responsibility" title="Permanent link">&para;</a></h2>
+<p>You do not need to own the game to build the oracle from the committed
+sources and artifacts. If you supply reference binaries for regeneration or
+verification, you must own a legitimate copy of the game and comply with its
+license/EULA.</p>
 <h2 id="copyright-and-trademarks">Copyright and trademarks<a class="headerlink" href="#copyright-and-trademarks" title="Permanent link">&para;</a></h2>
 <p>Rights in the original MechWarrior 4: Mercenaries code and assets remain with
 their respective owners. MechWarrior, MechWarrior 4, Mercenaries, and related
@@ -2787,7 +2763,7 @@ claims are welcome with evidence.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

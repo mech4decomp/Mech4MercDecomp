@@ -16,7 +16,7 @@
         <link rel="prev" href="../subsystems/zloglib/">
       
       
-        <link rel="next" href="../SUBSYSTEM_CATALOG/">
+        <link rel="next" href="../SUBSYSTEM_SEAMS/">
       
       
         
@@ -535,34 +535,6 @@
     
   
     Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
   
 
     
@@ -1629,14 +1601,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1657,14 +1629,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2174,34 +2146,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2219,10 +2163,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -2240,8 +2184,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2663,7 +2607,7 @@
 
 <h1 id="master-oracle-source-index">Master Oracle Source Index<a class="headerlink" href="#master-oracle-source-index" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Start here:</strong> <a href="../subsystems/">subsystems/README.md</a> explains how each subsystem works, lists its key entry points, and gives the per-subsystem VA inventory. Shared VAs are listed once in <a href="../subsystems/shared/">subsystems/shared.md</a>.</p>
+<p><strong>Start here:</strong> <a href="../subsystems/">subsystems/README.md</a> explains how each subsystem works and lists its key entry points. Shared VAs are listed once in <a href="../subsystems/shared/">subsystems/shared.md</a>; the per-binary tables below are the exhaustive lookup indexes.</p>
 <p>The per-binary tables below are exhaustive VA indexes kept for lookup; they are not the best starting point for understanding a subsystem. Every VA appears under exactly one subsystem/detail section; <code>role</code> is core/shared/boundary/data/unknown and <code>confidence</code>/<code>reason</code> record the evidence.</p>
 <p>Machine-readable table: <code>build/master_index.csv</code> (va, binary, section, source, size, subsystem, detail, role, confidence, reason). Boundary table: <code>build/subsystem_seams.csv</code>; surface labels: <code>docs/subsystem_surface.csv</code>.</p>
 </blockquote>
@@ -2716,13 +2660,12 @@
 </table>
 <h2 id="common-references">Common references<a class="headerlink" href="#common-references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../subsystems/">Subsystem documentation</a> - how each system works and its VA inventory.</li>
+<li><a href="../subsystems/">Subsystem overview</a> - how each system works and its key entry points.</li>
 <li><a href="../subsystems/shared/">Shared VAs</a> - helpers used by more than one subsystem.</li>
-<li><a href="../SUBSYSTEM_CATALOG/">Subsystem catalog</a> - stable entry point.</li>
 <li><a href="../SUBSYSTEM_SEAMS/">Subsystem seams</a> - outbound boundary calls and cross-system dependencies.</li>
 </ul>
 <h2 id="regenerate">Regenerate<a class="headerlink" href="#regenerate" title="Permanent link">&para;</a></h2>
-<p><code>python tools/gen_master_index.py</code> then <code>python tools/gen_subsystem_docs.py</code></p>
+<p>This page and the per-VA indexes are generated in the development tree by <code>tools/gen_master_index.py</code> and <code>tools/gen_subsystem_docs.py</code>. The public snapshot ships the generated outputs; those tools are not part of the public repository.</p>
 
 
 
@@ -2758,7 +2701,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   

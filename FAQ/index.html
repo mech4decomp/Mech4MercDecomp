@@ -548,34 +548,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../GAME_VERSIONING/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Game versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1544,14 +1516,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem catalog
+    Subsystem seams
   
 
     
@@ -1572,14 +1544,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+      <a href="../GAME_VERSIONING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subsystem seams
+    Game versioning
   
 
     
@@ -2083,34 +2055,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../MODULE_NOTES/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module notes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -2125,10 +2069,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -2146,8 +2090,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2550,34 +2494,29 @@ source reconstruction.</p>
 Byte identity is the acceptance criterion. Reconstructed C++ would compile to
 different bytes, so the oracle transcribes the original machine code instead.</p>
 <p><strong>Does this repository include the game or its assets?</strong>
-No. You must own the game and supply the reference binaries. No art, audio,
-maps, missions, or other assets are hosted here.</p>
-<p><strong>Which game version do I need?</strong>
+No original executables, DLLs, art, audio, or maps are included. The repository
+does include transcribed code and reference-derived data sections, so the
+default build is self-contained.</p>
+<p><strong>Do I need to supply the game EXE or DLLs?</strong>
+No. The generated non-<code>.text</code> data sources and the reference-derived <code>.bin</code>
+artifacts are committed. You can build and verify the oracle without owning the
+game. The reference binaries are optional and are needed only to regenerate
+data/artifacts or to run byte diffs. See <a href="../BUILD/">the build guide</a>.</p>
+<p><strong>Why are the data sections included now?</strong>
+The earlier layout regenerated them from a user-supplied reference. To make the
+repository buildable as-is, the byte-exact data sources and artifacts are now
+committed. <code>nmake data</code> and <code>nmake init</code> remain available as the optional
+"how they were created" regeneration path.</p>
+<p><strong>Which game version was used as the baseline?</strong>
 The official Microsoft <strong>MechWarrior 4: Mercenaries Point Release 1 (PR1)</strong>
-build, file version <code>50.07.01.2105</code>. Apply the official PR1 patch
-(<code>Mercpr1.exe</code>) to a retail install and verify the supplied binaries against
-<code>reference/SHA256.txt</code>. The canonical EXE is the PR1 image with the SafeDisc
-wrapper removed. See <a href="../BUILD/#game-version">the build guide</a>.</p>
-<p><strong>Can I use the MekTek free release?</strong>
-Not for the oracle. The final MekTek 3.1 release is a different build
-(<code>51.03.01</code>) with MekPak content and different binaries. It is a legitimate
-way to play, but it cannot match the official PR1 bytes or pass the byte gates.</p>
-<p><strong>Can I use a NoCD crack?</strong>
-Community NoCD executables exist, but they are not provided or supported here.
-Most are modified or packed differently, so their hashes do not match the
-reference. The build needs an unmodified, hash-matching PR1 image.</p>
-<p><strong>Why are the data sections missing, but in-<code>.text</code> tables included?</strong>
-In-<code>.text</code> tables (switch/jump/pointer tables) are part of the function layout
-and are required to reproduce the <code>.text</code> bytes; they are small and
-code-structural. <code>.rdata</code>/<code>.data</code>/<code>.rsrc</code>/<code>.txt2</code> are whole PE data sections
-containing bulk game data, strings, resources, and the SafeDisc leftover. They
-are not needed as source, and committing them would redistribute a large part
-of the original binary. <code>nmake data</code> regenerates them from your own reference,
-so the build remains fully reproducible.</p>
+build, file version <code>50.07.01.2105</code>, EXE SHA-256
+<code>deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f</code>. This is
+provenance; you do not need the file to build. Community builds such as MekTek
+3.1 are different product builds and are not the baseline.</p>
 <p><strong>Can I build a playable EXE?</strong>
-If you own the game and supply the canonical reference, the build produces a
-byte-identical <code>MW4Mercs.exe</code>. You can deploy it with <code>nmake deploy</code> if your
-install is in the expected location.</p>
+The build produces a byte-identical <code>MW4Mercs.exe</code> from the committed sources
+and artifacts. You can deploy it with <code>nmake deploy</code> if your install is in the
+expected location.</p>
 <p><strong>Why MSVC6?</strong>
 The target binaries were built with MSVC6. The inline-assembly encoding and
 the final image layout depend on that toolchain.</p>
@@ -2585,15 +2524,17 @@ the final image layout depend on that toolchain.</p>
 A few EXE IAT jump thunks and the <code>.txt2</code> SafeDisc leftover are out of scope.
 They are listed in <code>src/mw4mercs/artifacts/extra_functions.csv</code>.</p>
 <p><strong>How do I know the build is correct?</strong>
-<code>nmake exe</code>, <code>nmake dll-all MOD=...</code>, and <code>nmake verify</code> check byte identity
-and the canonical SHA-256 hashes. See <code>docs/VERIFICATION.md</code>.</p>
+<code>nmake verify</code> checks the built images against the canonical SHA-256 hashes
+without needing the reference. <code>nmake exe</code>, <code>nmake dll-all MOD=...</code>, and the
+per-function checks additionally compare bytes when the reference is present.
+See <code>docs/VERIFICATION.md</code>.</p>
 <p><strong>Can I contribute code?</strong>
 No. The oracle is frozen. Documentation corrections are welcome; see
 <code>CONTRIBUTING.md</code>.</p>
 <p><strong>Does the build need an external analysis database?</strong>
-No. The build and verification pipeline uses the committed sources, the
-committed function inventories in <code>reference/functions/</code>, and the reference
-binaries.</p>
+No. The build uses the committed sources, the committed function inventories
+in <code>reference/functions/</code>, and the committed data/artifacts. The reference
+binaries are optional.</p>
 
 
 
@@ -2629,7 +2570,7 @@ binaries.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+      Educational/interoperability project. No original game executables, DLLs, or standalone assets are hosted here; transcribed code and derived data sections are included. MechWarrior and related marks belong to their respective owners.
 
     </div>
   
