@@ -9,6 +9,7 @@ RE.
 
 - **One hardcoded version string** `"50.07.01.2105"` (`.rdata` `0x0076CB3C`),
   loaded at startup into the global pointer `g_game_version` (`0x00858924`).
+  This is the official Point Release 1 (PR1) build.
 - **Hosts advertise it** as the DirectPlay session attribute `GameVersion`
   (and inside the session config blob as the `\v` directive).
 - **The server browser compares** each enumerated session's `GameVersion`

@@ -13,6 +13,24 @@ different bytes, so the oracle transcribes the original machine code instead.
 No. You must own the game and supply the reference binaries. No art, audio,
 maps, missions, or other assets are hosted here.
 
+**Which game version do I need?**
+The official Microsoft **MechWarrior 4: Mercenaries Point Release 1 (PR1)**
+build, file version `50.07.01.2105`. Apply the official PR1 patch
+(`Mercpr1.exe`) to a retail install and verify the supplied binaries against
+`reference/SHA256.txt`. The canonical EXE is the PR1 image with the SafeDisc
+wrapper removed. See [the build guide](BUILD.md#game-version).
+
+**Can I use the MekTek free release?**
+Not for the oracle. The final MekTek 3.1 release is a different build
+(`51.03.01`) with MekPak content and different binaries. It is a legitimate
+way to play, but it cannot match the official PR1 bytes or pass the byte gates.
+
+**Can I use a NoCD crack?**
+Community NoCD executables exist, but they are not provided or supported here.
+Most are modified or packed differently, so their hashes do not match the
+reference. You can use one to play, but the build needs an unmodified,
+hash-matching PR1 image.
+
 **Why are the data sections missing, but in-`.text` tables included?**
 In-`.text` tables (switch/jump/pointer tables) are part of the function layout
 and are required to reproduce the `.text` bytes; they are small and
