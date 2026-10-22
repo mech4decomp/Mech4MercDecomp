@@ -1,6 +1,6 @@
 # Language.dll
 
-> **VAs:** 104 | **Exhaustive index:** [Language.dll](../master_index/Language_dll.md)
+> **VAs:** 104 | **Exhaustive index:** [Language.dll](../va_index/Language_dll.md)
 
 Codepage-aware localizable string-table loader.
 
@@ -185,4 +185,4 @@ Every VA in this module is listed below, grouped by detail.
 
 - [All subsystems](README.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/Language_dll.md)
+- [Exhaustive per-VA index](../va_index/Language_dll.md)

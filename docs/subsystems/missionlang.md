@@ -1,6 +1,6 @@
 # MissionLang_MERCS.dll
 
-> **VAs:** 69 | **Exhaustive index:** [MissionLang_MERCS.dll](../master_index/MissionLang_MERCS_dll.md)
+> **VAs:** 69 | **Exhaustive index:** [MissionLang_MERCS.dll](../va_index/MissionLang_MERCS_dll.md)
 
 Mission/string-table loader mirroring Language.dll.
 
@@ -150,4 +150,4 @@ Every VA in this module is listed below, grouped by detail.
 
 - [All subsystems](README.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/MissionLang_MERCS_dll.md)
+- [Exhaustive per-VA index](../va_index/MissionLang_MERCS_dll.md)

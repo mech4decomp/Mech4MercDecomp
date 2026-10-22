@@ -53,8 +53,14 @@ python -m pip install -r requirements.txt
 mkdocs serve
 ```
 
-The GitHub Actions workflow in `.github/workflows/pages.yml` rebuilds and
-publishes the site on every push to `main`.
+Maintainers publish merged documentation changes with:
+
+```text
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/publish_docs.ps1
+```
+
+The script builds the site, adds `.nojekyll`, and pushes the `gh-pages` branch
+that GitHub Pages serves.
 
 ## Pull requests
 

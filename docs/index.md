@@ -42,4 +42,4 @@ notes. It does **not** contain the game or its assets.
 
 This site is built from [`docs/`](https://github.com/mech4decomp/Mech4MercDecomp/tree/main/docs)
 with MkDocs and published through GitHub Pages. Edit the Markdown in a pull
-request; the site rebuilds on every push to `main`.
+request; maintainers publish the merged changes with `tools/publish_docs.ps1`.

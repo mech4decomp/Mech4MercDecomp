@@ -115,13 +115,13 @@ nav:
       - Oracle status: ORACLE_STATUS.md
       - Module notes: MODULE_NOTES.md
       - Per-VA indexes:
-          - MW4Mercs.exe: master_index/MW4Mercs_exe.md
-          - GunDll.dll: master_index/GunDll_dll.md
-          - MW4Stats.dll: master_index/MW4Stats_dll.md
-          - blade.dll: master_index/blade_dll.md
-          - Language.dll: master_index/Language_dll.md
-          - MissionLang_MERCS.dll: master_index/MissionLang_MERCS_dll.md
-          - ZlogLib.dll: master_index/ZlogLib_dll.md
+          - MW4Mercs.exe: va_index/MW4Mercs_exe.md
+          - GunDll.dll: va_index/GunDll_dll.md
+          - MW4Stats.dll: va_index/MW4Stats_dll.md
+          - blade.dll: va_index/blade_dll.md
+          - Language.dll: va_index/Language_dll.md
+          - MissionLang_MERCS.dll: va_index/MissionLang_MERCS_dll.md
+          - ZlogLib.dll: va_index/ZlogLib_dll.md
   - Project:
       - FAQ: FAQ.md
       - Legal: LEGAL.md

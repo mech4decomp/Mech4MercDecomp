@@ -1,6 +1,6 @@
 # GunDll.dll
 
-> **VAs:** 3213 | **Exhaustive index:** [GunDll.dll](../master_index/GunDll_dll.md)
+> **VAs:** 3213 | **Exhaustive index:** [GunDll.dll](../va_index/GunDll_dll.md)
 
 COM lobby/account client: registration, string/GUID and hash tables, crypto, HTTP, sockets, and the lobby object model.
 
@@ -3394,4 +3394,4 @@ Every VA in this module is listed below, grouped by detail.
 
 - [All subsystems](README.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/GunDll_dll.md)
+- [Exhaustive per-VA index](../va_index/GunDll_dll.md)

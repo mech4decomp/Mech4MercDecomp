@@ -1,6 +1,6 @@
 # MW4Stats.dll
 
-> **VAs:** 1091 | **Exhaustive index:** [MW4Stats.dll](../master_index/MW4Stats_dll.md)
+> **VAs:** 1091 | **Exhaustive index:** [MW4Stats.dll](../va_index/MW4Stats_dll.md)
 
 Stats recording, XML serialization, Zone upload, and Gun authentication.
 
@@ -1170,4 +1170,4 @@ Every VA in this module is listed below, grouped by detail.
 
 - [All subsystems](README.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/MW4Stats_dll.md)
+- [Exhaustive per-VA index](../va_index/MW4Stats_dll.md)

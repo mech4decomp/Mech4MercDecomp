@@ -1,6 +1,6 @@
 # Platform Subsystem
 
-> **Binary:** `MW4Mercs.exe` | **VAs:** 255 | **Exhaustive index:** [MW4Mercs.exe](../master_index/MW4Mercs_exe.md)
+> **Binary:** `MW4Mercs.exe` | **VAs:** 255 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
 
 Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper.
 
@@ -314,4 +314,4 @@ Every VA in this subsystem is listed below, grouped by detail. `Evidence` is the
 - [All subsystems](README.md)
 - [Shared VAs](shared.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/MW4Mercs_exe.md)
+- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)

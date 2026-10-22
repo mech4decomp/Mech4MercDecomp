@@ -1,6 +1,6 @@
 # ZlogLib.dll
 
-> **VAs:** 33 | **Exhaustive index:** [ZlogLib.dll](../master_index/ZlogLib_dll.md)
+> **VAs:** 33 | **Exhaustive index:** [ZlogLib.dll](../va_index/ZlogLib_dll.md)
 
 Logging API (`GetngLogAPI`) with lifecycle, emit, MD5, and memory helpers.
 
@@ -116,4 +116,4 @@ Every VA in this module is listed below, grouped by detail.
 
 - [All subsystems](README.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/ZlogLib_dll.md)
+- [Exhaustive per-VA index](../va_index/ZlogLib_dll.md)

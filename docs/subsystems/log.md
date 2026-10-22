@@ -1,6 +1,6 @@
 # Log Subsystem
 
-> **Binary:** `MW4Mercs.exe` | **VAs:** 192 | **Exhaustive index:** [MW4Mercs.exe](../master_index/MW4Mercs_exe.md)
+> **Binary:** `MW4Mercs.exe` | **VAs:** 192 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
 
 Logging, assertions, error reporting, and diagnostic output.
 
@@ -237,4 +237,4 @@ Every VA in this subsystem is listed below, grouped by detail. `Evidence` is the
 - [All subsystems](README.md)
 - [Shared VAs](shared.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/MW4Mercs_exe.md)
+- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)

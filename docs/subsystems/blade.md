@@ -1,6 +1,6 @@
 # blade.dll
 
-> **VAs:** 739 | **Exhaustive index:** [blade.dll](../master_index/blade_dll.md)
+> **VAs:** 739 | **Exhaustive index:** [blade.dll](../va_index/blade_dll.md)
 
 DirectDraw proxy DLL with COM exports, a large facade state machine, caps/accessor wrappers, and a software rasterizer.
 
@@ -836,4 +836,4 @@ Every VA in this module is listed below, grouped by detail.
 
 - [All subsystems](README.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/blade_dll.md)
+- [Exhaustive per-VA index](../va_index/blade_dll.md)

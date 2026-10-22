@@ -34,7 +34,7 @@ src/
 
 Filenames are canonical: `func_<8-hex-va>.c` and `data_<8-hex-va>.c`. Semantics
 live in the file header and inline comments, never in the filename. The
-per-binary subsystem indexes under `docs/master_index/` provide the semantic
+per-binary subsystem indexes under `docs/va_index/` provide the semantic
 map.
 
 Non-`.text` sections (`.rdata`, `.data`, `.rsrc`, `.txt2`) are byte-exact data

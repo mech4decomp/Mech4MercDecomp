@@ -1,6 +1,6 @@
 # AI Subsystem
 
-> **Binary:** `MW4Mercs.exe` | **VAs:** 1308 | **Exhaustive index:** [MW4Mercs.exe](../master_index/MW4Mercs_exe.md)
+> **Binary:** `MW4Mercs.exe` | **VAs:** 1308 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
 
 AI decision layer, ABL script runtime, navigation, targeting, squad control, and AI combat decisions.
 
@@ -428,4 +428,4 @@ This subsystem has **141 outbound boundary VAs**. The full table is in [SUBSYSTE
 - [All subsystems](README.md)
 - [Shared VAs](shared.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/MW4Mercs_exe.md)
+- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)

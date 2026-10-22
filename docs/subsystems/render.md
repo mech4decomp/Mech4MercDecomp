@@ -1,6 +1,6 @@
 # Render Subsystem
 
-> **Binary:** `MW4Mercs.exe` | **VAs:** 2708 | **Exhaustive index:** [MW4Mercs.exe](../master_index/MW4Mercs_exe.md)
+> **Binary:** `MW4Mercs.exe` | **VAs:** 2708 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
 
 Owns the MidLevelRenderer (MLR) scene pipeline and the D3D7 immediate-mode device boundary. It turns game state into sorted draw records, evaluates animation and lighting, streams terrain and textures, and hands final primitives to the device and present paths.
 
@@ -2424,4 +2424,4 @@ This subsystem has **316 outbound boundary VAs**. The full table is in [SUBSYSTE
 - [All subsystems](README.md)
 - [Shared VAs](shared.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
-- [Exhaustive per-VA index](../master_index/MW4Mercs_exe.md)
+- [Exhaustive per-VA index](../va_index/MW4Mercs_exe.md)
