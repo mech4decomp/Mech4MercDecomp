@@ -1,0 +1,127 @@
+site_name: MechWarrior 4 Mercenaries - Oracle
+site_description: Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.
+site_url: https://mech4decomp.github.io/Mech4MercDecomp/
+repo_url: https://github.com/mech4decomp/Mech4MercDecomp
+repo_name: mech4decomp/Mech4MercDecomp
+edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+strict: true
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue grey
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search
+
+copyright: >
+  Educational/interoperability project. No game binaries or assets are hosted
+  here. MechWarrior and related marks belong to their respective owners.
+
+nav:
+  - Home: index.md
+  - Build and verify:
+      - Build guide: BUILD.md
+      - Verification: VERIFICATION.md
+      - Architecture: ARCHITECTURE.md
+      - Game versioning: GAME_VERSIONING.md
+  - Subsystems:
+      - Overview: subsystems/README.md
+      - Render: subsystems/render.md
+      - Runtime: subsystems/runtime.md
+      - Gameplay: subsystems/gameplay.md
+      - AI: subsystems/ai.md
+      - Database: subsystems/database.md
+      - UI: subsystems/ui.md
+      - Network: subsystems/net.md
+      - Archive: subsystems/archive.md
+      - Platform: subsystems/platform.md
+      - Log: subsystems/log.md
+      - Combat: subsystems/combat.md
+      - C runtime: subsystems/crt.md
+      - Config: subsystems/config.md
+      - Input: subsystems/input.md
+      - Audio: subsystems/audio.md
+      - Codec: subsystems/codec.md
+      - Crypto: subsystems/crypto.md
+      - Data sections: subsystems/data.md
+      - Unclassified: subsystems/unclassified.md
+      - Shared VAs: subsystems/shared.md
+  - Modules:
+      - GunDll.dll: subsystems/gundll.md
+      - MW4Stats.dll: subsystems/mw4stats.md
+      - blade.dll: subsystems/blade.md
+      - Language.dll: subsystems/language.md
+      - MissionLang_MERCS.dll: subsystems/missionlang.md
+      - ZlogLib.dll: subsystems/zloglib.md
+  - Reference:
+      - Master index: MASTER_INDEX.md
+      - Subsystem catalog: SUBSYSTEM_CATALOG.md
+      - Subsystem seams: SUBSYSTEM_SEAMS.md
+      - Data annotation: data_annotation.md
+      - Module data annotation:
+          - blade.dll: module_data_annotation/blade.md
+          - GunDll.dll: module_data_annotation/gundll.md
+          - Language.dll: module_data_annotation/language.md
+          - MissionLang_MERCS.dll: module_data_annotation/missionlang.md
+          - MW4Stats.dll: module_data_annotation/mw4stats.md
+          - ZlogLib.dll: module_data_annotation/zloglib.md
+      - Editor tools:
+          - Overview: editor_tools/README.md
+          - autoconfig: editor_tools/autoconfig.md
+          - MapCreator: editor_tools/mapcreator.md
+          - MW4Ed2: editor_tools/mw4ed2.md
+          - NFMEditor: editor_tools/nfmeditor.md
+      - Oracle status: ORACLE_STATUS.md
+      - Module notes: MODULE_NOTES.md
+      - Per-VA indexes:
+          - MW4Mercs.exe: master_index/MW4Mercs_exe.md
+          - GunDll.dll: master_index/GunDll_dll.md
+          - MW4Stats.dll: master_index/MW4Stats_dll.md
+          - blade.dll: master_index/blade_dll.md
+          - Language.dll: master_index/Language_dll.md
+          - MissionLang_MERCS.dll: master_index/MissionLang_MERCS_dll.md
+          - ZlogLib.dll: master_index/ZlogLib_dll.md
+  - Project:
+      - FAQ: FAQ.md
+      - Legal: LEGAL.md

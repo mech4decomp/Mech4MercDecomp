@@ -38,3 +38,7 @@ Desktop.ini
 # Python
 __pycache__/
 *.pyc
+
+# Documentation site build
+site/
+.cache/

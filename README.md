@@ -102,7 +102,8 @@ See [`docs/VERIFICATION.md`](docs/VERIFICATION.md) for the methodology.
 - [`docs/editor_tools/`](docs/editor_tools/) — shipped editor/config tools
 - [`docs/FAQ.md`](docs/FAQ.md) — common questions
 
-The GitHub wiki contains the same material in a more navigable form.
+The documentation site is generated from `docs/` with MkDocs and published at
+**https://mech4decomp.github.io/Mech4MercDecomp/**.
 
 ## Contributing
 

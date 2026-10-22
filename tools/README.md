@@ -40,7 +40,7 @@
 
 `audit_public_export.py` enforces the public export policy (no reference
 binaries, no generated data sections, no tokens or private paths).
-`publish_wiki.ps1` publishes `docs/wiki/*.md` to the GitHub wiki.
+The documentation site is built from `docs/` with MkDocs; see `mkdocs.yml`.
 
 The build and verification pipeline uses only the committed sources, the
 committed function inventories in `reference/functions/`, and the user's

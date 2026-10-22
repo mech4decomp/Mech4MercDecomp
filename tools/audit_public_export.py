@@ -61,7 +61,7 @@ REQUIRED = [
 
 def walk():
     for dp, dns, fns in os.walk(ROOT):
-        dns[:] = [d for d in dns if d not in (".git", "build", "__pycache__")]
+        dns[:] = [d for d in dns if d not in (".git", "build", "site", "__pycache__")]
         rel = os.path.relpath(dp, ROOT).replace("\\", "/")
         if rel == ".":
             rel = ""

@@ -44,6 +44,18 @@ documentation license in [`LICENSE`](LICENSE) (CC BY 4.0). You retain copyright
 in your contribution. Do not contribute material you do not have the right to
 publish.
 
+## Documentation site
+
+The site is built from `docs/` with MkDocs Material. To preview changes:
+
+```text
+python -m pip install -r requirements.txt
+mkdocs serve
+```
+
+The GitHub Actions workflow in `.github/workflows/pages.yml` rebuilds and
+publishes the site on every push to `main`.
+
 ## Pull requests
 
 - Keep changes focused on documentation.
