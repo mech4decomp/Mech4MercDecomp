@@ -35,6 +35,7 @@
 | `deploy_exe.py` | Copy the built EXE to a game install and hash-check it |
 | `gen_symbol_map.py` | Emit an x64dbg `labelset` from the committed inventory |
 | `run_debug.ps1` | Launch the game windowed and attach x32dbg |
+| `publish_docs.ps1` | Build the MkDocs site and publish it to `gh-pages` |
 
 ## Repository policy
 
