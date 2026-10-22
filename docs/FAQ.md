@@ -28,8 +28,7 @@ way to play, but it cannot match the official PR1 bytes or pass the byte gates.
 **Can I use a NoCD crack?**
 Community NoCD executables exist, but they are not provided or supported here.
 Most are modified or packed differently, so their hashes do not match the
-reference. You can use one to play, but the build needs an unmodified,
-hash-matching PR1 image.
+reference. The build needs an unmodified, hash-matching PR1 image.
 
 **Why are the data sections missing, but in-`.text` tables included?**
 In-`.text` tables (switch/jump/pointer tables) are part of the function layout

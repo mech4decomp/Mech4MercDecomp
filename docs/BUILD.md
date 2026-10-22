@@ -27,9 +27,7 @@ Release 1 (PR1)** build:
 | EXE size | 3,915,776 bytes |
 | EXE SHA-256 | `deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f` |
 
-This was confirmed from the PR1 readme included in a normal install and the
-EXE's version resource. A normal PR1 install includes the patch readme
-(`mw mercs patch 1 readme.rtf`).
+A normal PR1 install includes the patch readme (`mw mercs patch 1 readme.rtf`).
 The reference `MW4Mercs.exe` is the PR1 image with the SafeDisc wrapper
 removed. The six DLLs in `reference/` must come from the same PR1 install.
 
@@ -41,17 +39,20 @@ fail at the final diff even if the game version string looks similar.
 See [game versioning](GAME_VERSIONING.md) for how the EXE uses
 `50.07.01.2105` in multiplayer and saved data.
 
-### Unwrapped and NoCD executables
+### SafeDisc-unwrapped vs NoCD executables
 
-The retail PR1 disc uses SafeDisc. The canonical reference is an unwrapped
-PR1 image, not a modified "NoCD" executable. Community NoCD or unprotected
-executables exist because the original disc check is inconvenient on modern
-Windows; they are not provided or supported here. Most have modified code or
-packing, so their SHA-256 will not match the reference.
+The retail PR1 disc uses SafeDisc. "SafeDisc-unwrapped" means the SafeDisc
+protection layer has been removed and the underlying PR1 executable image
+recovered; it is not a gameplay-code patch. The canonical reference is this
+unwrapped image.
 
-If you use a NoCD executable to run the game, keep a separate canonical PR1
-image for the build and verify its hash. A NoCD EXE that does not match
-`reference/SHA256.txt` cannot be used as the oracle reference.
+A "NoCD" executable is any executable modified to bypass the disc check. It
+may also remove SafeDisc, but it often patches code, changes the entry point,
+or is packed differently. It is therefore not necessarily a clean unwrap, and
+its SHA-256 usually will not match the reference.
+
+Community NoCD executables are not provided or supported here. A NoCD EXE that
+does not match `reference/SHA256.txt` cannot be used as the oracle reference.
 
 ### Getting a copy
 
