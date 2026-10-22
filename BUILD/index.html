@@ -2836,12 +2836,12 @@ and <code>LIB</code> for VC6. Override the install locations if needed:</p>
 <p>The default build does not read the reference binaries. The repository
 contains the generated non-<code>.text</code> data sources and the reference-derived
 <code>.bin</code> artifacts, so you can build without owning or supplying the game.</p>
-<p>The reference binaries are needed only for these optional operations:</p>
+<p>The reference binaries are used only for these optional operations:</p>
 <ul>
 <li><code>nmake data</code> / <code>nmake module-data</code> - regenerate data sources from a reference.</li>
 <li><code>nmake init</code> / <code>nmake dll-init</code> - regenerate metadata artifacts.</li>
-<li><code>nmake exe</code> / <code>nmake dll</code> - run the final byte diff (skipped if the
-  reference file is absent).</li>
+<li><code>nmake exe</code> / <code>nmake dll</code> - run the final byte diff after the build (skipped
+  if the reference file is absent).</li>
 <li><code>nmake diff</code> / <code>nmake nomask</code> - per-function comparison.</li>
 </ul>
 <p>If you want those checks, copy your own files into <code>reference/</code> and verify them
@@ -2902,16 +2902,12 @@ optional path that regenerates them from a reference DLL.</p>
 <div class="highlight"><pre><span></span><code>nmake verify
 </code></pre></div>
 <p>Expected hashes are in <code>reference/SHA256.txt</code>. The command checks the EXE and
-all six built DLLs, so build every module first if you want a full pass.</p>
+all six DLLs, so build every target first for a full pass; a missing image is
+reported as a failure.</p>
 <h2 id="per-function-workflow-optional">Per-function workflow (optional)<a class="headerlink" href="#per-function-workflow-optional" title="Permanent link">&para;</a></h2>
-<p>These checks compare one source file against a reference binary, so they need
-the corresponding file under <code>reference/</code>:</p>
-<div class="highlight"><pre><span></span><code>nmake one SRC=src\mw4mercs\text\func_00401000.c
-nmake diff FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
-nmake nomask FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
-</code></pre></div>
-<p>The masked diff ignores relocation slots. The no-mask check resolves them from
-the committed table and compares every byte.</p>
+<p>Per-function checks are documented in
+<a href="../VERIFICATION/#3-per-function-checks-optional">Verification</a>; they need the
+corresponding reference binary.</p>
 <h2 id="windows-11-notes">Windows 11 notes<a class="headerlink" href="#windows-11-notes" title="Permanent link">&para;</a></h2>
 <p>The compiler and linker are 32-bit, so they run on 64-bit Windows 11. The
 installers are the problem: Visual Studio 6.0 and the DirectX 8.1 SDK predate
@@ -2956,10 +2952,11 @@ disable real-time protection globally.</p>
 so <code>/Iinclude</code> resolves, or use <code>tools\compile_one.bat</code>.</p>
 <p><strong><code>missing committed artifacts</code> / empty extern table</strong> — run <code>nmake objs</code>
 before <code>nmake init</code>. <code>init</code> learns symbols from the compiled objects.</p>
-<p><strong>Data-section mismatch</strong> — your reference binary does not match the expected
-hash. Verify <code>reference/SHA256.txt</code>.</p>
-<p><strong>Module data mismatch</strong> — make sure the matching DLL in <code>reference/</code> is the
-canonical one; each module is diffed against its own binary.</p>
+<p><strong>Data-section mismatch after <code>nmake data</code></strong> — the reference binary does not
+match the expected hash. Verify <code>reference/SHA256.txt</code>.</p>
+<p><strong>Module data mismatch after <code>nmake module-data</code></strong> — make sure the matching DLL
+in <code>reference/</code> is the canonical one; each module is regenerated against its
+own binary.</p>
 <p><strong>Build is slow</strong> — the first EXE build compiles ~13,800 translation units.
 Subsequent builds are incremental. <code>build_text_objs.py</code> skips objects that are
 newer than their sources.</p>

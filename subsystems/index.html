@@ -711,28 +711,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#common-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common references
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-read-a-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to read a page
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2593,28 +2571,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#common-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common references
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-read-a-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to read a page
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2641,8 +2597,7 @@
 
 
 <h1 id="subsystem-documentation">Subsystem Documentation<a class="headerlink" href="#subsystem-documentation" title="Permanent link">&para;</a></h1>
-<p>Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes; this overview and the subsystem pages link to them instead of repeating them.</p>
-<p>Shared VAs are described once in <a href="shared/">shared.md</a>. Boundary calls are in <a href="../SUBSYSTEM_SEAMS/">../SUBSYSTEM_SEAMS.md</a>.</p>
+<p>Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes. Shared VAs are described once in <a href="shared/">shared.md</a>; boundary calls are in <a href="../SUBSYSTEM_SEAMS/">SUBSYSTEM_SEAMS.md</a>; the exhaustive lookup starts at <a href="../MASTER_INDEX/">MASTER_INDEX.md</a>.</p>
 <h2 id="exe-subsystems">EXE subsystems<a class="headerlink" href="#exe-subsystems" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2696,7 +2651,7 @@
 <tr>
 <td><a href="platform/">Platform</a></td>
 <td>256</td>
-<td>Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper.</td>
+<td>Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the in-image SafeDisc/anti-tamper wrapper.</td>
 </tr>
 <tr>
 <td><a href="log/">Log</a></td>
@@ -2804,14 +2759,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="common-references">Common references<a class="headerlink" href="#common-references" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="shared/">Shared VAs</a></li>
-<li><a href="../SUBSYSTEM_SEAMS/">Boundary seams</a></li>
-<li><a href="../MASTER_INDEX/">Master index</a></li>
-</ul>
-<h2 id="how-to-read-a-page">How to read a page<a class="headerlink" href="#how-to-read-a-page" title="Permanent link">&para;</a></h2>
-<p>The narrative and key entry points come first. The detail table gives the full count and responsibility for each sub-surface; the exhaustive VA table (role, size, source, evidence) is in the per-binary index. Shared VAs are described once in <a href="shared/">shared.md</a>, and boundary calls once in <a href="../SUBSYSTEM_SEAMS/">SUBSYSTEM_SEAMS.md</a>.</p>
 
 
 

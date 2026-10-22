@@ -2702,7 +2702,9 @@ build is self-contained.</p>
 <li>No original <code>MW4Mercs.exe</code> or game DLLs.</li>
 <li>No art, audio, maps, missions, localization data, or other standalone game
   assets.</li>
-<li>No SafeDisc/DRM implementation.</li>
+<li>No SafeDisc/DRM runtime, bypass, or external DRM components; the in-image
+  wrapper and <code>.txt2</code> bytes are preserved only as part of the byte-identical
+  image.</li>
 </ul>
 <p>The reference binaries are optional. They are not distributed here and are
 only needed for regeneration or byte-diff checks; verify them against

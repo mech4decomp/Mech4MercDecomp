@@ -903,17 +903,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Contents
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -947,21 +936,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inventory" class="md-nav__link">
+  <a href="#coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inventory
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
+        Coverage
       
     </span>
   </a>
@@ -2572,17 +2550,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Contents
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2616,21 +2583,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inventory" class="md-nav__link">
+  <a href="#coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inventory
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
+        Coverage
       
     </span>
   </a>
@@ -2667,14 +2623,6 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 285 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p><code>#VBD</code> archives, streams, file I/O, and path handling.</p>
-<h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="#how-it-works">How it works</a></li>
-<li><a href="#key-entry-points">Key entry points</a></li>
-<li><a href="#details">Details</a></li>
-<li><a href="#inventory">Inventory</a></li>
-<li><a href="#related">Related</a></li>
-</ul>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>The archive layer owns the #VBD directory, entry hash chains, lazy member fetch/decompression, and the stream vtable. Open and close are at 0x004145E0 and 0x004148F0; open-from-stream is 0x00414820; the empty-archive initializer is 0x00413E90.</p>
 <p>Member fetch is 0x00413830; the by-index, by-name, and iterator dispatchers are 0x00413BE0, 0x00413C70, and 0x00413D20. The writer path is 0x00413540; the LZW compressor/decompressor are 0x006FBE80 and 0x006FC220.</p>
@@ -2762,15 +2710,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="inventory">Inventory<a class="headerlink" href="#inventory" title="Permanent link">&para;</a></h2>
-<p>The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in <a href="../../va_index/MW4Mercs_exe/">the MW4Mercs.exe index</a>.</p>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../">All subsystems</a></li>
-<li><a href="../shared/">Shared VAs</a></li>
-<li><a href="../../SUBSYSTEM_SEAMS/">Boundary seams</a></li>
-<li><a href="../../va_index/MW4Mercs_exe/">Exhaustive per-VA index</a></li>
-</ul>
+<h2 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Permanent link">&para;</a></h2>
+<p>All 285 classified VAs are in <a href="../../va_index/MW4Mercs_exe/">the MW4Mercs.exe index</a>, which lists role, size, source, and evidence.</p>
 
 
 

@@ -2727,8 +2727,9 @@ catches misaligned or spurious relocation sites that the masked diff hides.</p>
 <p>Both checks need the corresponding reference binary.</p>
 <h2 id="reproducibility-notes">Reproducibility notes<a class="headerlink" href="#reproducibility-notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The PE timestamp/checksum/Rich header are pinned by the committed
-  <code>pe_headers.bin</code> artifact, not by the current clock.</li>
+<li>The EXE PE timestamp/checksum/Rich header are pinned by the committed
+  <code>pe_headers.bin</code>; module headers are pinned by each module's <code>header.bin</code>.
+  Neither depends on the current clock.</li>
 <li>The generated non-<code>.text</code> data sources and <code>.bin</code> artifacts are committed.
   The default build reads no reference content.</li>
 <li><code>nmake data</code>, <code>nmake init</code>, and <code>nmake dll-init</code> are the optional

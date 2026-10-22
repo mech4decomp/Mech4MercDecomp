@@ -2498,15 +2498,10 @@ No original executables, DLLs, art, audio, or maps are included. The repository
 does include transcribed code and reference-derived data sections, so the
 default build is self-contained.</p>
 <p><strong>Do I need to supply the game EXE or DLLs?</strong>
-No. The generated non-<code>.text</code> data sources and the reference-derived <code>.bin</code>
-artifacts are committed. You can build and verify the oracle without owning the
-game. The reference binaries are optional and are needed only to regenerate
-data/artifacts or to run byte diffs. See <a href="../BUILD/">the build guide</a>.</p>
-<p><strong>Why are the data sections included now?</strong>
-The earlier layout regenerated them from a user-supplied reference. To make the
-repository buildable as-is, the byte-exact data sources and artifacts are now
-committed. <code>nmake data</code> and <code>nmake init</code> remain available as the optional
-"how they were created" regeneration path.</p>
+No. The byte-exact non-<code>.text</code> data sources and the reference-derived <code>.bin</code>
+artifacts are committed, so you can build and verify the oracle without owning
+the game. A reference binary is needed only to regenerate data/artifacts or to
+run a byte diff. See <a href="../BUILD/">the build guide</a>.</p>
 <p><strong>Which game version was used as the baseline?</strong>
 The official Microsoft <strong>MechWarrior 4: Mercenaries Point Release 1 (PR1)</strong>
 build, file version <code>50.07.01.2105</code>, EXE SHA-256

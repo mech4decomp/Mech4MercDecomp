@@ -1564,17 +1564,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common references
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#regenerate" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2559,17 +2548,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common references
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#regenerate" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2607,9 +2585,8 @@
 
 <h1 id="master-oracle-source-index">Master Oracle Source Index<a class="headerlink" href="#master-oracle-source-index" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Start here:</strong> <a href="../subsystems/">subsystems/README.md</a> explains how each subsystem works and lists its key entry points. Shared VAs are listed once in <a href="../subsystems/shared/">subsystems/shared.md</a>; the per-binary tables below are the exhaustive lookup indexes.</p>
-<p>The per-binary tables below are exhaustive VA indexes kept for lookup; they are not the best starting point for understanding a subsystem. Every VA appears under exactly one subsystem/detail section; <code>role</code> is core/shared/boundary/data/unknown and <code>confidence</code>/<code>reason</code> record the evidence.</p>
-<p>Machine-readable table: <code>build/master_index.csv</code> (va, binary, section, source, size, subsystem, detail, role, confidence, reason). Boundary table: <code>build/subsystem_seams.csv</code>; surface labels: <code>docs/subsystem_surface.csv</code>.</p>
+<p><strong>Start here:</strong> <a href="../subsystems/">subsystems/README.md</a> explains how each subsystem works and lists its key entry points. Shared VAs are listed once in <a href="../subsystems/shared/">subsystems/shared.md</a>; boundary calls are in <a href="../SUBSYSTEM_SEAMS/">SUBSYSTEM_SEAMS.md</a>. The per-binary tables below are exhaustive lookup indexes, not the best starting point for understanding a subsystem; every VA appears under exactly one subsystem/detail section, and <code>role</code>/<code>confidence</code>/<code>reason</code> record its classification and evidence.</p>
+<p>The development tree also emits <code>build/master_index.csv</code> (va, binary, section, source, size, subsystem, detail, role, confidence, reason) and <code>build/subsystem_seams.csv</code>; surface labels are in <code>docs/subsystem_surface.csv</code>. The public snapshot ships the generated docs, not the development CSVs.</p>
 </blockquote>
 <h2 id="exhaustive-per-va-indexes">Exhaustive per-VA indexes<a class="headerlink" href="#exhaustive-per-va-indexes" title="Permanent link">&para;</a></h2>
 <table>
@@ -2658,12 +2635,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="common-references">Common references<a class="headerlink" href="#common-references" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../subsystems/">Subsystem overview</a> - how each system works and its key entry points.</li>
-<li><a href="../subsystems/shared/">Shared VAs</a> - helpers used by more than one subsystem.</li>
-<li><a href="../SUBSYSTEM_SEAMS/">Subsystem seams</a> - outbound boundary calls and cross-system dependencies.</li>
-</ul>
 <h2 id="regenerate">Regenerate<a class="headerlink" href="#regenerate" title="Permanent link">&para;</a></h2>
 <p>This page and the per-VA indexes are generated in the development tree by <code>tools/gen_master_index.py</code> and <code>tools/gen_subsystem_docs.py</code>. The public snapshot ships the generated outputs; those tools are not part of the public repository.</p>
 

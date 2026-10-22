@@ -1632,10 +1632,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-the-four-fields-and-the-two-hardcoded-copies" class="md-nav__link">
+  <a href="#11-the-four-fields-and-the-two-live-copies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.1 The four fields (and the two hardcoded copies)
+        1.1 The four fields (and the two live copies)
       
     </span>
   </a>
@@ -2815,10 +2815,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-the-four-fields-and-the-two-hardcoded-copies" class="md-nav__link">
+  <a href="#11-the-four-fields-and-the-two-live-copies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.1 The four fields (and the two hardcoded copies)
+        1.1 The four fields (and the two live copies)
       
     </span>
   </a>
@@ -3100,7 +3100,7 @@ function names are the oracle's <code>func_&lt;VA&gt;</code> names. This is refe
 RE.</p>
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>One version value, stored in two hardcoded copies</strong>: <code>"50.07.01.2105"</code>
+<li><strong>One version value, stored in two live hardcoded copies</strong>: <code>"50.07.01.2105"</code>
   (<code>.rdata</code> <code>0x0076CB3C</code>, loaded at startup into <code>g_game_version</code>
   <code>0x00858924</code>, and <code>0x00773040</code>, read by the join handshake and saved-data
   paths). This is the official Point Release 1 (PR1) build.</li>
@@ -3117,21 +3117,21 @@ RE.</p>
   failure string is <code>"Incompatible Protocol version mismatch."</code>
   (<code>0x007A04DC</code>, ZoneTech error <code>0xC1120C05</code>).</li>
 <li><strong>There <em>is</em> an in-game join handshake</strong> (net event <code>0x0A</code>, <code>FUN_0053F210</code>,
-  §7): the joiner sends a packed 64-bit <strong>version code</strong> (derived from
+  see §7): the joiner sends a packed 64-bit <strong>version code</strong> (derived from
   <code>"50.07.01.2105"</code>) and an 8-byte <strong>content checksum</strong>; the receiver compares
   both against its own computation and answers <code>0x0B</code> (reject + status) or
   <code>0x0C</code> (accept + checksum echo the joiner re-verifies in <code>FUN_0053F9B0</code>).
   Mismatches log <code>Player_Reject\t%d\t%d</code> (<code>0x0077B730</code>) with status <code>4</code>
   (content), <code>5</code> (version), <code>6</code> (banned IP) or <code>8</code> (duplicate player GUID).
   The content checksum covers the code bytes of the 15 resource-loader
-  functions plus one mission archive entry (§8).</li>
+  functions plus one mission archive entry (see §8).</li>
 <li>The connect path's DirectPlay <em>application GUID</em> (<code>0x007A2E30</code> =
   <code>{36E95EE0-8577-11CF-960C-0080C7534E82}</code>) is game identity only, identical
   across builds. The advertisement + browser filter/sort is advisory; the join
   handshake is the actual same-build gate.</li>
 <li>The handshake and the variant self-digest are the game's two integrity
-  checks; §10 describes what each one covers, and §11 lists the observed
-  limitations.</li>
+  checks; see §8 and §9 for what each one covers, and §11 for the
+  observed limitations.</li>
 </ul>
 <h2 id="1-the-version-value">1. The version value<a class="headerlink" href="#1-the-version-value" title="Permanent link">&para;</a></h2>
 <table>
@@ -3175,7 +3175,7 @@ and point <code>g_858924</code> at it — dead in the normal path.</p>
 registry key is <code>"Software\Microsoft\Microsoft Games\%s"</code> (format <code>0x007A6918</code>)
 and <code>FUN_007086D0</code> / <code>FUN_00708880</code> read/write a value named by <code>g_858924</code>
 (window size, perf counter, exe date). So each build keeps its own settings.</p>
-<h3 id="11-the-four-fields-and-the-two-hardcoded-copies">1.1 The four fields (and the two hardcoded copies)<a class="headerlink" href="#11-the-four-fields-and-the-two-hardcoded-copies" title="Permanent link">&para;</a></h3>
+<h3 id="11-the-four-fields-and-the-two-live-copies">1.1 The four fields (and the two live copies)<a class="headerlink" href="#11-the-four-fields-and-the-two-live-copies" title="Permanent link">&para;</a></h3>
 <p>The string is four <code>.</code>-separated decimal fields of <strong>2+2+2+4 digits</strong>
 (<code>50</code> <code>07</code> <code>01</code> <code>2105</code>). Nothing in the game assigns meaning to them
 individually — the fallback format <code>"00.00.%02d.%02d00"</code> (month in field 3,
@@ -3209,8 +3209,8 @@ family shows the convention:</p>
 </table>
 <p>(<code>50</code> = MW4 family, field 2 = title/generation, field 3 = minor series,
 field 4 = build number; see <code>docs/editor_tools/</code> for the tool versions.)</p>
-<p>There are <strong>two hardcoded copies</strong>, both read-only literals, and they are read
-by different subsystems:</p>
+<p>There are <strong>two live hardcoded copies</strong>, both read-only literals, read by
+different subsystems:</p>
 <table>
 <thead>
 <tr>
@@ -3446,18 +3446,18 @@ errors such as <code>"The requested component version in not available."</code>
   same for every build, so it does not separate versions.</li>
 <li><strong>The advertised <code>GameVersion</code> attribute is not what the join handshake
   checks.</strong> The handshake's version code is computed from the second hardcoded
-  copy <code>DAT_00773040</code> (§1.1), not from the advertised string nor from
+  copy <code>DAT_00773040</code> (see §1.1), not from the advertised string nor from
   <code>g_858924</code>; so a host can advertise an arbitrary <code>GameVersion</code> yet the
   in-session check still validates the real build (and vice versa).</li>
 <li><strong>The browser filter/sort is advisory.</strong> A client can reach a session whose
   advertised version differs (join directly, or disable the browser version
-  filters); the lobby protocol check and the join handshake (§7) are the
+  filters); the lobby protocol check and the join handshake (see §7) are the
   enforcement, and the UI deliberately surfaces both versions
   (<code>ReferenceVersion</code> vs <code>LocalGameVersion</code>) so the player can decide.</li>
 <li><strong>What is not gated at all:</strong> content outside the 15 hashed loader functions
   and the mission entry, the peer's actual variant files (only a local
-  self-digest, §9), the peer's identity/IP fields (self-reported), and
-  anything after join (no runtime re-validation, §10).</li>
+  self-digest, see §9), the peer's identity/IP fields (self-reported), and
+  anything after join (no runtime re-validation, see §10).</li>
 </ul>
 <h2 id="6-related-version-checks-not-multiplayer">6. Related version checks (not multiplayer)<a class="headerlink" href="#6-related-version-checks-not-multiplayer" title="Permanent link">&para;</a></h2>
 <p>For contrast, the binary has many other version checks that are unrelated to
@@ -3486,8 +3486,7 @@ client compatibility:</p>
 </ul>
 <h2 id="7-join-time-validation-net-event-0x0a-fun_0053f210">7. Join-time validation — net event <code>0x0A</code> (<code>FUN_0053F210</code>)<a class="headerlink" href="#7-join-time-validation-net-event-0x0a-fun_0053f210" title="Permanent link">&para;</a></h2>
 <p>This is the actual same-build/content gate, and it happens <strong>in-session</strong> (after
-the DirectPlay connect). It corrects an earlier reading of this doc: there <em>is</em>
-a join-time build check.</p>
+the DirectPlay connect).</p>
 <h3 id="71-the-message-path">7.1 The message path<a class="headerlink" href="#71-the-message-path" title="Permanent link">&para;</a></h3>
 <p>The in-game net dispatcher <code>FUN_00546C60</code> (<code>0x00546C60</code>) switches on an event id
 (jump table <code>0x00547074</code>, index = <code>eventId - 0x0A</code>). The relevant events:</p>

@@ -2192,10 +2192,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-notes-follow-ups" class="md-nav__link">
+  <a href="#9-open-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. Notes / follow-ups
+        9. Open questions
       
     </span>
   </a>
@@ -2838,10 +2838,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-notes-follow-ups" class="md-nav__link">
+  <a href="#9-open-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. Notes / follow-ups
+        9. Open questions
       
     </span>
   </a>
@@ -2875,9 +2875,7 @@
 
 <h1 id="mw4ed2exe-missionlevel-editor-deep-dive">MW4Ed2.exe — Mission/Level Editor (deep-dive)<a class="headerlink" href="#mw4ed2exe-missionlevel-editor-deep-dive" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>Reference record; not an oracle target. Analyzed with Ghidra; the analysis
-project and dumps are not part of this repository. No source tree, no
-byte-identity gate.</p>
+<p>Reference record; not an oracle target. See the <a href="../">editor-tools overview</a>.</p>
 </blockquote>
 <h2 id="1-binary-facts">1. Binary facts<a class="headerlink" href="#1-binary-facts" title="Permanent link">&para;</a></h2>
 <table>
@@ -3589,18 +3587,15 @@ engine's big per-frame/update loops and the ABL VM.</p>
 (0x753F95) · <code>MissionNames.tbl</code> (0x75479F) · <code>scriptName</code> (0x753954) ·
 <code>UserMission</code> (0x7542B8) · <code>options.mw4</code> (0x763AA4) · <code>coliseum</code>/<code>factory</code>/
 <code>gladiatorpit</code>/<code>rubblepile</code>/<code>jungle</code> (per-map tuning tags).</p>
-<h2 id="9-notes-follow-ups">9. Notes / follow-ups<a class="headerlink" href="#9-notes-follow-ups" title="Permanent link">&para;</a></h2>
+<h2 id="9-open-questions">9. Open questions<a class="headerlink" href="#9-open-questions" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>#VBD directory encoding</strong>: the mission archives' multi-group directory
   (shared-filetime row runs, 23-byte prefix) does not match the map archives'
-  single-group layout captured in <code>include/mw4/vbd.h</code>. Worth a dedicated
-  decode pass of a mission archive's directory + data-offset rule.</li>
-<li><strong>Runtime integration</strong>: the editor can load <code>blade</code>/<code>gundll</code> and run the
-  real renderer — the deepest value here is the <em>format</em> of the serialized
-  <code>MechWarrior4::MWMission</code> object graph, which the game itself loads from
-  the same <code>Resource\Missions\*.mw4</code> files (and which MW4Ed2 writes).</li>
-<li><strong>Scale</strong>: 11,388 functions across a ~3.3 MB <code>.text</code>; this doc maps the
-  mission-format surface and framework seams, not every editor dialog.</li>
+  single-group layout captured in <code>include/mw4/vbd.h</code>. A dedicated decode pass
+  of the mission directory and data-offset rule is still needed.</li>
+<li><strong>Mission object graph</strong>: decoding the serialized
+  <code>MechWarrior4::MWMission</code> graph is the highest-value follow-up; the game
+  loads the same <code>Resource\Missions\*.mw4</code> files.</li>
 </ul>
 
 
