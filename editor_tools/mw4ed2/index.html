@@ -1,0 +1,3728 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.">
+      
+      
+      
+        <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/editor_tools/mw4ed2/">
+      
+      
+        <link rel="prev" href="../mapcreator/">
+      
+      
+        <link rel="next" href="../nfmeditor/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>MW4Ed2 - MechWarrior 4 Mercenaries - Oracle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mw4ed2exe-missionlevel-editor-deep-dive" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-header__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MechWarrior 4 Mercenaries - Oracle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MW4Ed2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BUILD/" class="md-tabs__link">
+          
+  
+  
+  Build and verify
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../subsystems/" class="md-tabs__link">
+          
+  
+  
+  Subsystems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../subsystems/gundll/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../MASTER_INDEX/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../FAQ/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-nav__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MechWarrior 4 Mercenaries - Oracle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and verify
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build and verify
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BUILD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERIFICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GAME_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/render/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Render
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/gameplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/crt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/codec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/unclassified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unclassified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared VAs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MASTER_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_CATALOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem seams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module data annotation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module data annotation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editor tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    autoconfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapcreator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-binary-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Binary facts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-a-game-framework-with-an-editor-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture — a game framework with an editor shell
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-mission-file-format-resourcemissionsmw4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The mission file format (Resource\Missions\*.mw4)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The mission file format (Resource\Missions\*.mw4)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-container-vbd-v4-see-includemw4vbdh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Container — #VBD v4 (see include/mw4/vbd.h)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-directory-multi-group-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Directory — multi-group rows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-first-member-the-serialized-mission-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 First member — the serialized mission object
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-mission-class-property-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The mission class + property table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The mission class + property table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-class-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Class registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-adeptmission-property-table-the-serialized-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Adept::Mission property table (the serialized environment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-abl-scripting-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ABL scripting integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-subsystem-map-key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Subsystem map / key functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-notable-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Notable strings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-notes-follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Notes / follow-ups
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nfmeditor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFMEditor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ORACLE_STATUS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MODULE_NOTES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Per-VA indexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Per-VA indexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Mercs_exe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Mercs.exe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/GunDll_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Stats_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/blade_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/Language_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MissionLang_MERCS_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/ZlogLib_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LEGAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-binary-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Binary facts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-a-game-framework-with-an-editor-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture — a game framework with an editor shell
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-mission-file-format-resourcemissionsmw4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The mission file format (Resource\Missions\*.mw4)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The mission file format (Resource\Missions\*.mw4)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-container-vbd-v4-see-includemw4vbdh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Container — #VBD v4 (see include/mw4/vbd.h)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-directory-multi-group-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Directory — multi-group rows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-first-member-the-serialized-mission-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 First member — the serialized mission object
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-mission-class-property-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The mission class + property table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The mission class + property table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-class-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Class registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-adeptmission-property-table-the-serialized-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Adept::Mission property table (the serialized environment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-abl-scripting-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ABL scripting integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-subsystem-map-key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Subsystem map / key functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-notable-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Notable strings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-notes-follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Notes / follow-ups
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mech4decomp/Mech4MercDecomp/edit/main/docs/editor_tools/mw4ed2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="mw4ed2exe-missionlevel-editor-deep-dive">MW4Ed2.exe — Mission/Level Editor (deep-dive)<a class="headerlink" href="#mw4ed2exe-missionlevel-editor-deep-dive" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Reference record; not an oracle target. Analyzed with Ghidra; the analysis
+project and dumps are not part of this repository. No source tree, no
+byte-identity gate.</p>
+</blockquote>
+<h2 id="1-binary-facts">1. Binary facts<a class="headerlink" href="#1-binary-facts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File</td>
+<td><code>reference\MW4Ed2.exe</code></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>3,833,856 B (0x3A8000)</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td><code>7b19a1cbc18b2f4c16fd8fdeb9e44c2861c97464e8275e28817b28bbdae03b60</code></td>
+</tr>
+<tr>
+<td>Toolchain</td>
+<td>MSVC6, Linker 6.0, TimeDateStamp 2002-11-26 23:53:19Z</td>
+</tr>
+<tr>
+<td>Machine / Subsystem</td>
+<td>x86 (0x014C) / GUI (2)</td>
+</tr>
+<tr>
+<td>ImageBase / Entry</td>
+<td>0x00400000 / 0x00727C54 (in <code>.text</code>)</td>
+</tr>
+<tr>
+<td>Rich header</td>
+<td>XOR key 0xF2BFBE51, DanS @ 0x80 (MSVC6 tools, ProdId 0x000C/0x000B/0x000A/0x0013/0x0001 mixes)</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td>11,388 (Ghidra) — the largest of the four editor tools by ~10×</td>
+</tr>
+</tbody>
+</table>
+<p>Sections (5 — note the SafeDisc <code>.txt2</code>, same as the game EXE):</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>RVA</th>
+<th>VSize</th>
+<th>RawSize</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.text</code></td>
+<td>0x1000</td>
+<td>0x3393F2</td>
+<td>0x33A000</td>
+<td>game + editor + framework code</td>
+</tr>
+<tr>
+<td><code>.txt2</code></td>
+<td>0x33B000</td>
+<td>0x17C5</td>
+<td>0x2000</td>
+<td>SafeDisc leftover (out of scope)</td>
+</tr>
+<tr>
+<td><code>.rdata</code></td>
+<td>0x33D000</td>
+<td>0x4F8B4</td>
+<td>0x50000</td>
+<td>strings, vtables, IAT</td>
+</tr>
+<tr>
+<td><code>.data</code></td>
+<td>0x38D000</td>
+<td>0x1059C8</td>
+<td>0xA000</td>
+<td>initialized data + ~0x659C8 zero tail</td>
+</tr>
+<tr>
+<td><code>.rsrc</code></td>
+<td>0x493000</td>
+<td>0x101F8</td>
+<td>0x11000</td>
+<td>resources</td>
+</tr>
+</tbody>
+</table>
+<p>Imports (import dir at RVA 0x38A3F0, 15 DLLs, ~736 functions): <strong>MFC42 356</strong>
+(dynamic MFC — the editor shell), KERNEL32 107, MSVCRT 111, USER32 90, GDI32
+28, ADVAPI32 12, MSACM32 7, ole32 5, WINMM 5, SHELL32 4, VERSION 3, COMCTL32
+2, WSOCK32 2, plus the DRM imports (ARTPCLNT 1, CdaC14BA 3). The binary also
+<strong>names</strong> (LoadLibrary/delay-style references, not import-table) the full game
+runtime: <code>blade.dll</code>/<code>bladed.dll</code> (renderer wrapper + its debug build),
+<code>gundll.dll</code> (object library), <code>dplayx.dll</code>, <code>dinput</code>/<code>ddraw</code>/<code>d3dim</code>/
+<code>dsound</code>, <code>amstream</code>/<code>quartz</code>/<code>msacm</code>/<code>Ir50_32</code>/<code>ijl10</code> (Indeo/JPEG codecs),
+<code>Language.dll</code>/<code>MissionLang_MERCS.dll</code>/<code>ScriptStrings_MERCS.dll</code>
+(localization), <code>machin16/32.dll</code>, <code>dbghelp</code>/<code>imagehlp</code>, debug CRTs
+(<code>msvcrtd</code>/<code>msvcirtd</code>) alongside release — the tool was built against both
+runtime flavors.</p>
+<h2 id="2-purpose">2. Purpose<a class="headerlink" href="#2-purpose" title="Permanent link">&para;</a></h2>
+<p>MW4Ed2 is FASA's <strong>Mission Editor 2</strong> — a full in-house mission/level editor
+that <strong>embeds the complete game runtime</strong> (renderer through <code>blade</code>, object
+code through <code>gundll</code>, DirectPlay, the ABL scripting VM, localization). It
+creates and edits the <code>Resource\Missions\*.mw4</code> mission archives: pick a map
+(≈ <code>\Games\*.mw4</code> browser), lay out spawns/units/lights/drop-zones/skies,
+bind ABL mission scripts and bot AI, and write the archive whose members are
+the serialized <code>MechWarrior4::MWMission</code> object graph plus per-aspect binary
+blobs. It is the companion to MapCreator (which builds the maps/mission
+terrain) — MW4Ed2 builds what runs on top of a map.</p>
+<h2 id="3-architecture-a-game-framework-with-an-editor-shell">3. Architecture — a game framework with an editor shell<a class="headerlink" href="#3-architecture-a-game-framework-with-an-editor-shell" title="Permanent link">&para;</a></h2>
+<p>Two layers:</p>
+<ul>
+<li><strong>MFC editor shell</strong> (356 MFC42 imports): dialogs, toolbars, file dialogs,
+  the <code>\Games\*.mw4</code> map browser and <code>Resource\Missions\*.nfm</code> /
+  <code>Resource\UserMissions\*.nfm</code> scenario dialogs. Thin compared to the
+  framework below.</li>
+<li><strong>Bundled game framework</strong> (the bulk of <code>.text</code>): the same class/property
+  system the MW4Mercs engine uses, driven headlessly:</li>
+<li><strong>Class registry</strong> — <code>FUN_0046a280(size, "Class::Name", base, ...)</code>
+    registers serializable classes by name; <code>FUN_006d3d80(name, ...)</code> is a
+    second registry flavor. Objects are identified in files by their class
+    tag string (<code>Adept::Mission</code>, <code>MechWarrior4::MWMission</code>).</li>
+<li><strong>Property system</strong> — <code>FUN_00469910(index, "Name", type, offset)</code> +
+    <code>FUN_00469c60(list)</code> register reflected, offset-addressed fields per
+    class. This is the serialization contract (§5).</li>
+<li><strong>Allocator/factory</strong> — <code>FUN_00449aa0(size)</code> (calloc-like, returns 0 on
+    failure); <code>FUN_00449ab0(p)</code> free.</li>
+<li><strong>GameOS framework</strong> (shared with the other editor tools + the game):
+    file system finder (<code>FUN_0043d7e0</code> set path / <code>FUN_0043d850</code> next /
+    <code>FUN_0043d9b0</code>), string table loader, the game console/message color
+    helper (<code>FUN_005a4bf0(0xbb7ff, ...)</code> = blue "loading" text).</li>
+<li><strong>ABL scripting VM</strong> — <code>FUN_005a6270(path, ...)</code> compiles/loads an ABL
+    script; mission and bot behavior is ABL (see §6).</li>
+<li><strong>Full runtime side-loading</strong> — the renderer (<code>blade</code>) and object
+    library (<code>gundll</code>) DLLs are referenced by name, so the editor can
+    actually run/render the level being edited.</li>
+</ul>
+<h2 id="4-the-mission-file-format-resourcemissionsmw4">4. The mission file format (<code>Resource\Missions\*.mw4</code>)<a class="headerlink" href="#4-the-mission-file-format-resourcemissionsmw4" title="Permanent link">&para;</a></h2>
+<p>Ground truth from the shipped <code>coliseum.mw4</code> (58,948 B) and the sibling
+mission archives (<code>0001.mw4</code>, <code>alpine.mw4</code>, <code>avalon01.mw4</code>, ...).</p>
+<h3 id="41-container-vbd-v4-see-includemw4vbdh">4.1 Container — #VBD v4 (see <code>include/mw4/vbd.h</code>)<a class="headerlink" href="#41-container-vbd-v4-see-includemw4vbdh" title="Permanent link">&para;</a></h3>
+<p>Header (43 bytes + path): <code>#VBD</code> (4) · version 4 (4) · count=63 (4) ·
+dir_off (4) · keys (4) · filetime (8) · flags1=0x1A (4) · flags2=0x1A (4) ·
+reserved (6) · path-len (1) · path (<code>resource\missions\coliseum.mw4</code>, 30
+chars). The <code>count=63</code> is a <strong>capacity</strong>, not the member count.</p>
+<h3 id="42-directory-multi-group-rows">4.2 Directory — multi-group rows<a class="headerlink" href="#42-directory-multi-group-rows" title="Permanent link">&para;</a></h3>
+<p>The directory is a sequence of fixed-prefix rows grouped by a shared
+FILETIME:</p>
+<div class="highlight"><pre><span></span><code>filetime (8)  u32  u32  u32  u16 index  u8 name-len  name[..]
+</code></pre></div>
+<p>All rows in a group carry the same filetime; consecutive groups differ (a
+group = one filetime run, e.g. one save session). Member names observed for
+coliseum:</p>
+<div class="highlight"><pre><span></span><code>missions\coliseum\coliseum.instance        (index 1)
+missions\coliseum\coliseum.data{Element}
+missions\coliseum\coliseum.data{GameModel}
+missions\coliseum\coliseum.data
+missions\coliseum\coliseum.lights
+missions\coliseum\coliseumnight.lights
+missions\coliseum\DropZones\DropTeam2.contents
+missions\coliseum\DropZones\SecondaryLanceStart.contents
+missions\coliseum\skies\colsm01_sky\colsm01_sky.erf
+missions\coliseum\mission.bounds
+missions\coliseum\coliseumgraph.data
+missions\coliseum\scripts\Coliseum.abl
+missions\coliseum\scripts\Coliseum_SinglePlayer.abl
+missions\coliseum\scripts\Coliseum_Campaign.abl
+missions\coliseum\scripts\player.abl
+... (per-game-type script variants)
+</code></pre></div>
+<p>Member semantics: <code>.instance</code> (the serialized mission object, see §4.3),
+<code>.data{...}</code> aspect sub-blobs, <code>.lights</code>/<code>...night.lights</code> (light lists),
+<code>DropZones\*.contents</code> (spawn/drop-zone sets), <code>skies\&lt;map&gt;_sky\*.erf</code>
+(environment resource), <code>mission.bounds</code> (bounds), <code>&lt;name&gt;graph.data</code>
+(nav/unit graph), <code>scripts\*.abl</code> (mission scripts per game type).</p>
+<h3 id="43-first-member-the-serialized-mission-object">4.3 First member — the serialized mission object<a class="headerlink" href="#43-first-member-the-serialized-mission-object" title="Permanent link">&para;</a></h3>
+<p>The first member's content begins directly with the map reference as a
+NUL-terminated path, followed by binary object data:</p>
+<div class="highlight"><pre><span></span><code>&quot;resource\maps\colsm01.mw4&quot;   \0  &lt;binary mission object serialization...&gt;
+</code></pre></div>
+<p>i.e. the mission archive is an object graph whose first field is the backing
+map. The exact directory → data-offset encoding is <strong>not fully resolved</strong>
+(multiple groups, variable-length rows; maps decode cleanly at
+<code>data_off = prev.data_off + prev.stored_size</code> relative to <code>dir_off</code>, but the
+mission archives interleave group headers — see the #VBD follow-up note in
+<code>include/mw4/vbd.h</code>).</p>
+<h2 id="5-the-mission-class-property-table">5. The mission class + property table<a class="headerlink" href="#5-the-mission-class-property-table" title="Permanent link">&para;</a></h2>
+<h3 id="51-class-registration">5.1 Class registration<a class="headerlink" href="#51-class-registration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Adept::Mission</code> — registered by <code>FUN_00462610</code> (3,144 B) via
+  <code>FUN_0046a280(0x1E6, "Adept::Mission", base, factory, ...)</code> → class size
+  <strong>0x1E6</strong> (486 bytes). This is the mission <strong>environment</strong> base class.</li>
+<li><code>MechWarrior4::MWMission</code> — registered by <code>FUN_00585f60</code> via
+  <code>FUN_0046a280(0x420, "MechWarrior4::MWMission", ...)</code> → class size <strong>0x420</strong>
+  (1056 bytes); also constructs the <code>StartMusicStatus</code> and <code>TransMusicStatus</code>
+  helper objects. This is the MW4 concrete mission subclass (the <code>.instance</code>
+  member's top-level type).</li>
+<li><code>Mission</code> — registered by <code>FUN_006d3d80("Mission", ...)</code>.</li>
+</ul>
+<h3 id="52-adeptmission-property-table-the-serialized-environment">5.2 Adept::Mission property table (the serialized environment)<a class="headerlink" href="#52-adeptmission-property-table-the-serialized-environment" title="Permanent link">&para;</a></h3>
+<p><code>FUN_00462610</code> registers 55 reflected properties (index, name, type-code,
+offset-in-class). Type codes seen: <code>1</code>=int, <code>2</code>=float, <code>0xE</code>=bool,
+<code>0x10</code>=color/vector4, <code>0x231</code>=string/resource. The environment is organized
+in <strong>flavors</strong> — base, <code>Underwater</code>, <code>Smoke</code> — each with fog start/end/
+density + color, plus night/water/weather extras:</p>
+<table>
+<thead>
+<tr>
+<th>idx</th>
+<th>name</th>
+<th>type</th>
+<th>off</th>
+<th></th>
+<th>idx</th>
+<th>name</th>
+<th>type</th>
+<th>off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>GeneralFogStart</td>
+<td>f</td>
+<td>0x7C</td>
+<td></td>
+<td>0x25</td>
+<td>WeatherEffectResource</td>
+<td>s</td>
+<td>0x24</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GeneralFogEnd</td>
+<td>f</td>
+<td>0x80</td>
+<td></td>
+<td>0x26</td>
+<td>AllowSearchLights</td>
+<td>b</td>
+<td>0x105</td>
+</tr>
+<tr>
+<td>8</td>
+<td>GeneralFogDensity</td>
+<td>f</td>
+<td>0x84</td>
+<td></td>
+<td>0x27</td>
+<td>AllowRunningLights</td>
+<td>b</td>
+<td>0x106</td>
+</tr>
+<tr>
+<td>9</td>
+<td>LightFogStart</td>
+<td>f</td>
+<td>0x88</td>
+<td></td>
+<td>0x28</td>
+<td>HeightFogStart</td>
+<td>f</td>
+<td>0xE8</td>
+</tr>
+<tr>
+<td>10</td>
+<td>LightFogEnd</td>
+<td>f</td>
+<td>0x8C</td>
+<td></td>
+<td>0x29</td>
+<td>HeightFogEnd</td>
+<td>f</td>
+<td>0xEC</td>
+</tr>
+<tr>
+<td>11</td>
+<td>LightFogDensity</td>
+<td>f</td>
+<td>0x90</td>
+<td></td>
+<td>0x2A</td>
+<td>HeightFogOpacity</td>
+<td>f</td>
+<td>0xF0</td>
+</tr>
+<tr>
+<td>12</td>
+<td>CustomFogStart</td>
+<td>f</td>
+<td>0x94</td>
+<td></td>
+<td>0x2B</td>
+<td>NearClip</td>
+<td>f</td>
+<td>0xF4</td>
+</tr>
+<tr>
+<td>13</td>
+<td>CustomFogEnd</td>
+<td>f</td>
+<td>0x98</td>
+<td></td>
+<td>0x2C</td>
+<td>FarClip</td>
+<td>f</td>
+<td>0xF8</td>
+</tr>
+<tr>
+<td>14</td>
+<td>CustomFogDensity</td>
+<td>f</td>
+<td>0x9C</td>
+<td></td>
+<td>0x2D</td>
+<td>NightGroundColor</td>
+<td>c</td>
+<td>0x6C</td>
+</tr>
+<tr>
+<td>15</td>
+<td>FogColor</td>
+<td>c</td>
+<td>0x2C</td>
+<td></td>
+<td>0x2E</td>
+<td>CanSetTime</td>
+<td>b</td>
+<td>0x107</td>
+</tr>
+<tr>
+<td>16</td>
+<td>GeneralFogStartUnderwater</td>
+<td>f</td>
+<td>0xA0</td>
+<td></td>
+<td>0x2F</td>
+<td>NightFogColor</td>
+<td>c</td>
+<td>0x5C</td>
+</tr>
+<tr>
+<td>17</td>
+<td>GeneralFogEndUnderwater</td>
+<td>f</td>
+<td>0xA4</td>
+<td></td>
+<td>0x30</td>
+<td>HeatSinkEfficiency</td>
+<td>f</td>
+<td>0x114</td>
+</tr>
+<tr>
+<td>18</td>
+<td>GeneralFogDensityUnderwater</td>
+<td>f</td>
+<td>0xA8</td>
+<td></td>
+<td>0x31</td>
+<td>NightWeatherEffectResource</td>
+<td>s</td>
+<td>0x28</td>
+</tr>
+<tr>
+<td>19</td>
+<td>LightFogStartUnderwater</td>
+<td>f</td>
+<td>0xAC</td>
+<td></td>
+<td>0x32</td>
+<td>WaterSpecularFactor</td>
+<td>f</td>
+<td>0xFC</td>
+</tr>
+<tr>
+<td>20</td>
+<td>LightFogEndUnderwater</td>
+<td>f</td>
+<td>0xB0</td>
+<td></td>
+<td>0x33</td>
+<td>WaterAtNightSpecularFactor</td>
+<td>f</td>
+<td>0x100</td>
+</tr>
+<tr>
+<td>21</td>
+<td>LightFogDensityUnderwater</td>
+<td>f</td>
+<td>0xB4</td>
+<td></td>
+<td>0x34</td>
+<td>WaterSpecularPower</td>
+<td>i</td>
+<td>0x10C</td>
+</tr>
+<tr>
+<td>22</td>
+<td>CustomFogStartUnderwater</td>
+<td>f</td>
+<td>0xB8</td>
+<td></td>
+<td>0x35</td>
+<td>WaterAtNightSpecularPower</td>
+<td>i</td>
+<td>0x110</td>
+</tr>
+<tr>
+<td>23</td>
+<td>CustomFogEndUnderwater</td>
+<td>f</td>
+<td>0xBC</td>
+<td></td>
+<td>0x36</td>
+<td>IsNightMission</td>
+<td>b</td>
+<td>0x108</td>
+</tr>
+<tr>
+<td>24</td>
+<td>CustomFogDensityUnderwater</td>
+<td>f</td>
+<td>0xC0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>25</td>
+<td>FogColorUnderwater</td>
+<td>c</td>
+<td>0x3C</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>GeneralFogStartSmoke</td>
+<td>f</td>
+<td>0xC4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>27</td>
+<td>GeneralFogEndSmoke</td>
+<td>f</td>
+<td>0xC8</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td>GeneralFogDensitySmoke</td>
+<td>f</td>
+<td>0xCC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>29</td>
+<td>LightFogStartSmoke</td>
+<td>f</td>
+<td>0xD0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>30</td>
+<td>LightFogEndSmoke</td>
+<td>f</td>
+<td>0xD4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>31</td>
+<td>LightFogDensitySmoke</td>
+<td>f</td>
+<td>0xD8</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>32</td>
+<td>CustomFogStartSmoke</td>
+<td>f</td>
+<td>0xDC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>33</td>
+<td>CustomFogEndSmoke</td>
+<td>f</td>
+<td>0xE0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>34</td>
+<td>CustomFogDensitySmoke</td>
+<td>f</td>
+<td>0xE4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>35</td>
+<td>FogColorSmoke</td>
+<td>c</td>
+<td>0x4C</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>36</td>
+<td>AllowRespawn</td>
+<td>b</td>
+<td>0x104</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>(f=float type 2, c=color type 0x10, b=bool type 0xE, s=string type 0x231,
+i=int type 1. Offsets are into the <code>Adept::Mission</code> class; indices 0–5 and
+the <code>MusicStatus</code> properties belong to base classes.)</p>
+<p>The <code>Adept::Mission</code> <strong>constructor</strong> (<code>FUN_00586a90</code>, 2,627 B) initializes
+this state (all-zero spawn/bounds slots at <code>+0x894..+0x8B5</code>, two 0x2F8-byte
+object slots at <code>+0x895</code>/<code>+0x897</code> via <code>FUN_00621990</code>, random fog
+near/far/density via <code>FUN_006daa90</code>, default respawn count 0x1E) and applies
+<strong>per-map tuning flags</strong> at <code>+0x13B3</code> by comparing the map path against
+hard-coded names: <code>coliseum</code>→1, <code>factory</code>→2, <code>gladiatorpit</code>→1, <code>rubblepile</code>
+→2, <code>jungle</code>→… (an editor-side special-case table, not a game rule).</p>
+<h2 id="6-abl-scripting-integration">6. ABL scripting integration<a class="headerlink" href="#6-abl-scripting-integration" title="Permanent link">&para;</a></h2>
+<p>Mission behavior is bound through ABL scripts stored as archive members
+(<code>scripts\*.abl</code>), one set per game type (Stock_MissionPlay, Campaign,
+SinglePlayer, ...), plus shared library scripts:</p>
+<ul>
+<li><code>content\ablscripts\miscfuncs.abl</code> — loaded by <code>FUN_00586090</code> (the ABL
+  library bootstrap; blue "loading" console message, then
+  <code>FUN_005a6270(path, ...)</code> — the ABL compile/load entry).</li>
+<li><code>Content\ABLScripts\StockScripts\Stock_MissionPlay.abl</code> — referenced by
+  the mission object (<code>FUN_00586a90</code>'s cluster) as the default stock mission
+  script.</li>
+<li><code>Content\ABLScripts\Bots\UberBot.abl</code> — the default bot AI script, loaded
+  by the bot subsystem (<code>FUN_00616430</code>, <code>FUN_00616f80</code>, <code>FUN_00618d00</code>,
+  <code>FUN_0061b540</code> — a 4-site bot-script family in the 0x61xxxx region).</li>
+<li><code>scriptName</code> (0x00753954) — the per-mission script-name property binding
+  (referenced from the 0x569xxx mission region).</li>
+</ul>
+<h2 id="7-subsystem-map-key-functions">7. Subsystem map / key functions<a class="headerlink" href="#7-subsystem-map-key-functions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Size</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00585F60</td>
+<td>242</td>
+<td>Class registration <code>MechWarrior4::MWMission</code> + MusicStatus helpers</td>
+</tr>
+<tr>
+<td>0x005862A0</td>
+<td>(LAB)</td>
+<td>MWMission vtable method (constructor cluster)</td>
+</tr>
+<tr>
+<td>0x00462610</td>
+<td>3,144</td>
+<td><code>Adept::Mission</code> registration + full property table (§5.2)</td>
+</tr>
+<tr>
+<td>0x00586A90</td>
+<td>2,627</td>
+<td><code>Adept::Mission</code> constructor (env init + per-map tuning)</td>
+</tr>
+<tr>
+<td>0x00586090</td>
+<td>139</td>
+<td>ABL library bootstrap (<code>miscfuncs.abl</code> load)</td>
+</tr>
+<tr>
+<td>0x005FEE20</td>
+<td>602</td>
+<td>Mission browser/loader (<code>content\missions\&lt;name&gt;.instance</code>)</td>
+</tr>
+<tr>
+<td>0x004574F0</td>
+<td>—</td>
+<td><code>Resource\Missions</code> path handler (save/browse)</td>
+</tr>
+<tr>
+<td>0x00572CF0 / 0x006197F0 / 0x00619960</td>
+<td>—</td>
+<td><code>\Games\*.mw4</code> map browser</td>
+</tr>
+<tr>
+<td>0x0061CC07 / 0x0060BE92</td>
+<td>—</td>
+<td><code>Resource\Missions\*.nfm</code> / <code>UserMissions\*.nfm</code> scenario dialogs</td>
+</tr>
+<tr>
+<td>0x00616430, 0x00616F80, 0x00618D00, 0x0061B540</td>
+<td>—</td>
+<td>Bot AI script family (<code>UberBot.abl</code>)</td>
+</tr>
+<tr>
+<td>0x0046A280</td>
+<td>279</td>
+<td><code>RegisterClass</code> (size, name, base, factory, methods)</td>
+</tr>
+<tr>
+<td>0x00469910</td>
+<td>74</td>
+<td><code>RegisterProperty</code> (index, name, type, offset)</td>
+</tr>
+<tr>
+<td>0x00469C60</td>
+<td>71</td>
+<td>publish property list</td>
+</tr>
+<tr>
+<td>0x00449AA0</td>
+<td>13</td>
+<td>framework allocator (calloc-style)</td>
+</tr>
+<tr>
+<td>0x005A6270</td>
+<td>231</td>
+<td>ABL compile/load entry</td>
+</tr>
+<tr>
+<td>0x0043D7E0 / 0x0043D850 / 0x0043D9B0</td>
+<td>—</td>
+<td>GameOS file finder (set path / next / close)</td>
+</tr>
+<tr>
+<td>0x005A4BF0</td>
+<td>1,878</td>
+<td>console/message color helper (0xbb7ff blue load text)</td>
+</tr>
+</tbody>
+</table>
+<p>The largest functions (framework dispatchers, not editor logic):
+<code>FUN_005A94E0</code> (25,866 B), <code>FUN_006AD980</code> (25,018 B), <code>FUN_006C9920</code>
+(16,743 B), <code>FUN_004EF280</code> (10,339 B), <code>FUN_004F2EC0</code> (10,312 B) — the
+engine's big per-frame/update loops and the ABL VM.</p>
+<h2 id="8-notable-strings">8. Notable strings<a class="headerlink" href="#8-notable-strings" title="Permanent link">&para;</a></h2>
+<p><code>MechWarrior4::MWMission</code> (0x754B70) · <code>MW4Mission</code> (0x754B88) ·
+<code>Adept::Mission</code> (0x748024) · <code>Mission</code> (0x78DAxx reg) · <code>Mission.Bounds</code>
+(0x74819C) · <code>MissionBounds</code> (0x74818C) · <code>mission.bounds</code> ·
+<code>StartMusicStatus</code> / <code>TransMusicStatus</code> · <code>GeneralFog*</code>/<code>LightFog*</code>/
+<code>CustomFog*</code>/<code>HeightFog*</code> property names (0x78F4CC–0x78F64C) ·
+<code>content\missions\</code> (0x761C88) · <code>content\ablscripts\miscfuncs.abl</code>
+(0x7541B8) · <code>Content\ABLScripts\StockScripts\Stock_MissionPlay.abl</code>
+(0x754D98) · <code>Content\ABLScripts\Bots\UberBot.abl</code> (0x763BC0) ·
+<code>\Games\*.mw4</code> (0x754614) · <code>Resource\Missions\*.nfm</code> (0x763A1C) ·
+<code>Resource\UserMissions\*.nfm</code> (0x763A00) · <code>MissionLang_MERCS.dll</code>
+(0x753F95) · <code>MissionNames.tbl</code> (0x75479F) · <code>scriptName</code> (0x753954) ·
+<code>UserMission</code> (0x7542B8) · <code>options.mw4</code> (0x763AA4) · <code>coliseum</code>/<code>factory</code>/
+<code>gladiatorpit</code>/<code>rubblepile</code>/<code>jungle</code> (per-map tuning tags).</p>
+<h2 id="9-notes-follow-ups">9. Notes / follow-ups<a class="headerlink" href="#9-notes-follow-ups" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>#VBD directory encoding</strong>: the mission archives' multi-group directory
+  (shared-filetime row runs, 23-byte prefix) does not match the map archives'
+  single-group layout captured in <code>include/mw4/vbd.h</code>. Worth a dedicated
+  decode pass of a mission archive's directory + data-offset rule.</li>
+<li><strong>Runtime integration</strong>: the editor can load <code>blade</code>/<code>gundll</code> and run the
+  real renderer — the deepest value here is the <em>format</em> of the serialized
+  <code>MechWarrior4::MWMission</code> object graph, which the game itself loads from
+  the same <code>Resource\Missions\*.mw4</code> files (and which MW4Ed2 writes).</li>
+<li><strong>Scale</strong>: 11,388 functions across a ~3.3 MB <code>.text</code>; this doc maps the
+  mission-format surface and framework seams, not every editor dialog.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

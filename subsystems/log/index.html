@@ -1,0 +1,4244 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.">
+      
+      
+      
+        <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/subsystems/log/">
+      
+      
+        <link rel="prev" href="../platform/">
+      
+      
+        <link rel="next" href="../combat/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Log - MechWarrior 4 Mercenaries - Oracle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#log-subsystem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-header__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MechWarrior 4 Mercenaries - Oracle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Log
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BUILD/" class="md-tabs__link">
+          
+  
+  
+  Build and verify
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Subsystems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../gundll/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../MASTER_INDEX/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../FAQ/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-nav__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MechWarrior 4 Mercenaries - Oracle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and verify
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build and verify
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BUILD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERIFICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GAME_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../render/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Render
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gameplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key entry points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VAs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VAs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (general)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unclassified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unclassified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared VAs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MASTER_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_CATALOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem seams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module data annotation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module data annotation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editor tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/autoconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    autoconfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/mapcreator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/mw4ed2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/nfmeditor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFMEditor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ORACLE_STATUS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MODULE_NOTES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Per-VA indexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Per-VA indexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Mercs_exe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Mercs.exe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/GunDll_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Stats_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/blade_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/Language_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MissionLang_MERCS_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/ZlogLib_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LEGAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key entry points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VAs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VAs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (general)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mech4decomp/Mech4MercDecomp/edit/main/docs/subsystems/log.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="log-subsystem">Log Subsystem<a class="headerlink" href="#log-subsystem" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>VAs:</strong> 192 | <strong>Exhaustive index:</strong> <a href="../../master_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
+</blockquote>
+<p>Logging, assertions, error reporting, and diagnostic output.</p>
+<h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#key-entry-points">Key entry points</a></li>
+<li><a href="#details">Details</a></li>
+<li><a href="#vas">VAs</a></li>
+<li><a href="#related">Related</a></li>
+</ul>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>The log buffer, level filtering, emit, and assert code sit in 0x006F9000-0x006FB000; error dispatch is at 0x006BF9E0. ZlogLib exposes the same facility through <code>GetngLogAPI</code>.</p>
+<p>Logging is called from runtime, UI, net, and archive code. It writes diagnostic output and is one of the main observability seams in the game.</p>
+<h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Detail</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x006F9000-0x006FB000</td>
+<td>runtime</td>
+<td>log buffer/emit/assert</td>
+</tr>
+<tr>
+<td>0x006BF9E0</td>
+<td>runtime</td>
+<td>error dispatch</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Detail</th>
+<th>VAs</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(general)</td>
+<td>192</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="vas">VAs<a class="headerlink" href="#vas" title="Permanent link">&para;</a></h2>
+<p>Every VA in this subsystem is listed below, grouped by detail. <code>Evidence</code> is the classification source (<code>surface</code>, <code>range</code>, <code>keyword</code>, <code>band</code>, <code>structural</code>, or <code>section</code>).</p>
+<h3 id="general">(general)<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+<th>Size</th>
+<th>Source</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00406AC0</td>
+<td>core</td>
+<td>152</td>
+<td><code>src/mw4mercs/text/func_00406ac0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00431820</td>
+<td>core</td>
+<td>175</td>
+<td><code>src/mw4mercs/text/func_00431820.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00435CA0</td>
+<td>core</td>
+<td>62</td>
+<td><code>src/mw4mercs/text/func_00435ca0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0044CFB0</td>
+<td>core</td>
+<td>148</td>
+<td><code>src/mw4mercs/text/func_0044cfb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004651FB</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004651FB.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00467CE0</td>
+<td>core</td>
+<td>156</td>
+<td><code>src/mw4mercs/text/func_00467ce0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00472AF0</td>
+<td>core</td>
+<td>148</td>
+<td><code>src/mw4mercs/text/func_00472af0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004801B0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_004801b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0048A420</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0048A420.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0048A440</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0048A440.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0048A460</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0048A460.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00493270</td>
+<td>core</td>
+<td>217</td>
+<td><code>src/mw4mercs/text/func_00493270.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004933D0</td>
+<td>core</td>
+<td>68</td>
+<td><code>src/mw4mercs/text/func_004933d0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004A26E0</td>
+<td>core</td>
+<td>337</td>
+<td><code>src/mw4mercs/text/func_004a26e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004ABCC0</td>
+<td>core</td>
+<td>255</td>
+<td><code>src/mw4mercs/text/func_004abcc0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B3260</td>
+<td>core</td>
+<td>113</td>
+<td><code>src/mw4mercs/text/func_004b3260.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B56F0</td>
+<td>core</td>
+<td>173</td>
+<td><code>src/mw4mercs/text/func_004b56f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B66A0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B66A0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B66C0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B66C0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B66E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B66E0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B9C40</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B9C40.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B9C60</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B9C60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B9C80</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B9C80.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B9CA0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B9CA0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004B9DE0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004B9DE0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BA2E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BA2E0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BA300</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BA300.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BA370</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BA370.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BA390</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BA390.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BA540</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BA540.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BB74D</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BB74D.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BB770</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BB770.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBB50</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBB50.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBB70</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBB70.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBB90</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBB90.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBBB0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBBB0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBF10</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBF10.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBF30</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBF30.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBF50</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBF50.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004BBF70</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_004BBF70.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004CFFA0</td>
+<td>core</td>
+<td>352</td>
+<td><code>src/mw4mercs/text/func_004cffa0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004D1950</td>
+<td>core</td>
+<td>103</td>
+<td><code>src/mw4mercs/text/func_004d1950.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004D3570</td>
+<td>core</td>
+<td>278</td>
+<td><code>src/mw4mercs/text/func_004d3570.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004D4210</td>
+<td>core</td>
+<td>119</td>
+<td><code>src/mw4mercs/text/func_004d4210.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004D5590</td>
+<td>core</td>
+<td>1018</td>
+<td><code>src/mw4mercs/text/func_004d5590.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004D9FA0</td>
+<td>core</td>
+<td>374</td>
+<td><code>src/mw4mercs/text/func_004d9fa0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004DB550</td>
+<td>core</td>
+<td>210</td>
+<td><code>src/mw4mercs/text/func_004db550.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004E4920</td>
+<td>core</td>
+<td>393</td>
+<td><code>src/mw4mercs/text/func_004e4920.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004E92C0</td>
+<td>core</td>
+<td>442</td>
+<td><code>src/mw4mercs/text/func_004e92c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004EA280</td>
+<td>core</td>
+<td>141</td>
+<td><code>src/mw4mercs/text/func_004ea280.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004EA320</td>
+<td>core</td>
+<td>157</td>
+<td><code>src/mw4mercs/text/func_004ea320.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004ED660</td>
+<td>core</td>
+<td>464</td>
+<td><code>src/mw4mercs/text/func_004ed660.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004EDDF0</td>
+<td>core</td>
+<td>1502</td>
+<td><code>src/mw4mercs/text/func_004eddf0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004EEEB0</td>
+<td>core</td>
+<td>168</td>
+<td><code>src/mw4mercs/text/func_004eeeb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F0920</td>
+<td>core</td>
+<td>149</td>
+<td><code>src/mw4mercs/text/func_004f0920.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F0E50</td>
+<td>core</td>
+<td>115</td>
+<td><code>src/mw4mercs/text/func_004f0e50.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F0ED0</td>
+<td>core</td>
+<td>38</td>
+<td><code>src/mw4mercs/text/func_004f0ed0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F2540</td>
+<td>core</td>
+<td>155</td>
+<td><code>src/mw4mercs/text/func_004f2540.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F3360</td>
+<td>core</td>
+<td>86</td>
+<td><code>src/mw4mercs/text/func_004f3360.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F4060</td>
+<td>core</td>
+<td>274</td>
+<td><code>src/mw4mercs/text/func_004f4060.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004F4780</td>
+<td>core</td>
+<td>60</td>
+<td><code>src/mw4mercs/text/func_004f4780.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x004FCCD0</td>
+<td>core</td>
+<td>803</td>
+<td><code>src/mw4mercs/text/func_004fccd0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0050097C</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0050097C.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005009A0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_005009A0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005009C0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_005009C0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00546520</td>
+<td>core</td>
+<td>47</td>
+<td><code>src/mw4mercs/text/func_00546520.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005602D0</td>
+<td>core</td>
+<td>155</td>
+<td><code>src/mw4mercs/text/func_005602d0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00560B10</td>
+<td>core</td>
+<td>82</td>
+<td><code>src/mw4mercs/text/func_00560b10.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00563D90</td>
+<td>core</td>
+<td>1348</td>
+<td><code>src/mw4mercs/text/func_00563d90.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005642E0</td>
+<td>core</td>
+<td>1271</td>
+<td><code>src/mw4mercs/text/func_005642e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005667C0</td>
+<td>core</td>
+<td>233</td>
+<td><code>src/mw4mercs/text/func_005667c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00568290</td>
+<td>core</td>
+<td>124</td>
+<td><code>src/mw4mercs/text/func_00568290.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00571730</td>
+<td>core</td>
+<td>782</td>
+<td><code>src/mw4mercs/text/func_00571730.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00572150</td>
+<td>core</td>
+<td>764</td>
+<td><code>src/mw4mercs/text/func_00572150.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00572450</td>
+<td>core</td>
+<td>873</td>
+<td><code>src/mw4mercs/text/func_00572450.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005727C0</td>
+<td>core</td>
+<td>725</td>
+<td><code>src/mw4mercs/text/func_005727c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00572AA0</td>
+<td>core</td>
+<td>661</td>
+<td><code>src/mw4mercs/text/func_00572aa0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00572D40</td>
+<td>core</td>
+<td>661</td>
+<td><code>src/mw4mercs/text/func_00572d40.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00572FE0</td>
+<td>core</td>
+<td>464</td>
+<td><code>src/mw4mercs/text/func_00572fe0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00577530</td>
+<td>core</td>
+<td>214</td>
+<td><code>src/mw4mercs/text/func_00577530.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005808B0</td>
+<td>core</td>
+<td>247</td>
+<td><code>src/mw4mercs/text/func_005808b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005971B0</td>
+<td>core</td>
+<td>63</td>
+<td><code>src/mw4mercs/text/func_005971b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00597280</td>
+<td>core</td>
+<td>71</td>
+<td><code>src/mw4mercs/text/func_00597280.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A02F0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a02f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A0ED0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a0ed0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A3740</td>
+<td>core</td>
+<td>107</td>
+<td><code>src/mw4mercs/text/func_005a3740.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A37B0</td>
+<td>core</td>
+<td>63</td>
+<td><code>src/mw4mercs/text/func_005a37b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A3EE0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a3ee0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A4840</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a4840.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A4D40</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a4d40.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A50E0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a50e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A5360</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_005A5360.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A5C60</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005a5c60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005AFE90</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005afe90.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005B1300</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005b1300.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005B3030</td>
+<td>core</td>
+<td>125</td>
+<td><code>src/mw4mercs/text/func_005b3030.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005B43F0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005b43f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005B75C0</td>
+<td>core</td>
+<td>71</td>
+<td><code>src/mw4mercs/text/func_005b75c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005B7620</td>
+<td>core</td>
+<td>131</td>
+<td><code>src/mw4mercs/text/func_005b7620.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005DBB10</td>
+<td>core</td>
+<td>93</td>
+<td><code>src/mw4mercs/text/func_005dbb10.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005DBB70</td>
+<td>core</td>
+<td>93</td>
+<td><code>src/mw4mercs/text/func_005dbb70.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005DD330</td>
+<td>core</td>
+<td>689</td>
+<td><code>src/mw4mercs/text/func_005dd330.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005DFDA0</td>
+<td>core</td>
+<td>52</td>
+<td><code>src/mw4mercs/text/func_005dfda0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005DFDE0</td>
+<td>core</td>
+<td>504</td>
+<td><code>src/mw4mercs/text/func_005dfde0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005DFFE0</td>
+<td>core</td>
+<td>395</td>
+<td><code>src/mw4mercs/text/func_005dffe0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005E7890</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005e7890.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005E7B90</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005e7b90.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005E84A0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005e84a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005F07F0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005f07f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005F0BE0</td>
+<td>core</td>
+<td>199</td>
+<td><code>src/mw4mercs/text/func_005f0be0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005FAF30</td>
+<td>core</td>
+<td>1480</td>
+<td><code>src/mw4mercs/text/func_005faf30.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005FB500</td>
+<td>core</td>
+<td>524</td>
+<td><code>src/mw4mercs/text/func_005fb500.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005FBC80</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005fbc80.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005FCC50</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_005fcc50.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005FD730</td>
+<td>core</td>
+<td>309</td>
+<td><code>src/mw4mercs/text/func_005fd730.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006126C0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006126C0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00620890</td>
+<td>core</td>
+<td>166</td>
+<td><code>src/mw4mercs/text/func_00620890.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00620BE0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00620be0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00625820</td>
+<td>core</td>
+<td>657</td>
+<td><code>src/mw4mercs/text/func_00625820.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0062F530</td>
+<td>core</td>
+<td>419</td>
+<td><code>src/mw4mercs/text/func_0062f530.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00630030</td>
+<td>core</td>
+<td>1951</td>
+<td><code>src/mw4mercs/text/func_00630030.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0064A090</td>
+<td>core</td>
+<td>73</td>
+<td><code>src/mw4mercs/text/func_0064a090.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00650530</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_00650530.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0065C440</td>
+<td>core</td>
+<td>147</td>
+<td><code>src/mw4mercs/text/func_0065c440.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00666550</td>
+<td>core</td>
+<td>68</td>
+<td><code>src/mw4mercs/text/func_00666550.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006665A0</td>
+<td>core</td>
+<td>68</td>
+<td><code>src/mw4mercs/text/func_006665a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0066B0A0</td>
+<td>core</td>
+<td>106</td>
+<td><code>src/mw4mercs/text/func_0066b0a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00676520</td>
+<td>core</td>
+<td>136</td>
+<td><code>src/mw4mercs/text/func_00676520.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067FA60</td>
+<td>core</td>
+<td>145</td>
+<td><code>src/mw4mercs/text/func_0067fa60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006BBF00</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_006bbf00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006BBF40</td>
+<td>core</td>
+<td>62</td>
+<td><code>src/mw4mercs/text/func_006bbf40.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006BFB7F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006BFB7F.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E7840</td>
+<td>core</td>
+<td>2682</td>
+<td><code>src/mw4mercs/text/func_006e7840.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006ED920</td>
+<td>core</td>
+<td>852</td>
+<td><code>src/mw4mercs/text/func_006ed920.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE070</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006ee070.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE340</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006ee340.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006F9070</td>
+<td>core</td>
+<td>95</td>
+<td><code>src/mw4mercs/text/func_006f9070.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F90D0</td>
+<td>core</td>
+<td>6</td>
+<td><code>src/mw4mercs/text/func_006f90d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F90E0</td>
+<td>core</td>
+<td>43</td>
+<td><code>src/mw4mercs/text/func_006f90e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F910B</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f910b.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F9160</td>
+<td>core</td>
+<td>1</td>
+<td><code>src/mw4mercs/text/func_006f9160.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F9170</td>
+<td>core</td>
+<td>12</td>
+<td><code>src/mw4mercs/text/func_006f9170.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F917C</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f917c.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F9190</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F9190.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F91A0</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f91a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F91B0</td>
+<td>core</td>
+<td>12</td>
+<td><code>src/mw4mercs/text/func_006f91b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FA970</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006FA970.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FAA00</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006FAA00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FAA78</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006faa78.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FAAB0</td>
+<td>core</td>
+<td>98</td>
+<td><code>src/mw4mercs/text/func_006faab0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FAB20</td>
+<td>core</td>
+<td>109</td>
+<td><code>src/mw4mercs/text/func_006fab20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FAE50</td>
+<td>core</td>
+<td>432</td>
+<td><code>src/mw4mercs/text/func_006fae50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FB000</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006fb000.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006FB0E0</td>
+<td>core</td>
+<td>299</td>
+<td><code>src/mw4mercs/text/func_006fb0e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006FC8C0</td>
+<td>core</td>
+<td>113</td>
+<td><code>src/mw4mercs/text/func_006fc8c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006FC940</td>
+<td>core</td>
+<td>135</td>
+<td><code>src/mw4mercs/text/func_006fc940.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006FC970</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006fc970.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006FECB0</td>
+<td>core</td>
+<td>114</td>
+<td><code>src/mw4mercs/text/func_006fecb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006FF030</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006FF030.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006FFC00</td>
+<td>core</td>
+<td>124</td>
+<td><code>src/mw4mercs/text/func_006ffc00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00701410</td>
+<td>core</td>
+<td>87</td>
+<td><code>src/mw4mercs/text/func_00701410.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0070D040</td>
+<td>core</td>
+<td>341</td>
+<td><code>src/mw4mercs/text/func_0070d040.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0070DDB0</td>
+<td>core</td>
+<td>552</td>
+<td><code>src/mw4mercs/text/func_0070ddb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00715E00</td>
+<td>core</td>
+<td>910</td>
+<td><code>src/mw4mercs/text/func_00715e00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007161A0</td>
+<td>core</td>
+<td>1062</td>
+<td><code>src/mw4mercs/text/func_007161a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007165D0</td>
+<td>core</td>
+<td>876</td>
+<td><code>src/mw4mercs/text/func_007165d0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00717C60</td>
+<td>core</td>
+<td>72</td>
+<td><code>src/mw4mercs/text/func_00717c60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00734FB0</td>
+<td>core</td>
+<td>63</td>
+<td><code>src/mw4mercs/text/func_00734fb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00734FF0</td>
+<td>core</td>
+<td>63</td>
+<td><code>src/mw4mercs/text/func_00734ff0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007351B0</td>
+<td>core</td>
+<td>52</td>
+<td><code>src/mw4mercs/text/func_007351b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00735390</td>
+<td>core</td>
+<td>82</td>
+<td><code>src/mw4mercs/text/func_00735390.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007354A0</td>
+<td>core</td>
+<td>80</td>
+<td><code>src/mw4mercs/text/func_007354a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007354F0</td>
+<td>core</td>
+<td>83</td>
+<td><code>src/mw4mercs/text/func_007354f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00735640</td>
+<td>core</td>
+<td>100</td>
+<td><code>src/mw4mercs/text/func_00735640.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0073C320</td>
+<td>core</td>
+<td>45</td>
+<td><code>src/mw4mercs/text/func_0073c320.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00755280</td>
+<td>core</td>
+<td>81</td>
+<td><code>src/mw4mercs/text/func_00755280.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007552E0</td>
+<td>core</td>
+<td>65</td>
+<td><code>src/mw4mercs/text/func_007552e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00755620</td>
+<td>core</td>
+<td>88</td>
+<td><code>src/mw4mercs/text/func_00755620.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00755760</td>
+<td>core</td>
+<td>52</td>
+<td><code>src/mw4mercs/text/func_00755760.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007557E0</td>
+<td>core</td>
+<td>52</td>
+<td><code>src/mw4mercs/text/func_007557e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00757AF0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_00757af0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00757B30</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_00757b30.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00757B70</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_00757b70.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00758580</td>
+<td>core</td>
+<td>87</td>
+<td><code>src/mw4mercs/text/func_00758580.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007585E0</td>
+<td>core</td>
+<td>99</td>
+<td><code>src/mw4mercs/text/func_007585e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075B090</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_0075b090.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075B590</td>
+<td>core</td>
+<td>62</td>
+<td><code>src/mw4mercs/text/func_0075b590.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075B760</td>
+<td>core</td>
+<td>70</td>
+<td><code>src/mw4mercs/text/func_0075b760.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075B7B0</td>
+<td>core</td>
+<td>62</td>
+<td><code>src/mw4mercs/text/func_0075b7b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075B7F0</td>
+<td>core</td>
+<td>62</td>
+<td><code>src/mw4mercs/text/func_0075b7f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075B830</td>
+<td>core</td>
+<td>62</td>
+<td><code>src/mw4mercs/text/func_0075b830.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0075C8E0</td>
+<td>core</td>
+<td>168</td>
+<td><code>src/mw4mercs/text/func_0075c8e0.c</code></td>
+<td>keyword</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../">All subsystems</a></li>
+<li><a href="../shared/">Shared VAs</a></li>
+<li><a href="../../SUBSYSTEM_SEAMS/">Boundary seams</a></li>
+<li><a href="../../master_index/MW4Mercs_exe/">Exhaustive per-VA index</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

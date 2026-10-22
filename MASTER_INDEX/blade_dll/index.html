@@ -1,0 +1,9031 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.">
+      
+      
+      
+        <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/master_index/blade_dll/">
+      
+      
+        <link rel="prev" href="../MW4Stats_dll/">
+      
+      
+        <link rel="next" href="../Language_dll/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>blade.dll - MechWarrior 4 Mercenaries - Oracle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bladedll-subsystem-index" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-header__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MechWarrior 4 Mercenaries - Oracle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              blade.dll
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BUILD/" class="md-tabs__link">
+          
+  
+  
+  Build and verify
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../subsystems/" class="md-tabs__link">
+          
+  
+  
+  Subsystems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../subsystems/gundll/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../MASTER_INDEX/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../FAQ/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-nav__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MechWarrior 4 Mercenaries - Oracle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and verify
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build and verify
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BUILD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERIFICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GAME_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/render/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Render
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/gameplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/crt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/codec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/unclassified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unclassified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared VAs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MASTER_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_CATALOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem seams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module data annotation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module data annotation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editor tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/autoconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    autoconfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/mapcreator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/mw4ed2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/nfmeditor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFMEditor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ORACLE_STATUS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MODULE_NOTES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Per-VA indexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Per-VA indexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MW4Mercs_exe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Mercs.exe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GunDll_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MW4Stats_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-wrapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / wrapper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-crt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / crt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-facade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / facade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-caps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / caps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-accessors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / accessors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-render" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / render
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-stubs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / stubs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / exports
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data / data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-rdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data / rdata
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Language_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MissionLang_MERCS_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ZlogLib_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LEGAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-wrapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / wrapper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-crt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / crt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-facade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / facade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-caps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / caps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-accessors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / accessors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-render" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / render
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-stubs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / stubs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blade-exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        blade / exports
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data / data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-rdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data / rdata
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mech4decomp/Mech4MercDecomp/edit/main/docs/master_index/blade_dll.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="bladedll-subsystem-index">blade.dll - Subsystem Index<a class="headerlink" href="#bladedll-subsystem-index" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Purpose:</strong> per-VA subsystem classification for every VA in this binary. Use it to find the functions that implement a system and the functions that sit on its boundary.</p>
+<p><strong>Rule:</strong> every VA appears under exactly one subsystem/detail section. <code>role</code> is <code>core</code> (system implementation), <code>shared</code> (used by multiple systems), <code>boundary</code> (called by the system but implemented elsewhere), <code>data</code> (non-code section or table), or <code>unknown</code>. <code>confidence</code>/<code>reason</code> record the evidence used.</p>
+<p>Regenerated by <code>tools/gen_master_index.py</code>. See <a href="../../SUBSYSTEM_CATALOG/">the subsystem catalog</a> and <a href="../../SUBSYSTEM_SEAMS/">the seam summary</a>.</p>
+</blockquote>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>VAs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>core</td>
+<td>733</td>
+</tr>
+<tr>
+<td>data</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#blade-wrapper">blade / wrapper</a> - 228 VAs</li>
+<li><a href="#blade-crt">blade / crt</a> - 155 VAs</li>
+<li><a href="#blade-facade">blade / facade</a> - 116 VAs</li>
+<li><a href="#blade-caps">blade / caps</a> - 108 VAs</li>
+<li><a href="#blade-accessors">blade / accessors</a> - 53 VAs</li>
+<li><a href="#blade-render">blade / render</a> - 47 VAs</li>
+<li><a href="#blade-stubs">blade / stubs</a> - 17 VAs</li>
+<li><a href="#blade-exports">blade / exports</a> - 9 VAs</li>
+<li><a href="#data-data">data / data</a> - 3 VAs</li>
+<li><a href="#data-rdata">data / rdata</a> - 3 VAs</li>
+</ul>
+<h2 id="blade-wrapper">blade / wrapper<a class="headerlink" href="#blade-wrapper" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E00EB00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00eb00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EB0C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00eb0c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00ECF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ecf0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EE5C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ee5c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EE60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ee60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EE70</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ee70.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EEFE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00eefe.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EF00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ef00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EF10</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ef10.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EF2F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ef2f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EF30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ef30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EF54</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ef54.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EF60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ef60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F062</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f062.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F070</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f070.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F1B2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f1b2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F380</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f380.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F390</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f390.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F508</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f508.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F530</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f530.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F54A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f54a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F570</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f570.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F585</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f585.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F590</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f590.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F5A5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f5a5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F5B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f5b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F5C5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f5c5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F5D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f5d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F5E5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f5e5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F5F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f5f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F600</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f600.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F627</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f627.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F650</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f650.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F66A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f66a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F6B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f6b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F775</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f775.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F820</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f820.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F865</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f865.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F8B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f8b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F8F8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f8f8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F900</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f900.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F92B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f92b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F970</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f970.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F98C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f98c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F990</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f990.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00F9A9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00f9a9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FB68</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fb68.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FB70</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fb70.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FBAF</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fbaf.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FBF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fbf0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FC88</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fc88.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FEB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00feb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FFB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ffb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FFCC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ffcc.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FFD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ffd0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FFEC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ffec.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FFF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fff0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010002</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010002.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010010</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010010.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010043</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010043.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0104C9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0104c9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0104E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0104e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0104F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0104f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010500</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010500.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010510</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010510.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010520</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010520.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010530</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010530.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010540</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010540.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010550</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010550.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010560</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010560.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010570</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010570.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010580</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010580.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010590</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010590.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0105A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0105a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0105B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0105b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0105C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0105c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0105D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0105d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0105E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0105e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0105F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0105f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010600</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010600.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010610</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010610.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010620</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010620.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010630</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010630.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010640</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010640.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010650</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010650.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010660</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010660.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010670</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010670.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010680</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010680.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010690</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010690.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0106A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0106a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0106B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0106b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0106C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0106c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0106D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0106d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0106E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0106e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0106F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0106f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010700</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010700.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010710</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010710.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010720</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010720.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010730</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010730.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010740</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010740.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010750</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010750.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010760</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010760.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010770</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010770.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010780</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010780.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010790</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010790.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0107A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0107a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0107B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0107b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0107C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0107c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0107D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0107d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0107E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0107e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0107F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0107f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010800</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010800.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010810</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010810.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010820</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010820.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010830</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010830.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010840</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010840.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010850</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010850.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010860</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010860.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010870</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010870.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010880</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010880.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010890</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010890.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0108A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0108a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0108B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0108b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0108C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0108c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0108D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0108d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0108E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0108e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0108F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0108f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010900</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010900.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010910</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010910.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010920</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010920.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010930</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010930.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010940</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010940.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010950</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010950.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010960</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010960.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010970</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010970.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010980</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010980.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010990</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010990.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0109A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0109a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0109B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0109b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0109C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0109c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0109D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0109d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0109E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0109e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0109F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0109f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A10</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a10.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A20</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a20.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A40</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a40.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010A70</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010a70.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010BA0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010ba0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010BB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010bb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010C28</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010c28.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010CB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010cb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010CD1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010cd1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010D30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010d30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010D5B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010d5b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010DB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010db0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010E14</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010e14.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010E20</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010e20.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010E46</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010e46.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010E50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010e50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010E7B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010e7b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010FF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010ff0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011011</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011011.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011020</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011020.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011041</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011041.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011050</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011050.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011071</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011071.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011088</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011088.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011090</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011090.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0110B1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0110b1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0110C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0110c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0110E1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0110e1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0110F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0110f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011116</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011116.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011120</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011120.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011141</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011141.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011150</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011150.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011171</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011171.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011180</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011180.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0111B7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0111b7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0111C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0111c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0111E6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0111e6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0111F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0111f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01120C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01120c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011210</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011210.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011243</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011243.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011250</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011250.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011271</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011271.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011280</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011280.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01129C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01129c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0112A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0112a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0112C1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0112c1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0112D8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0112d8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0112E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0112e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011306</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011306.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011310</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011310.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011331</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011331.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011340</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011340.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011364</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011364.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0113B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0113b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0113D4</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0113d4.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011720</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011720.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011741</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011741.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011750</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011750.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011857</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011857.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011870</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011870.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01198A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01198a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011990</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011990.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0119B4</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0119b4.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011A50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011a50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011A82</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011a82.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011A98</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011a98.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AA8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011aa8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AB8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ab8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AC8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ac8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AD8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ad8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AE8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ae8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AF8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011af8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011B08</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011b08.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011BD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011bd0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011BE2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011be2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011BF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011bf0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011DB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011db0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011EB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011eb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011F3D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011f3d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-crt">blade / crt<a class="headerlink" href="#blade-crt" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E02B468</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b468.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02B46C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b46c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02B483</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b483.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02B484</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b484.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02B4BC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b4bc.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02B4F3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b4f3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02B5CC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02b5cc.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E35D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e35d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E360</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e360.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E370</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e370.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E6B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e6b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E72B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e72b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E734</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e734.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E7C1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e7c1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E8FF</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e8ff.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02E939</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02e939.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02EAE6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02eae6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02EB30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02eb30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02EB63</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02eb63.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02EB8C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02eb8c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02ED11</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ed11.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02ED21</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ed21.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02ED3D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ed3d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02ED40</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ed40.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F075</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f075.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F0FE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f0fe.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F100</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f100.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F1FE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f1fe.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F380</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f380.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F3E2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f3e2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F564</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f564.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F5A1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f5a1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F5B3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f5b3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F6FC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f6fc.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02F942</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02f942.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FA5D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fa5d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FB16</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fb16.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FC2E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fc2e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FC31</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fc31.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FC56</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fc56.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FD22</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fd22.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FD75</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02fd75.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FF99</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ff99.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FFC4</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ffc4.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02FFE5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02ffe5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030043</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030043.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030071</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030071.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03009E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03009e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030165</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030165.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030606</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030606.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030636</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030636.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030672</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030672.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030905</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030905.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030978</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030978.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030981</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030981.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03098A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03098a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03098C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03098c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0309AC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0309ac.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0309CE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0309ce.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030A36</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030a36.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030A62</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030a62.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030A7A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030a7a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030B41</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030b41.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030B5C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030b5c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030B60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030b60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030B8F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030b8f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030C20</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030c20.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E030F6E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e030f6e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0310FE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0310fe.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0312D3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0312d3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03130A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03130a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0313D5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0313d5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0314F7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0314f7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03152E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03152e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03157C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03157c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0317C1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0317c1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0317D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0317d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031854</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031854.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031860</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031860.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03189E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03189e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0318A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0318a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0318D8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0318d8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0318E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0318e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03191A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03191a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031A97</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031a97.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031AEF</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031aef.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031B76</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031b76.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031D7A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031d7a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031DD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031dd0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031E8D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031e8d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031EC4</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031ec4.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031F4A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031f4a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031F64</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031f64.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031FCA</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031fca.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E031FE9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e031fe9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03204B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03204b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032081</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032081.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032167</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032167.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0321A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0321a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0321C1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0321c1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0323E1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0323e1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03245D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03245d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0324EC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0324ec.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032581</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032581.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0327B3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0327b3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0327CE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0327ce.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0328C8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0328c8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032CB7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032cb7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032CDE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032cde.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032D4D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032d4d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E032D96</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e032d96.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033065</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033065.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03319D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03319d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0331A3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0331a3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033368</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033368.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033395</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033395.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0333F1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0333f1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03341B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03341b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033436</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033436.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033467</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033467.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0334ED</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0334ed.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033508</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033508.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033510</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033510.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0335E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0335e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0336E1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0336e1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03376C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03376c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033831</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033831.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03385F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03385f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033875</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033875.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033AFC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033afc.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033B1D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033b1d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033CC9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033cc9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033E09</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033e09.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E033F1C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e033f1c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03403A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03403a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034040</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034040.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0340A8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0340a8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0340B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0340b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034125</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034125.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034185</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034185.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034202</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034202.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034241</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034241.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0342AF</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0342af.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03452C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03452c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034557</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034557.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0346DE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0346de.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034736</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034736.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03479D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03479d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0348D5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0348d5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E03496C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e03496c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034997</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034997.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0349B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0349b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034A6C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034a6c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034B98</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034b98.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E034B9E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e034b9e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-facade">blade / facade<a class="headerlink" href="#blade-facade" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E001032</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001032.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0011B1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0011b1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0013B3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0013b3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0013E8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0013e8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001413</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001413.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001443</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001443.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001478</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001478.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0014E4</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0014e4.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001510</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001510.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001601</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001601.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0019B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0019b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0019C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0019c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001AB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001ab0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001AC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001ac0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001B00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001b00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001B30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001b30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001B60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001b60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001DE0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001de0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001FA2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001fa2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001FD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001fd0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00201D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00201d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002020</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002020.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00211D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00211d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002120</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002120.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0021C7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0021c7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002220</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002220.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002334</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002334.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0023DB</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0023db.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00242B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00242b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002430</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002430.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0025F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0025f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00267A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00267a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0026A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0026a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002827</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002827.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002B70</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002b70.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002CAB</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002cab.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002E50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002e50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002E60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002e60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002F30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002f30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E002F68</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002f68.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003000</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003000.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003029</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003029.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003050</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003050.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00306F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00306f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003070</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003070.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00308C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00308c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003390</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003390.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0033F7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0033f7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003400</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003400.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003416</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003416.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003420</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003420.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00353E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00353e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003550</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003550.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0035A5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0035a5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003630</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003630.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003683</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003683.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003750</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003750.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003780</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003780.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00389E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00389e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003910</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003910.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00392E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00392e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003930</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003930.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00394E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00394e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003950</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003950.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00395A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00395a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003960</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003960.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003968</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003968.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003970</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003970.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003A71</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003a71.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003A80</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003a80.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003CB8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003cb8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0040A6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0040a6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0042BE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0042be.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00448E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00448e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0045AC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0045ac.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004676</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004676.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00479C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00479c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004866</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004866.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00498C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00498c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004A56</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004a56.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004B81</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004b81.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004C5C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004c5c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004D7C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004d7c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004E46</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004e46.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004F71</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004f71.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00504C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00504c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005217</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005217.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005416</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005416.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005588</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005588.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005590</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005590.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00562A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00562a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005630</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005630.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0056A3</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0056a3.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0056B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0056b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005780</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005780.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0092D2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0092d2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00DF0A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00df0a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00DFD8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00dfd8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00DFE8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00dfe8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E018</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e018.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E020</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e020.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E056</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e056.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E060</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e060.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E0EC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e0ec.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E0F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e0f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E102</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e102.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E111</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e111.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E120</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e120.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E156</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e156.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E160</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e160.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E18D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e18d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E190</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e190.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E211</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e211.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E342</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e342.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02852D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02852d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0288CA</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0288ca.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-caps">blade / caps<a class="headerlink" href="#blade-caps" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E01220D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01220d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012426</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012426.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012CF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012cf0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012DE6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012de6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012DF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012df0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012EAA</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012eaa.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0131F2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0131f2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013200</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013200.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013662</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013662.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013670</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013670.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01367F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01367f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013680</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013680.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0136B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0136b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0136BF</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0136bf.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0136C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0136c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0136CF</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0136cf.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013730</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013730.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013976</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013976.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013980</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013980.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013B41</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013b41.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013B50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013b50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013BC2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013bc2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013BD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013bd0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013CB1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013cb1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E013CC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e013cc0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01404F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01404f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014050</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014050.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014498</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014498.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0144A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0144a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014661</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014661.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014670</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014670.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0147A2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0147a2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0147B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0147b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014BB2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014bb2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014BC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014bc0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014FB9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014fb9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E014FC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e014fc0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01528A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01528a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015290</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015290.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01534A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01534a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015350</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015350.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015586</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015586.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015590</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015590.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01589F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01589f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0158A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0158a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01597E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01597e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015980</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015980.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015CB2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015cb2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015CC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015cc0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015E81</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015e81.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E015E90</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e015e90.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0166C4</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0166c4.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0166D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0166d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01695C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01695c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016960</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016960.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0169F6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0169f6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016A00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016a00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016BF7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016bf7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016C00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016c00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016ED1</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016ed1.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016EE0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016ee0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016F9A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016f9a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E016FA0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e016fa0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E017290</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e017290.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E017451</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e017451.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E017460</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e017460.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E017B7F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e017b7f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E017B80</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e017b80.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018048</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018048.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018050</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018050.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0181CA</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0181ca.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0181D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0181d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018747</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018747.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018750</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018750.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018C5D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018c5d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018C60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018c60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018DFE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018dfe.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E018E00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e018e00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01945B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01945b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E019460</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e019460.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E019621</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e019621.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E019630</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e019630.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E019D27</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e019d27.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E019D30</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e019d30.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01A264</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01a264.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01A290</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01a290.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01A75E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01a75e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01A760</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01a760.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01A921</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01a921.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01A930</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01a930.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01AA9A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01aa9a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01AAA0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01aaa0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01B0D9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01b0d9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01B670</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01b670.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01BBBE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01bbbe.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01BBC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01bbc0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01BD72</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01bd72.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01BD80</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01bd80.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01C52C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01c52c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01C530</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01c530.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01CAC2</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01cac2.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01CAD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01cad0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01CCA6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01cca6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01CCB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01ccb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01D540</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01d540.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01D701</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01d701.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01D710</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01d710.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01DFE0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01dfe0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-accessors">blade / accessors<a class="headerlink" href="#blade-accessors" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E00E350</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e350.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E37D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e37d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E380</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e380.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E39D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e39d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E3A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e3a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E3BC</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e3bc.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E3C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e3c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E3C7</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e3c7.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E3D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e3d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E400</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e400.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E43B</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e43b.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E440</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e440.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E478</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e478.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E480</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e480.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E4AE</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e4ae.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E4B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e4b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E4D9</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e4d9.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E4E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e4e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E52E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e52e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E530</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e530.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E576</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e576.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E580</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e580.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E5F8</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e5f8.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E600</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e600.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E60F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e60f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E610</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e610.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E61E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e61e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E620</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e620.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E627</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e627.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E630</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e630.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E637</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e637.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E640</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e640.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E647</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e647.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E650</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e650.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E657</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e657.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E660</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e660.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E66A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e66a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E670</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e670.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E67C</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e67c.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E680</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e680.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E687</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e687.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA6E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea6e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA70</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea70.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA7E</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea7e.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA80</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea80.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA8F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea8f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA90</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea90.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EA9F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ea9f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EAA0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00eaa0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EAC6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00eac6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EAD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00ead0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00EAF6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00eaf6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-render">blade / render<a class="headerlink" href="#blade-render" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E002340</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e002340.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0023E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0023e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E003CC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e003cc0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0040B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0040b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0042C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0042c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004490</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004490.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0045B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0045b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004680</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004680.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0047A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0047a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004870</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004870.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004990</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004990.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004A60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004a60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004B90</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004b90.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004C60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004c60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004D80</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004d80.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004E50</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004e50.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E004F80</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e004f80.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005050</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005050.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005220</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005220.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E005420</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e005420.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0057C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0057c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0093A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0093a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E220</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e220.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0121D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0121d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012210</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012210.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E012EB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e012eb0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E6E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e6e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E6F6</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e6f6.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E700</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e700.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E71A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e71a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E721</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e721.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E730</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e730.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E786</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e786.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E7B0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e7b0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E8DD</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e8dd.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E930</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e930.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E996</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e996.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E9A0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e9a0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01EA0F</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01ea0f.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01EA10</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01ea10.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01EA75</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01ea75.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0280B5</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0280b5.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E028100</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e028100.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02825A</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02825a.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E028260</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e028260.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E02843D</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e02843d.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0284E0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0284e0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-stubs">blade / stubs<a class="headerlink" href="#blade-stubs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E00DFD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00dfd0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00DFE0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00dfe0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E010</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e010.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00E110</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00e110.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E00FB60</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e00fb60.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011080</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011080.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0112D0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0112d0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011860</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011860.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011A90</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011a90.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AA0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011aa0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AB0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ab0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AC0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ac0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AD0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ad0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AE0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011ae0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011AF0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011af0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E011B00</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e011b00.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E01E720</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e01e720.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blade-exports">blade / exports<a class="headerlink" href="#blade-exports" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E001000</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001000.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001040</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001040.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0011C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0011c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0013C0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0013c0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E0013F0</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e0013f0.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001420</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001420.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001450</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001450.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E001480</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e001480.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+<tr>
+<td>0x5E010480</td>
+<td>text</td>
+<td><code>src/blade/text/func_5e010480.c</code></td>
+<td>core</td>
+<td>high</td>
+<td>module-map</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-data">data / data<a class="headerlink" href="#data-data" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E038000</td>
+<td>data</td>
+<td><code>src/blade/data/data_0x5e038000.c</code></td>
+<td>data</td>
+<td>high</td>
+<td>section</td>
+</tr>
+<tr>
+<td>0x5E039000</td>
+<td>data</td>
+<td><code>src/blade/data/data_0x5e039000.c</code></td>
+<td>data</td>
+<td>high</td>
+<td>section</td>
+</tr>
+<tr>
+<td>0x5E03A000</td>
+<td>data</td>
+<td><code>src/blade/data/data_0x5e03a000.c</code></td>
+<td>data</td>
+<td>high</td>
+<td>section</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-rdata">data / rdata<a class="headerlink" href="#data-rdata" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Section</th>
+<th>Source</th>
+<th>Role</th>
+<th>Confidence</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x5E035000</td>
+<td>rdata</td>
+<td><code>src/blade/rdata/data_0x5e035000.c</code></td>
+<td>data</td>
+<td>high</td>
+<td>section</td>
+</tr>
+<tr>
+<td>0x5E036000</td>
+<td>rdata</td>
+<td><code>src/blade/rdata/data_0x5e036000.c</code></td>
+<td>data</td>
+<td>high</td>
+<td>section</td>
+</tr>
+<tr>
+<td>0x5E037000</td>
+<td>rdata</td>
+<td><code>src/blade/rdata/data_0x5e037000.c</code></td>
+<td>data</td>
+<td>high</td>
+<td>section</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

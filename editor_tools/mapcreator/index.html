@@ -1,0 +1,3336 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.">
+      
+      
+      
+        <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/editor_tools/mapcreator/">
+      
+      
+        <link rel="prev" href="../autoconfig/">
+      
+      
+        <link rel="next" href="../mw4ed2/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>MapCreator - MechWarrior 4 Mercenaries - Oracle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mapcreatorexe-bitmap-mw4-map-authoring-tool-deep-dive" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-header__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MechWarrior 4 Mercenaries - Oracle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MapCreator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BUILD/" class="md-tabs__link">
+          
+  
+  
+  Build and verify
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../subsystems/" class="md-tabs__link">
+          
+  
+  
+  Subsystems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../subsystems/gundll/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../MASTER_INDEX/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../FAQ/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-nav__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MechWarrior 4 Mercenaries - Oracle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and verify
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build and verify
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BUILD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERIFICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GAME_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/render/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Render
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/gameplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/crt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/codec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/unclassified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unclassified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared VAs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystems/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MASTER_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_CATALOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem seams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module data annotation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module data annotation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editor tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    autoconfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-binary-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Binary facts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-purpose-and-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Purpose and pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-layout-text-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Layout — .text regions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-map-definition-info-file-contentmapsname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The map definition "info file" (Content\Maps\&lt;name&gt;)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-heightfield-input-rules-from-the-validator-at-0x4014800x401780" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Heightfield input rules (from the validator at ~0x401480–0x401780)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-texture-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Texture rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-the-final-map-archive-resourcemapsnamemw4-is-a-vbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The final map archive — Resource\Maps\&lt;name&gt;.mw4 is a #VBD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Key functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-bundled-engine-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Bundled engine / libraries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-notable-strings-va-value-all-in-data-raw-0x47c000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Notable strings (VA → value, all in .data raw 0x47C000+)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-data-structure-take-aways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key data-structure take-aways
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mw4ed2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nfmeditor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFMEditor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ORACLE_STATUS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MODULE_NOTES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Per-VA indexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Per-VA indexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Mercs_exe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Mercs.exe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/GunDll_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Stats_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/blade_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/Language_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MissionLang_MERCS_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/ZlogLib_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LEGAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-binary-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Binary facts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-purpose-and-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Purpose and pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-layout-text-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Layout — .text regions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-map-definition-info-file-contentmapsname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The map definition "info file" (Content\Maps\&lt;name&gt;)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-heightfield-input-rules-from-the-validator-at-0x4014800x401780" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Heightfield input rules (from the validator at ~0x401480–0x401780)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-texture-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Texture rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-the-final-map-archive-resourcemapsnamemw4-is-a-vbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The final map archive — Resource\Maps\&lt;name&gt;.mw4 is a #VBD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Key functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-bundled-engine-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Bundled engine / libraries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-notable-strings-va-value-all-in-data-raw-0x47c000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Notable strings (VA → value, all in .data raw 0x47C000+)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-data-structure-take-aways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key data-structure take-aways
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mech4decomp/Mech4MercDecomp/edit/main/docs/editor_tools/mapcreator.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="mapcreatorexe-bitmap-mw4-map-authoring-tool-deep-dive">MapCreator.exe — bitmap → .mw4 map authoring tool (deep-dive)<a class="headerlink" href="#mapcreatorexe-bitmap-mw4-map-authoring-tool-deep-dive" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Reference record; not an oracle target. Analyzed with Ghidra; the analysis
+project and dumps are not part of this repository. No source tree, no
+byte-identity gate.</p>
+</blockquote>
+<h2 id="1-binary-facts">1. Binary facts<a class="headerlink" href="#1-binary-facts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File</td>
+<td><code>reference\MapCreator.exe</code></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>528,384 B (0x81000)</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td><code>4f1a37548b352fd36e99a71aded94db13253f9ec84c6d350237b525f5936ea7d</code></td>
+</tr>
+<tr>
+<td>Toolchain</td>
+<td>MSVC6, Linker 6.0, TimeDateStamp 2002-11-26 20:47:03Z</td>
+</tr>
+<tr>
+<td>Machine / Subsystem</td>
+<td>x86 (0x014C) / GUI (2)</td>
+</tr>
+<tr>
+<td>ImageBase</td>
+<td>0x00400000</td>
+</tr>
+<tr>
+<td>Sections</td>
+<td><code>.text</code> RVA 0x1000 VSize 0x68ABB · <code>.rdata</code> RVA 0x6A000 · <code>.data</code> RVA 0x7C000 VSize 0x78358 (raw 0x3000 — most of <code>.data</code> is zero-fill; the tool's literal strings live in the raw part at 0x47C000–0x47C9xx) · <code>.rsrc</code> RVA 0xF5000</td>
+</tr>
+<tr>
+<td>Imports</td>
+<td>MFC42 (135), MSVCRT (76), KERNEL32 (85), USER32 (63), GDI32 (12), ADVAPI32 (12), ole32 (3), MSACM32 (7), VERSION (3), WINMM (5)</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td>1,556 (Ghidra)</td>
+</tr>
+</tbody>
+</table>
+<p>Like NFMEditor, it bundles GameOS and must run from the game install root
+(<code>Cannot find Language.dll in %s\assets\binaries or %s, this file is required</code>,
+<code>GameOS build version</code>, <code>Exit:DestroyTextureManager</code>). It also links the
+<strong><code>Stuff::</code></strong> engine classes (<code>Stuff::FileStream</code>, <code>Stuff::TreeNodeOf</code>) and a
+full image-decoding library (TIFF/GIF/TGA/PNG/BMP + zlib + libpng).</p>
+<h2 id="2-purpose-and-pipeline">2. Purpose and pipeline<a class="headerlink" href="#2-purpose-and-pipeline" title="Permanent link">&para;</a></h2>
+<p>MapCreator converts a <strong>heightfield bitmap</strong> + <strong>textures</strong> into a playable
+map <code>.mw4</code>. The overall flow (from the writer/handlers):</p>
+<div class="highlight"><pre><span></span><code>bitmap (TIF/GIF/TGA/PNG)  ──&gt;  heightfield (256..1024 wide × 256..2048 high,
+                               multiple of 256, 24-bit for &quot;interest data&quot;)
+                                     │
+            MapCreator writes (Content\ + Resource\ trees under the game root):
+              Content\Maps\&lt;name&gt;                 map definition &quot;info file&quot;
+              Content\Maps\&lt;name&gt;\&lt;name&gt;.build     build manifest
+              Content\Maps\&lt;name&gt;\tctd.ini         Tctd input config
+              Content\Maps\&lt;name&gt;\tctd.ini.bsp     Tctd BSP input config
+              Content\textures\maps\...            copied/renamed textures
+              Maps\&lt;name&gt;\&lt;name&gt;.instance          instance info
+                                     │
+            shell:  Tctd /f Content\Maps\&lt;name&gt;\tctd.ini
+            shell:  Tctd /f Content\Maps\&lt;name&gt;\tctd.ini -bsp
+                                     │
+            Tctd.exe builds the final packed map:
+              Resource\Maps\&lt;name&gt;.mw4             a #VBD archive (see §7)
+</code></pre></div>
+<p><code>Tctd.exe</code> ("Terrain converter/compiler") is an <strong>external tool that must be
+present</strong> (<code>Cannot Find Tctd.exe,Make sure this file exists and try again</code>);
+MapCreator shells out to it with <code>system()</code>. Tctd is what produces the binary
+terrain/BSP data packed into the final <code>.mw4</code>. The tool then reports
+<code>Map created successfully. Run Mission Editor to create a mission with this map</code>
+(or <code>There was an Error in Createing your map</code> [sic] on failure).</p>
+<h2 id="3-layout-text-regions">3. Layout — .text regions<a class="headerlink" href="#3-layout-text-regions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Range</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x401000–0x4072xx</td>
+<td>Tool UI + map pipeline (heightfield load/validate, texture pickers, map create/save, Tctd launch)</td>
+</tr>
+<tr>
+<td>0x408xxx–0x44Exxx</td>
+<td>Bundled GameOS / <code>Stuff::</code> engine (file system, textures, DirectX, DirectSound, image codecs)</td>
+</tr>
+<tr>
+<td>0x45xxxx–0x465xxx</td>
+<td>GameOS config/profile + helpers</td>
+</tr>
+<tr>
+<td>0x466Bxx+</td>
+<td>Ordinal thunks (MFC/GameOS imports)</td>
+</tr>
+</tbody>
+</table>
+<p>The Ghidra inventory names imports <code>Ordinal_XXXX</code> (jmp-thunk table at
+0x466B80+). Key ordinal semantics seen in the map code: <code>Ordinal_926</code>/<code>924</code>/
+<code>922</code> = path-combine string ops, <code>Ordinal_858</code> = write/create, <code>Ordinal_800</code> =
+close, <code>Ordinal_540</code> = push a "file op" guard, <code>Ordinal_5683</code> = <code>strrchr</code>,
+<code>Ordinal_4277</code> = substring after last <code>\</code>, <code>Ordinal_4129</code> = <code>strrchr('.')</code>,
+<code>Ordinal_2818</code> = <code>sprintf</code>, <code>Ordinal_941</code> = append to command line,
+<code>Ordinal_860</code> = get app path, <code>Ordinal_6334</code> = <code>_ftol</code>-family.</p>
+<h2 id="4-the-map-definition-info-file-contentmapsname">4. The map definition "info file" (<code>Content\Maps\&lt;name&gt;</code>)<a class="headerlink" href="#4-the-map-definition-info-file-contentmapsname" title="Permanent link">&para;</a></h2>
+<p>The map definition is written with the <strong>same GameOS info-file format</strong> that
+NFMEditor uses (sections, <code>key=value</code>, case handling — see
+<code>docs/editor_tools/nfmeditor.md</code> §4). The map file's root carries a <code>gamedata</code>
+section (all keys below, written by <code>FUN_004021b0</code> / <code>FUN_004012b0</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grid</code></td>
+<td><code>&lt;name&gt;.erf</code> — the grid/terrain source file</td>
+</tr>
+<tr>
+<td><code>cull</code></td>
+<td><code>nevercull</code></td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td><strong><code>mechwarrior4::mwmap</code></strong> — the map class tag</td>
+</tr>
+<tr>
+<td><code>texturedata</code></td>
+<td><code>&lt;name&gt;.fgd</code></td>
+</tr>
+<tr>
+<td><code>tcffilename</code></td>
+<td><code>&lt;name&gt;.index.tcf</code></td>
+</tr>
+<tr>
+<td><code>waterlevel</code></td>
+<td>float (water plane height)</td>
+</tr>
+<tr>
+<td><code>watertexture</code></td>
+<td>path to water texture</td>
+</tr>
+<tr>
+<td><code>underwatertexture</code></td>
+<td>path to underwater texture</td>
+</tr>
+<tr>
+<td><code>waterdetailtexture</code></td>
+<td>path to water detail texture</td>
+</tr>
+<tr>
+<td><code>HudMap</code></td>
+<td>path to the HUD/minimap texture</td>
+</tr>
+<tr>
+<td><code>InputPath</code></td>
+<td>input bitmap path</td>
+</tr>
+<tr>
+<td><code>MapCenter</code></td>
+<td>two floats, e.g. <code>"%.1f %.1f"</code> (grid center; <code>this+0x64</code> × 0x458280 scale const ×2)</td>
+</tr>
+<tr>
+<td><code>SmoothingPasses</code></td>
+<td>int (heightfield smoothing passes, <code>this+0xbc</code>)</td>
+</tr>
+<tr>
+<td><code>PolyCount</code></td>
+<td>int (target poly count, <code>this+0xc0</code>)</td>
+</tr>
+<tr>
+<td><code>HeightField</code></td>
+<td>heightfield file name</td>
+</tr>
+<tr>
+<td><code>DeltaY</code></td>
+<td>float (vertical scale, <code>this+0xb8</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Texture/geometry files referenced by the definition:
+- <code>&lt;name&gt;.fgd</code> — the textured-terrain descriptor,
+- <code>&lt;name&gt;.index.tcf</code> — the texture-collection/flag file,
+- <code>&lt;name&gt;.erf</code> — the terrain grid source.</p>
+<h2 id="5-heightfield-input-rules-from-the-validator-at-0x4014800x401780">5. Heightfield input rules (from the validator at ~0x401480–0x401780)<a class="headerlink" href="#5-heightfield-input-rules-from-the-validator-at-0x4014800x401780" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exists</td>
+<td><code>HeightField Does Not Exist</code> / <code>Bad Height Field</code></td>
+</tr>
+<tr>
+<td>width 256..1024</td>
+<td><code>HeightField Width is too small, must be at least 256</code> / <code>HeightField Width is too large, Cannot be larger than 1024</code></td>
+</tr>
+<tr>
+<td>height 256..2048</td>
+<td><code>HeightField Height is too small, must be at least 256</code> / <code>HeightField Height is too large, must be at most 2048</code></td>
+</tr>
+<tr>
+<td>both multiple of 256</td>
+<td><code>HeightField has incorrect size, must be a multiple of 256 i.e. 256,512,768,1024...</code></td>
+</tr>
+<tr>
+<td>24-bit when "Interest data" used</td>
+<td><code>HeightField must be 24-bit while using "Interest data"</code></td>
+</tr>
+</tbody>
+</table>
+<p>File dialog filter: <code>Bitmap Images (*.tif,*.gif,*.tga,*.png)|*.tif;*.gif;*.tga;*.png||</code>.
+The image decoder handles TIFF (<code>Tiff Error-*</code>), GIF, TGA, PNG (libpng), BMP,
+JPEG (via <code>ijl10.dll</code>).</p>
+<h2 id="6-texture-rules">6. Texture rules<a class="headerlink" href="#6-texture-rules" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Texture</th>
+<th>Constraint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terrain texture</td>
+<td>must exist, must be valid (<code>Terrain Texture Does Not Exist</code> / <code>Bad Terrain Texture</code>); size must equal the heightfield: <code>For a Heightfield of %ix%i Terrain Texture should be %ix%i</code></td>
+</tr>
+<tr>
+<td>Detail texture</td>
+<td><code>Detail Texture Does Not Exist</code> / <code>Bad Detail Texture</code>; <code>Detail Texture MUST be 256x256</code></td>
+</tr>
+<tr>
+<td>Water / water-detail / underwater</td>
+<td>must exist; all <code>MUST be 256x256</code> (<code>Water Texture Texture MUST be 256x256</code> [sic], etc.)</td>
+</tr>
+<tr>
+<td>Selection</td>
+<td><code>FGD Files (*.fgd)|*.fgd||</code> dialog for the FGD; textures written under <code>Content\textures\maps\</code> with the <code>%s\%s.Tga</code> / <code>%s\%c%c\%s_%c%c_0_0000.Tga</code> naming pattern</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-the-final-map-archive-resourcemapsnamemw4-is-a-vbd">7. The final map archive — <code>Resource\Maps\&lt;name&gt;.mw4</code> is a #VBD<a class="headerlink" href="#7-the-final-map-archive-resourcemapsnamemw4-is-a-vbd" title="Permanent link">&para;</a></h2>
+<p>The shipped maps (e.g. <code>carps01.mw4</code>, 7–27 MB) are <strong>#VBD v4 archives</strong> — the
+container documented in <code>include/mw4/vbd.h</code>. Verified on
+<code>carps01.mw4</code>: sig <code>#VBD</code>, version 4, key1==key2==0x108, filetime, flags 1/1,
+archive path <code>resource\maps\carps01.mw4</code> (25 chars incl. extension).</p>
+<p>Two observations beyond <code>vbd.h</code>:</p>
+<ul>
+<li><strong>The directory is multi-group.</strong> After the header/path, the directory is
+  organised as a sequence of blocks, each block = a path + its member entries:
+  e.g. <code>maps\carps01\carps01.instance</code>, then entry rows
+  <code>textures\composttexture\arctic01_color_rock_active.bid</code>,
+  <code>textures\composttexture\alpine01_color_rockfaceshale_active.bid</code>, ... —
+  one per map asset. <code>entry_count=63</code> in the header is a <strong>capacity/count
+  field, not the actual member count</strong> of every archive.</li>
+<li><strong>Members are compressed binary.</strong> The <code>.instance</code>/<code>.bid</code> members are binary,
+  high-entropy (LZW-style, <code>uncompressed_size &gt; stored_size</code>; the decompressor
+  is the game's <code>FUN_006FC220</code>, see AGENTS.md "Compression codec — LZW").
+  <code>data_off</code> is relative to <code>dir_file_offset</code> and members are laid out
+  contiguously (<code>next.data_off == prev.data_off + prev.stored_size</code>).</li>
+</ul>
+<p>So MapCreator itself never writes a #VBD — it writes the info-file definition +
+textures and lets <strong>Tctd.exe</strong> produce the packed archive.</p>
+<h2 id="8-key-functions">8. Key functions<a class="headerlink" href="#8-key-functions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Size</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x004012b0</td>
+<td>514</td>
+<td>Map-definition metadata writer (InputPath, MapCenter, SmoothingPasses, PolyCount, HeightField, DeltaY)</td>
+</tr>
+<tr>
+<td>0x00401750</td>
+<td>—</td>
+<td>Heightfield load (file dialog <code>*.tif;*.gif;*.tga;*.png</code>)</td>
+</tr>
+<tr>
+<td>~0x401480–0x401780</td>
+<td>—</td>
+<td><strong>Heightfield validator</strong> (size rules §5; not a Ghidra-recognised function)</td>
+</tr>
+<tr>
+<td>0x004021b0</td>
+<td>1869</td>
+<td><strong>Map definition writer</strong> (<code>gamedata</code> section: grid/cull/class/texturedata/tcffilename/water*/HudMap)</td>
+</tr>
+<tr>
+<td>0x00403720</td>
+<td>1684</td>
+<td><strong>Create-map orchestrator</strong>: writes definition + <code>.build</code> + <code>.instance</code>, copies textures, calls the Tctd launcher</td>
+</tr>
+<tr>
+<td>0x00403dc0</td>
+<td>266</td>
+<td><code>.build</code> manifest writer (<code>Content\Maps\&lt;name&gt;\&lt;name&gt;.build</code>)</td>
+</tr>
+<tr>
+<td>0x00403ed0</td>
+<td>~900</td>
+<td><strong>Create-map command handler</strong>: name sanitise/validate (<code>Give the map a valid name</code>), overwrite prompt (<code>A map by this name exists, OverWrite?</code>), success/error messages (region, not a Ghidra function)</td>
+</tr>
+<tr>
+<td>0x00404220</td>
+<td>486</td>
+<td><strong>Tctd.exe launcher</strong>: option flags (<code>/i</code>, <code>/s</code>, <code>/y</code>, <code>/uid</code>, <code>/p</code>) + <code>system("Tctd /f Content\Maps\&lt;name&gt;\tctd.ini")</code> + <code>system("Tctd /f Content\Maps\&lt;name&gt;\tctd.ini -bsp")</code>; missing-Tctd error</td>
+</tr>
+<tr>
+<td>0x00404cb0 / 0x00405790 / 0x00405870 / 0x00405970</td>
+<td>—</td>
+<td>texture pickers (FGD / water / detail dialogs)</td>
+</tr>
+<tr>
+<td>0x004095c0 / 0x00409690 / 0x00409740</td>
+<td>60/43/43</td>
+<td>info-tree set string / int / float</td>
+</tr>
+<tr>
+<td>0x0040a530 / 0x0040a6b0 / 0x0040ad30</td>
+<td>171/152/84</td>
+<td>info-file open / close / free</td>
+</tr>
+<tr>
+<td>0x0040b6b0 / 0x0040b6d0 / 0x0040b890</td>
+<td>31/301/218</td>
+<td>info-tree helpers (gamedata lookup, subtree)</td>
+</tr>
+<tr>
+<td>0x00415f00</td>
+<td>161</td>
+<td>file-exists check (Tctd.exe)</td>
+</tr>
+</tbody>
+</table>
+<p>(The info-file parse/serialize library itself is the same GameOS family as
+NFMEditor's §4 map — the parser here is the MapCreator's bundled copy.)</p>
+<h2 id="9-bundled-engine-libraries">9. Bundled engine / libraries<a class="headerlink" href="#9-bundled-engine-libraries" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>GameOS</strong>: file system (<code>Stuff::FileStream</code>, memory-mapped files, <code>Too many
+  files</code>, <code>File '%s' is still open</code>), texture manager (<code>InitializeTextureManager
+  called twice!</code>, <code>Exit:DestroyTextureManager</code>, texture filter/format diagnostics),
+  Direct3D/DirectDraw/DirectSound/DirectInput error tables, driver/registry dump
+  (<code>VideoCard.txt</code>, <code>Driver version</code>, <code>\Config\Platform</code>), Language.dll loader,
+  DirectPlay (DPERR_*), sound (<code>acmStreamOpen</code>, MSADPCM/PCM only).</li>
+<li><strong>Image codecs</strong>: TIFF (<code>(Is Tiff)Invalid File</code>, <code>Tiff Error-Wrong Version</code>),
+  GIF, TGA (<code>Only 256 color palletized, 24 or 32 bit TGA files supported</code>), PNG
+  (libpng — <code>Not a PNG file</code>, <code>Incompatible libpng version</code>), BMP (<code>"..." is an
+  invalid .BMP file</code>), JPEG (ijl10). Plus zlib. The <code>(Create Fade)</code> /
+  <code>(MaskTo)</code> / <code>(MakeRGB)</code> / <code>(UnDifference)</code> / <code>(Deinterlace)</code> strings are a
+  generic image-processing helper library.</li>
+<li><strong>Stuff::</strong> engine classes: <code>Stuff::FileStream</code>, <code>Stuff::TreeNodeOf</code>.</li>
+<li><strong>MAPI</strong> support (<code>MAPISendMail</code>, <code>Bad MAPI32.DLL</code>) and the same
+  <code>RAID</code>/SQL connection string as NFMEditor (<code>DRIVER={SQL Server};...</code>).</li>
+</ul>
+<h2 id="10-notable-strings-va-value-all-in-data-raw-0x47c000">10. Notable strings (VA → value, all in <code>.data</code> raw 0x47C000+)<a class="headerlink" href="#10-notable-strings-va-value-all-in-data-raw-0x47c000" title="Permanent link">&para;</a></h2>
+<p><code>0x47C2C0</code> <code>Content\Maps\</code> · <code>0x47C2C8</code> <code>Maps\</code> · <code>0x47C2D0</code> <code>HudMap</code> ·
+<code>0x47C2D8</code>/<code>0x47C2EC</code>/<code>0x47C2F1</code> <code>waterdetailtexture</code>/<code>underwatertexture</code>/
+<code>watertexture</code> · <code>0x47C310</code> <code>maps\</code> · <code>0x47C318</code> <code>waterlevel</code> · <code>0x47C324</code>
+<code>tcffilename</code> · <code>0x47C33C</code> <code>texturedata</code> · <code>0x47C358</code> <code>mechwarrior4::mwmap</code> ·
+<code>0x47C350</code> <code>class</code> · <code>0x47C374</code>/<code>0x47C36C</code> <code>nevercull</code>/<code>cull</code> · <code>0x47C380</code>/
+<code>0x47C388</code> <code>grid</code>/<code>.erf</code> · <code>0x47C398</code> <code>gamedata</code> · <code>0x47C330</code> <code>.index.tcf</code> ·
+<code>0x47C348</code> <code>.fgd</code> · <code>0x47C3F0</code> <code>textures.hint</code> · <code>0x47C400</code> <code>Content\Textures\</code>
+(also <code>Content\Textures\Maps\</code>) · <code>0x47C450</code> <code>%s\%s.Tga</code> · <code>0x47C4B0</code>
+<code>TexturePool</code> · <code>0x47C4E8</code> <code>.mw4</code> · <code>0x47C4F0</code> <code>Resource\Maps\</code> · <code>0x47C500</code>
+<code>.build</code> · <code>0x47C508</code> <code>Content\</code> · <code>0x47C514</code> <code>Maps\%s\%s.build</code> · <code>0x47C444</code>/
+<code>0x47C4DC</code> <code>.instance</code>/<code>instance</code> · <code>0x47C2B4</code> <code>\tctd.ini</code> · <code>0x47C68C</code>
+<code>\tctd.ini -bsp</code> · <code>0x47C69C</code> <code>Tctd /f Content\Maps\</code> · <code>0x47C6B4</code> <code>Tctd.exe</code> ·
+<code>0x47C6C0</code>/<code>C4</code>/<code>C8</code>/<code>CC</code>/<code>D4</code> <code>/i</code> <code>/s</code> <code>/y</code> <code>/uid</code> <code>/p</code> ·
+<code>0x47C0A0</code> <code>\</code> · <code>0x47C528</code> <code>There was an Error in Createing your map</code> ·
+<code>0x47C564</code> <code>Map created successfully. Run Mission Editor to create a mission
+with this map</code> · <code>0x47C5EC</code> <code>A map by this name exists, OverWrite?</code> · <code>0x47C628</code>
+<code>Give the map a valid name</code> · <code>0x47C64C</code> <code>Cannot Find Tctd.exe,Make sure this
+file exists and try again</code> · <code>0x47C244</code> <code>Bitmap Images
+(*.tif,*.gif,*.tga,*.png)|*.tif;*.gif;*.tga;*.png||</code> · <code>0x47C81C</code>
+<code>FGD Files (*.fgd)|*.fgd||</code></p>
+<p>Heightfield/texture rule strings: <code>0x47C14C</code>/<code>0x47C184</code>/<code>0x47C1BC</code>/<code>0x47C1F8</code>
+height too large/small, width too large/small · <code>0x47C0C0</code> multiple-of-256 ·
+<code>0x47C114</code> 24-bit-for-interest-data · <code>0x47C0A4</code>/<code>0x47C230</code> <code>HeightField Does
+Not Exist</code>/<code>Bad Height Field</code> · <code>0x47C714</code>/<code>0x47C734</code> <code>Terrain Texture Does Not
+Exist</code>/<code>Bad Terrain Texture</code> · <code>0x47C77C</code> <code>Detail Texture MUST be 256x256</code> ·
+<code>0x47C7E0</code> <code>For a Heightfield of %ix%i Terrain Texture should be %ix%i</code> ·
+<code>0x47C924</code> <code>Water Texture Texture MUST be 256x256</code></p>
+<h2 id="11-key-data-structure-take-aways">11. Key data-structure take-aways<a class="headerlink" href="#11-key-data-structure-take-aways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>MapCreator writes an <strong>info-file map definition</strong> tagged
+   <code>class=mechwarrior4::mwmap</code> (the <code>gamedata</code> section keys in §4) — the same
+   GameOS key/value grammar as <code>.nfm</code>.</li>
+<li>The heavy lifting (binary terrain/BSP + final packing into the <code>#VBD</code>
+   <code>.mw4</code>) is <strong>delegated to the external <code>Tctd.exe</code></strong>; MapCreator only stages
+   inputs and textures. The shipped <code>Resource\Maps\*.mw4</code> are therefore
+   Tctd's output, not MapCreator's.</li>
+<li>Heightfields are strictly bounded: 256..1024 wide, 256..2048 high, both a
+   multiple of 256, 24-bit when "interest data" is enabled.</li>
+<li>Terrain texture must match the heightfield size; detail/water textures are
+   fixed 256×256.</li>
+<li>The <code>#VBD</code> map archives use a <strong>multi-group directory</strong> (each asset group
+   has its own path prefix) — a layout detail not captured in <code>vbd.h</code>, whose
+   <code>entry_count=63</code> field is not the member count. Worth a follow-up update to
+   <code>include/mw4/vbd.h</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

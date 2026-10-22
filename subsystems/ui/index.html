@@ -1,0 +1,7609 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.">
+      
+      
+      
+        <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/subsystems/ui/">
+      
+      
+        <link rel="prev" href="../database/">
+      
+      
+        <link rel="next" href="../net/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>UI - MechWarrior 4 Mercenaries - Oracle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ui-subsystem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-header__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MechWarrior 4 Mercenaries - Oracle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              UI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BUILD/" class="md-tabs__link">
+          
+  
+  
+  Build and verify
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Subsystems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../gundll/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../MASTER_INDEX/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../FAQ/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MechWarrior 4 Mercenaries - Oracle" class="md-nav__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MechWarrior 4 Mercenaries - Oracle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and verify
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build and verify
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BUILD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERIFICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GAME_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../render/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Render
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gameplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key entry points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VAs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VAs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (general)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unclassified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unclassified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared VAs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MASTER_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_CATALOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUBSYSTEM_SEAMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem seams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module data annotation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module data annotation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module_data_annotation/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editor tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/autoconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    autoconfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/mapcreator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/mw4ed2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor_tools/nfmeditor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFMEditor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ORACLE_STATUS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MODULE_NOTES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Per-VA indexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Per-VA indexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Mercs_exe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Mercs.exe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/GunDll_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MW4Stats_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/blade_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/Language_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/MissionLang_MERCS_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master_index/ZlogLib_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LEGAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key entry points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VAs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VAs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (general)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mech4decomp/Mech4MercDecomp/edit/main/docs/subsystems/ui.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="ui-subsystem">UI Subsystem<a class="headerlink" href="#ui-subsystem" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>VAs:</strong> 672 | <strong>Exhaustive index:</strong> <a href="../../master_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
+</blockquote>
+<p>gosScript-driven 2D UI: HUD, menus, dialogs, cursor, and screen state.</p>
+<h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#key-entry-points">Key entry points</a></li>
+<li><a href="#details">Details</a></li>
+<li><a href="#vas">VAs</a></li>
+<li><a href="#related">Related</a></li>
+</ul>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>UI code clusters at 0x00690000-0x0069FFFF, 0x006F0000-0x006F8FFF, and 0x00740000-0x0074FFFF. The screens and controls are data-driven gosScript objects; the C++ side manages screen state, control lists, and event dispatch.</p>
+<p>Input events feed command state, and the render 2D/font details draw the result. A representative helper is 0x006F0770, which drives UI callbacks and conditional screen updates.</p>
+<h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Detail</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x006F0770</td>
+<td>ui</td>
+<td>UI callback/update helper</td>
+</tr>
+<tr>
+<td>0x0069A85C</td>
+<td>ui</td>
+<td>linked-list node insertion for UI objects</td>
+</tr>
+<tr>
+<td>0x00722110</td>
+<td>display</td>
+<td>VGA DAC palette write used by display setup</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Detail</th>
+<th>VAs</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(general)</td>
+<td>672</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="vas">VAs<a class="headerlink" href="#vas" title="Permanent link">&para;</a></h2>
+<p>Every VA in this subsystem is listed below, grouped by detail. <code>Evidence</code> is the classification source (<code>surface</code>, <code>range</code>, <code>keyword</code>, <code>band</code>, <code>structural</code>, or <code>section</code>).</p>
+<h3 id="general">(general)<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+<th>Size</th>
+<th>Source</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00560C10</td>
+<td>core</td>
+<td>239</td>
+<td><code>src/mw4mercs/text/func_00560c10.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00567380</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00567380.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00567820</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00567820.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00567930</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00567930.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00571420</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00571420.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005A6D8B</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_005A6D8B.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x005FC9C0</td>
+<td>core</td>
+<td>156</td>
+<td><code>src/mw4mercs/text/func_005fc9c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00600BEC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00600BEC.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0060F130</td>
+<td>core</td>
+<td>433</td>
+<td><code>src/mw4mercs/text/func_0060f130.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0063F010</td>
+<td>core</td>
+<td>2354</td>
+<td><code>src/mw4mercs/text/func_0063f010.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0063FB60</td>
+<td>core</td>
+<td>84</td>
+<td><code>src/mw4mercs/text/func_0063fb60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00641200</td>
+<td>core</td>
+<td>1476</td>
+<td><code>src/mw4mercs/text/func_00641200.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006428A0</td>
+<td>core</td>
+<td>1951</td>
+<td><code>src/mw4mercs/text/func_006428a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00643A30</td>
+<td>core</td>
+<td>1811</td>
+<td><code>src/mw4mercs/text/func_00643a30.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00644FD0</td>
+<td>core</td>
+<td>472</td>
+<td><code>src/mw4mercs/text/func_00644fd0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006458D0</td>
+<td>core</td>
+<td>139</td>
+<td><code>src/mw4mercs/text/func_006458d0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00646260</td>
+<td>core</td>
+<td>431</td>
+<td><code>src/mw4mercs/text/func_00646260.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00646D60</td>
+<td>core</td>
+<td>141</td>
+<td><code>src/mw4mercs/text/func_00646d60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00665E00</td>
+<td>core</td>
+<td>504</td>
+<td><code>src/mw4mercs/text/func_00665e00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0066C4E0</td>
+<td>core</td>
+<td>5249</td>
+<td><code>src/mw4mercs/text/func_0066c4e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0066EE40</td>
+<td>core</td>
+<td>2419</td>
+<td><code>src/mw4mercs/text/func_0066ee40.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00670E10</td>
+<td>core</td>
+<td>2647</td>
+<td><code>src/mw4mercs/text/func_00670e10.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00675E80</td>
+<td>core</td>
+<td>230</td>
+<td><code>src/mw4mercs/text/func_00675e80.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006763E0</td>
+<td>core</td>
+<td>145</td>
+<td><code>src/mw4mercs/text/func_006763e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00676480</td>
+<td>core</td>
+<td>157</td>
+<td><code>src/mw4mercs/text/func_00676480.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006769C0</td>
+<td>core</td>
+<td>83</td>
+<td><code>src/mw4mercs/text/func_006769c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00677230</td>
+<td>core</td>
+<td>13</td>
+<td><code>src/mw4mercs/text/func_00677230.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00677240</td>
+<td>core</td>
+<td>28</td>
+<td><code>src/mw4mercs/text/func_00677240.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00677360</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00677360.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00677590</td>
+<td>core</td>
+<td>28</td>
+<td><code>src/mw4mercs/text/func_00677590.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00677810</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00677810.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00679C00</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00679c00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00679CE0</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00679ce0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00679E50</td>
+<td>core</td>
+<td>28</td>
+<td><code>src/mw4mercs/text/func_00679e50.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067A4E0</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_0067a4e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067A500</td>
+<td>core</td>
+<td>58</td>
+<td><code>src/mw4mercs/text/func_0067a500.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067A540</td>
+<td>core</td>
+<td>22</td>
+<td><code>src/mw4mercs/text/func_0067a540.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067A640</td>
+<td>core</td>
+<td>6</td>
+<td><code>src/mw4mercs/text/func_0067a640.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067B5A0</td>
+<td>core</td>
+<td>358</td>
+<td><code>src/mw4mercs/text/func_0067b5a0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067C620</td>
+<td>core</td>
+<td>2698</td>
+<td><code>src/mw4mercs/text/func_0067c620.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067D1D0</td>
+<td>core</td>
+<td>623</td>
+<td><code>src/mw4mercs/text/func_0067d1d0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067D440</td>
+<td>core</td>
+<td>412</td>
+<td><code>src/mw4mercs/text/func_0067d440.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067DC50</td>
+<td>core</td>
+<td>45</td>
+<td><code>src/mw4mercs/text/func_0067dc50.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067DDD0</td>
+<td>core</td>
+<td>22</td>
+<td><code>src/mw4mercs/text/func_0067ddd0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067E870</td>
+<td>core</td>
+<td>178</td>
+<td><code>src/mw4mercs/text/func_0067e870.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067E930</td>
+<td>core</td>
+<td>477</td>
+<td><code>src/mw4mercs/text/func_0067e930.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067EB20</td>
+<td>core</td>
+<td>272</td>
+<td><code>src/mw4mercs/text/func_0067eb20.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067EC30</td>
+<td>core</td>
+<td>2801</td>
+<td><code>src/mw4mercs/text/func_0067ec30.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067F730</td>
+<td>core</td>
+<td>124</td>
+<td><code>src/mw4mercs/text/func_0067f730.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067F880</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_0067f880.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067F920</td>
+<td>core</td>
+<td>26</td>
+<td><code>src/mw4mercs/text/func_0067f920.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0067FB00</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_0067fb00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00680190</td>
+<td>core</td>
+<td>18</td>
+<td><code>src/mw4mercs/text/func_00680190.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006801B0</td>
+<td>core</td>
+<td>217</td>
+<td><code>src/mw4mercs/text/func_006801b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00680420</td>
+<td>core</td>
+<td>110</td>
+<td><code>src/mw4mercs/text/func_00680420.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006804F0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006804f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00680860</td>
+<td>core</td>
+<td>89</td>
+<td><code>src/mw4mercs/text/func_00680860.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006808C0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006808c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00680AB0</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_00680ab0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00680AC0</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_00680ac0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00680B10</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_00680b10.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00681290</td>
+<td>core</td>
+<td>95</td>
+<td><code>src/mw4mercs/text/func_00681290.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006812F0</td>
+<td>core</td>
+<td>559</td>
+<td><code>src/mw4mercs/text/func_006812f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00681FE0</td>
+<td>core</td>
+<td>22</td>
+<td><code>src/mw4mercs/text/func_00681fe0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682000</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_00682000.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682020</td>
+<td>core</td>
+<td>22</td>
+<td><code>src/mw4mercs/text/func_00682020.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682040</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_00682040.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682150</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_00682150.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006822B0</td>
+<td>core</td>
+<td>20</td>
+<td><code>src/mw4mercs/text/func_006822b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682520</td>
+<td>core</td>
+<td>23</td>
+<td><code>src/mw4mercs/text/func_00682520.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682750</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00682750.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682770</td>
+<td>core</td>
+<td>32</td>
+<td><code>src/mw4mercs/text/func_00682770.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00682F70</td>
+<td>core</td>
+<td>219</td>
+<td><code>src/mw4mercs/text/func_00682f70.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00683B90</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_00683b90.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00683C90</td>
+<td>core</td>
+<td>46</td>
+<td><code>src/mw4mercs/text/func_00683c90.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00684530</td>
+<td>core</td>
+<td>71</td>
+<td><code>src/mw4mercs/text/func_00684530.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00684770</td>
+<td>core</td>
+<td>100</td>
+<td><code>src/mw4mercs/text/func_00684770.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00684A20</td>
+<td>core</td>
+<td>137</td>
+<td><code>src/mw4mercs/text/func_00684a20.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00684FB0</td>
+<td>core</td>
+<td>160</td>
+<td><code>src/mw4mercs/text/func_00684fb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00689010</td>
+<td>core</td>
+<td>929</td>
+<td><code>src/mw4mercs/text/func_00689010.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0068B110</td>
+<td>core</td>
+<td>127</td>
+<td><code>src/mw4mercs/text/func_0068b110.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006907A0</td>
+<td>core</td>
+<td>76</td>
+<td><code>src/mw4mercs/text/func_006907a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006907F0</td>
+<td>core</td>
+<td>76</td>
+<td><code>src/mw4mercs/text/func_006907f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00690840</td>
+<td>core</td>
+<td>2103</td>
+<td><code>src/mw4mercs/text/func_00690840.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691080</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_00691080.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006910A0</td>
+<td>core</td>
+<td>41</td>
+<td><code>src/mw4mercs/text/func_006910a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006910D0</td>
+<td>core</td>
+<td>1130</td>
+<td><code>src/mw4mercs/text/func_006910d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069153A</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069153a.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691890</td>
+<td>core</td>
+<td>64</td>
+<td><code>src/mw4mercs/text/func_00691890.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006918D0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006918d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006918F0</td>
+<td>core</td>
+<td>76</td>
+<td><code>src/mw4mercs/text/func_006918f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069193C</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069193C.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006919A0</td>
+<td>core</td>
+<td>38</td>
+<td><code>src/mw4mercs/text/func_006919a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006919D0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006919D0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691A30</td>
+<td>core</td>
+<td>131</td>
+<td><code>src/mw4mercs/text/func_00691a30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691AF0</td>
+<td>core</td>
+<td>261</td>
+<td><code>src/mw4mercs/text/func_00691af0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691C00</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00691C00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691D00</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00691D00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691D30</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00691D30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691D60</td>
+<td>core</td>
+<td>297</td>
+<td><code>src/mw4mercs/text/func_00691d60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00691E89</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00691e89.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692230</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_00692230.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692260</td>
+<td>core</td>
+<td>288</td>
+<td><code>src/mw4mercs/text/func_00692260.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692380</td>
+<td>core</td>
+<td>28</td>
+<td><code>src/mw4mercs/text/func_00692380.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069239C</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069239c.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692720</td>
+<td>core</td>
+<td>28</td>
+<td><code>src/mw4mercs/text/func_00692720.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069273C</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069273C.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692C60</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00692c60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692C80</td>
+<td>core</td>
+<td>196</td>
+<td><code>src/mw4mercs/text/func_00692c80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692D44</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00692d44.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692DA0</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00692da0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692DB9</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00692db9.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00692F40</td>
+<td>core</td>
+<td>1688</td>
+<td><code>src/mw4mercs/text/func_00692f40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006935E0</td>
+<td>core</td>
+<td>113</td>
+<td><code>src/mw4mercs/text/func_006935e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00693660</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00693660.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00693990</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00693990.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00693A30</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00693A30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694000</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00694000.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694090</td>
+<td>core</td>
+<td>277</td>
+<td><code>src/mw4mercs/text/func_00694090.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006941B0</td>
+<td>core</td>
+<td>277</td>
+<td><code>src/mw4mercs/text/func_006941b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006942D0</td>
+<td>core</td>
+<td>370</td>
+<td><code>src/mw4mercs/text/func_006942d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694450</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_00694450.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694460</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_00694460.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694470</td>
+<td>core</td>
+<td>387</td>
+<td><code>src/mw4mercs/text/func_00694470.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694600</td>
+<td>core</td>
+<td>54</td>
+<td><code>src/mw4mercs/text/func_00694600.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694640</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_00694640.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694680</td>
+<td>core</td>
+<td>433</td>
+<td><code>src/mw4mercs/text/func_00694680.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694840</td>
+<td>core</td>
+<td>123</td>
+<td><code>src/mw4mercs/text/func_00694840.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006948C0</td>
+<td>core</td>
+<td>132</td>
+<td><code>src/mw4mercs/text/func_006948c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694950</td>
+<td>core</td>
+<td>19</td>
+<td><code>src/mw4mercs/text/func_00694950.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694970</td>
+<td>core</td>
+<td>232</td>
+<td><code>src/mw4mercs/text/func_00694970.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694A60</td>
+<td>core</td>
+<td>99</td>
+<td><code>src/mw4mercs/text/func_00694a60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694AD0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_00694ad0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694AF0</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00694af0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694B10</td>
+<td>core</td>
+<td>196</td>
+<td><code>src/mw4mercs/text/func_00694b10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694BD4</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00694bd4.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694CE0</td>
+<td>core</td>
+<td>178</td>
+<td><code>src/mw4mercs/text/func_00694ce0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694DA0</td>
+<td>core</td>
+<td>268</td>
+<td><code>src/mw4mercs/text/func_00694da0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694EAC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00694eac.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00694FD0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00694FD0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695030</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00695030.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006950B0</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_006950b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006950C0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006950C0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695140</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00695140.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006951C0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006951c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006951D0</td>
+<td>core</td>
+<td>1130</td>
+<td><code>src/mw4mercs/text/func_006951d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695640</td>
+<td>core</td>
+<td>397</td>
+<td><code>src/mw4mercs/text/func_00695640.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006957D0</td>
+<td>core</td>
+<td>174</td>
+<td><code>src/mw4mercs/text/func_006957d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069587E</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069587e.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695A10</td>
+<td>core</td>
+<td>6</td>
+<td><code>src/mw4mercs/text/func_00695a10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695A20</td>
+<td>core</td>
+<td>243</td>
+<td><code>src/mw4mercs/text/func_00695a20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695B20</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00695B20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695BE0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00695be0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695E80</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00695E80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00695F60</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00695f60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006960E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006960e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696260</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00696260.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696320</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00696320.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006963E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006963E0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006965F0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006965f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006967E0</td>
+<td>core</td>
+<td>234</td>
+<td><code>src/mw4mercs/text/func_006967e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006968CA</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006968ca.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006968E0</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_006968e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006968E4</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006968e4.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696920</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_00696920.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696924</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00696924.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696AB0</td>
+<td>core</td>
+<td>60</td>
+<td><code>src/mw4mercs/text/func_00696ab0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696B20</td>
+<td>core</td>
+<td>48</td>
+<td><code>src/mw4mercs/text/func_00696b20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696B50</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00696B50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696BE0</td>
+<td>core</td>
+<td>33</td>
+<td><code>src/mw4mercs/text/func_00696be0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696C10</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_00696c10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696C30</td>
+<td>core</td>
+<td>16</td>
+<td><code>src/mw4mercs/text/func_00696c30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696C40</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00696c40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696D30</td>
+<td>core</td>
+<td>125</td>
+<td><code>src/mw4mercs/text/func_00696d30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696DB0</td>
+<td>core</td>
+<td>5</td>
+<td><code>src/mw4mercs/text/func_00696db0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696DB5</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00696db5.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696E30</td>
+<td>core</td>
+<td>18</td>
+<td><code>src/mw4mercs/text/func_00696e30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696E50</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_00696e50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696E80</td>
+<td>core</td>
+<td>41</td>
+<td><code>src/mw4mercs/text/func_00696e80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696EB0</td>
+<td>core</td>
+<td>22</td>
+<td><code>src/mw4mercs/text/func_00696eb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696ED0</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00696ed0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00696F20</td>
+<td>core</td>
+<td>2029</td>
+<td><code>src/mw4mercs/text/func_00696f20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697710</td>
+<td>core</td>
+<td>164</td>
+<td><code>src/mw4mercs/text/func_00697710.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006977C0</td>
+<td>core</td>
+<td>145</td>
+<td><code>src/mw4mercs/text/func_006977c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697851</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00697851.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697870</td>
+<td>core</td>
+<td>5</td>
+<td><code>src/mw4mercs/text/func_00697870.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697880</td>
+<td>core</td>
+<td>266</td>
+<td><code>src/mw4mercs/text/func_00697880.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697990</td>
+<td>core</td>
+<td>250</td>
+<td><code>src/mw4mercs/text/func_00697990.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697A90</td>
+<td>core</td>
+<td>89</td>
+<td><code>src/mw4mercs/text/func_00697a90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697AF0</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_00697af0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697B20</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_00697b20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00697B5D</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00697b5d.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698990</td>
+<td>core</td>
+<td>12</td>
+<td><code>src/mw4mercs/text/func_00698990.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006989A0</td>
+<td>core</td>
+<td>51</td>
+<td><code>src/mw4mercs/text/func_006989a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006989E0</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_006989e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698A00</td>
+<td>core</td>
+<td>18</td>
+<td><code>src/mw4mercs/text/func_00698a00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698A20</td>
+<td>core</td>
+<td>232</td>
+<td><code>src/mw4mercs/text/func_00698a20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698B10</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_00698b10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698B30</td>
+<td>core</td>
+<td>41</td>
+<td><code>src/mw4mercs/text/func_00698b30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698B60</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_00698b60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698C20</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_00698c20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698C40</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_00698c40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698C5E</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00698c5e.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698D20</td>
+<td>core</td>
+<td>53</td>
+<td><code>src/mw4mercs/text/func_00698d20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698D60</td>
+<td>core</td>
+<td>94</td>
+<td><code>src/mw4mercs/text/func_00698d60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698E25</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00698e25.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698F50</td>
+<td>core</td>
+<td>48</td>
+<td><code>src/mw4mercs/text/func_00698f50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00698F80</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_00698f80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699042</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699042.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699210</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699210.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699230</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699230.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699250</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699250.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699280</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699280.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006992A0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006992A0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006992D0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006992D0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006994D3</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006994d3.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699631</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699631.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699920</td>
+<td>core</td>
+<td>25</td>
+<td><code>src/mw4mercs/text/func_00699920.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699960</td>
+<td>core</td>
+<td>26</td>
+<td><code>src/mw4mercs/text/func_00699960.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699980</td>
+<td>core</td>
+<td>35</td>
+<td><code>src/mw4mercs/text/func_00699980.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006999B0</td>
+<td>core</td>
+<td>174</td>
+<td><code>src/mw4mercs/text/func_006999b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699A60</td>
+<td>core</td>
+<td>26</td>
+<td><code>src/mw4mercs/text/func_00699a60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699A80</td>
+<td>core</td>
+<td>26</td>
+<td><code>src/mw4mercs/text/func_00699a80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699AA0</td>
+<td>core</td>
+<td>210</td>
+<td><code>src/mw4mercs/text/func_00699aa0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699B80</td>
+<td>core</td>
+<td>294</td>
+<td><code>src/mw4mercs/text/func_00699b80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699CB0</td>
+<td>core</td>
+<td>7</td>
+<td><code>src/mw4mercs/text/func_00699cb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699CC0</td>
+<td>core</td>
+<td>6</td>
+<td><code>src/mw4mercs/text/func_00699cc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699CD0</td>
+<td>core</td>
+<td>107</td>
+<td><code>src/mw4mercs/text/func_00699cd0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699D40</td>
+<td>core</td>
+<td>197</td>
+<td><code>src/mw4mercs/text/func_00699d40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699E10</td>
+<td>core</td>
+<td>189</td>
+<td><code>src/mw4mercs/text/func_00699e10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699ED0</td>
+<td>core</td>
+<td>3</td>
+<td><code>src/mw4mercs/text/func_00699ed0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699EE0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699EE0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00699F30</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00699f30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C040</td>
+<td>core</td>
+<td>336</td>
+<td><code>src/mw4mercs/text/func_0069c040.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C190</td>
+<td>core</td>
+<td>652</td>
+<td><code>src/mw4mercs/text/func_0069c190.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C420</td>
+<td>core</td>
+<td>249</td>
+<td><code>src/mw4mercs/text/func_0069c420.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C520</td>
+<td>core</td>
+<td>393</td>
+<td><code>src/mw4mercs/text/func_0069c520.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C6B0</td>
+<td>core</td>
+<td>489</td>
+<td><code>src/mw4mercs/text/func_0069c6b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C910</td>
+<td>core</td>
+<td>144</td>
+<td><code>src/mw4mercs/text/func_0069c910.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C9A0</td>
+<td>core</td>
+<td>75</td>
+<td><code>src/mw4mercs/text/func_0069c9a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069C9F0</td>
+<td>core</td>
+<td>72</td>
+<td><code>src/mw4mercs/text/func_0069c9f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CA38</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069ca38.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CB10</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_0069cb10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CB30</td>
+<td>core</td>
+<td>96</td>
+<td><code>src/mw4mercs/text/func_0069cb30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CB90</td>
+<td>core</td>
+<td>31</td>
+<td><code>src/mw4mercs/text/func_0069cb90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CBAF</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069cbaf.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CD30</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_0069cd30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CD90</td>
+<td>core</td>
+<td>45</td>
+<td><code>src/mw4mercs/text/func_0069cd90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CDC0</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_0069cdc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CE20</td>
+<td>core</td>
+<td>320</td>
+<td><code>src/mw4mercs/text/func_0069ce20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069CF60</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069cf60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069D4A0</td>
+<td>core</td>
+<td>2350</td>
+<td><code>src/mw4mercs/text/func_0069d4a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069DDCE</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069ddce.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E140</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_0069e140.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E160</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_0069e160.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E180</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_0069e180.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E195</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069e195.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E250</td>
+<td>core</td>
+<td>1482</td>
+<td><code>src/mw4mercs/text/func_0069e250.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E81A</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069e81a.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E940</td>
+<td>core</td>
+<td>41</td>
+<td><code>src/mw4mercs/text/func_0069e940.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E970</td>
+<td>core</td>
+<td>1</td>
+<td><code>src/mw4mercs/text/func_0069e970.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069E980</td>
+<td>core</td>
+<td>484</td>
+<td><code>src/mw4mercs/text/func_0069e980.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069EB70</td>
+<td>core</td>
+<td>1569</td>
+<td><code>src/mw4mercs/text/func_0069eb70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F200</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_0069f200.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F23D</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f23d.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F250</td>
+<td>core</td>
+<td>13</td>
+<td><code>src/mw4mercs/text/func_0069f250.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F260</td>
+<td>core</td>
+<td>32</td>
+<td><code>src/mw4mercs/text/func_0069f260.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F280</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f280.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F290</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f290.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F2A0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f2a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F2B0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f2b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F2C0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f2c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F2D0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f2d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F2E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f2e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F2F0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_0069f2f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F30E</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f30e.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F660</td>
+<td>core</td>
+<td>32</td>
+<td><code>src/mw4mercs/text/func_0069f660.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F680</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_0069f680.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069F69E</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069f69e.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FAD0</td>
+<td>core</td>
+<td>94</td>
+<td><code>src/mw4mercs/text/func_0069fad0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FB30</td>
+<td>core</td>
+<td>93</td>
+<td><code>src/mw4mercs/text/func_0069fb30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FB90</td>
+<td>core</td>
+<td>67</td>
+<td><code>src/mw4mercs/text/func_0069fb90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FBE0</td>
+<td>core</td>
+<td>80</td>
+<td><code>src/mw4mercs/text/func_0069fbe0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FC30</td>
+<td>core</td>
+<td>14</td>
+<td><code>src/mw4mercs/text/func_0069fc30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FC40</td>
+<td>core</td>
+<td>18</td>
+<td><code>src/mw4mercs/text/func_0069fc40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FC60</td>
+<td>core</td>
+<td>208</td>
+<td><code>src/mw4mercs/text/func_0069fc60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FD30</td>
+<td>core</td>
+<td>14</td>
+<td><code>src/mw4mercs/text/func_0069fd30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FD40</td>
+<td>core</td>
+<td>137</td>
+<td><code>src/mw4mercs/text/func_0069fd40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FDC9</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069fdc9.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FDF0</td>
+<td>core</td>
+<td>377</td>
+<td><code>src/mw4mercs/text/func_0069fdf0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FF70</td>
+<td>core</td>
+<td>28</td>
+<td><code>src/mw4mercs/text/func_0069ff70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FF90</td>
+<td>core</td>
+<td>29</td>
+<td><code>src/mw4mercs/text/func_0069ff90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FFB0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_0069ffb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0069FFCE</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0069ffce.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006A1DE0</td>
+<td>core</td>
+<td>443</td>
+<td><code>src/mw4mercs/text/func_006a1de0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006B3D60</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006B3D60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E5270</td>
+<td>core</td>
+<td>986</td>
+<td><code>src/mw4mercs/text/func_006e5270.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E5650</td>
+<td>core</td>
+<td>682</td>
+<td><code>src/mw4mercs/text/func_006e5650.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E5BF0</td>
+<td>core</td>
+<td>507</td>
+<td><code>src/mw4mercs/text/func_006e5bf0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E6040</td>
+<td>core</td>
+<td>1207</td>
+<td><code>src/mw4mercs/text/func_006e6040.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E7010</td>
+<td>core</td>
+<td>249</td>
+<td><code>src/mw4mercs/text/func_006e7010.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E7110</td>
+<td>core</td>
+<td>125</td>
+<td><code>src/mw4mercs/text/func_006e7110.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E7190</td>
+<td>core</td>
+<td>332</td>
+<td><code>src/mw4mercs/text/func_006e7190.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E72F0</td>
+<td>core</td>
+<td>125</td>
+<td><code>src/mw4mercs/text/func_006e72f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E82C0</td>
+<td>core</td>
+<td>298</td>
+<td><code>src/mw4mercs/text/func_006e82c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E83F0</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_006e83f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E8430</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_006e8430.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E8470</td>
+<td>core</td>
+<td>189</td>
+<td><code>src/mw4mercs/text/func_006e8470.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006E8530</td>
+<td>core</td>
+<td>2042</td>
+<td><code>src/mw4mercs/text/func_006e8530.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EDC80</td>
+<td>core</td>
+<td>1148</td>
+<td><code>src/mw4mercs/text/func_006edc80.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE100</td>
+<td>core</td>
+<td>81</td>
+<td><code>src/mw4mercs/text/func_006ee100.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE160</td>
+<td>core</td>
+<td>81</td>
+<td><code>src/mw4mercs/text/func_006ee160.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE1C0</td>
+<td>core</td>
+<td>107</td>
+<td><code>src/mw4mercs/text/func_006ee1c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE230</td>
+<td>core</td>
+<td>127</td>
+<td><code>src/mw4mercs/text/func_006ee230.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE2B0</td>
+<td>core</td>
+<td>145</td>
+<td><code>src/mw4mercs/text/func_006ee2b0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE3C0</td>
+<td>core</td>
+<td>98</td>
+<td><code>src/mw4mercs/text/func_006ee3c0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE430</td>
+<td>core</td>
+<td>81</td>
+<td><code>src/mw4mercs/text/func_006ee430.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE490</td>
+<td>core</td>
+<td>81</td>
+<td><code>src/mw4mercs/text/func_006ee490.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE4F0</td>
+<td>core</td>
+<td>104</td>
+<td><code>src/mw4mercs/text/func_006ee4f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE560</td>
+<td>core</td>
+<td>122</td>
+<td><code>src/mw4mercs/text/func_006ee560.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE5E0</td>
+<td>core</td>
+<td>113</td>
+<td><code>src/mw4mercs/text/func_006ee5e0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EE660</td>
+<td>core</td>
+<td>113</td>
+<td><code>src/mw4mercs/text/func_006ee660.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006EFE60</td>
+<td>core</td>
+<td>746</td>
+<td><code>src/mw4mercs/text/func_006efe60.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x006F0150</td>
+<td>core</td>
+<td>288</td>
+<td><code>src/mw4mercs/text/func_006f0150.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0270</td>
+<td>core</td>
+<td>296</td>
+<td><code>src/mw4mercs/text/func_006f0270.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F03A0</td>
+<td>core</td>
+<td>307</td>
+<td><code>src/mw4mercs/text/func_006f03a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F04E0</td>
+<td>core</td>
+<td>275</td>
+<td><code>src/mw4mercs/text/func_006f04e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0600</td>
+<td>core</td>
+<td>267</td>
+<td><code>src/mw4mercs/text/func_006f0600.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0710</td>
+<td>core</td>
+<td>87</td>
+<td><code>src/mw4mercs/text/func_006f0710.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0770</td>
+<td>core</td>
+<td>102</td>
+<td><code>src/mw4mercs/text/func_006f0770.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F07E0</td>
+<td>core</td>
+<td>324</td>
+<td><code>src/mw4mercs/text/func_006f07e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0930</td>
+<td>core</td>
+<td>371</td>
+<td><code>src/mw4mercs/text/func_006f0930.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0AB0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F0AB0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0C60</td>
+<td>core</td>
+<td>500</td>
+<td><code>src/mw4mercs/text/func_006f0c60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0FA0</td>
+<td>core</td>
+<td>66</td>
+<td><code>src/mw4mercs/text/func_006f0fa0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F0FF0</td>
+<td>core</td>
+<td>20</td>
+<td><code>src/mw4mercs/text/func_006f0ff0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1004</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f1004.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1020</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_006f1020.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1040</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_006f1040.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1060</td>
+<td>core</td>
+<td>84</td>
+<td><code>src/mw4mercs/text/func_006f1060.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F10C0</td>
+<td>core</td>
+<td>8</td>
+<td><code>src/mw4mercs/text/func_006f10c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F10D0</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_006f10d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F10F0</td>
+<td>core</td>
+<td>8</td>
+<td><code>src/mw4mercs/text/func_006f10f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1100</td>
+<td>core</td>
+<td>41</td>
+<td><code>src/mw4mercs/text/func_006f1100.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1130</td>
+<td>core</td>
+<td>810</td>
+<td><code>src/mw4mercs/text/func_006f1130.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F14A0</td>
+<td>core</td>
+<td>47</td>
+<td><code>src/mw4mercs/text/func_006f14a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F14D0</td>
+<td>core</td>
+<td>376</td>
+<td><code>src/mw4mercs/text/func_006f14d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1650</td>
+<td>core</td>
+<td>343</td>
+<td><code>src/mw4mercs/text/func_006f1650.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F17B0</td>
+<td>core</td>
+<td>151</td>
+<td><code>src/mw4mercs/text/func_006f17b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1847</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f1847.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1870</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_006f1870.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F18C0</td>
+<td>core</td>
+<td>40</td>
+<td><code>src/mw4mercs/text/func_006f18c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F18F0</td>
+<td>core</td>
+<td>40</td>
+<td><code>src/mw4mercs/text/func_006f18f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1918</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f1918.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1950</td>
+<td>core</td>
+<td>40</td>
+<td><code>src/mw4mercs/text/func_006f1950.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1980</td>
+<td>core</td>
+<td>227</td>
+<td><code>src/mw4mercs/text/func_006f1980.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1A70</td>
+<td>core</td>
+<td>164</td>
+<td><code>src/mw4mercs/text/func_006f1a70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1B14</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f1b14.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1B50</td>
+<td>core</td>
+<td>40</td>
+<td><code>src/mw4mercs/text/func_006f1b50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1B80</td>
+<td>core</td>
+<td>49</td>
+<td><code>src/mw4mercs/text/func_006f1b80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1BC0</td>
+<td>core</td>
+<td>199</td>
+<td><code>src/mw4mercs/text/func_006f1bc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1C90</td>
+<td>core</td>
+<td>73</td>
+<td><code>src/mw4mercs/text/func_006f1c90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1CE0</td>
+<td>core</td>
+<td>111</td>
+<td><code>src/mw4mercs/text/func_006f1ce0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1D50</td>
+<td>core</td>
+<td>668</td>
+<td><code>src/mw4mercs/text/func_006f1d50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F1FF0</td>
+<td>core</td>
+<td>762</td>
+<td><code>src/mw4mercs/text/func_006f1ff0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F22F0</td>
+<td>core</td>
+<td>20</td>
+<td><code>src/mw4mercs/text/func_006f22f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2310</td>
+<td>core</td>
+<td>3</td>
+<td><code>src/mw4mercs/text/func_006f2310.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2320</td>
+<td>core</td>
+<td>38</td>
+<td><code>src/mw4mercs/text/func_006f2320.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2346</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f2346.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F23A0</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_006f23a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F23C0</td>
+<td>core</td>
+<td>24</td>
+<td><code>src/mw4mercs/text/func_006f23c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F23E0</td>
+<td>core</td>
+<td>11</td>
+<td><code>src/mw4mercs/text/func_006f23e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F23F0</td>
+<td>core</td>
+<td>11</td>
+<td><code>src/mw4mercs/text/func_006f23f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2400</td>
+<td>core</td>
+<td>11</td>
+<td><code>src/mw4mercs/text/func_006f2400.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2420</td>
+<td>core</td>
+<td>641</td>
+<td><code>src/mw4mercs/text/func_006f2420.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2700</td>
+<td>core</td>
+<td>1213</td>
+<td><code>src/mw4mercs/text/func_006f2700.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2BC0</td>
+<td>core</td>
+<td>462</td>
+<td><code>src/mw4mercs/text/func_006f2bc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2D90</td>
+<td>core</td>
+<td>34</td>
+<td><code>src/mw4mercs/text/func_006f2d90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2DB2</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f2db2.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2DE0</td>
+<td>core</td>
+<td>212</td>
+<td><code>src/mw4mercs/text/func_006f2de0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2F10</td>
+<td>core</td>
+<td>8</td>
+<td><code>src/mw4mercs/text/func_006f2f10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2F18</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f2f18.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2F30</td>
+<td>core</td>
+<td>144</td>
+<td><code>src/mw4mercs/text/func_006f2f30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2FC0</td>
+<td>core</td>
+<td>46</td>
+<td><code>src/mw4mercs/text/func_006f2fc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F2FEE</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f2fee.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3000</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006f3000.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F301E</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f301e.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3080</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006f3080.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F30A0</td>
+<td>core</td>
+<td>60</td>
+<td><code>src/mw4mercs/text/func_006f30a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F30DC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f30dc.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3160</td>
+<td>core</td>
+<td>86</td>
+<td><code>src/mw4mercs/text/func_006f3160.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F31C0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006f31c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F31E0</td>
+<td>core</td>
+<td>46</td>
+<td><code>src/mw4mercs/text/func_006f31e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3210</td>
+<td>core</td>
+<td>9</td>
+<td><code>src/mw4mercs/text/func_006f3210.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3219</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f3219.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3310</td>
+<td>core</td>
+<td>146</td>
+<td><code>src/mw4mercs/text/func_006f3310.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F33B0</td>
+<td>core</td>
+<td>79</td>
+<td><code>src/mw4mercs/text/func_006f33b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F33FF</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f33ff.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F35D0</td>
+<td>core</td>
+<td>85</td>
+<td><code>src/mw4mercs/text/func_006f35d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3630</td>
+<td>core</td>
+<td>85</td>
+<td><code>src/mw4mercs/text/func_006f3630.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3690</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006f3690.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F36AE</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f36ae.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3930</td>
+<td>core</td>
+<td>32</td>
+<td><code>src/mw4mercs/text/func_006f3930.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3950</td>
+<td>core</td>
+<td>1</td>
+<td><code>src/mw4mercs/text/func_006f3950.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3960</td>
+<td>core</td>
+<td>64</td>
+<td><code>src/mw4mercs/text/func_006f3960.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F39A0</td>
+<td>core</td>
+<td>32</td>
+<td><code>src/mw4mercs/text/func_006f39a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F39C0</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_006f39c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F39E0</td>
+<td>core</td>
+<td>86</td>
+<td><code>src/mw4mercs/text/func_006f39e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3A40</td>
+<td>core</td>
+<td>316</td>
+<td><code>src/mw4mercs/text/func_006f3a40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F3F80</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f3f80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F4140</td>
+<td>core</td>
+<td>240</td>
+<td><code>src/mw4mercs/text/func_006f4140.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F498F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f498f.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F49F0</td>
+<td>core</td>
+<td>388</td>
+<td><code>src/mw4mercs/text/func_006f49f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F4C00</td>
+<td>core</td>
+<td>3</td>
+<td><code>src/mw4mercs/text/func_006f4c00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F4EB3</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f4eb3.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F4F10</td>
+<td>core</td>
+<td>482</td>
+<td><code>src/mw4mercs/text/func_006f4f10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5210</td>
+<td>core</td>
+<td>27</td>
+<td><code>src/mw4mercs/text/func_006f5210.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5230</td>
+<td>core</td>
+<td>107</td>
+<td><code>src/mw4mercs/text/func_006f5230.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F529B</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f529b.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F52C0</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_006f52c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F52CF</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f52cf.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F52E0</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_006f52e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5330</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_006f5330.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F533F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f533f.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5360</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_006f5360.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F536F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f536f.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5380</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_006f5380.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5391</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f5391.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F53C0</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_006f53c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F53E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F53E0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5440</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F5440.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5460</td>
+<td>core</td>
+<td>293</td>
+<td><code>src/mw4mercs/text/func_006f5460.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5590</td>
+<td>core</td>
+<td>477</td>
+<td><code>src/mw4mercs/text/func_006f5590.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5770</td>
+<td>core</td>
+<td>320</td>
+<td><code>src/mw4mercs/text/func_006f5770.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F58B0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f58b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5A80</td>
+<td>core</td>
+<td>94</td>
+<td><code>src/mw4mercs/text/func_006f5a80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5B70</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_006f5b70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5C30</td>
+<td>core</td>
+<td>74</td>
+<td><code>src/mw4mercs/text/func_006f5c30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5C80</td>
+<td>core</td>
+<td>48</td>
+<td><code>src/mw4mercs/text/func_006f5c80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5CB0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f5cb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5D20</td>
+<td>core</td>
+<td>104</td>
+<td><code>src/mw4mercs/text/func_006f5d20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5EEC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f5eec.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5FB0</td>
+<td>core</td>
+<td>27</td>
+<td><code>src/mw4mercs/text/func_006f5fb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F5FD0</td>
+<td>core</td>
+<td>92</td>
+<td><code>src/mw4mercs/text/func_006f5fd0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6030</td>
+<td>core</td>
+<td>194</td>
+<td><code>src/mw4mercs/text/func_006f6030.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F60F2</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f60f2.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6120</td>
+<td>core</td>
+<td>27</td>
+<td><code>src/mw4mercs/text/func_006f6120.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6140</td>
+<td>core</td>
+<td>523</td>
+<td><code>src/mw4mercs/text/func_006f6140.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6350</td>
+<td>core</td>
+<td>29</td>
+<td><code>src/mw4mercs/text/func_006f6350.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6370</td>
+<td>core</td>
+<td>149</td>
+<td><code>src/mw4mercs/text/func_006f6370.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F64A1</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f64a1.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F64D0</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_006f64d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F64DF</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f64df.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F64F0</td>
+<td>core</td>
+<td>42</td>
+<td><code>src/mw4mercs/text/func_006f64f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6520</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_006f6520.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6540</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_006f6540.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F654F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f654f.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F65C0</td>
+<td>core</td>
+<td>35</td>
+<td><code>src/mw4mercs/text/func_006f65c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6790</td>
+<td>core</td>
+<td>76</td>
+<td><code>src/mw4mercs/text/func_006f6790.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F67E0</td>
+<td>core</td>
+<td>219</td>
+<td><code>src/mw4mercs/text/func_006f67e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F68E0</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006f68e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6900</td>
+<td>core</td>
+<td>67</td>
+<td><code>src/mw4mercs/text/func_006f6900.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6950</td>
+<td>core</td>
+<td>254</td>
+<td><code>src/mw4mercs/text/func_006f6950.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6A70</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F6A70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6A80</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f6a80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6A90</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F6A90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6C20</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F6C20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6D20</td>
+<td>core</td>
+<td>86</td>
+<td><code>src/mw4mercs/text/func_006f6d20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6D80</td>
+<td>core</td>
+<td>42</td>
+<td><code>src/mw4mercs/text/func_006f6d80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6E30</td>
+<td>core</td>
+<td>30</td>
+<td><code>src/mw4mercs/text/func_006f6e30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6E50</td>
+<td>core</td>
+<td>86</td>
+<td><code>src/mw4mercs/text/func_006f6e50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F6EB0</td>
+<td>core</td>
+<td>1109</td>
+<td><code>src/mw4mercs/text/func_006f6eb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7310</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_006f7310.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7321</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f7321.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7350</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f7350.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F735A</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f735a.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7370</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f7370.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F737A</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f737a.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7390</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f7390.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F739A</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f739a.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F73B0</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f73b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F73BA</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f73ba.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F73D0</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f73d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F73DA</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f73da.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F73F0</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f73f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7400</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f7400.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7410</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F7410.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7440</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f7440.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7450</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F7450.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7460</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f7460.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7470</td>
+<td>core</td>
+<td>74</td>
+<td><code>src/mw4mercs/text/func_006f7470.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F74D0</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f74d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F74E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f74e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F74F0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006F74F0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7540</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f7540.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7550</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f7550.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7570</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f7570.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F75B8</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f75b8.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F75D0</td>
+<td>core</td>
+<td>10</td>
+<td><code>src/mw4mercs/text/func_006f75d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F75E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f75e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7670</td>
+<td>core</td>
+<td>27</td>
+<td><code>src/mw4mercs/text/func_006f7670.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7690</td>
+<td>core</td>
+<td>103</td>
+<td><code>src/mw4mercs/text/func_006f7690.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7700</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_006f7700.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7710</td>
+<td>core</td>
+<td>70</td>
+<td><code>src/mw4mercs/text/func_006f7710.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7760</td>
+<td>core</td>
+<td>13</td>
+<td><code>src/mw4mercs/text/func_006f7760.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7770</td>
+<td>core</td>
+<td>29</td>
+<td><code>src/mw4mercs/text/func_006f7770.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7790</td>
+<td>core</td>
+<td>173</td>
+<td><code>src/mw4mercs/text/func_006f7790.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7860</td>
+<td>core</td>
+<td>159</td>
+<td><code>src/mw4mercs/text/func_006f7860.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F78FF</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f78ff.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7950</td>
+<td>core</td>
+<td>4</td>
+<td><code>src/mw4mercs/text/func_006f7950.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F7960</td>
+<td>core</td>
+<td>8</td>
+<td><code>src/mw4mercs/text/func_006f7960.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F79A0</td>
+<td>core</td>
+<td>56</td>
+<td><code>src/mw4mercs/text/func_006f79a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F79E0</td>
+<td>core</td>
+<td>290</td>
+<td><code>src/mw4mercs/text/func_006f79e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F83C0</td>
+<td>core</td>
+<td>104</td>
+<td><code>src/mw4mercs/text/func_006f83c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8440</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_006f8440.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8491</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f8491.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F84C0</td>
+<td>core</td>
+<td>15</td>
+<td><code>src/mw4mercs/text/func_006f84c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F84CF</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f84cf.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F84E0</td>
+<td>core</td>
+<td>58</td>
+<td><code>src/mw4mercs/text/func_006f84e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8520</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_006f8520.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8560</td>
+<td>core</td>
+<td>36</td>
+<td><code>src/mw4mercs/text/func_006f8560.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8AC0</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_006f8ac0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8B3B</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f8b3b.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8BC0</td>
+<td>core</td>
+<td>102</td>
+<td><code>src/mw4mercs/text/func_006f8bc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8C70</td>
+<td>core</td>
+<td>56</td>
+<td><code>src/mw4mercs/text/func_006f8c70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8CB0</td>
+<td>core</td>
+<td>143</td>
+<td><code>src/mw4mercs/text/func_006f8cb0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8D70</td>
+<td>core</td>
+<td>165</td>
+<td><code>src/mw4mercs/text/func_006f8d70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8E20</td>
+<td>core</td>
+<td>21</td>
+<td><code>src/mw4mercs/text/func_006f8e20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8E40</td>
+<td>core</td>
+<td>6</td>
+<td><code>src/mw4mercs/text/func_006f8e40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8E50</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_006f8e50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8EA4</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_006f8ea4.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x006F8FD0</td>
+<td>core</td>
+<td>37</td>
+<td><code>src/mw4mercs/text/func_006f8fd0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0070FBB0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0070fbb0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x007104F0</td>
+<td>core</td>
+<td>716</td>
+<td><code>src/mw4mercs/text/func_007104f0.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00723360</td>
+<td>core</td>
+<td>548</td>
+<td><code>src/mw4mercs/text/func_00723360.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x0072FC00</td>
+<td>core</td>
+<td>717</td>
+<td><code>src/mw4mercs/text/func_0072fc00.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00739510</td>
+<td>core</td>
+<td>84</td>
+<td><code>src/mw4mercs/text/func_00739510.c</code></td>
+<td>keyword</td>
+</tr>
+<tr>
+<td>0x00740030</td>
+<td>core</td>
+<td>1199</td>
+<td><code>src/mw4mercs/text/func_00740030.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007404F0</td>
+<td>core</td>
+<td>129</td>
+<td><code>src/mw4mercs/text/func_007404f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740580</td>
+<td>core</td>
+<td>432</td>
+<td><code>src/mw4mercs/text/func_00740580.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740730</td>
+<td>core</td>
+<td>297</td>
+<td><code>src/mw4mercs/text/func_00740730.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740860</td>
+<td>core</td>
+<td>231</td>
+<td><code>src/mw4mercs/text/func_00740860.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740950</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00740950.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740A80</td>
+<td>core</td>
+<td>655</td>
+<td><code>src/mw4mercs/text/func_00740a80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740F00</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_00740f00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00740F60</td>
+<td>core</td>
+<td>101</td>
+<td><code>src/mw4mercs/text/func_00740f60.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741040</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_00741040.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007410E0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_007410e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007411C0</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_007411c0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741280</td>
+<td>core</td>
+<td>93</td>
+<td><code>src/mw4mercs/text/func_00741280.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007412E0</td>
+<td>core</td>
+<td>80</td>
+<td><code>src/mw4mercs/text/func_007412e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007414B0</td>
+<td>core</td>
+<td>70</td>
+<td><code>src/mw4mercs/text/func_007414b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741550</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_00741550.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007415A0</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_007415a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741632</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00741632.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007416F5</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_007416f5.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741800</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_00741800.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741850</td>
+<td>core</td>
+<td>70</td>
+<td><code>src/mw4mercs/text/func_00741850.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007418F0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_007418f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741A50</td>
+<td>core</td>
+<td>97</td>
+<td><code>src/mw4mercs/text/func_00741a50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741AC0</td>
+<td>core</td>
+<td>101</td>
+<td><code>src/mw4mercs/text/func_00741ac0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741BB7</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00741bb7.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741D30</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_00741d30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741DE0</td>
+<td>core</td>
+<td>74</td>
+<td><code>src/mw4mercs/text/func_00741de0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741E80</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_00741e80.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741ED0</td>
+<td>core</td>
+<td>98</td>
+<td><code>src/mw4mercs/text/func_00741ed0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00741F32</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00741f32.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00742040</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_00742040.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00742250</td>
+<td>core</td>
+<td>74</td>
+<td><code>src/mw4mercs/text/func_00742250.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007422F0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_007422f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074232B</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074232B.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00742380</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00742380.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007423D0</td>
+<td>core</td>
+<td>91</td>
+<td><code>src/mw4mercs/text/func_007423d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074242B</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074242B.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00742630</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00742630.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00742850</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00742850.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007429D5</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_007429d5.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007452D0</td>
+<td>core</td>
+<td>289</td>
+<td><code>src/mw4mercs/text/func_007452d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00745400</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00745400.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00745430</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00745430.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00745450</td>
+<td>core</td>
+<td>3419</td>
+<td><code>src/mw4mercs/text/func_00745450.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00746B30</td>
+<td>core</td>
+<td>279</td>
+<td><code>src/mw4mercs/text/func_00746b30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00746C47</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00746c47.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00746C50</td>
+<td>core</td>
+<td>55</td>
+<td><code>src/mw4mercs/text/func_00746c50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00746E10</td>
+<td>core</td>
+<td>281</td>
+<td><code>src/mw4mercs/text/func_00746e10.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00746FF0</td>
+<td>core</td>
+<td>375</td>
+<td><code>src/mw4mercs/text/func_00746ff0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747167</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00747167.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007471D0</td>
+<td>core</td>
+<td>61</td>
+<td><code>src/mw4mercs/text/func_007471d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747210</td>
+<td>core</td>
+<td>135</td>
+<td><code>src/mw4mercs/text/func_00747210.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007472A0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_007472A0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747650</td>
+<td>core</td>
+<td>27</td>
+<td><code>src/mw4mercs/text/func_00747650.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007477F0</td>
+<td>core</td>
+<td>265</td>
+<td><code>src/mw4mercs/text/func_007477f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007479C8</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_007479c8.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007479D0</td>
+<td>core</td>
+<td>128</td>
+<td><code>src/mw4mercs/text/func_007479d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747C20</td>
+<td>core</td>
+<td>1</td>
+<td><code>src/mw4mercs/text/func_00747c20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747D00</td>
+<td>core</td>
+<td>74</td>
+<td><code>src/mw4mercs/text/func_00747d00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747D50</td>
+<td>core</td>
+<td>99</td>
+<td><code>src/mw4mercs/text/func_00747d50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747DC0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_00747dc0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747E00</td>
+<td>core</td>
+<td>54</td>
+<td><code>src/mw4mercs/text/func_00747e00.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00747E40</td>
+<td>core</td>
+<td>618</td>
+<td><code>src/mw4mercs/text/func_00747e40.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007480B0</td>
+<td>core</td>
+<td>571</td>
+<td><code>src/mw4mercs/text/func_007480b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00748724</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00748724.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00748788</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00748788.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00748F52</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00748f52.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074928F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074928f.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007492E0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_007492e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00749481</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00749481.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074956F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074956F.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00749943</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00749943.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x007499F1</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_007499f1.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x00749DF6</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_00749df6.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A020</td>
+<td>core</td>
+<td>67</td>
+<td><code>src/mw4mercs/text/func_0074a020.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A070</td>
+<td>core</td>
+<td>55</td>
+<td><code>src/mw4mercs/text/func_0074A070.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A0B0</td>
+<td>core</td>
+<td>63</td>
+<td><code>src/mw4mercs/text/func_0074a0b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A0F0</td>
+<td>core</td>
+<td>90</td>
+<td><code>src/mw4mercs/text/func_0074a0f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A1A0</td>
+<td>core</td>
+<td>60</td>
+<td><code>src/mw4mercs/text/func_0074a1a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A1E0</td>
+<td>core</td>
+<td>73</td>
+<td><code>src/mw4mercs/text/func_0074a1e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A230</td>
+<td>core</td>
+<td>70</td>
+<td><code>src/mw4mercs/text/func_0074a230.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A300</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_0074a300.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A350</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_0074a350.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A3A0</td>
+<td>core</td>
+<td>72</td>
+<td><code>src/mw4mercs/text/func_0074a3a0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A3F0</td>
+<td>core</td>
+<td>91</td>
+<td><code>src/mw4mercs/text/func_0074a3f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A450</td>
+<td>core</td>
+<td>65</td>
+<td><code>src/mw4mercs/text/func_0074a450.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A491</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074a491.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A6D0</td>
+<td>core</td>
+<td>59</td>
+<td><code>src/mw4mercs/text/func_0074a6d0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A710</td>
+<td>core</td>
+<td>89</td>
+<td><code>src/mw4mercs/text/func_0074a710.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A770</td>
+<td>core</td>
+<td>190</td>
+<td><code>src/mw4mercs/text/func_0074a770.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A840</td>
+<td>core</td>
+<td>168</td>
+<td><code>src/mw4mercs/text/func_0074a840.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A8F0</td>
+<td>core</td>
+<td>179</td>
+<td><code>src/mw4mercs/text/func_0074a8f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A9B0</td>
+<td>core</td>
+<td>44</td>
+<td><code>src/mw4mercs/text/func_0074a9b0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074A9DC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074a9dc.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074AA53</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074aa53.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074AAE0</td>
+<td>core</td>
+<td>17</td>
+<td><code>src/mw4mercs/text/func_0074aae0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074AB63</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074ab63.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074AC30</td>
+<td>core</td>
+<td>166</td>
+<td><code>src/mw4mercs/text/func_0074ac30.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074ACE0</td>
+<td>core</td>
+<td>181</td>
+<td><code>src/mw4mercs/text/func_0074ace0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074AF19</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074af19.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074AF90</td>
+<td>core</td>
+<td>57</td>
+<td><code>src/mw4mercs/text/func_0074af90.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B150</td>
+<td>core</td>
+<td>35</td>
+<td><code>src/mw4mercs/text/func_0074b150.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B180</td>
+<td>core</td>
+<td>216</td>
+<td><code>src/mw4mercs/text/func_0074b180.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B260</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074B260.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B280</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074B280.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B380</td>
+<td>core</td>
+<td>111</td>
+<td><code>src/mw4mercs/text/func_0074B380.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B3F0</td>
+<td>core</td>
+<td>434</td>
+<td><code>src/mw4mercs/text/func_0074b3f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B5B0</td>
+<td>core</td>
+<td>112</td>
+<td><code>src/mw4mercs/text/func_0074B5B0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B640</td>
+<td>core</td>
+<td>219</td>
+<td><code>src/mw4mercs/text/func_0074b640.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B720</td>
+<td>core</td>
+<td>489</td>
+<td><code>src/mw4mercs/text/func_0074B720.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074B960</td>
+<td>core</td>
+<td>262</td>
+<td><code>src/mw4mercs/text/func_0074B960.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074BA70</td>
+<td>core</td>
+<td>204</td>
+<td><code>src/mw4mercs/text/func_0074ba70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074BBDC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074BBDC.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074C117</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074c117.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074C360</td>
+<td>core</td>
+<td>119</td>
+<td><code>src/mw4mercs/text/func_0074C360.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074C3E0</td>
+<td>core</td>
+<td>524</td>
+<td><code>src/mw4mercs/text/func_0074c3e0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074C5F0</td>
+<td>core</td>
+<td>158</td>
+<td><code>src/mw4mercs/text/func_0074c5f0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CA20</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074ca20.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CA25</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074ca25.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CA50</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074CA50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CAE0</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074CAE0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CD70</td>
+<td>core</td>
+<td>45</td>
+<td><code>src/mw4mercs/text/func_0074cd70.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CDA0</td>
+<td>core</td>
+<td>60</td>
+<td><code>src/mw4mercs/text/func_0074cda0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074CDDC</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074cddc.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074DA5F</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074DA5F.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074DB50</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074DB50.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074DDA0</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_0074dda0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074DDF0</td>
+<td>core</td>
+<td>69</td>
+<td><code>src/mw4mercs/text/func_0074ddf0.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074DE35</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074de35.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074E6A8</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074e6a8.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074E740</td>
+<td>core</td>
+<td>789</td>
+<td><code>src/mw4mercs/text/func_0074e740.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074EC41</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074ec41.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074ECE9</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074ece9.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074F910</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074F910.c</code></td>
+<td>range</td>
+</tr>
+<tr>
+<td>0x0074FA90</td>
+<td>core</td>
+<td>-</td>
+<td><code>src/mw4mercs/text/func_0074FA90.c</code></td>
+<td>range</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../">All subsystems</a></li>
+<li><a href="../shared/">Shared VAs</a></li>
+<li><a href="../../SUBSYSTEM_SEAMS/">Boundary seams</a></li>
+<li><a href="../../master_index/MW4Mercs_exe/">Exhaustive per-VA index</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

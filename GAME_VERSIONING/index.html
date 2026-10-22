@@ -1,0 +1,4075 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Byte-identical oracle recompilation documentation for MW4Mercs.exe and the game DLLs.">
+      
+      
+      
+        <link rel="canonical" href="https://mech4decomp.github.io/Mech4MercDecomp/GAME_VERSIONING/">
+      
+      
+        <link rel="prev" href="../ARCHITECTURE/">
+      
+      
+        <link rel="next" href="../subsystems/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Game versioning - MechWarrior 4 Mercenaries - Oracle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#game-versioning-in-the-reference-mw4mercsexe" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MechWarrior 4 Mercenaries - Oracle" class="md-header__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MechWarrior 4 Mercenaries - Oracle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Game versioning
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../BUILD/" class="md-tabs__link">
+          
+  
+  
+  Build and verify
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../subsystems/" class="md-tabs__link">
+          
+  
+  
+  Subsystems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../subsystems/gundll/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../MASTER_INDEX/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../FAQ/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MechWarrior 4 Mercenaries - Oracle" class="md-nav__button md-logo" aria-label="MechWarrior 4 Mercenaries - Oracle" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MechWarrior 4 Mercenaries - Oracle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mech4decomp/Mech4MercDecomp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mech4decomp/Mech4MercDecomp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and verify
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build and verify
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BUILD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VERIFICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-version-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The version value
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The version value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-four-fields-and-the-two-hardcoded-copies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The four fields (and the two hardcoded copies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-player-sees-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the player sees it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-it-is-advertised-host-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. How it is advertised (host side)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-client-side-matching-server-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Client-side matching (server browser)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Client-side matching (server browser)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-the-filter-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 The filter callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-the-ui-filter-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The UI filter parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-the-version-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 The version sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-list-ingestion-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 List ingestion gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-lobby-zonetech-protocol-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The lobby (ZoneTech) protocol gate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-and-is-not-version-gated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What is and is not version-gated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-related-version-checks-not-multiplayer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Related version checks (not multiplayer)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-join-time-validation-net-event-0x0a-fun_0053f210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Join-time validation — net event 0x0A (FUN_0053F210)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Join-time validation — net event 0x0A (FUN_0053F210)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-the-message-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 The message path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-the-0x0a-payload-as-read-by-fun_0053f210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 The 0x0A payload as read by FUN_0053F210
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-the-ban-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 The ban lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-content-checksum-what-the-peers-must-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The content checksum — what the peers must match
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-variant-mech-file-integrity-and-loadout-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Variant (mech) file integrity and loadout validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Variant (mech) file integrity and loadout validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-the-variant-self-digest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 The variant self-digest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-loadout-legality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Loadout legality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-trust-model-what-actually-happens-to-a-modded-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Trust model — what actually happens to a modded client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-design-flaws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Design flaws
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-recommended-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Recommended improvements
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/render/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Render
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/gameplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/crt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/codec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/unclassified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unclassified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared VAs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MASTER_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SUBSYSTEM_CATALOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SUBSYSTEM_SEAMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystem seams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module data annotation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module data annotation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_data_annotation/blade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_data_annotation/gundll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_data_annotation/language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_data_annotation/missionlang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_data_annotation/mw4stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_data_annotation/zloglib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editor tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editor_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editor_tools/autoconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    autoconfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editor_tools/mapcreator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MapCreator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editor_tools/mw4ed2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Ed2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editor_tools/nfmeditor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFMEditor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ORACLE_STATUS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MODULE_NOTES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Per-VA indexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Per-VA indexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/MW4Mercs_exe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Mercs.exe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/GunDll_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GunDll.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/MW4Stats_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MW4Stats.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/blade_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blade.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/Language_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/MissionLang_MERCS_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MissionLang_MERCS.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master_index/ZlogLib_dll/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZlogLib.dll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LEGAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-version-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The version value
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The version value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-four-fields-and-the-two-hardcoded-copies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The four fields (and the two hardcoded copies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-player-sees-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the player sees it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-it-is-advertised-host-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. How it is advertised (host side)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-client-side-matching-server-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Client-side matching (server browser)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Client-side matching (server browser)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-the-filter-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 The filter callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-the-ui-filter-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The UI filter parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-the-version-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 The version sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-list-ingestion-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 List ingestion gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-lobby-zonetech-protocol-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The lobby (ZoneTech) protocol gate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-and-is-not-version-gated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What is and is not version-gated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-related-version-checks-not-multiplayer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Related version checks (not multiplayer)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-join-time-validation-net-event-0x0a-fun_0053f210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Join-time validation — net event 0x0A (FUN_0053F210)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Join-time validation — net event 0x0A (FUN_0053F210)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-the-message-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 The message path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-the-0x0a-payload-as-read-by-fun_0053f210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 The 0x0A payload as read by FUN_0053F210
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-the-ban-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 The ban lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-content-checksum-what-the-peers-must-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The content checksum — what the peers must match
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-variant-mech-file-integrity-and-loadout-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Variant (mech) file integrity and loadout validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Variant (mech) file integrity and loadout validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-the-variant-self-digest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 The variant self-digest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-loadout-legality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Loadout legality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-trust-model-what-actually-happens-to-a-modded-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Trust model — what actually happens to a modded client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-design-flaws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Design flaws
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-recommended-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Recommended improvements
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mech4decomp/Mech4MercDecomp/edit/main/docs/GAME_VERSIONING.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="game-versioning-in-the-reference-mw4mercsexe">Game versioning in the reference (MW4Mercs.exe)<a class="headerlink" href="#game-versioning-in-the-reference-mw4mercsexe" title="Permanent link">&para;</a></h1>
+<p>How the reference build identifies its version and how that identity is used to
+keep multiplayer clients on the same version. All addresses are reference VAs;
+function names are the oracle's <code>func_&lt;VA&gt;</code> names. This is reference (oracle)
+RE.</p>
+<h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>One hardcoded version string</strong> <code>"50.07.01.2105"</code> (<code>.rdata</code> <code>0x0076CB3C</code>),
+  loaded at startup into the global pointer <code>g_game_version</code> (<code>0x00858924</code>).</li>
+<li><strong>Hosts advertise it</strong> as the DirectPlay session attribute <code>GameVersion</code>
+  (and inside the session config blob as the <code>\v</code> directive).</li>
+<li><strong>The server browser compares</strong> each enumerated session's <code>GameVersion</code>
+  against the local one with whole-string lexicographic compares (<code>_stricmp</code>
+  in the filter, <code>_mbscmp</code> in the sort — no numeric parsing; older = string
+  less than local, newer = greater). Three UI toggles (<code>curveroff</code> /
+  <code>newveroff</code> / <code>oldveroff</code>) and a 6-mode <code>versionsort</code> control filter and
+  order the list; the UI shows the selected server's version as
+  <code>ReferenceVersion</code> next to <code>LocalGameVersion</code>.</li>
+<li><strong>The Zone matchmaking layer has its own protocol-version gate</strong>; its
+  failure string is <code>"Incompatible Protocol version mismatch."</code>
+  (<code>0x007A04DC</code>, ZoneTech error <code>0xC1120C05</code>).</li>
+<li><strong>There <em>is</em> an in-game join handshake</strong> (net event <code>0x0A</code>, <code>FUN_0053F210</code>,
+  §7): the joiner sends a packed 64-bit <strong>version code</strong> (derived from
+  <code>"50.07.01.2105"</code>) and an 8-byte <strong>content checksum</strong>; the receiver compares
+  both against its own computation and answers <code>0x0B</code> (reject + status) or
+  <code>0x0C</code> (accept + checksum echo the joiner re-verifies in <code>FUN_0053F9B0</code>).
+  Mismatches log <code>Player_Reject\t%d\t%d</code> (<code>0x0077B730</code>) with status <code>4</code>
+  (content), <code>5</code> (version), <code>6</code> (banned IP) or <code>8</code> (duplicate player GUID).
+  The content checksum covers the code bytes of the 15 resource-loader
+  functions plus one mission archive entry (§8).</li>
+<li>The connect path's DirectPlay <em>application GUID</em> (<code>0x007A2E30</code> =
+  <code>{36E95EE0-8577-11CF-960C-0080C7534E82}</code>) is game identity only, identical
+  across builds. The advertisement + browser filter/sort is advisory; the join
+  handshake is the actual same-build gate.</li>
+<li>The handshake and the variant self-digest are the game's whole anti-mod
+  story, and both are defeatable (no secret, tiny hashed surface, local-only
+  variant check) — see §10–§11.</li>
+</ul>
+<h2 id="1-the-version-value">1. The version value<a class="headerlink" href="#1-the-version-value" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Address</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build version string</td>
+<td><code>0x0076CB3C</code></td>
+<td><code>"50.07.01.2105"</code></td>
+</tr>
+<tr>
+<td>Local version global</td>
+<td><code>0x00858924</code></td>
+<td><code>char*</code> in BSS, zero-initialized</td>
+</tr>
+<tr>
+<td>Option/config init</td>
+<td><code>FUN_00407BE0</code></td>
+<td><code>0x00407BE0</code>: sets <code>g_858924 = 0x76CB3C</code></td>
+</tr>
+<tr>
+<td>Log/registry init</td>
+<td><code>FUN_00737020</code></td>
+<td><code>0x00737020</code>: calls <code>FUN_00407BE0</code>, then a fallback</td>
+</tr>
+</tbody>
+</table>
+<p><code>FUN_00737020</code> (called from the startup/log init <code>FUN_00709120</code> and
+<code>FUN_007374B0</code>) calls the big option-init <code>FUN_00407BE0</code>, which assigns
+<code>g_game_version = "50.07.01.2105"</code>. Only if that pointer were still null/empty
+would <code>FUN_00737020</code> build a date-derived fallback
+<code>wsprintfA(0x008AA390, "00.00.%02d.%02d00", month, day)</code> (format <code>0x007A6958</code>)
+and point <code>g_858924</code> at it — dead in the normal path.</p>
+<p>The version string doubles as a <strong>per-version registry value name</strong>: the
+registry key is <code>"Software\Microsoft\Microsoft Games\%s"</code> (format <code>0x007A6918</code>)
+and <code>FUN_007086D0</code> / <code>FUN_00708880</code> read/write a value named by <code>g_858924</code>
+(window size, perf counter, exe date). So each build keeps its own settings.</p>
+<h3 id="11-the-four-fields-and-the-two-hardcoded-copies">1.1 The four fields (and the two hardcoded copies)<a class="headerlink" href="#11-the-four-fields-and-the-two-hardcoded-copies" title="Permanent link">&para;</a></h3>
+<p>The string is four <code>.</code>-separated decimal fields of <strong>2+2+2+4 digits</strong>
+(<code>50</code> <code>07</code> <code>01</code> <code>2105</code>). Nothing in the game assigns meaning to them
+individually — the fallback format <code>"00.00.%02d.%02d00"</code> (month in field 3,
+day×100 in field 4) is the only hint at the intended shape, and the shipped
+family shows the convention:</p>
+<table>
+<thead>
+<tr>
+<th>Binary</th>
+<th>Version</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MW4Mercs.exe</code></td>
+<td><code>50.07.01.2105</code></td>
+<td>this target</td>
+</tr>
+<tr>
+<td><code>MW4Ed2.exe</code></td>
+<td><code>50.06.10.0801</code></td>
+<td>mission editor (older)</td>
+</tr>
+<tr>
+<td><code>autoconfig_MERCS.exe</code></td>
+<td><code>50.06.09.3002</code></td>
+<td>graphics config tool</td>
+</tr>
+</tbody>
+</table>
+<p>(<code>50</code> = MW4 family, field 2 = title/generation, field 3 = minor series,
+field 4 = build number; see <code>docs/editor_tools/</code> for the tool versions.)</p>
+<p>There are <strong>two hardcoded copies</strong>, both read-only literals, and they are read
+by different subsystems:</p>
+<table>
+<thead>
+<tr>
+<th>Copy</th>
+<th>Address</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>g_858924</code> target</td>
+<td><code>0x0076CB3C</code></td>
+<td>UI (<code>LocalGameVersion</code>), browser filter/sort, session advertisement, gundll wide conversion, registry key, log init</td>
+</tr>
+<tr>
+<td><code>DAT_00773040</code></td>
+<td><code>0x00773040</code></td>
+<td>join handshake version code (<code>FUN_00535F30</code>), GameSpy <code>gamever</code> (<code>FUN_004D8A80</code>, <code>FUN_004FF490</code>), log header (<code>FUN_00563800</code>), saved-game version compare (<code>FUN_00616830</code>), stats (<code>FUN_00564AA0</code>, <code>FUN_00565E00</code>), mission/save data (<code>FUN_00614A80</code>, <code>FUN_00615100</code>, <code>FUN_00615FF0</code>, <code>FUN_0061A510</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>A third copy is the unreferenced what-string
+<code>"@(#) Microsoft MechWarrior IV: Mercenaries Build 50.07.01.2105"</code>
+(<code>0x007B4640</code>, no pointers into it). Both live copies have ~2 bytes of
+zero-padding slack before the next literal (usable string length ≈ 14 chars +
+NUL), so an in-place overwrite is possible; changing only one of them makes
+the advertised version and the join version code disagree.</p>
+<h3 id="where-the-player-sees-it">Where the player sees it<a class="headerlink" href="#where-the-player-sees-it" title="Permanent link">&para;</a></h3>
+<p>The multiplayer UI (bound in <code>FUN_00404D60</code> / <code>FUN_00404AC5</code>) has three
+version fields:</p>
+<table>
+<thead>
+<tr>
+<th>UI field name</th>
+<th>Name string</th>
+<th>Backing global</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GameVersion</code></td>
+<td><code>0x0076C218</code></td>
+<td><code>0x007B7C70</code></td>
+<td>version of the session currently selected/received (<code>FUN_00401E50</code> GetGameData)</td>
+</tr>
+<tr>
+<td><code>ReferenceVersion</code></td>
+<td><code>0x0076C260</code></td>
+<td><code>0x007B7E44</code></td>
+<td>version of the <em>selected server</em>, filled on demand</td>
+</tr>
+<tr>
+<td><code>LocalGameVersion</code></td>
+<td><code>0x0076C274</code></td>
+<td><code>0x00858924</code></td>
+<td>this client's own version</td>
+</tr>
+</tbody>
+</table>
+<p><code>ReferenceVersion</code> is filled by the UI event <code>GetReferenceVersion</code>
+(<code>0x0076C4E0</code>); its handler at <code>0x004010B0</code> (inside <code>func_00401006.c</code>) takes
+the browser's current selection (<code>FUN_006F6350</code>, which returns the selected
+entry or NULL), reads its <code>GameVersion</code> attribute (<code>FUN_006F5B80</code>) and
+<code>strncpy</code>s it (0xFF bytes) into <code>0x007B7E44</code>. It is informational — the player compares the two strings on the
+server-info panel.</p>
+<p>The version also goes out in:</p>
+<ul>
+<li>the <strong>log header</strong> (<code>Game_Version</code> block at <code>0x0077EA3x</code>, writer
+  <code>FUN_00563800</code> — game name/version/author/server info), and</li>
+<li>the <strong>gundll (GunDll) interface init</strong> (<code>FUN_006FCF00</code> / <code>FUN_00701030</code>
+  convert <code>g_858924</code> to wide and pass it to the gundll vtable at <code>0x008589A4</code>).</li>
+</ul>
+<h2 id="2-how-it-is-advertised-host-side">2. How it is advertised (host side)<a class="headerlink" href="#2-how-it-is-advertised-host-side" title="Permanent link">&para;</a></h2>
+<p>The session config is a backslash-directive blob parsed by <code>FUN_00705D80</code>
+(<code>0x00705D80</code>):</p>
+<div class="highlight"><pre><span></span><code>\g&lt;name&gt;   -&gt; session+0x1878   (game name)
+\m&lt;map&gt;    -&gt; session+0x1834   (map type)
+\v&lt;ver&gt;    -&gt; session+0x18B8   (GAME VERSION)
+\a / \h / \r -&gt; session+0x18F8 / +0x1938 / +0x1978 (UnlimitedAmmo / NoHeat / NoRespawn)
+\p&lt;xy&gt;     -&gt; session+0xC34 + idx*0x40  (per-player name, count at +0x1874)
+\c&lt;xy&gt;     -&gt; session+0x1234 + idx*0x40 (per-player clan)
+</code></pre></div>
+<p>Two registration paths publish the DirectPlay session attributes:</p>
+<ul>
+<li><strong><code>FUN_00705FE0</code></strong> (<code>0x00705FE0</code>, "game creation / server info registration")
+  copies the lobby record's config blob (<code>lobby+0x30</code>, 3000 bytes) into
+  <code>session+0x7C</code>, parses it with <code>FUN_00705D80</code>, then sets
+  <code>GameVersion = session+0x18B8</code> — i.e. the advertised version is whatever the
+  host's <code>\v</code> directive says. It also sets <code>Mod Name</code>, <code>Product Name</code>,
+  <code>IpAddr</code>, <code>ServerPort</code>, <code>GName</code>, player/bot counts, <code>MaxPlayers</code>, <code>MapType</code>,
+  <code>PasswordProtected</code>, <code>Instance</code>, <code>Handle</code>, <code>Flags</code>, <code>Protocol</code>,
+  <code>GameType</code>, <code>Update Time</code>, <code>ExpectRefresh="false"</code>, <code>UnlimitedAmmo</code>,
+  <code>NoHeat</code>, <code>NoRespawn</code>, and one entry per player. <code>FUN_00705F9C</code> is the
+  sibling variant of the same routine.</li>
+<li><strong><code>FUN_007008E0</code></strong> (<code>0x007008E0</code>, <code>IGunHost::AddPlayer</code>) sets
+  <code>GameVersion = g_858924</code> directly (wide), alongside <code>MaxPlayers</code>,
+  <code>PasswordProtected</code> (<code>L"No"</code>/<code>L"Yes"</code>), <code>Instance</code>, <code>MapType</code> (<code>"-"</code>),
+  <code>Flags</code>, <code>GameType</code> (<code>"0"</code>).</li>
+</ul>
+<p><code>Instance</code> is the <strong>game-instance GUID</strong> (a 16-byte game ID formatted with
+<code>"{%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X}"</code>, <code>0x007A1120</code>), not a
+version derivative. <code>GameVersion</code> is the only build-version field on the wire
+(a plain string).</p>
+<h2 id="3-client-side-matching-server-browser">3. Client-side matching (server browser)<a class="headerlink" href="#3-client-side-matching-server-browser" title="Permanent link">&para;</a></h2>
+<p>Session attributes are read with <code>FUN_006F5B80(obj, "GameVersion")</code> and
+compared as <strong>whole strings</strong> — <code>_stricmp</code> (<code>0x0076B2AC</code>, case-insensitive) in
+the filter, <code>_mbscmp</code> (<code>0x0076B300</code>, case-sensitive) in the sort. <strong>There is
+no numeric/semantic version parsing anywhere</strong>: "older" means the entry's
+version string is lexicographically <em>less</em> than the local <code>g_858924</code> string,
+"newer" means <em>greater</em> (argument order in the calls is <code>(entry, local)</code>).
+That works only because the shipped string uses fixed-width zero-padded fields
+(<code>50.07.01.2105</code>); an unpadded field breaks the order (<code>"50.7.x" &gt; "50.10.x"</code>
+lexicographically, although 50.7 &lt; 50.10 numerically), and the filter
+(<code>_stricmp</code>) and sort (<code>_mbscmp</code>) even disagree on case.</p>
+<h3 id="31-the-filter-callback">3.1 The filter callback<a class="headerlink" href="#31-the-filter-callback" title="Permanent link">&para;</a></h3>
+<p><code>FUN_006F6EB0</code> (<code>0x006F6EB0</code>, a method of the filter object vtable at
+<code>0x0079FD24</code>) implements three version predicates against <code>g_858924</code>, enabled
+by bytes of the filter object:</p>
+<table>
+<thead>
+<tr>
+<th>Filter byte</th>
+<th>Predicate (<code>_stricmp(entry, local)</code>, entry = session <code>GameVersion</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+0x40</code> (<code>curveroff</code>)</td>
+<td>equal (<code>== 0</code>)</td>
+</tr>
+<tr>
+<td><code>+0x41</code> (<code>newveroff</code>)</td>
+<td>entry <strong>newer</strong> (<code>entry &gt; local</code>, <code>&gt; 0</code>)</td>
+</tr>
+<tr>
+<td><code>+0x42</code> (<code>oldveroff</code>)</td>
+<td>entry <strong>older</strong> (<code>entry &lt; local</code>, <code>&lt; 0</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>(The UI names agree: <code>newveroff</code> = hide newer, <code>oldveroff</code> = hide older.)</p>
+<p>The callback is invoked with a mode (1–4) that encodes the ZoneTech filter
+engine's AND/OR polarity: mode 1 rejects when the predicate holds, mode 2
+accepts when it fails, mode 3 accepts when it holds, mode 4 rejects when it
+fails; unset bytes simply fall through. A missing <code>GameVersion</code> attribute is
+treated as predicate-false. The remaining filter bytes cover the non-version
+filters (ping/gametype/players/clan/available/active).</p>
+<h3 id="32-the-ui-filter-parameters">3.2 The UI filter parameters<a class="headerlink" href="#32-the-ui-filter-parameters" title="Permanent link">&para;</a></h3>
+<p><code>FUN_00402660</code> (<code>0x00402660</code>, SetFilterParam) / <code>FUN_004024B2</code> (<code>0x004024B2</code>,
+GetFilterParam) map UI script parameter names to those globals:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>String</th>
+<th>Global</th>
+<th>Filter byte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>curveroff</code></td>
+<td><code>0x0076B890</code></td>
+<td><code>0x007B7C60</code></td>
+<td><code>+0x40</code> (equal)</td>
+</tr>
+<tr>
+<td><code>newveroff</code></td>
+<td><code>0x0076B878</code></td>
+<td><code>0x007B7C61</code></td>
+<td><code>+0x41</code> (entry newer)</td>
+</tr>
+<tr>
+<td><code>oldveroff</code></td>
+<td><code>0x0076B884</code></td>
+<td><code>0x007B7C62</code></td>
+<td><code>+0x42</code> (entry older)</td>
+</tr>
+<tr>
+<td><code>versionsort</code></td>
+<td><code>0x0076B86C</code></td>
+<td><code>0x007B7C64</code> (1–6)</td>
+<td>sort mode</td>
+</tr>
+</tbody>
+</table>
+<p>All default to 0 (no version filtering, no version sort). A bad <code>versionsort</code>
+value asserts with <code>"Invalid version sorting filter setting '%s'.  Should be a
+number between 1 and 6."</code> (<code>0x0076B94C</code>).</p>
+<p><code>FUN_004022E0</code> (<code>0x004022E0</code>, ApplyFilters) pushes the three bytes onto the
+filter object through the trivial setters <code>FUN_006F73B0</code> / <code>FUN_006F73D0</code> /
+<code>FUN_006F73F0</code> (<code>+0x40</code>/<code>+0x41</code>/<code>+0x42</code>) and the sort mode through
+<code>FUN_006F79E0</code>.</p>
+<h3 id="33-the-version-sort">3.3 The version sort<a class="headerlink" href="#33-the-version-sort" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>FUN_00401140</code> (<code>0x00401140</code>, the <code>SortGameList</code> UI callback) dispatches on
+  the sort-key name; when the key is <code>"GameVersion"</code> (<code>0x0079FA48</code>) it clamps
+  <code>g_007B7C64</code> to 0–6 and passes it to <code>FUN_006F7BF0</code>.</li>
+<li><code>FUN_006F7BF0</code> (<code>0x006F7BF0</code>) partitions the list into three groups by
+  <code>_mbscmp(entry_version, g_858924)</code> (case-sensitive): <strong>entry &lt; local →
+  older</strong>, <strong>entry == local → same</strong>, <strong>entry &gt; local → newer</strong> — the same
+  lexicographic comparison as the filter, in the opposite call order and
+  case-sensitively. The mode (1–6) then selects the resulting order/grouping
+  of those three groups; mode 0 leaves the list unsorted by version.</li>
+<li><code>FUN_006F7B10</code> (<code>0x006F7B10</code>) is the attribute-change callback: when an
+  entry's <code>GameVersion</code> (or <code>Flags</code>) attribute arrives/updates, it re-runs the
+  <code>FUN_006F7BF0</code> reorder.</li>
+</ul>
+<h3 id="34-list-ingestion-gate">3.4 List ingestion gate<a class="headerlink" href="#34-list-ingestion-gate" title="Permanent link">&para;</a></h3>
+<p>Before an entry is even added to the list, <code>FUN_006FFC90</code> (<code>0x006FFC90</code>),
+<code>FUN_006FEAB0</code> (<code>0x006FEAB0</code>) and <code>FUN_006FF640</code> (<code>0x006FF640</code>) require the
+entry's <code>Protocol</code> attribute (<code>0x0079FAD4</code>) to equal <code>"0"</code> (<code>0x0079FB30</code>) and
+its <code>ExpectRefresh</code> attribute (<code>0x0079FAFC</code>) to equal <code>"false"</code>. The <code>Protocol</code>
+attribute is the lobby/browser protocol marker (set from <code>session+0x78</code> in
+<code>FUN_00705F9C</code>), not the build version.</p>
+<h2 id="4-the-lobby-zonetech-protocol-gate">4. The lobby (ZoneTech) protocol gate<a class="headerlink" href="#4-the-lobby-zonetech-protocol-gate" title="Permanent link">&para;</a></h2>
+<p>The matchmaking layer's error-code→string map is <code>FUN_006FCB40</code>
+(<code>0x006FCB40</code>). Its ZoneTech error family <code>0xC1120xxx</code> includes:</p>
+<ul>
+<li><code>0xC1120C05</code> → <code>"Incompatible Protocol version mismatch."</code> (<code>0x007A04DC</code>)</li>
+</ul>
+<p>That is the hard "your client's protocol/version does not match the lobby"
+rejection — the closest thing to a version gate in the matchmaking path. The
+rest of the family (<code>0x007A03E8</code>–<code>0x007A0B8C</code>) covers session/GUID/lobby
+errors such as <code>"The requested component version in not available."</code>
+(<code>0x007A0B8C</code>) and <code>"Client is disconnected from the server."</code> (<code>0x007A0424</code>).</p>
+<h2 id="5-what-is-and-is-not-version-gated">5. What is and is not version-gated<a class="headerlink" href="#5-what-is-and-is-not-version-gated" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The connect path</strong> <code>FUN_00703E60</code> (<code>0x00703E60</code>) verifies the DirectPlay
+  application GUID at <code>0x007A2E30</code> = <code>{36E95EE0-8577-11CF-960C-0080C7534E82}</code>
+  and rejects a mismatch. This identifies the <em>game</em> (MW4 Mercs) and is the
+  same for every build, so it does not separate versions.</li>
+<li><strong>The advertised <code>GameVersion</code> attribute is not what the join handshake
+  checks.</strong> The handshake's version code is computed from the second hardcoded
+  copy <code>DAT_00773040</code> (§1.1), not from the advertised string nor from
+  <code>g_858924</code>; so a host can advertise an arbitrary <code>GameVersion</code> yet the
+  in-session check still validates the real build (and vice versa).</li>
+<li><strong>The browser filter/sort is advisory.</strong> A client can reach a session whose
+  advertised version differs (join directly, or disable the browser version
+  filters); the lobby protocol check and the join handshake (§7) are the
+  enforcement, and the UI deliberately surfaces both versions
+  (<code>ReferenceVersion</code> vs <code>LocalGameVersion</code>) so the player can decide.</li>
+<li><strong>What is not gated at all:</strong> content outside the 15 hashed loader functions
+  and the mission entry, the peer's actual variant files (only a local
+  self-digest, §9), the peer's identity/IP fields (self-reported), and
+  anything after join (no runtime re-validation, §10).</li>
+</ul>
+<h2 id="6-related-version-checks-not-multiplayer">6. Related version checks (not multiplayer)<a class="headerlink" href="#6-related-version-checks-not-multiplayer" title="Permanent link">&para;</a></h2>
+<p>For contrast, the binary has many other version checks that are unrelated to
+client compatibility:</p>
+<ul>
+<li><strong>Data-format magic+version asserts</strong> for MLR/ERF/OBB/GFX/GAF assets —
+  e.g. MLR <code>"MLR#"</code> + version <code>0x12</code> (<code>FUN_00421E60</code> / <code>FUN_00421EC0</code>),
+  ERF (<code>FUN_004AF200</code>), OBB (<code>FUN_004FEC10</code>), with strings like
+  <code>"Application must be rebuilt to use this version of MLR data"</code>
+  (<code>0x0076DD24</code>).</li>
+<li><strong>Saved-game version</strong> (<code>FUN_00616830</code>, message
+  <code>"You are loading a game saved by a newer game version.  The saved game
+  might not work correctly."</code>, <code>0x0078C310</code>) — single player.</li>
+<li><strong>Diagnostics</strong>: <code>GetDLLVersions</code> (<code>0x007A4750</code>) reads file versions via
+  <code>VERSION.dll</code> (<code>GetFileVersionInfoA</code>, <code>0x007B1318</code>); <code>"Executable version"</code>
+  / <code>"DirectX version"</code> / <code>"GameOS build version"</code> report block
+  (<code>0x007A4A59</code>+).</li>
+<li><strong>gundll/gun-auth</strong> receives the version string at interface init
+  (<code>FUN_006FCF00</code> / <code>FUN_00701030</code>).</li>
+<li><strong>DRM/anti-tamper (not multiplayer)</strong>: <code>FUN_0052A460</code> is the SafeDisc CD
+  check (<code>CdaSys*</code>, <code>"ScsHD.csa"</code>, anti-tamper verification);
+  <code>FUN_0052AAB0</code> calls the registry/date checks <code>FUN_00536060</code> /
+  <code>FUN_00536190</code> ("Date/time validation"); <code>FUN_005FCC80</code> is a local
+  XOR-checksum/flag check. These are copy-protection/clock-tamper tripwires,
+  unrelated to client compatibility.</li>
+</ul>
+<h2 id="7-join-time-validation-net-event-0x0a-fun_0053f210">7. Join-time validation — net event <code>0x0A</code> (<code>FUN_0053F210</code>)<a class="headerlink" href="#7-join-time-validation-net-event-0x0a-fun_0053f210" title="Permanent link">&para;</a></h2>
+<p>This is the actual same-build/content gate, and it happens <strong>in-session</strong> (after
+the DirectPlay connect). It corrects an earlier reading of this doc: there <em>is</em>
+a join-time build check.</p>
+<h3 id="71-the-message-path">7.1 The message path<a class="headerlink" href="#71-the-message-path" title="Permanent link">&para;</a></h3>
+<p>The in-game net dispatcher <code>FUN_00546C60</code> (<code>0x00546C60</code>) switches on an event id
+(jump table <code>0x00547074</code>, index = <code>eventId - 0x0A</code>). The relevant events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Handler</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0A</code></td>
+<td><code>FUN_0053F210</code></td>
+<td>player join/registration message — validate + accept/reject</td>
+</tr>
+<tr>
+<td><code>0x0B</code></td>
+<td><code>FUN_0053F910</code></td>
+<td>join <strong>reject</strong> reply — sets local session state (<code>this+0x3514</code> = 2/3/4/5)</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td><code>FUN_0053F9B0</code></td>
+<td>join <strong>accept</strong> reply — joiner re-verifies the echoed checksum; mismatch sets state 3</td>
+</tr>
+</tbody>
+</table>
+<p>Flow:</p>
+<ol>
+<li>The joiner's sender <code>FUN_0053FA70</code> (<code>0x0053FA70</code>) builds the <code>0x0A</code> payload
+   (content checksum via <code>FUN_004D2AB0</code> + <code>FUN_0062DDC0</code> at <code>0x53FAC2</code> /
+   <code>0x53FAEE</code>, version code via the <code>FUN_00535F30</code> family at <code>0x53FB0C</code>, plus
+   the player record), calls <code>FUN_0053F210</code> on its own copy (loopback,
+   <code>0x540021</code>), then transmits.</li>
+<li>Every receiving peer runs <code>FUN_0053F210</code>, which recomputes the local
+   reference values into <code>DAT_007DDD50/54</code> (content checksum), <code>DAT_007DDD58/5C</code>
+   (<code>FUN_00535B40</code> = 0,0 — reserved), <code>DAT_007DDD60/64</code> (version code) and sets
+   <code>DAT_007DDD48 = 1</code> (join-validation-in-progress).</li>
+<li>The result goes back as <code>0x0B</code> (reject) with a 4-byte status, or <code>0x0C</code>
+   (accept) with an 8-byte re-derived checksum pair; <code>FUN_0053F9B0</code> recomputes
+   the pair locally and aborts the session (state 3) on mismatch, so the check
+   is <strong>mutual</strong>.</li>
+</ol>
+<h3 id="72-the-0x0a-payload-as-read-by-fun_0053f210">7.2 The <code>0x0A</code> payload as read by <code>FUN_0053F210</code><a class="headerlink" href="#72-the-0x0a-payload-as-read-by-fun_0053f210" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Field</th>
+<th>Size</th>
+<th>Destination / check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>content checksum</td>
+<td>8</td>
+<td>vs <code>DAT_007DDD50/54</code> → status <strong>4</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>version code</td>
+<td>8</td>
+<td>vs <code>DAT_007DDD60/64</code> → status <strong>5</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>flag bytes</td>
+<td>3×1</td>
+<td>scratch (one becomes slot <code>+0x353F</code> on accept)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>name length + string</td>
+<td>4 + n</td>
+<td>player slot <code>+0x358C</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>dword</td>
+<td>4</td>
+<td>slot <code>+0x3590</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>flag1</td>
+<td>1</td>
+<td>slot <code>+0x355D</code> → triggers GUID1 search</td>
+</tr>
+<tr>
+<td>7</td>
+<td>flag2</td>
+<td>1</td>
+<td>slot <code>+0x355E</code> → triggers GUID2 search</td>
+</tr>
+<tr>
+<td>8</td>
+<td>GUID1</td>
+<td>8</td>
+<td>slot <code>+0x3594</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td>GUID2</td>
+<td>8</td>
+<td>slot <code>+0x359C</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>data16</code></td>
+<td>16</td>
+<td>sender's index word in dword 0 (seed for the accept echo)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>val5</code></td>
+<td>4</td>
+<td>ban-list third key</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>data16b</code></td>
+<td>16</td>
+<td>ban-list IP key</td>
+</tr>
+<tr>
+<td>13</td>
+<td>content checksum again</td>
+<td>8</td>
+<td>re-checked vs <code>DAT_007DDD50/54</code> → status <strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Then:</p>
+<ul>
+<li><strong>GUID searches</strong> (only when flag1/flag2 are set): scan the 0x2038-stride
+  player table for a slot with the same GUID1/GUID2 (skipping the joining
+  player's own slot, and slot 1 when a global flag is set); a match sets
+  status <strong>8</strong>.</li>
+<li><strong>Ban check</strong> <code>FUN_005450B0</code> (skipped for the local player index): the
+  16-byte <code>data16</code>/<code>data16b</code> (IP address words) and <code>val5</code> are looked up in
+  the three lists at <code>this+0x239D54/58/5C</code> (counts) / <code>+0x239D60/64/68</code>
+  (data); found → status <strong>6</strong>.</li>
+<li>The status is logged via <code>FUN_00563550</code> with <code>"Player_Reject\t%d\t%d"</code>
+  (<code>0x0077B730</code>) → <code>FUN_00563C80</code>, and returned as message <code>0x0B</code>.</li>
+<li>On accept (<code>status == 0</code>) the slot fields <code>+0x35B4</code>, <code>+0x35B8</code>, <code>+0x353F</code>,
+  <code>+0x35DC</code> (16 bytes), <code>+0x35EC</code>, <code>+0x5558</code> (16 bytes) are filled, the MOTD
+  chunks at <code>+0x309C</code> are re-broadcast (<code>this</code> vtable slot <code>+0x30</code>), and
+  <code>FUN_00536DF0</code> / <code>FUN_00543EC0</code> / <code>FUN_00543BC0</code> run for non-self players.</li>
+</ul>
+<h3 id="73-the-ban-lists">7.3 The ban lists<a class="headerlink" href="#73-the-ban-lists" title="Permanent link">&para;</a></h3>
+<p><code>FUN_00544B60</code> (<code>0x00544B60</code>) rebuilds the three lists from the game config
+(<code>ban.txt</code>): keys <code>ban</code> (<code>0x0077B7B4</code>), <code>ngban</code> (<code>0x0077B7B8</code>), <code>ispban</code>
+(<code>0x0077B7C8</code>), values parsed with <code>"%d.%d.%d.%d"</code> (<code>0x0077B744</code>) into 16-byte
+entries (first two lists) / 4-byte entries (third list), initialized from the
+all-zero 16-byte constant <code>0x007AFAF0</code>. The lists are (re)built by
+<code>FUN_00544B60</code> (called from <code>FUN_00536840</code> / <code>FUN_005449F0</code>, i.e. when the
+config/MOTD side reloads) and torn down by <code>FUN_0052FA70</code>.</p>
+<h2 id="8-the-content-checksum-what-the-peers-must-match">8. The content checksum — what the peers must match<a class="headerlink" href="#8-the-content-checksum-what-the-peers-must-match" title="Permanent link">&para;</a></h2>
+<p><code>DAT_007DDD50/54 = FUN_004D2AB0(entry) ^ FUN_0062DDC0(entry)</code>, where
+<code>entry = [game_object + 0x1804]</code> (the mission/archive entry index).</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Function</th>
+<th>Hash input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mission entry</td>
+<td><code>FUN_004D2AB0</code> → <code>FUN_00414A70</code></td>
+<td>MD5 stream: 4-byte entry index + the archive entry's bytes</td>
+<td><code>digest[0] ^ digest[8]</code> (8 bits, <code>edx = 0</code>)</td>
+</tr>
+<tr>
+<td>loader code</td>
+<td><code>FUN_0062DDC0</code></td>
+<td>MD5 stream: code bytes of the 15 resource loaders (addresses <code>0x007B55F8[i]</code>, sizes <code>0x007F2CE0[i]</code>) + 4-byte entry index</td>
+<td><code>d0^d1</code>, <code>d2^d3</code> (64 bits)</td>
+</tr>
+</tbody>
+</table>
+<p>The 15 hashed loader regions (sizes computed by <code>FUN_0062D5AB</code> /
+<code>FUN_0062D67B</code> into <code>0x007F2CE0..0x007F2D18</code>; addresses from the pointer table
+<code>0x007B55F8</code>):</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Address</th>
+<th>Size</th>
+<th>#</th>
+<th>Address</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>0x0070E380</code></td>
+<td><code>0x0B30</code></td>
+<td>8</td>
+<td><code>0x005ECBC0</code></td>
+<td><code>0x1C50</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>0x004E5FD0</code></td>
+<td><code>0x20B0</code></td>
+<td>9</td>
+<td><code>0x005ABD30</code></td>
+<td><code>0x10D0</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>0x004C8E00</code></td>
+<td><code>0x0160</code></td>
+<td>10</td>
+<td><code>0x005A61D0</code></td>
+<td><code>0x0780</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>0x006212E0</code></td>
+<td><code>0x3490</code></td>
+<td>11</td>
+<td><code>0x005EF590</code></td>
+<td><code>0x03D0</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>0x005B6C20</code></td>
+<td><code>0x0A90</code></td>
+<td>12</td>
+<td><code>0x0069D490</code></td>
+<td><code>0x1410</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>0x00548F60</code></td>
+<td><code>0x12820</code></td>
+<td>13</td>
+<td><code>0x00637F60</code></td>
+<td><code>0x2DF0</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>0x005F2B00</code></td>
+<td><code>0x4150</code></td>
+<td>14</td>
+<td><code>0x0062D750</code></td>
+<td><code>0x06E0</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>0x00581480</code></td>
+<td><code>0x0FA60</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>(Entry 14 is the region that contains the checksum helpers themselves,
+<code>FUN_0062DCD0</code>…<code>FUN_0062DE30</code>.)</p>
+<p><code>DAT_007DDD58/5C</code> = <code>FUN_00535B40</code> (<code>0x00535B40</code>, <code>xor eax,eax; xor edx,edx;
+ret</code>) = 0,0 — a reserved/disabled third checksum slot.</p>
+<p>The <strong>version code</strong> (<code>DAT_007DDD60/64</code>) is <code>FUN_00535F30</code> (<code>0x00535F30</code>): it
+tokenizes <code>g_858924</code> on <code>'.'</code>, <code>atoi</code>s the components <code>c0..c3</code> and packs
+<code>(((c0*100 + c1)*100 + c2)*10000 + c3)</code> as a 64-bit value (through the
+<code>__allmul</code>-style <code>FUN_0075DC60</code>). For <code>"50.07.01.2105"</code> that is <code>5007012105</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>Both hashes are <strong>unkeyed MD5 over public data</strong> — the only "secret" is the
+  algorithm, which ships in the binary.</li>
+<li>The mission-entry contribution is 8 bits; the loader-code part is 64 bits.</li>
+<li>The accept path re-derives the checksum with the peer's entry index
+  (<code>data16[0] ^ 0</code>) and echoes the pair in <code>0x0C</code>; <code>FUN_0053F9B0</code> recomputes
+  and compares, so the check is mutual.</li>
+<li><code>FUN_0053F210</code> itself computes the pair twice (top of function and again on
+  accept); <code>FUN_004D2AB0</code>/<code>FUN_0062DDC0</code> are also called by the sender
+  <code>FUN_0053FA70</code> and by the joiner's verifier <code>FUN_0053F9B0</code>.</li>
+</ul>
+<h2 id="9-variant-mech-file-integrity-and-loadout-validation">9. Variant (mech) file integrity and loadout validation<a class="headerlink" href="#9-variant-mech-file-integrity-and-loadout-validation" title="Permanent link">&para;</a></h2>
+<h3 id="91-the-variant-self-digest">9.1 The variant self-digest<a class="headerlink" href="#91-the-variant-self-digest" title="Permanent link">&para;</a></h3>
+<p>When a player-creation message is processed (<code>FUN_00534200</code> / <code>FUN_00533C30</code>),
+the receiver:</p>
+<ol>
+<li>reads the variant <strong>name</strong> from the message,</li>
+<li>loads <code>Resource\VariantsMercs\&lt;name&gt;.mw4</code> <strong>from its own local database</strong>
+   (path format <code>0x0077B368</code>, fetch <code>FUN_004D2E00</code>; mech resource id via
+   <code>FUN_004D2CB0</code>),</li>
+<li>reads the 16-byte digest stored inside the resource (<code>FUN_0041E720</code>,
+   size 0x10),</li>
+<li>recomputes <code>MD5(0xA1252388 + resource data)</code> (<code>FUN_0070E390</code> / <code>E3C0</code> /
+   <code>E460</code>) — the same salted digest the variant loader <code>FUN_0060C12D</code>
+   (<code>0x0060C12D</code>) computes and appends (<code>FUN_0041F030</code>) when building the
+   resource,</li>
+<li><code>repe cmpsd</code>s the two digests; mismatch sets the per-player flag
+   <code>+0x357C = 1</code> (and <code>+0x3578</code> holds the loaded mech resource pointer).</li>
+</ol>
+<p>Consequences of the flag (both act on the <strong>local player's own slot</strong> — the
+mechanism is self-enforcement, not peer enforcement):</p>
+<ul>
+<li><code>FUN_005330C0</code> aborts the local player's mission entry (state <code>+0x3534</code> → 0,
+  cleanup).</li>
+<li><code>FUN_005405B5</code> pushes event code <code>1</code> into the player-event queue at
+  <code>+0x204D2C</code> (count <code>+0x205524</code>); the queue is consumed through the accessor
+  helpers in <code>FUN_00513B60</code>.</li>
+</ul>
+<p><strong>Scope:</strong> this is a <em>local self-consistency</em> check of the receiver's own copy
+of the named variant — it catches hand-edited files whose stored digest was not
+updated. It does <strong>not</strong> compare the sender's file against the receiver's (the
+name is the only variant data on the wire), so two clients with different
+<code>VariantsMercs</code> files still pass and simulate different mechs.</p>
+<h3 id="92-loadout-legality">9.2 Loadout legality<a class="headerlink" href="#92-loadout-legality" title="Permanent link">&para;</a></h3>
+<p><code>FUN_005FEEB0</code> → <code>FUN_00601EF0</code> validates weapon/armor slot counts against the
+chassis (mount groups, <code>0x429</code> mech-type gate), and <code>FUN_00676EA0</code> validates
+the GameData distributions (<code>ArmDistributive</code> / <code>LegDistributive</code> /
+<code>SideFrontDistributive</code> / <code>CenterFrontDistributive</code> / <code>CenterRearDistributive</code>
+in <code>0..1.0</code>, <code>PointsPerFerroTon</code> / <code>PointsPerReflectiveTon</code> /
+<code>PointsPerReactiveTon</code> &gt; 0). These run on the local copy only; they bound what
+a legal mech is but are not cross-checked with peers.</p>
+<h2 id="10-trust-model-what-actually-happens-to-a-modded-client">10. Trust model — what actually happens to a modded client<a class="headerlink" href="#10-trust-model-what-actually-happens-to-a-modded-client" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Different binary build / patched loader code / different mission entry</td>
+<td>join rejected, status <strong>4</strong>, <code>Player_Reject</code></td>
+</tr>
+<tr>
+<td>Different hardcoded version string</td>
+<td>join rejected, status <strong>5</strong></td>
+</tr>
+<tr>
+<td>IP listed in <code>ban.txt</code> (<code>ban</code>/<code>ngban</code>/<code>ispban</code>)</td>
+<td>join rejected, status <strong>6</strong></td>
+</tr>
+<tr>
+<td>Duplicate player GUID</td>
+<td>join rejected, status <strong>8</strong></td>
+</tr>
+<tr>
+<td>Variant file edited, stored digest not fixed</td>
+<td>slot flagged <code>+0x357C</code>, mission entry aborted, event queued (self-enforcement)</td>
+</tr>
+<tr>
+<td>Variant file edited, digest recomputed (salt <code>0xA1252388</code> is public)</td>
+<td>passes — nothing cross-checks the file</td>
+</tr>
+<tr>
+<td>Patch outside the 15 loader regions (damage/armor math, variant parser, validators)</td>
+<td>passes — not hashed</td>
+</tr>
+<tr>
+<td>Replay/spoof the stock checksum + version pair</td>
+<td>passes — the pair is a pure function of shipped data, no nonce or secret</td>
+</tr>
+<tr>
+<td>Spoof the IP fields in <code>0x0A</code></td>
+<td>ban list bypassed</td>
+</tr>
+<tr>
+<td>Memory patch after join</td>
+<td>invisible — no re-validation during play</td>
+</tr>
+</tbody>
+</table>
+<p>Runtime is peer-to-peer with no server authority: the net event table (<code>0x0A</code>–
+<code>0x31</code>, <code>FUN_00546C60</code>) contains join/team/decal/mission/state handlers but
+<strong>no armor or damage message</strong>; the anti-mod effort is concentrated at
+join/load time, and each client simulates the shared world from its own local
+data.</p>
+<h2 id="11-design-flaws">11. Design flaws<a class="headerlink" href="#11-design-flaws" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>No secret, no challenge.</strong> The handshake is a self-report of a constant:
+   the expected pair is a pure function of the shipped binary and mission data.
+   Any client can compute or replay it regardless of the code it actually runs.
+   Without a host nonce (and a keyed response) the check cannot attest to the
+   sender's binary.</li>
+<li><strong>Tiny hashed surface.</strong> Only the 15 resource-loader functions and one
+   mission archive entry are covered. The simulation, weapon/armor math, hit
+   detection, damage application, the loadout validators, the variant parser,
+   and the netcode itself are not.</li>
+<li><strong>Weak mission-content contribution.</strong> <code>FUN_00414A70</code> folds the mission
+   digest to 8 bits (<code>digest[0] ^ digest[8]</code>), so the content side of the
+   checksum has ≤ 256 effective values; the strength rests on the loader-code
+   hash alone.</li>
+<li><strong>Variant digest is defeatable and local-only.</strong> The salt is a constant in
+   the binary, the digest is stored in the file it protects, and the check
+   compares the receiver's own file with itself. It stops casual hex-editing,
+   not a modder.</li>
+<li><strong>Ban lists are IP-only and self-reported.</strong> The <code>0x0A</code> IP fields come from
+   the peer; the ban list is a local <code>ban.txt</code>, with no server-side or shared
+   enforcement.</li>
+<li><strong>Identity is self-reported.</strong> GUID1/GUID2 (the player identity used for the
+   duplicate check) arrive in the message; a client can present arbitrary
+   values.</li>
+<li><strong>No runtime re-validation.</strong> Once in, nothing re-checks the peer; a
+   patched process passes forever. The <code>+0x357C</code> flag is computed locally and
+   is self-enforced (a modded client simply patches the flag or the check).</li>
+<li><strong>Divergence is undetected.</strong> Because variant data is not cross-checked,
+   two clients can simulate different mechs and the game only notices when
+   visible state conflicts.</li>
+<li><strong>Reporting is opaque.</strong> Failures surface as <code>Player_Reject &lt;index&gt;
+   &lt;code&gt;</code>; there is no user-facing "modified files" message (the variant flag
+   becomes event code 1 in an internal queue with no dedicated string).</li>
+</ol>
+<h2 id="12-recommended-improvements">12. Recommended improvements<a class="headerlink" href="#12-recommended-improvements" title="Permanent link">&para;</a></h2>
+<p>(Keep reference behavior where wire-visible unless deliberately changing the protocol.)</p>
+<ol>
+<li><strong>Keyed challenge-response at join.</strong> Host sends a random nonce; peer
+   answers <code>HMAC(K, nonce || digest(running code+content))</code>. Defeatable by a
+   determined attacker in P2P, but it removes replay/spoofing of a constant and
+   forces the peer to run the digest routine.</li>
+<li><strong>Hash the running code, not constants.</strong> Prefer a page/PE-image digest
+   computed at runtime over the loaded modules, plus all content files the
+   session will use (every <code>.mw4</code> entry referenced by the mission), instead of
+   a hardcoded list of 15 functions.</li>
+<li><strong>Cross-check variant content.</strong> Put the variant's content digest (not just
+   its name) in the creation message and compare it against the receiver's
+   locally computed digest of its own copy; reject/mark on mismatch. That turns
+   the local tripwire into a real divergence check.</li>
+<li><strong>Server/host-authoritative loadouts and damage.</strong> Validate tonnage, armor
+   distribution and weapon mounts host-side against the <em>sender's</em> claimed
+   loadout (or run damage/armor simulation host-side and replicate results),
+   so inflated armor/extra weapons cannot be locally simulated.</li>
+<li><strong>Use the transport address for bans.</strong> Take the peer IP from DirectPlay,
+   not from the message body; consider a shared/session-level ban list.</li>
+<li><strong>Periodic re-validation.</strong> Re-issue nonce challenges during play
+   (jittered) and drop peers on mismatch, so memory patches after join are
+   caught.</li>
+<li><strong>Don't trust self-reported identity.</strong> Bind GUIDs/player ids to the
+   transport peer and reject duplicates by transport identity.</li>
+<li><strong>Report clearly.</strong> Add an explicit UI/log message for content/variant
+   mismatches ("client has modified game files") and record the failing check
+   (the status code already carries it).</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Educational/interoperability project. No game binaries or assets are hosted here. MechWarrior and related marks belong to their respective owners.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
