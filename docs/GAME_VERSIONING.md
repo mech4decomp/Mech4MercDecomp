@@ -7,9 +7,10 @@ RE.
 
 ## TL;DR
 
-- **One hardcoded version string** `"50.07.01.2105"` (`.rdata` `0x0076CB3C`),
-  loaded at startup into the global pointer `g_game_version` (`0x00858924`).
-  This is the official Point Release 1 (PR1) build.
+- **One version value, stored in two hardcoded copies**: `"50.07.01.2105"`
+  (`.rdata` `0x0076CB3C`, loaded at startup into `g_game_version`
+  `0x00858924`, and `0x00773040`, read by the join handshake and saved-data
+  paths). This is the official Point Release 1 (PR1) build.
 - **Hosts advertise it** as the DirectPlay session attribute `GameVersion`
   (and inside the session config blob as the `\v` directive).
 - **The server browser compares** each enumerated session's `GameVersion`
@@ -35,9 +36,9 @@ RE.
   `{36E95EE0-8577-11CF-960C-0080C7534E82}`) is game identity only, identical
   across builds. The advertisement + browser filter/sort is advisory; the join
   handshake is the actual same-build gate.
-- The handshake and the variant self-digest are the game's whole anti-mod
-  story, and both are defeatable (no secret, tiny hashed surface, local-only
-  variant check) — see §10–§11.
+- The handshake and the variant self-digest are the game's two integrity
+  checks; §10 describes what each one covers, and §11 lists the observed
+  limitations.
 
 ## 1. The version value
 
@@ -480,15 +481,15 @@ a legal mech is but are not cross-checked with peers.
 
 Runtime is peer-to-peer with no server authority: the net event table (`0x0A`–
 `0x31`, `FUN_00546C60`) contains join/team/decal/mission/state handlers but
-**no armor or damage message**; the anti-mod effort is concentrated at
+**no armor or damage message**; the integrity checks are concentrated at
 join/load time, and each client simulates the shared world from its own local
 data.
 
-## 11. Design flaws
+## 11. Observed limitations
 
 1. **No secret, no challenge.** The handshake is a self-report of a constant:
    the expected pair is a pure function of the shipped binary and mission data.
-   Any client can compute or replay it regardless of the code it actually runs.
+   A client can compute or replay it regardless of the code it actually runs.
    Without a host nonce (and a keyed response) the check cannot attest to the
    sender's binary.
 2. **Tiny hashed surface.** Only the 15 resource-loader functions and one
@@ -499,10 +500,10 @@ data.
    digest to 8 bits (`digest[0] ^ digest[8]`), so the content side of the
    checksum has ≤ 256 effective values; the strength rests on the loader-code
    hash alone.
-4. **Variant digest is defeatable and local-only.** The salt is a constant in
-   the binary, the digest is stored in the file it protects, and the check
-   compares the receiver's own file with itself. It stops casual hex-editing,
-   not a modder.
+4. **Variant digest is local-only.** The salt is a constant in the binary, the
+   digest is stored in the file it protects, and the check compares the
+   receiver's own file with itself. A client that recomputes the digest is not
+   detected.
 5. **Ban lists are IP-only and self-reported.** The `0x0A` IP fields come from
    the peer; the ban list is a local `ban.txt`, with no server-side or shared
    enforcement.
@@ -511,41 +512,10 @@ data.
    values.
 7. **No runtime re-validation.** Once in, nothing re-checks the peer; a
    patched process passes forever. The `+0x357C` flag is computed locally and
-   is self-enforced (a modded client simply patches the flag or the check).
+   is self-enforced.
 8. **Divergence is undetected.** Because variant data is not cross-checked,
    two clients can simulate different mechs and the game only notices when
    visible state conflicts.
 9. **Reporting is opaque.** Failures surface as `Player_Reject <index>
    <code>`; there is no user-facing "modified files" message (the variant flag
    becomes event code 1 in an internal queue with no dedicated string).
-
-## 12. Recommended improvements
-
-(Keep reference behavior where wire-visible unless deliberately changing the protocol.)
-
-1. **Keyed challenge-response at join.** Host sends a random nonce; peer
-   answers `HMAC(K, nonce || digest(running code+content))`. Defeatable by a
-   determined attacker in P2P, but it removes replay/spoofing of a constant and
-   forces the peer to run the digest routine.
-2. **Hash the running code, not constants.** Prefer a page/PE-image digest
-   computed at runtime over the loaded modules, plus all content files the
-   session will use (every `.mw4` entry referenced by the mission), instead of
-   a hardcoded list of 15 functions.
-3. **Cross-check variant content.** Put the variant's content digest (not just
-   its name) in the creation message and compare it against the receiver's
-   locally computed digest of its own copy; reject/mark on mismatch. That turns
-   the local tripwire into a real divergence check.
-4. **Server/host-authoritative loadouts and damage.** Validate tonnage, armor
-   distribution and weapon mounts host-side against the *sender's* claimed
-   loadout (or run damage/armor simulation host-side and replicate results),
-   so inflated armor/extra weapons cannot be locally simulated.
-5. **Use the transport address for bans.** Take the peer IP from DirectPlay,
-   not from the message body; consider a shared/session-level ban list.
-6. **Periodic re-validation.** Re-issue nonce challenges during play
-   (jittered) and drop peers on mismatch, so memory patches after join are
-   caught.
-7. **Don't trust self-reported identity.** Bind GUIDs/player ids to the
-   transport peer and reject duplicates by transport identity.
-8. **Report clearly.** Add an explicit UI/log message for content/variant
-   mismatches ("client has modified game files") and record the failing check
-   (the status code already carries it).

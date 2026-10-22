@@ -6,11 +6,11 @@
 |---|---|
 | `env.bat` | Set the VC6/DX8.1/Python environment |
 | `build_text_objs.py` | Compile `.text` sources for the EXE or a module |
-| `exe_data_assemble.py` | Generate and compile EXE non-`.text` data sections |
+| `exe_data_assemble.py` | Compile committed EXE non-`.text` data; `--compile` is reference-free |
 | `exe_text_assemble.py` | EXE `.text` placement and relocation helpers |
 | `exe_extract_externs.py` | Build the residual extern-address table |
 | `exe_image_assemble.py` | Assemble and diff `build\MW4Mercs.exe` |
-| `data_assemble.py` | Generate and compile module data sections |
+| `data_assemble.py` | Compile committed module data; `--compile` is reference-free |
 | `text_assemble.py` | Module `.text` placement and relocation helpers |
 | `image_assemble.py` | Assemble and diff a module DLL |
 | `pe_dump.py` | Minimal PE reader used by the assemblers |
@@ -40,9 +40,10 @@
 ## Repository policy
 
 `audit_public_export.py` enforces the public export policy (no reference
-binaries, no generated data sections, no tokens or private paths).
+binaries, no build trees, no tokens or private paths).
 The documentation site is built from `docs/` with MkDocs; see `mkdocs.yml`.
 
-The build and verification pipeline uses only the committed sources, the
-committed function inventories in `reference/functions/`, and the user's
-reference binaries. No external analysis project is required.
+The default build and verification pipeline uses only the committed sources,
+data sections, artifacts, and function inventories. Reference binaries are
+optional and are needed only for regeneration or byte diffs. No external
+analysis project is required.

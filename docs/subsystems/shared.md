@@ -22,7 +22,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00562F10 | abl | `src/mw4mercs/text/func_00562f10.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00562F30 | abl | `src/mw4mercs/text/func_00562f30.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00563470 | abl | `src/mw4mercs/text/func_00563470.c` | ABL script runtime and script-visible AI hooks. |
-| 0x005637C0 | abl | `src/mw4mercs/text/func_005637C0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x005637C0 | abl | `src/mw4mercs/text/func_005637c0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00564950 | abl | `src/mw4mercs/text/func_00564950.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00566CA0 | abl | `src/mw4mercs/text/func_00566ca0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00580640 | abl | `src/mw4mercs/text/func_00580640.c` | ABL script runtime and script-visible AI hooks. |
@@ -170,10 +170,10 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00713350 | abl | `src/mw4mercs/text/func_00713350.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00713430 | abl | `src/mw4mercs/text/func_00713430.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00713E30 | abl | `src/mw4mercs/text/func_00713e30.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007159B0 | abl | `src/mw4mercs/text/func_007159B0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007159B0 | abl | `src/mw4mercs/text/func_007159b0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00717590 | abl | `src/mw4mercs/text/func_00717590.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007175D0 | abl | `src/mw4mercs/text/func_007175d0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007175F0 | abl | `src/mw4mercs/text/func_007175F0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007175F0 | abl | `src/mw4mercs/text/func_007175f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007178F0 | abl | `src/mw4mercs/text/func_007178f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00717AC0 | abl | `src/mw4mercs/text/func_00717ac0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00717B30 | abl | `src/mw4mercs/text/func_00717b30.c` | ABL script runtime and script-visible AI hooks. |
@@ -197,7 +197,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0071E010 | abl | `src/mw4mercs/text/func_0071e010.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0071E090 | abl | `src/mw4mercs/text/func_0071e090.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0071E160 | abl | `src/mw4mercs/text/func_0071e160.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0071E430 | abl | `src/mw4mercs/text/func_0071E430.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0071E430 | abl | `src/mw4mercs/text/func_0071e430.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0071E8F0 | abl | `src/mw4mercs/text/func_0071e8f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0071EC60 | abl | `src/mw4mercs/text/func_0071ec60.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0071ED10 | abl | `src/mw4mercs/text/func_0071ed10.c` | ABL script runtime and script-visible AI hooks. |
@@ -207,11 +207,11 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0071F310 | abl | `src/mw4mercs/text/func_0071f310.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007205F0 | abl | `src/mw4mercs/text/func_007205f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00720860 | abl | `src/mw4mercs/text/func_00720860.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00720A00 | abl | `src/mw4mercs/text/func_00720A00.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00720A00 | abl | `src/mw4mercs/text/func_00720a00.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00721280 | abl | `src/mw4mercs/text/func_00721280.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007216B0 | abl | `src/mw4mercs/text/func_007216B0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007216B0 | abl | `src/mw4mercs/text/func_007216b0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00721790 | abl | `src/mw4mercs/text/func_00721790.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007218F0 | abl | `src/mw4mercs/text/func_007218F0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007218F0 | abl | `src/mw4mercs/text/func_007218f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007222B0 | abl | `src/mw4mercs/text/func_007222b0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007222E0 | abl | `src/mw4mercs/text/func_007222e0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00722330 | abl | `src/mw4mercs/text/func_00722330.c` | ABL script runtime and script-visible AI hooks. |
@@ -219,7 +219,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00722470 | abl | `src/mw4mercs/text/func_00722470.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00722730 | abl | `src/mw4mercs/text/func_00722730.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007227F0 | abl | `src/mw4mercs/text/func_007227f0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00722DB0 | abl | `src/mw4mercs/text/func_00722DB0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00722DB0 | abl | `src/mw4mercs/text/func_00722db0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00722F70 | abl | `src/mw4mercs/text/func_00722f70.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00723180 | abl | `src/mw4mercs/text/func_00723180.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00723590 | abl | `src/mw4mercs/text/func_00723590.c` | ABL script runtime and script-visible AI hooks. |
@@ -236,12 +236,12 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00725080 | abl | `src/mw4mercs/text/func_00725080.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00725660 | abl | `src/mw4mercs/text/func_00725660.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00725740 | abl | `src/mw4mercs/text/func_00725740.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007258B0 | abl | `src/mw4mercs/text/func_007258B0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00725DB0 | abl | `src/mw4mercs/text/func_00725DB0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00725FB0 | abl | `src/mw4mercs/text/func_00725FB0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007258B0 | abl | `src/mw4mercs/text/func_007258b0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00725DB0 | abl | `src/mw4mercs/text/func_00725db0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00725FB0 | abl | `src/mw4mercs/text/func_00725fb0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007262E0 | abl | `src/mw4mercs/text/func_007262e0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00726550 | abl | `src/mw4mercs/text/func_00726550.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007265F0 | abl | `src/mw4mercs/text/func_007265F0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007265F0 | abl | `src/mw4mercs/text/func_007265f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007266D0 | abl | `src/mw4mercs/text/func_007266d0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00726940 | abl | `src/mw4mercs/text/func_00726940.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00726DF0 | abl | `src/mw4mercs/text/func_00726df0.c` | ABL script runtime and script-visible AI hooks. |
@@ -278,8 +278,8 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0072D1F0 | abl | `src/mw4mercs/text/func_0072d1f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0072D2E0 | abl | `src/mw4mercs/text/func_0072d2e0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0072D400 | abl | `src/mw4mercs/text/func_0072d400.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0072D480 | abl | `src/mw4mercs/text/func_0072D480.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0072D7B0 | abl | `src/mw4mercs/text/func_0072D7B0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0072D480 | abl | `src/mw4mercs/text/func_0072d480.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0072D7B0 | abl | `src/mw4mercs/text/func_0072d7b0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0072DB60 | abl | `src/mw4mercs/text/func_0072db60.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0072DB80 | abl | `src/mw4mercs/text/func_0072db80.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0072DE80 | abl | `src/mw4mercs/text/func_0072de80.c` | ABL script runtime and script-visible AI hooks. |
@@ -301,7 +301,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00731C80 | abl | `src/mw4mercs/text/func_00731c80.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007323D0 | abl | `src/mw4mercs/text/func_007323d0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007325E0 | abl | `src/mw4mercs/text/func_007325e0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007326B0 | abl | `src/mw4mercs/text/func_007326B0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007326B0 | abl | `src/mw4mercs/text/func_007326b0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00732870 | abl | `src/mw4mercs/text/func_00732870.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00732A20 | abl | `src/mw4mercs/text/func_00732a20.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00732AF0 | abl | `src/mw4mercs/text/func_00732af0.c` | ABL script runtime and script-visible AI hooks. |
@@ -341,13 +341,13 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00735BE0 | abl | `src/mw4mercs/text/func_00735be0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00735CC0 | abl | `src/mw4mercs/text/func_00735cc0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00735E30 | abl | `src/mw4mercs/text/func_00735e30.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00736B90 | abl | `src/mw4mercs/text/func_00736B90.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00736B90 | abl | `src/mw4mercs/text/func_00736b90.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00736BF0 | abl | `src/mw4mercs/text/func_00736bf0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00736C50 | abl | `src/mw4mercs/text/func_00736C50.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00736CD0 | abl | `src/mw4mercs/text/func_00736CD0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00736C50 | abl | `src/mw4mercs/text/func_00736c50.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00736CD0 | abl | `src/mw4mercs/text/func_00736cd0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00737020 | abl | `src/mw4mercs/text/func_00737020.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00737300 | abl | `src/mw4mercs/text/func_00737300.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00737CC0 | abl | `src/mw4mercs/text/func_00737CC0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00737CC0 | abl | `src/mw4mercs/text/func_00737cc0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00738960 | abl | `src/mw4mercs/text/func_00738960.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00738A40 | abl | `src/mw4mercs/text/func_00738a40.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00739C40 | abl | `src/mw4mercs/text/func_00739c40.c` | ABL script runtime and script-visible AI hooks. |
@@ -355,10 +355,10 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00739FC0 | abl | `src/mw4mercs/text/func_00739fc0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0073A0E0 | abl | `src/mw4mercs/text/func_0073a0e0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0073A140 | abl | `src/mw4mercs/text/func_0073a140.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0073A250 | abl | `src/mw4mercs/text/func_0073A250.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0073A2E0 | abl | `src/mw4mercs/text/func_0073A2E0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0073A250 | abl | `src/mw4mercs/text/func_0073a250.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0073A2E0 | abl | `src/mw4mercs/text/func_0073a2e0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0073A670 | abl | `src/mw4mercs/text/func_0073a670.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0073A900 | abl | `src/mw4mercs/text/func_0073A900.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0073A900 | abl | `src/mw4mercs/text/func_0073a900.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0073CE30 | abl | `src/mw4mercs/text/func_0073ce30.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00740D10 | abl | `src/mw4mercs/text/func_00740d10.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00740DC0 | abl | `src/mw4mercs/text/func_00740dc0.c` | ABL script runtime and script-visible AI hooks. |
@@ -366,7 +366,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00741640 | abl | `src/mw4mercs/text/func_00741640.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00741B30 | abl | `src/mw4mercs/text/func_00741b30.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00741BC0 | abl | `src/mw4mercs/text/func_00741bc0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x007426F0 | abl | `src/mw4mercs/text/func_007426F0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x007426F0 | abl | `src/mw4mercs/text/func_007426f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00742770 | abl | `src/mw4mercs/text/func_00742770.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00742910 | abl | `src/mw4mercs/text/func_00742910.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00742970 | abl | `src/mw4mercs/text/func_00742970.c` | ABL script runtime and script-visible AI hooks. |
@@ -436,7 +436,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0074C120 | abl | `src/mw4mercs/text/func_0074c120.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074C690 | abl | `src/mw4mercs/text/func_0074c690.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074CB20 | abl | `src/mw4mercs/text/func_0074cb20.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0074CB60 | abl | `src/mw4mercs/text/func_0074CB60.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0074CB60 | abl | `src/mw4mercs/text/func_0074cb60.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074CD30 | abl | `src/mw4mercs/text/func_0074cd30.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074DD10 | abl | `src/mw4mercs/text/func_0074dd10.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074DE50 | abl | `src/mw4mercs/text/func_0074de50.c` | ABL script runtime and script-visible AI hooks. |
@@ -459,7 +459,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0074ED60 | abl | `src/mw4mercs/text/func_0074ed60.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074FC10 | abl | `src/mw4mercs/text/func_0074fc10.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0074FD00 | abl | `src/mw4mercs/text/func_0074fd00.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0074FDB0 | abl | `src/mw4mercs/text/func_0074FDB0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0074FDB0 | abl | `src/mw4mercs/text/func_0074fdb0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00750300 | abl | `src/mw4mercs/text/func_00750300.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00750360 | abl | `src/mw4mercs/text/func_00750360.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007503B0 | abl | `src/mw4mercs/text/func_007503b0.c` | ABL script runtime and script-visible AI hooks. |
@@ -474,7 +474,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00750F80 | abl | `src/mw4mercs/text/func_00750f80.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00751100 | abl | `src/mw4mercs/text/func_00751100.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00751810 | abl | `src/mw4mercs/text/func_00751810.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00751DE0 | abl | `src/mw4mercs/text/func_00751DE0.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00751DE0 | abl | `src/mw4mercs/text/func_00751de0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007524E0 | abl | `src/mw4mercs/text/func_007524e0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00752510 | abl | `src/mw4mercs/text/func_00752510.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00752890 | abl | `src/mw4mercs/text/func_00752890.c` | ABL script runtime and script-visible AI hooks. |
@@ -501,7 +501,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00755C70 | abl | `src/mw4mercs/text/func_00755c70.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00755CC0 | abl | `src/mw4mercs/text/func_00755cc0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00755D50 | abl | `src/mw4mercs/text/func_00755d50.c` | ABL script runtime and script-visible AI hooks. |
-| 0x00755E40 | abl | `src/mw4mercs/text/func_00755E40.c` | ABL script runtime and script-visible AI hooks. |
+| 0x00755E40 | abl | `src/mw4mercs/text/func_00755e40.c` | ABL script runtime and script-visible AI hooks. |
 | 0x007560D0 | abl | `src/mw4mercs/text/func_007560d0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00756140 | abl | `src/mw4mercs/text/func_00756140.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00756350 | abl | `src/mw4mercs/text/func_00756350.c` | ABL script runtime and script-visible AI hooks. |
@@ -604,9 +604,9 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0075D820 | abl | `src/mw4mercs/text/func_0075d820.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0075D8F0 | abl | `src/mw4mercs/text/func_0075d8f0.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0075DCA0 | abl | `src/mw4mercs/text/func_0075dca0.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0075E0CA | abl | `src/mw4mercs/text/func_0075E0CA.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0075E0CA | abl | `src/mw4mercs/text/func_0075e0ca.c` | ABL script runtime and script-visible AI hooks. |
 | 0x0075E0E8 | abl | `src/mw4mercs/text/func_0075e0e8.c` | ABL script runtime and script-visible AI hooks. |
-| 0x0075E34C | abl | `src/mw4mercs/text/func_0075E34C.c` | ABL script runtime and script-visible AI hooks. |
+| 0x0075E34C | abl | `src/mw4mercs/text/func_0075e34c.c` | ABL script runtime and script-visible AI hooks. |
 | 0x00414FD0 | brain | `src/mw4mercs/text/func_00414fd0.c` | Mech/unit AI decision layer and behaviour state. |
 | 0x004152B0 | brain | `src/mw4mercs/text/func_004152b0.c` | Mech/unit AI decision layer and behaviour state. |
 | 0x00415410 | brain | `src/mw4mercs/text/func_00415410.c` | Mech/unit AI decision layer and behaviour state. |
@@ -1008,7 +1008,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00727610 | session | `src/mw4mercs/text/func_00727610.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
 | 0x00729AA0 | session | `src/mw4mercs/text/func_00729aa0.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
 | 0x00729AE0 | session | `src/mw4mercs/text/func_00729ae0.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
-| 0x0072A680 | session | `src/mw4mercs/text/func_0072A680.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
+| 0x0072A680 | session | `src/mw4mercs/text/func_0072a680.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
 | 0x0072BD40 | session | `src/mw4mercs/text/func_0072bd40.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
 | 0x0072BE60 | session | `src/mw4mercs/text/func_0072be60.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
 | 0x0072CE60 | session | `src/mw4mercs/text/func_0072ce60.c` | In-game lobby/session state, join/leave, mission accept, broadcast, and countdown. |
@@ -1045,7 +1045,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x004AC110 | 2d | `src/mw4mercs/text/func_004ac110.c` | In-mission 2D clouds/sprites and screen-space drawing. |
 | 0x00604DF0 | animation | `src/mw4mercs/text/func_00604df0.c` | Animation state, curves, and the animation/render bridge. |
 | 0x00605410 | animation | `src/mw4mercs/text/func_00605410.c` | Animation state, curves, and the animation/render bridge. |
-| 0x00606AA0 | animation | `src/mw4mercs/text/func_00606AA0.c` | Animation state, curves, and the animation/render bridge. |
+| 0x00606AA0 | animation | `src/mw4mercs/text/func_00606aa0.c` | Animation state, curves, and the animation/render bridge. |
 | 0x00606C00 | animation | `src/mw4mercs/text/func_00606c00.c` | Animation state, curves, and the animation/render bridge. |
 | 0x00606CA0 | animation | `src/mw4mercs/text/func_00606ca0.c` | Animation state, curves, and the animation/render bridge. |
 | 0x0066BE20 | animation | `src/mw4mercs/text/func_0066be20.c` | Animation state, curves, and the animation/render bridge. |
@@ -1103,15 +1103,15 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x00491C20 | lighting | `src/mw4mercs/text/func_00491c20.c` | Light objects, light maps, and light-slot selection. |
 | 0x00492C20 | lighting | `src/mw4mercs/text/func_00492c20.c` | Light objects, light maps, and light-slot selection. |
 | 0x00717A10 | lighting | `src/mw4mercs/text/func_00717a10.c` | Light objects, light maps, and light-slot selection. |
-| 0x0072E000 | lighting | `src/mw4mercs/text/func_0072E000.c` | Light objects, light maps, and light-slot selection. |
+| 0x0072E000 | lighting | `src/mw4mercs/text/func_0072e000.c` | Light objects, light maps, and light-slot selection. |
 | 0x00735F00 | lighting | `src/mw4mercs/text/func_00735f00.c` | Light objects, light maps, and light-slot selection. |
-| 0x00735FC0 | lighting | `src/mw4mercs/text/func_00735FC0.c` | Light objects, light maps, and light-slot selection. |
-| 0x007362D0 | lighting | `src/mw4mercs/text/func_007362D0.c` | Light objects, light maps, and light-slot selection. |
+| 0x00735FC0 | lighting | `src/mw4mercs/text/func_00735fc0.c` | Light objects, light maps, and light-slot selection. |
+| 0x007362D0 | lighting | `src/mw4mercs/text/func_007362d0.c` | Light objects, light maps, and light-slot selection. |
 | 0x00753980 | lighting | `src/mw4mercs/text/func_00753980.c` | Light objects, light maps, and light-slot selection. |
 | 0x00753BC0 | lighting | `src/mw4mercs/text/func_00753bc0.c` | Light objects, light maps, and light-slot selection. |
 | 0x00753CC0 | lighting | `src/mw4mercs/text/func_00753cc0.c` | Light objects, light maps, and light-slot selection. |
 | 0x0075BA00 | lighting | `src/mw4mercs/text/func_0075ba00.c` | Light objects, light maps, and light-slot selection. |
-| 0x0075BB60 | lighting | `src/mw4mercs/text/func_0075BB60.c` | Light objects, light maps, and light-slot selection. |
+| 0x0075BB60 | lighting | `src/mw4mercs/text/func_0075bb60.c` | Light objects, light maps, and light-slot selection. |
 | 0x0075C150 | lighting | `src/mw4mercs/text/func_0075c150.c` | Light objects, light maps, and light-slot selection. |
 | 0x00412020 | mesh | `src/mw4mercs/text/func_00412020.c` | Mesh, primitive-base, and indexed mesh families. |
 | 0x00415BC0 | mesh | `src/mw4mercs/text/func_00415bc0.c` | Mesh, primitive-base, and indexed mesh families. |
@@ -1222,9 +1222,9 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x004F29B0 | fire-damage | `src/mw4mercs/text/func_004f29b0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x00502DF0 | fire-damage | `src/mw4mercs/text/func_00502df0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x005564B0 | fire-damage | `src/mw4mercs/text/func_005564b0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
-| 0x00558AF0 | fire-damage | `src/mw4mercs/text/func_00558AF0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
+| 0x00558AF0 | fire-damage | `src/mw4mercs/text/func_00558af0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x00559BE0 | fire-damage | `src/mw4mercs/text/func_00559be0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
-| 0x0055AF90 | fire-damage | `src/mw4mercs/text/func_0055AF90.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
+| 0x0055AF90 | fire-damage | `src/mw4mercs/text/func_0055af90.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B070 | fire-damage | `src/mw4mercs/text/func_0055b070.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B0B0 | fire-damage | `src/mw4mercs/text/func_0055b0b0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B130 | fire-damage | `src/mw4mercs/text/func_0055b130.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
@@ -1235,7 +1235,7 @@ These VAs are used by more than one subsystem surface. They are listed once here
 | 0x0055B300 | fire-damage | `src/mw4mercs/text/func_0055b300.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B330 | fire-damage | `src/mw4mercs/text/func_0055b330.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B360 | fire-damage | `src/mw4mercs/text/func_0055b360.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
-| 0x0055B390 | fire-damage | `src/mw4mercs/text/func_0055B390.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
+| 0x0055B390 | fire-damage | `src/mw4mercs/text/func_0055b390.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B440 | fire-damage | `src/mw4mercs/text/func_0055b440.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B480 | fire-damage | `src/mw4mercs/text/func_0055b480.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |
 | 0x0055B4C0 | fire-damage | `src/mw4mercs/text/func_0055b4c0.c` | Weapon fire eligibility, launch transform, missile/guidance, hit resolution, and damage. |

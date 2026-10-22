@@ -1,60 +1,12 @@
 # Verification
 
 The acceptance criterion is **byte identity with the canonical reference**,
-not a similarity score. Three checks build up to it.
+not a similarity score. The default build is reference-free: it uses the
+committed data sources and `.bin` artifacts. The hash gate is the
+reference-free acceptance check; the byte-diff checks are optional diagnostics
+that run when a reference binary is present.
 
-## 1. Masked per-function diff
-
-```bat
-nmake diff FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
-```
-
-`tools/diff.py` slices the reference function's bytes from the binary and
-compares them to the compiled object's `.text` section. Four-byte relocation
-sites are masked because an unlinked object still contains placeholder values
-there. This is a fast iteration tool, not the final gate.
-
-## 2. No-mask per-function check
-
-```bat
-nmake nomask FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
-```
-
-`tools/verify_nomask.py` places the object at its reference VA, resolves every
-relocation from the symbol name and the committed
-`src\<target>\artifacts\extern_addrs.csv` table, and compares every byte. This
-catches misaligned or spurious relocation sites that the masked diff hides.
-
-## 3. Full-image assembly
-
-```bat
-nmake exe
-nmake dll-all MOD=gundll
-```
-
-The assembler composes the complete binary from the compiled objects plus the
-generated data sections and metadata artifacts, then compares the result to the
-reference with no masking. This is the authoritative gate. It catches:
-
-- function ordering and overlap errors,
-- missing or wrong inter-function padding,
-- section composition errors,
-- unresolved or mis-resolved relocations,
-- data-section placement errors.
-
-A successful run prints:
-
-```
-diff: byte-identical to reference (SHA-256 ...)
-```
-
-or, for a module:
-
-```
-== <module>: byte-identical to reference (no masking, reference-free build) ==
-```
-
-## Hash gate
+## 1. Hash gate
 
 ```bat
 nmake verify
@@ -73,22 +25,77 @@ nmake verify
 | `Language.dll` | `8cacab8c2eb11ba1829ca2e57920bd8e191be8c8178dbb7e00352e65ef80c1d6` |
 | `MissionLang_MERCS.dll` | `280d422c13d428bc4b4b17d7809ace628b10927047c2f5e37aadeb337f0db1b3` |
 
+This gate does not read the reference binaries.
+
+## 2. Full-image byte diff (optional)
+
+```bat
+nmake exe
+nmake dll-all MOD=gundll
+```
+
+When `reference/MW4Mercs.exe` or the module's reference DLL is present, the
+assembler compares the complete image to it with no masking. This is an
+additional diagnostic and catches:
+
+- function ordering and overlap errors,
+- missing or wrong inter-function padding,
+- section composition errors,
+- unresolved or mis-resolved relocations,
+- data-section placement errors.
+
+If the reference file is absent, the diff is skipped and the build still
+succeeds.
+
+A successful diff prints:
+
+```
+diff: byte-identical to reference (SHA-256 ...)
+```
+
+or, for a module:
+
+```
+== <module>: byte-identical to reference (no masking, reference-free build) ==
+```
+
+## 3. Per-function checks (optional)
+
+```bat
+nmake diff FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
+nmake nomask FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
+```
+
+`tools/diff.py` slices the reference function's bytes from the binary and
+compares them to the compiled object's `.text` section. Four-byte relocation
+sites are masked because an unlinked object still contains placeholder values
+there.
+
+`tools/verify_nomask.py` places the object at its reference VA, resolves every
+relocation from the symbol name and the committed
+`src\<target>\artifacts\extern_addrs.csv` table, and compares every byte. This
+catches misaligned or spurious relocation sites that the masked diff hides.
+
+Both checks need the corresponding reference binary.
+
 ## Reproducibility notes
 
 - The PE timestamp/checksum/Rich header are pinned by the committed
   `pe_headers.bin` artifact, not by the current clock.
-- The build reads no reference content after `nmake init`; only `--diff`
-  opens the reference.
-- Generated data sections and `.bin` artifacts are intentionally not committed.
-  They are deterministic functions of the user's reference binary.
+- The generated non-`.text` data sources and `.bin` artifacts are committed.
+  The default build reads no reference content.
+- `nmake data`, `nmake init`, and `nmake dll-init` are the optional
+  regeneration path; they read a reference binary to rebuild the committed
+  data/artifacts.
 - The build is not run in GitHub Actions: the pinned MSVC6 toolchain is not
   available on hosted runners. Verification is a local Windows gate.
 
 ## Known limitations
 
-- A user must supply the exact canonical reference version. A different build
-  will fail the data/byte gates.
+- The hash gate is keyed to the canonical hashes. A different source tree or
+  toolchain will fail it.
 - The per-function diff uses `reference/functions/*.csv` for sizes. Functions
   missing from that inventory can be checked with an explicit `SIZE=...`.
 - gundll intentionally has out-of-scope `.text` ranges; its coverage report
-  uses `reference/in_scope/gundll.txt`. The full-image diff is still the gate.
+  uses `reference/in_scope/gundll.txt`. The full-image diff is still available
+  when the reference DLL is present.

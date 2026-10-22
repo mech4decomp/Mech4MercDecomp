@@ -1,14 +1,19 @@
-# Reference binaries
+# Reference binaries (optional)
 
-Place your own copies of the canonical reference binaries in this directory.
-They are copyrighted and are **not** committed.
+The default build does **not** require the game binaries. The generated
+non-`.text` data sources and the reference-derived `.bin` artifacts are
+committed elsewhere in the repository.
 
-Required for the EXE oracle:
+The reference binaries are only needed for optional operations:
 
-- `MW4Mercs.exe` (SafeDisc-unwrapped install-root executable)
+- `nmake data` / `nmake module-data` - regenerate data sources.
+- `nmake init` / `nmake dll-init` - regenerate metadata artifacts.
+- `nmake exe` / `nmake dll` - run the byte diff when the file is present.
+- `nmake diff` / `nmake nomask` - per-function comparison.
 
-Required for the module oracles:
+If you want those checks, place your own copies here:
 
+- `MW4Mercs.exe` (PR1 build; provenance hash in `SHA256.txt`)
 - `blade.dll`
 - `GunDll.dll`
 - `MW4Stats.dll`
@@ -16,9 +21,8 @@ Required for the module oracles:
 - `Language.dll`
 - `MissionLang_MERCS.dll`
 
-Verify them against [`SHA256.txt`](SHA256.txt) before building. The build tools
-read the reference only to generate data sections/artifacts and to run the
-final `--diff` verification.
+They are copyrighted and are **not** committed. Verify them against
+[`SHA256.txt`](SHA256.txt).
 
 `functions/` contains per-binary function inventories (metadata only) used by
 the per-function diff tooling. `in_scope/gundll.txt` is the gundll in-scope VA

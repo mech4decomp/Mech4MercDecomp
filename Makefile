@@ -3,11 +3,10 @@
 # Pinned toolchain: cl.exe 12.00.8804 (VC6 SP6), link.exe 6.00.8447.
 # See docs/BUILD.md for prerequisites and the full build order.
 #
-# Typical first build:
+# Typical first build (reference-free):
 #   call tools\env.bat
 #   nmake objs
-#   nmake data
-#   nmake init
+#   nmake data-objs
 #   nmake exe
 #
 # Or: nmake all
@@ -50,16 +49,18 @@ help:
     @echo MW4 Mercenaries oracle recompilation
     @echo -----------------------------------
     @echo   nmake objs                 compile all EXE .text sources
-    @echo   nmake data                 generate/compile non-.text data from your reference
-    @echo   nmake init                 regenerate EXE metadata artifacts (needs objs)
-    @echo   nmake exe                  assemble and byte-diff build\MW4Mercs.exe
-    @echo   nmake all                  objs + data + init + exe
+    @echo   nmake data-objs            compile committed EXE data sources
+    @echo   nmake exe                  assemble build\MW4Mercs.exe
+    @echo   nmake all                  objs + data-objs + exe
     @echo.
+    @echo   nmake data                 optional: regenerate EXE data from a reference
+    @echo   nmake init                 optional: regenerate EXE metadata artifacts
     @echo   nmake module-objs MOD=...  compile one module's .text sources
-    @echo   nmake module-data MOD=...  generate/compile one module's data sections
-    @echo   nmake dll-init MOD=...     regenerate one module's metadata artifacts
-    @echo   nmake dll MOD=...          assemble and byte-diff one module
-    @echo   nmake dll-all MOD=...      all of the above for one module
+    @echo   nmake module-data-objs MOD=...  compile one module's committed data
+    @echo   nmake dll MOD=...          assemble one module
+    @echo   nmake dll-all MOD=...      module-objs + module-data-objs + dll
+    @echo   nmake module-data MOD=...  optional: regenerate module data
+    @echo   nmake dll-init MOD=...     optional: regenerate module artifacts
     @echo.
     @echo   nmake one SRC=src\mw4mercs\text\func_00401000.c
     @echo   nmake diff FUNC=0x00401000 OBJNAME=build\obj\func_00401000.obj
@@ -78,13 +79,16 @@ dirs:
 objs: dirs
     @$(PYTHON) tools\build_text_objs.py
 
+data-objs: dirs
+    @$(PYTHON) tools\exe_data_assemble.py --compile
+
 data: dirs
     @$(PYTHON) tools\exe_data_assemble.py --files
 
 init: objs
     @$(PYTHON) tools\exe_image_assemble.py --init
 
-exe: data init
+exe: objs data-objs
     @$(PYTHON) tools\exe_image_assemble.py
     @$(PYTHON) tools\exe_image_assemble.py --diff
 
@@ -96,25 +100,26 @@ module-objs: dirs
     @if "$(MOD)"=="" (echo usage: nmake module-objs MOD=gundll & exit /b 1)
     @$(PYTHON) tools\build_text_objs.py --module $(MOD)
 
+module-data-objs: dirs
+    @if "$(MOD)"=="" (echo usage: nmake module-data-objs MOD=gundll & exit /b 1)
+    @$(PYTHON) tools\data_assemble.py $(MOD) --compile
+
 module-data: dirs
     @if "$(MOD)"=="" (echo usage: nmake module-data MOD=gundll & exit /b 1)
     @$(PYTHON) tools\data_assemble.py $(MOD) --files
 
-dll-init: module-objs module-data
+dll-init: module-objs
     @if "$(MOD)"=="" (echo usage: nmake dll-init MOD=gundll & exit /b 1)
     @$(PYTHON) tools\image_assemble.py $(MOD) --init
 
-dll: module-objs module-data
+dll: module-objs module-data-objs
     @if "$(MOD)"=="" (echo usage: nmake dll MOD=gundll & exit /b 1)
     @if not exist "src\$(MOD:missionlang=missionlang_mercs)\artifacts\header.bin" (echo missing artifacts - run: nmake dll-init MOD=$(MOD) & exit /b 1)
     @$(PYTHON) tools\image_assemble.py $(MOD) $(EXPECTARG)
     @$(PYTHON) tools\image_assemble.py $(MOD) --diff
 
-dll-all: module-objs module-data
+dll-all: dll
     @if "$(MOD)"=="" (echo usage: nmake dll-all MOD=gundll & exit /b 1)
-    @$(PYTHON) tools\image_assemble.py $(MOD) --init
-    @$(PYTHON) tools\image_assemble.py $(MOD) $(EXPECTARG)
-    @$(PYTHON) tools\image_assemble.py $(MOD) --diff
 
 # ---- Single translation unit / per-function gates -----------------------
 
@@ -155,4 +160,4 @@ debug:
 clean:
     @if exist build rmdir /s /q build
 
-.PHONY: default help dirs objs data init exe all module-objs module-data dll-init dll dll-all one diff nomask verify hashes deploy map debug clean
+.PHONY: default help dirs objs data-objs data init exe all module-objs module-data-objs module-data dll-init dll dll-all one diff nomask verify hashes deploy map debug clean

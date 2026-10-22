@@ -10,39 +10,33 @@ Byte identity is the acceptance criterion. Reconstructed C++ would compile to
 different bytes, so the oracle transcribes the original machine code instead.
 
 **Does this repository include the game or its assets?**
-No. You must own the game and supply the reference binaries. No art, audio,
-maps, missions, or other assets are hosted here.
+No original executables, DLLs, art, audio, or maps are included. The repository
+does include transcribed code and reference-derived data sections, so the
+default build is self-contained.
 
-**Which game version do I need?**
+**Do I need to supply the game EXE or DLLs?**
+No. The generated non-`.text` data sources and the reference-derived `.bin`
+artifacts are committed. You can build and verify the oracle without owning the
+game. The reference binaries are optional and are needed only to regenerate
+data/artifacts or to run byte diffs. See [the build guide](BUILD.md).
+
+**Why are the data sections included now?**
+The earlier layout regenerated them from a user-supplied reference. To make the
+repository buildable as-is, the byte-exact data sources and artifacts are now
+committed. `nmake data` and `nmake init` remain available as the optional
+"how they were created" regeneration path.
+
+**Which game version was used as the baseline?**
 The official Microsoft **MechWarrior 4: Mercenaries Point Release 1 (PR1)**
-build, file version `50.07.01.2105`. Apply the official PR1 patch
-(`Mercpr1.exe`) to a retail install and verify the supplied binaries against
-`reference/SHA256.txt`. The canonical EXE is the PR1 image with the SafeDisc
-wrapper removed. See [the build guide](BUILD.md#game-version).
-
-**Can I use the MekTek free release?**
-Not for the oracle. The final MekTek 3.1 release is a different build
-(`51.03.01`) with MekPak content and different binaries. It is a legitimate
-way to play, but it cannot match the official PR1 bytes or pass the byte gates.
-
-**Can I use a NoCD crack?**
-Community NoCD executables exist, but they are not provided or supported here.
-Most are modified or packed differently, so their hashes do not match the
-reference. The build needs an unmodified, hash-matching PR1 image.
-
-**Why are the data sections missing, but in-`.text` tables included?**
-In-`.text` tables (switch/jump/pointer tables) are part of the function layout
-and are required to reproduce the `.text` bytes; they are small and
-code-structural. `.rdata`/`.data`/`.rsrc`/`.txt2` are whole PE data sections
-containing bulk game data, strings, resources, and the SafeDisc leftover. They
-are not needed as source, and committing them would redistribute a large part
-of the original binary. `nmake data` regenerates them from your own reference,
-so the build remains fully reproducible.
+build, file version `50.07.01.2105`, EXE SHA-256
+`deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f`. This is
+provenance; you do not need the file to build. Community builds such as MekTek
+3.1 are different product builds and are not the baseline.
 
 **Can I build a playable EXE?**
-If you own the game and supply the canonical reference, the build produces a
-byte-identical `MW4Mercs.exe`. You can deploy it with `nmake deploy` if your
-install is in the expected location.
+The build produces a byte-identical `MW4Mercs.exe` from the committed sources
+and artifacts. You can deploy it with `nmake deploy` if your install is in the
+expected location.
 
 **Why MSVC6?**
 The target binaries were built with MSVC6. The inline-assembly encoding and
@@ -53,14 +47,16 @@ A few EXE IAT jump thunks and the `.txt2` SafeDisc leftover are out of scope.
 They are listed in `src/mw4mercs/artifacts/extra_functions.csv`.
 
 **How do I know the build is correct?**
-`nmake exe`, `nmake dll-all MOD=...`, and `nmake verify` check byte identity
-and the canonical SHA-256 hashes. See `docs/VERIFICATION.md`.
+`nmake verify` checks the built images against the canonical SHA-256 hashes
+without needing the reference. `nmake exe`, `nmake dll-all MOD=...`, and the
+per-function checks additionally compare bytes when the reference is present.
+See `docs/VERIFICATION.md`.
 
 **Can I contribute code?**
 No. The oracle is frozen. Documentation corrections are welcome; see
 `CONTRIBUTING.md`.
 
 **Does the build need an external analysis database?**
-No. The build and verification pipeline uses the committed sources, the
-committed function inventories in `reference/functions/`, and the reference
-binaries.
+No. The build uses the committed sources, the committed function inventories
+in `reference/functions/`, and the committed data/artifacts. The reference
+binaries are optional.

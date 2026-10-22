@@ -369,7 +369,11 @@ def assemble(key, out, expect):
 
 def diff(key, out):
     dll, _ = TA.BASER[key]
-    ref = open(os.path.join(ROOT, "reference", dll), "rb").read()
+    ref_path = os.path.join(ROOT, "reference", dll)
+    if not os.path.exists(ref_path):
+        print("== %s: reference not present; skipping diff ==" % key)
+        return 0
+    ref = open(ref_path, "rb").read()
     outb = open(out, "rb").read()
     nb = len(ref)
     diffs = 0

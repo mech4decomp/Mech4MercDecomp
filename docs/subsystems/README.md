@@ -1,6 +1,6 @@
 # Subsystem Documentation
 
-Each subsystem has its own page: what it is responsible for, how the main path works, its key entry points, and the VAs that implement it. Start with the subsystem you care about; the exhaustive per-binary indexes are linked from every page.
+Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes; this overview and the subsystem pages link to them instead of repeating them.
 
 Shared VAs are described once in [shared.md](shared.md). Boundary calls are in [../SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md).
 
@@ -14,17 +14,17 @@ Shared VAs are described once in [shared.md](shared.md). Boundary calls are in [
 | [AI](ai.md) | 1308 | AI decision layer, ABL script runtime, navigation, targeting, squad control, and AI combat decisions. |
 | [Database](database.md) | 691 | Object/container model: binary-search trees, linked lists, iterators, hash tables, object tables, and database wrappers. |
 | [UI](ui.md) | 672 | gosScript-driven 2D UI: HUD, menus, dialogs, cursor, and screen state. |
-| [Network](net.md) | 385 | Multiplayer transport, lobby/session state, GameSpy discovery, and ZoneMatch matchmaking. |
+| [Network](net.md) | 382 | Multiplayer transport, lobby/session state, GameSpy discovery, and ZoneMatch matchmaking. |
 | [Archive](archive.md) | 285 | `#VBD` archives, streams, file I/O, and path handling. |
-| [Platform](platform.md) | 255 | Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper. |
+| [Platform](platform.md) | 256 | Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the SafeDisc wrapper. |
 | [Log](log.md) | 192 | Logging, assertions, error reporting, and diagnostic output. |
 | [Combat](combat.md) | 141 | In-mission weapon fire, launch/guidance, hit resolution, and damage application. |
 | [C Runtime](crt.md) | 21 | C/C++ runtime helpers: strings, memory primitives, formatting, and math. |
 | [Config](config.md) | 13 | options.ini/config-file framework, option registry, and persistence. |
 | [Input](input.md) | 11 | Keyboard/mouse/joystick state and command bindings. |
 | [Audio](audio.md) | 8 | Sound, music, and audio-device delivery. |
-| [Codec](codec.md) | 3 | LZW compression/decompression and related byte codecs. |
-| [Crypto](crypto.md) | 3 | MD5, hashing, and base64 helpers. |
+| [Crypto](crypto.md) | 6 | MD5, hashing, and base64 helpers. |
+| [Codec](codec.md) | 2 | LZW compression/decompression and related byte codecs. |
 
 ## Reference categories
 
@@ -49,8 +49,7 @@ Shared VAs are described once in [shared.md](shared.md). Boundary calls are in [
 - [Shared VAs](shared.md)
 - [Boundary seams](../SUBSYSTEM_SEAMS.md)
 - [Master index](../MASTER_INDEX.md)
-- [Subsystem catalog](../SUBSYSTEM_CATALOG.md)
 
 ## How to read a page
 
-The narrative comes first; the VA inventory is at the bottom, grouped by detail. `Evidence` records whether the VA came from a committed surface label, an address range, a header keyword, a broad band, or a structural rule. If a VA is shared, the page links to [shared.md](shared.md) instead of repeating it.
+The narrative and key entry points come first. The detail table gives the full count and responsibility for each sub-surface; the exhaustive VA table (role, size, source, evidence) is in the per-binary index. Shared VAs are described once in [shared.md](shared.md), and boundary calls once in [SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md).

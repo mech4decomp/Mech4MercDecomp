@@ -23,8 +23,10 @@ build target.
 
 ## Out of scope
 
-- The 31 IAT jump thunks at the end of the EXE `.text` (`0x75DB4A`–`0x76015C`),
-  listed in `src/mw4mercs/artifacts/extra_functions.csv`.
+- The 31 IAT jump thunks in the EXE platform tail (`0x75DB4A`–`0x76015C`),
+  listed in `src/mw4mercs/artifacts/extra_functions.csv`. They are not at the
+  end of `.text`: `.text` continues to `0x76809E`, and `.txt2` begins at
+  `0x769000`.
 - The `.txt2` SafeDisc leftover (`FUN_00769000`). Its bytes are preserved only
   as generated data for layout; it is not decompiled.
 - SafeDisc/DRM components and the bundled DRM DLLs.
@@ -39,20 +41,20 @@ build target.
 ```bat
 call tools\env.bat
 nmake objs
-nmake data
-nmake init
+nmake data-objs
 nmake exe
 nmake verify
 ```
 
-Module builds are described in `BUILD.md`. The hashes are in
-`reference/SHA256.txt`.
+The default build does not need the reference binaries. `nmake data` and
+`nmake init` are optional regeneration steps; the hashes remain in
+`reference/SHA256.txt`. Module builds are described in `BUILD.md`.
 
 ## Documentation indexes
 
 - `docs/MASTER_INDEX.md` — per-VA subsystem index for every binary.
 - `docs/data_annotation.md` — EXE data-run annotations.
 - `docs/module_data_annotation/` — per-module data-run annotations.
-- `docs/MODULE_NOTES.md` — concise module summaries.
+- `docs/subsystems/` — subsystem and module pages.
 - `docs/GAME_VERSIONING.md` — build/version identity and multiplayer gates.
 - `docs/editor_tools/` — shipped authoring/config tool records.

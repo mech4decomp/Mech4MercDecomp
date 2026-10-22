@@ -55,8 +55,9 @@ plugins:
   - search
 
 copyright: >
-  Educational/interoperability project. No game binaries or assets are hosted
-  here. MechWarrior and related marks belong to their respective owners.
+  Educational/interoperability project. No original game executables, DLLs, or
+  standalone assets are hosted here; transcribed code and derived data sections
+  are included. MechWarrior and related marks belong to their respective owners.
 
 nav:
   - Home: index.md
@@ -64,7 +65,6 @@ nav:
       - Build guide: BUILD.md
       - Verification: VERIFICATION.md
       - Architecture: ARCHITECTURE.md
-      - Game versioning: GAME_VERSIONING.md
   - Subsystems:
       - Overview: subsystems/README.md
       - Render: subsystems/render.md
@@ -96,8 +96,8 @@ nav:
       - ZlogLib.dll: subsystems/zloglib.md
   - Reference:
       - Master index: MASTER_INDEX.md
-      - Subsystem catalog: SUBSYSTEM_CATALOG.md
       - Subsystem seams: SUBSYSTEM_SEAMS.md
+      - Game versioning: GAME_VERSIONING.md
       - Data annotation: data_annotation.md
       - Module data annotation:
           - blade.dll: module_data_annotation/blade.md
@@ -113,7 +113,6 @@ nav:
           - MW4Ed2: editor_tools/mw4ed2.md
           - NFMEditor: editor_tools/nfmeditor.md
       - Oracle status: ORACLE_STATUS.md
-      - Module notes: MODULE_NOTES.md
       - Per-VA indexes:
           - MW4Mercs.exe: va_index/MW4Mercs_exe.md
           - GunDll.dll: va_index/GunDll_dll.md

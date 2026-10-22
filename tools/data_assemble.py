@@ -14,8 +14,9 @@ src/<target>/<rdata|data>/<va>.c are generated (per-section subfolders).
 Verification (data_assemble <key>) sums the objs at reference RVAs and reports
 byte fidelity for .rdata and .data.
 
-Usage: python tools/data_assemble.py <key> [--files]   (--files = (re)generate)
-       python tools/data_assemble.py <key>             (verify only)
+Usage: python tools/data_assemble.py <key> --compile  (compile committed sources)
+       python tools/data_assemble.py <key> [--files]  (--files = (re)generate)
+       python tools/data_assemble.py <key>            (verify only)
 """
 import glob, os, struct, sys
 
@@ -158,8 +159,35 @@ def verify(key):
     return 0 if ok else 1
 
 
+def compile_existing(key):
+    target = target_of(key)
+    src_root = os.path.join(ROOT, "src", target)
+    sources = []
+    for folder in SEC_FOLDER.values():
+        sources += sorted(glob.glob(os.path.join(src_root, folder, "*.c")))
+    if not sources:
+        print("no committed data sources found for %s" % key)
+        return 1
+    obj_dir = os.path.join(ROOT, "build", "modules", key, "obj")
+    os.makedirs(obj_dir, exist_ok=True)
+    rsp = os.path.join(obj_dir, "_data.rsp")
+    with open(rsp, "w") as f:
+        for src in sources:
+            f.write('"%s"\n' % src)
+    cflags = "/nologo /MD /GR- /Gm- /Gs- /Gy /GX- /O1 /c /I" + os.path.join(ROOT, "include")
+    cmd = "call tools\\env.bat && cl %s @%s /Fo%s\\" % (cflags, rsp, obj_dir)
+    import subprocess
+    r = subprocess.run(["cmd", "/c", cmd], cwd=ROOT, capture_output=True, text=True)
+    if r.returncode != 0:
+        print(r.stdout + r.stderr)
+    print("  compiled %d committed data sources (rc=%d)" % (len(sources), r.returncode))
+    return r.returncode
+
+
 def main():
     key = sys.argv[1] if len(sys.argv) > 1 else "mw4stats"
+    if "--compile" in sys.argv:
+        return compile_existing(key)
     gen = "--files" in sys.argv
     if gen:
         generate(key, BASER[key][1])

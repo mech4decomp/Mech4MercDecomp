@@ -23,8 +23,9 @@ documentation. It is not a rebuilt original-source tree.
 
 - **Not the original source code.** Every function is a disassembly
   transcription, not a reconstructed C++ implementation.
-- **Not a game distribution.** No executables, DLLs, art, audio, maps, or other
-  game assets are included. You must own a legitimate copy of the game.
+- **Not a game distribution.** No original executables, DLLs, art, audio, or
+  maps are included. The repository does include transcribed code and
+  reference-derived data sections.
 - **Not accepting code changes.** The oracle is complete and frozen; only
   documentation corrections are accepted.
 
@@ -47,18 +48,13 @@ oracle build target.
 ## Quick start
 
 Requirements: Windows, Microsoft Visual C++ 6.0 (SP6), the DirectX 8.1 SDK,
-Python 3.8+, and your own copy of the reference binaries.
+and Python 3.8+. The reference binaries are **not** required for the default
+build; the generated data sources and `.bin` artifacts are committed.
 
 ```bat
 call tools\env.bat
-
-:: Put your reference binaries in reference\ (never commit them)
-::   MW4Mercs.exe, blade.dll, GunDll.dll, MW4Stats.dll,
-::   ZlogLib.dll, Language.dll, MissionLang_MERCS.dll
-
 nmake objs
-nmake data
-nmake init
+nmake data-objs
 nmake exe
 ```
 
@@ -69,15 +65,17 @@ nmake dll-all MOD=gundll
 ```
 
 The full build order, troubleshooting, and per-module commands are in
-[`docs/BUILD.md`](docs/BUILD.md). The build is reference-free after the
-one-time `init` extraction; the reference is only read for `--diff`
-verification.
+[`docs/BUILD.md`](docs/BUILD.md). The default build is reference-free. The
+reference binaries are only needed for optional regeneration
+(`nmake data`, `nmake init`, `nmake dll-init`) and optional byte diffs
+(`nmake exe`, `nmake dll`, `nmake diff`).
 
 ## Verification
 
-`nmake exe` and `nmake dll-all MOD=...` print a byte-for-byte diff against the
-reference. `nmake verify` checks the built images against the canonical hashes.
-Per-function gates:
+`nmake exe` and `nmake dll-all MOD=...` print a byte-for-byte diff when the
+reference is present. `nmake verify` checks the built images against the
+canonical hashes without needing the reference. Optional per-function gates
+(they need the reference):
 
 ```bat
 nmake one SRC=src\mw4mercs\text\func_00401000.c
@@ -93,12 +91,10 @@ See [`docs/VERIFICATION.md`](docs/VERIFICATION.md) for the methodology.
 - [`docs/BUILD.md`](docs/BUILD.md) — prerequisites and build guide
 - [`docs/VERIFICATION.md`](docs/VERIFICATION.md) — byte gates and tooling
 - [`docs/ORACLE_STATUS.md`](docs/ORACLE_STATUS.md) — target inventory
-- [`docs/subsystems/`](docs/subsystems/) — how each subsystem works, with VA lists
+- [`docs/subsystems/`](docs/subsystems/) — how each subsystem works and its key entry points
 - [`docs/MASTER_INDEX.md`](docs/MASTER_INDEX.md) — exhaustive per-VA indexes
-- [`docs/SUBSYSTEM_CATALOG.md`](docs/SUBSYSTEM_CATALOG.md) — subsystem entry point
 - [`docs/SUBSYSTEM_SEAMS.md`](docs/SUBSYSTEM_SEAMS.md) — boundary and cross-system seams
 - [`docs/data_annotation.md`](docs/data_annotation.md) — data-section annotations
-- [`docs/MODULE_NOTES.md`](docs/MODULE_NOTES.md) — module summaries
 - [`docs/editor_tools/`](docs/editor_tools/) — shipped editor/config tools
 - [`docs/FAQ.md`](docs/FAQ.md) — common questions
 
@@ -114,7 +110,8 @@ oracle is frozen to preserve byte identity. Please read
 ## Legal
 
 This project is for educational and interoperability purposes. It contains no
-game assets or binaries. You must supply your own legally obtained copy of the
-game. MechWarrior, MechWarrior 4, and Mercenaries are trademarks of their
-respective owners. This project is not affiliated with or endorsed by any
-rights holder. See [`NOTICE.md`](NOTICE.md) and [`LICENSE`](LICENSE).
+original game executables, DLLs, art, audio, or maps; it does include
+transcribed code and derived data sections. MechWarrior, MechWarrior 4, and
+Mercenaries are trademarks of their respective owners. This project is not
+affiliated with or endorsed by any rights holder. See [`NOTICE.md`](NOTICE.md)
+and [`LICENSE`](LICENSE).

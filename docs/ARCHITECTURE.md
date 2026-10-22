@@ -23,13 +23,17 @@ Sources are organized by binary target and PE section, not by subsystem:
 src/
   mw4mercs/
     text/        func_<VA>.c + in-.text data_<VA>.c
-    artifacts/   committed CSV metadata
-  blade/
-  gundll/
-  language/
-  missionlang_mercs/
-  mw4stats/
-  zloglib/
+    rdata/       data_0x*.c section runs
+    data/        data_0x*.c section runs
+    rsrc/        data_0x*.c section runs
+    txt2/        SafeDisc .txt2 leftover
+    artifacts/   committed PE build artifacts + CSV metadata
+  blade/         text/ rdata/ data/ artifacts/
+  gundll/        text/ rdata/ data/ artifacts/
+  language/      text/ rdata/ data/ artifacts/
+  missionlang_mercs/  text/ rdata/ data/ artifacts/
+  mw4stats/      text/ rdata/ data/ artifacts/
+  zloglib/       text/ rdata/ data/ artifacts/
 ```
 
 Filenames are canonical: `func_<8-hex-va>.c` and `data_<8-hex-va>.c`. Semantics
@@ -38,29 +42,32 @@ per-binary subsystem indexes under `docs/va_index/` provide the semantic
 map.
 
 Non-`.text` sections (`.rdata`, `.data`, `.rsrc`, `.txt2`) are byte-exact data
-runs. They are generated locally from the user's reference and are not
-committed; see `BUILD.md`.
+runs. The generated `data_0x*.c` sources are committed, so the default build
+does not need the reference. `nmake data` remains the optional regeneration
+path; see `BUILD.md`.
 
 ## Building an image
 
-The EXE build has four stages:
+The default EXE build has three stages:
 
 1. **Compile `.text` sources** — all `src/mw4mercs/text/*.c` are compiled with
    the pinned MSVC6 flags into `build/obj/`.
-2. **Generate data sections** — `exe_data_assemble.py --files` reads the
-   reference, emits byte-exact `data_0x*.c` sources for the non-`.text`
-   sections, compiles them into `build/obj/data/`, and verifies their bytes.
-3. **Extract metadata** — `exe_image_assemble.py --init` writes the PE header,
-   inter-function pad bytes, and the residual extern-address table. The extern
-   table is learned from the compiled `.text` objects, so this step must run
-   after step 1.
-4. **Assemble** — `exe_image_assemble.py` places every object at its reference
-   RVA, resolves relocation sites, fills pads, composes the sections, and
-   writes `build/MW4Mercs.exe`. `--diff` compares the result to the reference.
+2. **Compile data sources** — the committed
+   `src/mw4mercs/{rdata,data,rsrc,txt2}/data_0x*.c` runs are compiled into
+   `build/obj/data/`.
+3. **Assemble** — `exe_image_assemble.py` places every object at its reference
+   RVA, resolves relocation sites, fills pads from the committed artifact,
+   composes the sections, and writes `build/MW4Mercs.exe`. `--diff` compares
+   the result to the reference when it is present.
+
+The PE header, inter-function pad bytes, and residual extern table are
+committed artifacts. `exe_image_assemble.py --init` is the optional
+regeneration path that rebuilds them from a reference EXE.
 
 Module DLLs use the same model with `data_assemble.py` and
-`image_assemble.py`. gundll's in-scope VA list is provided at
-`reference/in_scope/gundll.txt` for its coverage report.
+`image_assemble.py`; their data sources and `.bin` artifacts are committed.
+gundll's in-scope VA list is provided at `reference/in_scope/gundll.txt` for
+its coverage report.
 
 ## Relocation resolution
 
@@ -78,17 +85,20 @@ would resolve that way.
 
 ## Verification model
 
-There are three levels of checking:
+There are four levels of checking:
 
+- **Hash gate** — compares the built image to the canonical SHA-256; this is
+  the reference-free acceptance check.
+- **Full-image byte diff** — composes the complete binary and compares it to a
+  reference binary when one is present. It catches ordering, padding,
+  alignment, relocation, and section-composition errors.
 - **Masked per-function diff** — compares one compiled object against the
   reference function, masking 4-byte relocation sites.
 - **No-mask per-function check** — places the object at its VA, resolves every
   relocation, and compares every byte.
-- **Full-image assembly** — composes the complete binary and compares it to the
-  reference with no masking. This is the acceptance gate.
 
-The full-image gate is the strongest: it catches ordering, padding, alignment,
-relocation, and section-composition errors that per-function checks cannot.
+The hash gate is the default gate. The byte-level checks are optional
+diagnostics that require the reference binaries.
 
 ## What is intentionally out of scope
 

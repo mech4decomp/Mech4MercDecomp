@@ -298,6 +298,9 @@ def assemble():
 
 
 def diff_oracle():
+    if not os.path.exists(EXE):
+        print("diff: reference not present; skipping")
+        return 0
     ref = open(EXE, "rb").read()
     out = open(OUT, "rb").read()
     if len(out) != len(ref):

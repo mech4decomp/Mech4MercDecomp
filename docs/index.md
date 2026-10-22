@@ -4,8 +4,12 @@ This site documents the **oracle recompilation**: a byte-identical reproduction
 of `MW4Mercs.exe` and the six code-bearing game DLLs, produced by transcribing
 the original machine code into MSVC6 inline assembly.
 
-The repository contains the source, build/verification tooling, and research
-notes. It does **not** contain the game or its assets.
+The target is the PR1 `MW4Mercs.exe` build identified by the SHA-256 in
+`reference/SHA256.txt`; see [the build guide](BUILD.md#provenance). The
+repository contains the transcribed source, the generated data sections,
+build/verification tooling, and research notes. It does **not** contain the
+original game executables, DLLs, art, audio, or maps. The default build does
+not need the game binaries.
 
 ## Start here
 
@@ -14,17 +18,15 @@ notes. It does **not** contain the game or its assets.
 | [Architecture](ARCHITECTURE.md) | How the oracle recompilation is structured |
 | [Build guide](BUILD.md) | Prerequisites, build order, module builds, troubleshooting |
 | [Verification](VERIFICATION.md) | Byte gates, diff/no-mask verification, hashes |
-| [Subsystem guides](subsystems/README.md) | How each subsystem works, key entry points, and VA lists |
+| [Subsystem and module guides](subsystems/README.md) | How each EXE subsystem and game DLL works, with key entry points |
 | [Shared VAs](subsystems/shared.md) | Helpers used by more than one subsystem |
 | [Oracle status](ORACLE_STATUS.md) | Target inventory and completeness status |
-| [Module notes](MODULE_NOTES.md) | Oracle summaries for the six game DLLs |
 
 ## Reference
 
 | Document | Purpose |
 |---|---|
 | [Master index](MASTER_INDEX.md) | Exhaustive per-VA subsystem indexes |
-| [Subsystem catalog](SUBSYSTEM_CATALOG.md) | Stable subsystem entry point |
 | [Subsystem seams](SUBSYSTEM_SEAMS.md) | Boundary calls and cross-system dependencies |
 | [Data annotation](data_annotation.md) | EXE data-section annotation index |
 | [Module data annotation](module_data_annotation/blade.md) | Per-module data annotation indexes |

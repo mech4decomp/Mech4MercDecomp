@@ -5,7 +5,7 @@ This is deliberately stricter than a normal lint: it enforces the separation
 between private development material and the public oracle snapshot.
 
 Checks:
-  * forbidden paths (generated data sections, binary artifacts, etc.)
+  * forbidden paths (build trees, private material, etc.)
   * forbidden binary files (reference EXEs/DLLs, objs, PDBs, archives)
   * forbidden text markers (tokens, personal identifiers, absolute paths)
   * required public files and source inventory
@@ -26,7 +26,7 @@ FORBIDDEN_DIRS = {
 }
 FORBIDDEN_TOP_FILES = {"opencode.jsonc"}
 FORBIDDEN_BINARY_EXT = {
-    ".exe", ".dll", ".obj", ".pdb", ".lib", ".bin", ".mw4",
+    ".exe", ".dll", ".obj", ".pdb", ".lib", ".mw4",
     ".zip", ".7z", ".iso", ".icd",
 }
 FORBIDDEN_MARKERS = [
@@ -70,10 +70,6 @@ def walk():
             parts = p.split("/")
             if parts[0] == "reference" and os.path.splitext(p)[1].lower() in (".exe", ".dll", ".icd"):
                 continue
-            if len(parts) >= 3 and parts[0] == "src" and parts[2] in ("rdata", "data", "rsrc", "txt2"):
-                continue
-            if "/artifacts/" in p and p.endswith(".bin"):
-                continue
             yield p
 
 
@@ -94,12 +90,8 @@ def main():
             errors.append("forbidden top-level file: %s" % rel)
         if rel in ("src/main.c",):
             errors.append("forbidden legacy skeleton source: %s" % rel)
-        if len(parts) >= 3 and parts[0] == "src" and parts[2] in ("rdata", "data", "rsrc", "txt2"):
-            errors.append("generated data section source: %s" % rel)
         if len(parts) >= 3 and parts[0] == "src" and parts[2] == "stubs":
             errors.append("legacy link stubs: %s" % rel)
-        if "/artifacts/" in rel and rel.endswith(".bin"):
-            errors.append("binary build artifact: %s" % rel)
         if rel.startswith("reference/") and os.path.splitext(rel)[1].lower() in (".exe", ".dll", ".icd"):
             errors.append("reference binary must not be committed: %s" % rel)
         ext = os.path.splitext(rel)[1].lower()

@@ -2,39 +2,42 @@
 
 > Boundary calls between systems. For how each subsystem works, start with [subsystems/README.md](subsystems/README.md). Shared VAs are listed once in [subsystems/shared.md](subsystems/shared.md); this page records only outbound boundary calls and cross-system dependencies.
 
+> The summary lists details with committed surface labels. Core counts are the full count from the master index; boundary and shared counts are the surface-labeled subset. Subsystem pages give the complete detail breakdown.
+
 ## Summary
 
 | Subsystem | Detail | Core | Boundary | Shared |
 |-----------|--------|------|----------|--------|
-| ai | abl | 20 | 27 | 590 |
-| ai | brain | 45 | 53 | 67 |
+| ai | abl | 207 | 27 | 590 |
+| ai | brain | 46 | 53 | 67 |
 | ai | combat | 9 | 14 | 69 |
-| ai | nav | 15 | 26 | 3 |
+| ai | nav | 20 | 26 | 3 |
 | ai | squad | 5 | 14 | 118 |
-| ai | targeting | 15 | 7 | 0 |
-| combat | fire-damage | 31 | 21 | 71 |
+| ai | targeting | 33 | 7 | 0 |
+| combat | fire-damage | 49 | 21 | 71 |
+| crypto | md5 | 4 | 0 | 0 |
 | net | gamespy | 37 | 16 | 0 |
-| net | session | 45 | 41 | 149 |
+| net | session | 46 | 38 | 149 |
 | net | transport | 33 | 0 | 0 |
 | net | zonematch | 19 | 28 | 13 |
-| render | 2d | 8 | 5 | 3 |
-| render | animation | 20 | 40 | 11 |
-| render | camera | 24 | 35 | 35 |
-| render | device | 8 | 2 | 0 |
+| render | 2d | 41 | 5 | 3 |
+| render | animation | 470 | 40 | 11 |
+| render | camera | 59 | 35 | 35 |
+| render | device | 40 | 2 | 0 |
 | render | draw | 7 | 4 | 1 |
-| render | font | 4 | 2 | 1 |
+| render | font | 6 | 2 | 1 |
 | render | frame | 1 | 1 | 0 |
-| render | lighting | 94 | 41 | 22 |
+| render | lighting | 107 | 41 | 22 |
 | render | mesh | 187 | 118 | 59 |
-| render | present | 22 | 43 | 11 |
+| render | present | 35 | 43 | 11 |
 | render | records | 5 | 7 | 0 |
-| render | terrain | 12 | 9 | 3 |
-| render | texture | 10 | 4 | 0 |
+| render | terrain | 25 | 9 | 3 |
+| render | texture | 125 | 4 | 0 |
 | render | vertex | 9 | 5 | 0 |
 
 ## ai / abl
 
-Subsystem page: [ai](subsystems/ai.md). Core: 20, boundary: 27, shared: 590 (shared listed in [shared.md](subsystems/shared.md#ai)).
+Subsystem page: [ai](subsystems/ai.md). Core: 207, boundary: 27, shared: 590 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -46,9 +49,9 @@ Subsystem page: [ai](subsystems/ai.md). Core: 20, boundary: 27, shared: 590 (sha
 | 0x00563060 | `src/mw4mercs/text/func_00563060.c` | 315 |
 | 0x005666D0 | `src/mw4mercs/text/func_005666d0.c` | 122 |
 | 0x005669D0 | `src/mw4mercs/text/func_005669d0.c` | 295 |
-| 0x00566B60 | `src/mw4mercs/text/func_00566B60.c` | 46 |
+| 0x00566B60 | `src/mw4mercs/text/func_00566b60.c` | 46 |
 | 0x00566B90 | `src/mw4mercs/text/func_00566b90.c` | 81 |
-| 0x00566BF0 | `src/mw4mercs/text/func_00566BF0.c` | 20 |
+| 0x00566BF0 | `src/mw4mercs/text/func_00566bf0.c` | 20 |
 | 0x00566C30 | `src/mw4mercs/text/func_00566c30.c` | 63 |
 | 0x00566C80 | `src/mw4mercs/text/func_00566c80.c` | 29 |
 | 0x00566EF0 | `src/mw4mercs/text/func_00566ef0.c` | 437 |
@@ -70,7 +73,7 @@ Subsystem page: [ai](subsystems/ai.md). Core: 20, boundary: 27, shared: 590 (sha
 
 ## ai / brain
 
-Subsystem page: [ai](subsystems/ai.md). Core: 45, boundary: 53, shared: 67 (shared listed in [shared.md](subsystems/shared.md#ai)).
+Subsystem page: [ai](subsystems/ai.md). Core: 46, boundary: 53, shared: 67 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -155,7 +158,7 @@ Subsystem page: [ai](subsystems/ai.md). Core: 9, boundary: 14, shared: 69 (share
 
 ## ai / nav
 
-Subsystem page: [ai](subsystems/ai.md). Core: 15, boundary: 26, shared: 3 (shared listed in [shared.md](subsystems/shared.md#ai)).
+Subsystem page: [ai](subsystems/ai.md). Core: 20, boundary: 26, shared: 3 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -213,7 +216,7 @@ Subsystem page: [ai](subsystems/ai.md). Core: 5, boundary: 14, shared: 118 (shar
 
 ## ai / targeting
 
-Subsystem page: [ai](subsystems/ai.md). Core: 15, boundary: 7, shared: 0 (shared listed in [shared.md](subsystems/shared.md#ai)).
+Subsystem page: [ai](subsystems/ai.md). Core: 33, boundary: 7, shared: 0.
 
 **Outbound boundary**
 
@@ -229,7 +232,7 @@ Subsystem page: [ai](subsystems/ai.md). Core: 15, boundary: 7, shared: 0 (shared
 
 ## combat / fire-damage
 
-Subsystem page: [combat](subsystems/combat.md). Core: 31, boundary: 21, shared: 71 (shared listed in [shared.md](subsystems/shared.md#combat)).
+Subsystem page: [combat](subsystems/combat.md). Core: 49, boundary: 21, shared: 71 (shared listed in [shared.md](subsystems/shared.md#combat)).
 
 **Outbound boundary**
 
@@ -257,9 +260,15 @@ Subsystem page: [combat](subsystems/combat.md). Core: 31, boundary: 21, shared: 
 | 0x00629290 | `src/mw4mercs/text/func_00629290.c` | 286 |
 | 0x0063D510 | `src/mw4mercs/text/func_0063d510.c` | 13 |
 
+## crypto / md5
+
+Subsystem page: [crypto](subsystems/crypto.md). Core: 4, boundary: 0, shared: 0.
+
+No outbound boundary calls recorded.
+
 ## net / gamespy
 
-Subsystem page: [net](subsystems/net.md). Core: 37, boundary: 16, shared: 0 (shared listed in [shared.md](subsystems/shared.md#net)).
+Subsystem page: [net](subsystems/net.md). Core: 37, boundary: 16, shared: 0.
 
 **Outbound boundary**
 
@@ -284,7 +293,7 @@ Subsystem page: [net](subsystems/net.md). Core: 37, boundary: 16, shared: 0 (sha
 
 ## net / session
 
-Subsystem page: [net](subsystems/net.md). Core: 45, boundary: 41, shared: 149 (shared listed in [shared.md](subsystems/shared.md#net)).
+Subsystem page: [net](subsystems/net.md). Core: 46, boundary: 38, shared: 149 (shared listed in [shared.md](subsystems/shared.md#net)).
 
 **Outbound boundary**
 
@@ -325,16 +334,13 @@ Subsystem page: [net](subsystems/net.md). Core: 45, boundary: 41, shared: 149 (s
 | 0x00707B40 | `src/mw4mercs/text/func_00707b40.c` | 649 |
 | 0x00707F50 | `src/mw4mercs/text/func_00707f50.c` | 35 |
 | 0x00709F20 | `src/mw4mercs/text/func_00709f20.c` | 354 |
-| 0x0070E390 | `src/mw4mercs/text/func_0070e390.c` | 42 |
-| 0x0070E3C0 | `src/mw4mercs/text/func_0070e3c0.c` | 160 |
-| 0x0070E460 | `src/mw4mercs/text/func_0070e460.c` | 106 |
 | 0x0072DC20 | `src/mw4mercs/text/func_0072dc20.c` | 136 |
-| 0x0072DCF0 | `src/mw4mercs/text/func_0072DCF0.c` | 124 |
+| 0x0072DCF0 | `src/mw4mercs/text/func_0072dcf0.c` | 124 |
 | 0x0075DC60 | `src/mw4mercs/text/func_0075dc60.c` | 52 |
 
 ## net / transport
 
-Subsystem page: [net](subsystems/net.md). Core: 33, boundary: 0, shared: 0 (shared listed in [shared.md](subsystems/shared.md#net)).
+Subsystem page: [net](subsystems/net.md). Core: 33, boundary: 0, shared: 0.
 
 No outbound boundary calls recorded.
 
@@ -377,7 +383,7 @@ Subsystem page: [net](subsystems/net.md). Core: 19, boundary: 28, shared: 13 (sh
 
 ## render / 2d
 
-Subsystem page: [render](subsystems/render.md). Core: 8, boundary: 5, shared: 3 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 41, boundary: 5, shared: 3 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -391,7 +397,7 @@ Subsystem page: [render](subsystems/render.md). Core: 8, boundary: 5, shared: 3 
 
 ## render / animation
 
-Subsystem page: [render](subsystems/render.md). Core: 20, boundary: 40, shared: 11 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 470, boundary: 40, shared: 11 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -440,7 +446,7 @@ Subsystem page: [render](subsystems/render.md). Core: 20, boundary: 40, shared: 
 
 ## render / camera
 
-Subsystem page: [render](subsystems/render.md). Core: 24, boundary: 35, shared: 35 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 59, boundary: 35, shared: 35 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -477,14 +483,14 @@ Subsystem page: [render](subsystems/render.md). Core: 24, boundary: 35, shared: 
 | 0x0067AEB0 | `src/mw4mercs/text/func_0067aeb0.c` | 365 |
 | 0x006BF4A0 | `src/mw4mercs/text/func_006bf4a0.c` | 31 |
 | 0x00704A80 | `src/mw4mercs/text/func_00704a80.c` | 2427 |
-| 0x00713D10 | `src/mw4mercs/text/func_00713D10.c` | 90 |
+| 0x00713D10 | `src/mw4mercs/text/func_00713d10.c` | 90 |
 | 0x00713D70 | `src/mw4mercs/text/func_00713d70.c` | 103 |
 | 0x00717650 | `src/mw4mercs/text/func_00717650.c` | 596 |
 | 0x00766050 | `src/mw4mercs/text/func_00766050.c` | 108 |
 
 ## render / device
 
-Subsystem page: [render](subsystems/render.md). Core: 8, boundary: 2, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 40, boundary: 2, shared: 0.
 
 **Outbound boundary**
 
@@ -508,7 +514,7 @@ Subsystem page: [render](subsystems/render.md). Core: 7, boundary: 4, shared: 1 
 
 ## render / font
 
-Subsystem page: [render](subsystems/render.md). Core: 4, boundary: 2, shared: 1 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 6, boundary: 2, shared: 1 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -519,7 +525,7 @@ Subsystem page: [render](subsystems/render.md). Core: 4, boundary: 2, shared: 1 
 
 ## render / frame
 
-Subsystem page: [render](subsystems/render.md). Core: 1, boundary: 1, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 1, boundary: 1, shared: 0.
 
 **Outbound boundary**
 
@@ -529,7 +535,7 @@ Subsystem page: [render](subsystems/render.md). Core: 1, boundary: 1, shared: 0 
 
 ## render / lighting
 
-Subsystem page: [render](subsystems/render.md). Core: 94, boundary: 41, shared: 22 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 107, boundary: 41, shared: 22 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -649,7 +655,7 @@ Subsystem page: [render](subsystems/render.md). Core: 187, boundary: 118, shared
 
 ## render / present
 
-Subsystem page: [render](subsystems/render.md). Core: 22, boundary: 43, shared: 11 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 35, boundary: 43, shared: 11 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -701,7 +707,7 @@ Subsystem page: [render](subsystems/render.md). Core: 22, boundary: 43, shared: 
 
 ## render / records
 
-Subsystem page: [render](subsystems/render.md). Core: 5, boundary: 7, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 5, boundary: 7, shared: 0.
 
 **Outbound boundary**
 
@@ -717,7 +723,7 @@ Subsystem page: [render](subsystems/render.md). Core: 5, boundary: 7, shared: 0 
 
 ## render / terrain
 
-Subsystem page: [render](subsystems/render.md). Core: 12, boundary: 9, shared: 3 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 25, boundary: 9, shared: 3 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -735,7 +741,7 @@ Subsystem page: [render](subsystems/render.md). Core: 12, boundary: 9, shared: 3
 
 ## render / texture
 
-Subsystem page: [render](subsystems/render.md). Core: 10, boundary: 4, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 125, boundary: 4, shared: 0.
 
 **Outbound boundary**
 
@@ -748,7 +754,7 @@ Subsystem page: [render](subsystems/render.md). Core: 10, boundary: 4, shared: 0
 
 ## render / vertex
 
-Subsystem page: [render](subsystems/render.md). Core: 9, boundary: 5, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
+Subsystem page: [render](subsystems/render.md). Core: 9, boundary: 5, shared: 0.
 
 **Outbound boundary**
 

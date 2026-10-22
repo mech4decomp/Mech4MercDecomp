@@ -4,16 +4,16 @@ This repository contains a disassembly-based, byte-identical recompilation of
 MechWarrior 4: Mercenaries for study, preservation, and interoperability
 purposes.
 
-- **No game binaries or assets are hosted here.** The repository contains no
-  `MW4Mercs.exe`, no game DLLs, no art, audio, maps, missions, or other game
-  content. The reference binaries are supplied by the user and are ignored by
-  git.
-- **You must own the game.** Building or verifying this project requires a
-  legitimate copy of MechWarrior 4: Mercenaries. The canonical reference
-  hashes are listed in `reference/SHA256.txt`.
-- **Data sections are generated locally.** The oracle's `.rdata`, `.data`,
-  `.rsrc`, and `.txt2` byte runs are intentionally not committed. They are
-  regenerated from the user's own reference by the build tools.
+- **No original game binaries are hosted here.** The repository contains no
+  `MW4Mercs.exe`, no game DLLs, and no art, audio, maps, or missions. The
+  reference binaries are optional and are ignored by git.
+- **The default build is self-contained.** Building and verifying use the
+  committed code, data sections, and artifacts; you do not need to own the
+  game. The canonical reference hashes are listed in `reference/SHA256.txt`.
+- **Data sections are included.** The oracle's `.rdata`, `.data`, `.rsrc`, and
+  `.txt2` byte runs are committed so the build is reproducible without a
+  reference binary. `nmake data` / `nmake init` remain the optional
+  regeneration path.
 - **No affiliation.** This project is not affiliated with, sponsored by, or
   endorsed by Microsoft, FASA, Cyberlore, or any other rights holder.
 - **Trademarks.** MechWarrior, MechWarrior 4, Mercenaries, and related marks

@@ -1,6 +1,6 @@
 # Codec Subsystem
 
-> **Binary:** `MW4Mercs.exe` | **VAs:** 3 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
+> **Binary:** `MW4Mercs.exe` | **Classified VAs:** 2 | **Exhaustive index:** [MW4Mercs.exe](../va_index/MW4Mercs_exe.md)
 
 LZW compression/decompression and related byte codecs.
 
@@ -9,7 +9,7 @@ LZW compression/decompression and related byte codecs.
 - [How it works](#how-it-works)
 - [Key entry points](#key-entry-points)
 - [Details](#details)
-- [VAs](#vas)
+- [Inventory](#inventory)
 - [Related](#related)
 
 ## How it works
@@ -27,19 +27,11 @@ The LZW compressor is 0x006FBE80; the decompressor is 0x006FC220. They are share
 
 | Detail | VAs | Responsibility |
 |--------|-----|----------------|
-| lzw | 3 |  |
+| lzw | 2 | LZW compressor/decompressor used by #VBD and textures. |
 
-## VAs
+## Inventory
 
-Every VA in this subsystem is listed below, grouped by detail. `Evidence` is the classification source (`surface`, `range`, `keyword`, `band`, `structural`, or `section`).
-
-### lzw
-
-| VA | Role | Size | Source | Evidence |
-|----|------|------|--------|----------|
-| 0x006FBE80 | core | 919 | `src/mw4mercs/text/func_006fbe80.c` | range |
-| 0x006FC220 | core | 465 | `src/mw4mercs/text/func_006fc220.c` | range |
-| 0x00701030 | core | 354 | `src/mw4mercs/text/func_00701030.c` | keyword |
+The detail table above counts every classified VA in this subsystem, including shared and boundary rows; the seam summary splits those roles. The exhaustive per-VA table (role, size, source, evidence) is in [the MW4Mercs.exe index](../va_index/MW4Mercs_exe.md).
 
 ## Related
 

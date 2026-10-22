@@ -63,7 +63,7 @@ switch skips.
 | 0x405xxx–0x406xxx | ~10 KB | INI/section writer helpers (0x403a50, 0x404bd0, 0x4065c0, 0x4067d0) |
 | 0x40xxxx–0x44xxxx | ~300 KB | **GameOS core** — the same framework as the game EXE: config/CLI (`FUN_00413c50` parses `/gosconfig`, `/gosnovideo`, `/gosnosound`), registry (`FUN_0041c9b0`), renderer state, texture manager, DirectSound mixer, input |
 | 0x45xxxx+ | — | `VideoCard.txt` reporter (`FUN_00428a30`), PCI-card detail (`FUN_00441dc0`), sound-device details (`FUN_004201c0`) |
-| 0x404xxx–0x456xxx | — | `.rdata`: the full D3D/DDERR/DIERR/DSERR error-string tables + render-state enums |
+| 0x457000–0x465D6E | — | `.rdata`: the full D3D/DDERR/DIERR/DSERR error-string tables + render-state enums |
 
 ## 4. `options.ini` — what AutoConfig writes
 

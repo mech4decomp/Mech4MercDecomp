@@ -9,21 +9,32 @@ verify the canonical images.
 
 It is **not** the original source code and is not a game distribution.
 
+## What is included
+
+- Transcribed code (`func_*.c`) and in-`.text` data tables.
+- Byte-exact non-`.text` data runs (`.rdata`, `.data`, `.rsrc`, `.txt2`) and
+  the metadata artifacts needed to assemble the images.
+
+These are derived from the original game and are included so the default
+build is self-contained.
+
 ## What is not included
 
-- No `MW4Mercs.exe` or game DLLs.
-- No art, audio, maps, missions, localization data, or other game assets.
-- No extracted `.rdata`/`.data`/`.rsrc`/`.txt2` byte dumps.
+- No original `MW4Mercs.exe` or game DLLs.
+- No art, audio, maps, missions, localization data, or other standalone game
+  assets.
 - No SafeDisc/DRM implementation.
 
-The non-`.text` sections are generated locally from the user's own reference by
-`nmake data` / `nmake module-data`. The generated files are gitignored.
+The reference binaries are optional. They are not distributed here and are
+only needed for regeneration or byte-diff checks; verify them against
+`reference/SHA256.txt`.
 
 ## User responsibility
 
-You must own a legitimate copy of the game and comply with its license/EULA.
-The reference binaries are not distributed here. Verify them against
-`reference/SHA256.txt`.
+You do not need to own the game to build the oracle from the committed
+sources and artifacts. If you supply reference binaries for regeneration or
+verification, you must own a legitimate copy of the game and comply with its
+license/EULA.
 
 ## Copyright and trademarks
 

@@ -1,6 +1,6 @@
 # Master Oracle Source Index
 
-> **Start here:** [subsystems/README.md](subsystems/README.md) explains how each subsystem works, lists its key entry points, and gives the per-subsystem VA inventory. Shared VAs are listed once in [subsystems/shared.md](subsystems/shared.md).
+> **Start here:** [subsystems/README.md](subsystems/README.md) explains how each subsystem works and lists its key entry points. Shared VAs are listed once in [subsystems/shared.md](subsystems/shared.md); the per-binary tables below are the exhaustive lookup indexes.
 
 > The per-binary tables below are exhaustive VA indexes kept for lookup; they are not the best starting point for understanding a subsystem. Every VA appears under exactly one subsystem/detail section; `role` is core/shared/boundary/data/unknown and `confidence`/`reason` record the evidence.
 
@@ -20,11 +20,10 @@
 
 ## Common references
 
-- [Subsystem documentation](subsystems/README.md) - how each system works and its VA inventory.
+- [Subsystem overview](subsystems/README.md) - how each system works and its key entry points.
 - [Shared VAs](subsystems/shared.md) - helpers used by more than one subsystem.
-- [Subsystem catalog](SUBSYSTEM_CATALOG.md) - stable entry point.
 - [Subsystem seams](SUBSYSTEM_SEAMS.md) - outbound boundary calls and cross-system dependencies.
 
 ## Regenerate
 
-`python tools/gen_master_index.py` then `python tools/gen_subsystem_docs.py`
+This page and the per-VA indexes are generated in the development tree by `tools/gen_master_index.py` and `tools/gen_subsystem_docs.py`. The public snapshot ships the generated outputs; those tools are not part of the public repository.

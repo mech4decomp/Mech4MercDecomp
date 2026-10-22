@@ -1,8 +1,9 @@
 # Reference binary verification
 #
-# The canonical target is the SafeDisc-unwrapped MW4Mercs.exe from the
-# game install root. This file is NOT committed (copyright); supply your
-# own copy and verify it matches:
+# Provenance hashes for the oracle build. The reference binaries are OPTIONAL:
+# the default build uses the committed data sources and artifacts and does not
+# read them. Supply your own copies only for optional regeneration or byte
+# diffs, and verify them against these values:
 #
 #   sha256sum reference/MW4Mercs.exe
 #
@@ -11,13 +12,13 @@
 #   size: 3,915,776 bytes (0x3BC000)
 #
 # Source: "Mechwarrior 4 Mercenaries" (Cypron Studios / Microsoft, 2002),
-# install root, with SafeDisc wrapper removed. The pristine .ICD is NOT
-# the primary target.
+# PR1 baseline. The pristine .ICD is NOT the primary target.
 deb0cb7f97e26c9db850d768900bdfb7648db7d10a090e7cdf6cecdc7686134f *MW4Mercs.exe
 
 # =============================================================
-# Copied from the game install root, NOT committed (copyright). No SafeDisc
-# wrappers present (no .txt2 section; verified via pe_fingerprint.ps1).
+# Copied from the game install root, NOT committed (copyright). The six DLLs
+# have no SafeDisc wrappers (no .txt2 section; verified via
+# pe_fingerprint.ps1).
 # Toolchain: Linker 6.0 (MSVC6) for blade/GunDll/MW4Stats/ZlogLib.
 # Each DLL is diffed against its OWN bytes: diff.py --exe reference\<bin>.
 #

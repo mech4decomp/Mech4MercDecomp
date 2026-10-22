@@ -20,6 +20,7 @@ Objs: build/obj/data/.
 The reference is read ONLY here (transcription) and in verify (diff oracle).
 
 Usage:
+  python tools/exe_data_assemble.py --compile # compile committed data sources
   python tools/exe_data_assemble.py --files   # (re)generate + compile + verify
   python tools/exe_data_assemble.py           # verify only
 """
@@ -169,7 +170,20 @@ def generate():
     return rc
 
 
+def compile_existing():
+    sources = []
+    for folder in SEC_FOLDER.values():
+        sources += sorted(glob.glob(os.path.join(SRC_DIR, folder, "*.c")))
+    if not sources:
+        print("no committed data sources found under src/mw4mercs/{rdata,data,rsrc,txt2}")
+        return 1
+    print("compiling %d committed data sources" % len(sources))
+    return compile_objs(sources)
+
+
 def main():
+    if "--compile" in sys.argv:
+        return compile_existing()
     if "--files" in sys.argv:
         rc = generate()
         if rc != 0:
