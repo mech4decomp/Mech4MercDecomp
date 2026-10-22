@@ -559,10 +559,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#unwrapped-and-nocd-executables" class="md-nav__link">
+  <a href="#safedisc-unwrapped-vs-nocd-executables" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unwrapped and NoCD executables
+        SafeDisc-unwrapped vs NoCD executables
       
     </span>
   </a>
@@ -2745,10 +2745,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#unwrapped-and-nocd-executables" class="md-nav__link">
+  <a href="#safedisc-unwrapped-vs-nocd-executables" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unwrapped and NoCD executables
+        SafeDisc-unwrapped vs NoCD executables
       
     </span>
   </a>
@@ -2953,9 +2953,7 @@ Release 1 (PR1)</strong> build:</p>
 </tr>
 </tbody>
 </table>
-<p>This was confirmed from the PR1 readme included in a normal install and the
-EXE's version resource. A normal PR1 install includes the patch readme
-(<code>mw mercs patch 1 readme.rtf</code>).
+<p>A normal PR1 install includes the patch readme (<code>mw mercs patch 1 readme.rtf</code>).
 The reference <code>MW4Mercs.exe</code> is the PR1 image with the SafeDisc wrapper
 removed. The six DLLs in <code>reference/</code> must come from the same PR1 install.</p>
 <p>The base retail release (before PR1) and later community builds do not match.
@@ -2964,15 +2962,17 @@ The byte gates are keyed to these exact files; a different EXE or DLL will
 fail at the final diff even if the game version string looks similar.</p>
 <p>See <a href="../GAME_VERSIONING/">game versioning</a> for how the EXE uses
 <code>50.07.01.2105</code> in multiplayer and saved data.</p>
-<h3 id="unwrapped-and-nocd-executables">Unwrapped and NoCD executables<a class="headerlink" href="#unwrapped-and-nocd-executables" title="Permanent link">&para;</a></h3>
-<p>The retail PR1 disc uses SafeDisc. The canonical reference is an unwrapped
-PR1 image, not a modified "NoCD" executable. Community NoCD or unprotected
-executables exist because the original disc check is inconvenient on modern
-Windows; they are not provided or supported here. Most have modified code or
-packing, so their SHA-256 will not match the reference.</p>
-<p>If you use a NoCD executable to run the game, keep a separate canonical PR1
-image for the build and verify its hash. A NoCD EXE that does not match
-<code>reference/SHA256.txt</code> cannot be used as the oracle reference.</p>
+<h3 id="safedisc-unwrapped-vs-nocd-executables">SafeDisc-unwrapped vs NoCD executables<a class="headerlink" href="#safedisc-unwrapped-vs-nocd-executables" title="Permanent link">&para;</a></h3>
+<p>The retail PR1 disc uses SafeDisc. "SafeDisc-unwrapped" means the SafeDisc
+protection layer has been removed and the underlying PR1 executable image
+recovered; it is not a gameplay-code patch. The canonical reference is this
+unwrapped image.</p>
+<p>A "NoCD" executable is any executable modified to bypass the disc check. It
+may also remove SafeDisc, but it often patches code, changes the entry point,
+or is packed differently. It is therefore not necessarily a clean unwrap, and
+its SHA-256 usually will not match the reference.</p>
+<p>Community NoCD executables are not provided or supported here. A NoCD EXE that
+does not match <code>reference/SHA256.txt</code> cannot be used as the oracle reference.</p>
 <h3 id="getting-a-copy">Getting a copy<a class="headerlink" href="#getting-a-copy" title="Permanent link">&para;</a></h3>
 <p>The game is out of print and is not distributed by this project. The official
 PR1 patch and retail disc images are preserved on general software archives
