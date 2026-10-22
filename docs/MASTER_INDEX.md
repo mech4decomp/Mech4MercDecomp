@@ -1,16 +1,22 @@
 # Master Oracle Source Index
 
-One per-VA subsystem index per binary (EXE + each module). Every VA appears
-under exactly one subsystem/detail section (no duplicates). `role` is
-`core`, `shared`, `boundary`, `data`, or `unknown`; `confidence` and `evidence`
-record how the classification was derived.
+> **Start here:** [subsystems/README.md](subsystems/README.md) explains how each
+> subsystem works, lists its key entry points, and gives the per-subsystem VA
+> inventory. Shared VAs are listed once in
+> [subsystems/shared.md](subsystems/shared.md).
+
+> The per-binary tables below are exhaustive VA indexes kept for lookup; they
+> are not the best starting point for understanding a subsystem. Every VA
+> appears under exactly one subsystem/detail section; `role` is
+> core/shared/boundary/data/unknown and `confidence`/`evidence` record how the
+> classification was derived.
 
 These are static documentation snapshots of the oracle binaries. Data-section
 source paths refer to files generated locally from your own reference
 (`nmake data` / `nmake module-data`); those files are not committed. See
 [`BUILD.md`](BUILD.md).
 
-## Per-binary subsystem indexes
+## Exhaustive per-VA indexes
 
 | Binary | VAs | Index |
 |--------|-----|-------|
@@ -22,13 +28,11 @@ source paths refer to files generated locally from your own reference
 | MissionLang_MERCS.dll | 69 | [open](master_index/MissionLang_MERCS_dll.md) |
 | ZlogLib.dll | 33 | [open](master_index/ZlogLib_dll.md) |
 
-## System map
+## Common references
 
-- [Subsystem catalog](SUBSYSTEM_CATALOG.md) - system descriptions, details, and counts.
-- [Subsystem seams](SUBSYSTEM_SEAMS.md) - boundary and shared functions per system.
-- [`subsystem_surface.csv`](subsystem_surface.csv) - committed surface labels used by the seam tables.
-
-## Updating
-
-These files are documentation. Corrections with disassembly/hex evidence are
-welcome; see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
+- [Subsystem documentation](subsystems/README.md) - how each system works and
+  its VA inventory.
+- [Shared VAs](subsystems/shared.md) - helpers used by more than one subsystem.
+- [Subsystem catalog](SUBSYSTEM_CATALOG.md) - stable entry point.
+- [Subsystem seams](SUBSYSTEM_SEAMS.md) - outbound boundary calls and
+  cross-system dependencies.

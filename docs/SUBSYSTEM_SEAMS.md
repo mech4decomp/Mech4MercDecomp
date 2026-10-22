@@ -1,6 +1,6 @@
 # Subsystem Seams
 
-> Boundary functions between systems. `boundary` means the system calls it but does not implement it; `shared` means it is used by more than one system. Only systems with committed surface labels appear here; the full per-VA map is in [`master_index/`](master_index/).
+> Boundary calls between systems. For how each subsystem works, start with [subsystems/README.md](subsystems/README.md). Shared VAs are listed once in [subsystems/shared.md](subsystems/shared.md); this page records only outbound boundary calls and cross-system dependencies.
 
 ## Summary
 
@@ -34,7 +34,7 @@
 
 ## ai / abl
 
-Core: 20, boundary: 27, shared: 590.
+Subsystem page: [ai](subsystems/ai.md). Core: 20, boundary: 27, shared: 590 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -68,75 +68,9 @@ Core: 20, boundary: 27, shared: 590.
 | 0x0064DB40 | `src/mw4mercs/text/func_0064db40.c` | 500 |
 | 0x006FABF0 | `src/mw4mercs/text/func_006fabf0.c` | 87 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x00407B30 | `src/mw4mercs/text/func_00407b30.c` | 168 |
-| 0x00407BE0 | `src/mw4mercs/text/func_00407be0.c` | 1857 |
-| 0x00562F10 | `src/mw4mercs/text/func_00562f10.c` | 22 |
-| 0x00562F30 | `src/mw4mercs/text/func_00562f30.c` | 1 |
-| 0x00563470 | `src/mw4mercs/text/func_00563470.c` | 1 |
-| 0x005637C0 | `src/mw4mercs/text/func_005637C0.c` | 54 |
-| 0x00564950 | `src/mw4mercs/text/func_00564950.c` | 330 |
-| 0x00566CA0 | `src/mw4mercs/text/func_00566ca0.c` | 592 |
-| 0x00580640 | `src/mw4mercs/text/func_00580640.c` | 16 |
-| 0x00580660 | `src/mw4mercs/text/func_00580660.c` | 16 |
-| 0x005813C0 | `src/mw4mercs/text/func_005813c0.c` | 37 |
-| 0x005813F0 | `src/mw4mercs/text/func_005813f0.c` | 37 |
-| 0x0061EBC0 | `src/mw4mercs/text/func_0061ebc0.c` | 225 |
-| 0x0061FA50 | `src/mw4mercs/text/func_0061fa50.c` | 45 |
-| 0x0061FC80 | `src/mw4mercs/text/func_0061fc80.c` | 22 |
-| 0x0061FCA0 | `src/mw4mercs/text/func_0061fca0.c` | 39 |
-| 0x0061FE40 | `src/mw4mercs/text/func_0061fe40.c` | 276 |
-| 0x00620020 | `src/mw4mercs/text/func_00620020.c` | 247 |
-| 0x006205E0 | `src/mw4mercs/text/func_006205e0.c` | 104 |
-| 0x00620650 | `src/mw4mercs/text/func_00620650.c` | 288 |
-| 0x00620770 | `src/mw4mercs/text/func_00620770.c` | 111 |
-| 0x006207E0 | `src/mw4mercs/text/func_006207e0.c` | 37 |
-| 0x00620810 | `src/mw4mercs/text/func_00620810.c` | 64 |
-| 0x00620850 | `src/mw4mercs/text/func_00620850.c` | 64 |
-| 0x00620940 | `src/mw4mercs/text/func_00620940.c` | 162 |
-| 0x00621280 | `src/mw4mercs/text/func_00621280.c` | 69 |
-| 0x0064A220 | `src/mw4mercs/text/func_0064a220.c` | 322 |
-| 0x0064A370 | `src/mw4mercs/text/func_0064a370.c` | 429 |
-| 0x0064A520 | `src/mw4mercs/text/func_0064a520.c` | 164 |
-| 0x0064A5D0 | `src/mw4mercs/text/func_0064a5d0.c` | 74 |
-| 0x0064A620 | `src/mw4mercs/text/func_0064a620.c` | 131 |
-| 0x0064A6B0 | `src/mw4mercs/text/func_0064a6b0.c` | 208 |
-| 0x0064A820 | `src/mw4mercs/text/func_0064a820.c` | 20 |
-| 0x0064A890 | `src/mw4mercs/text/func_0064a890.c` | 82 |
-| 0x0064C950 | `src/mw4mercs/text/func_0064c950.c` | 5 |
-| 0x0064D200 | `src/mw4mercs/text/func_0064d200.c` | 158 |
-| 0x0064D2A0 | `src/mw4mercs/text/func_0064d2a0.c` | 293 |
-| 0x0064D580 | `src/mw4mercs/text/func_0064d580.c` | 528 |
-| 0x0064D7E0 | `src/mw4mercs/text/func_0064d7e0.c` | 461 |
-| 0x0064D9F0 | `src/mw4mercs/text/func_0064d9f0.c` | 328 |
-| 0x0064EA80 | `src/mw4mercs/text/func_0064ea80.c` | 513 |
-| 0x0064ED00 | `src/mw4mercs/text/func_0064ed00.c` | 240 |
-| 0x0064EDF0 | `src/mw4mercs/text/func_0064edf0.c` | 55 |
-| 0x0064EE70 | `src/mw4mercs/text/func_0064ee70.c` | 494 |
-| 0x0064F060 | `src/mw4mercs/text/func_0064f060.c` | 651 |
-| 0x0064F320 | `src/mw4mercs/text/func_0064f320.c` | 400 |
-| 0x0064F4B0 | `src/mw4mercs/text/func_0064f4b0.c` | 400 |
-| 0x0064F640 | `src/mw4mercs/text/func_0064f640.c` | 264 |
-| 0x0064F750 | `src/mw4mercs/text/func_0064f750.c` | 529 |
-| 0x0064F970 | `src/mw4mercs/text/func_0064f970.c` | 313 |
-| 0x0064FAB0 | `src/mw4mercs/text/func_0064fab0.c` | 142 |
-| 0x0064FB40 | `src/mw4mercs/text/func_0064fb40.c` | 187 |
-| 0x0064FF50 | `src/mw4mercs/text/func_0064ff50.c` | 97 |
-| 0x006F3B80 | `src/mw4mercs/text/func_006f3b80.c` | 252 |
-| 0x006F4850 | `src/mw4mercs/text/func_006f4850.c` | 230 |
-| 0x006F4940 | `src/mw4mercs/text/func_006f4940.c` | 3 |
-| 0x006F4B80 | `src/mw4mercs/text/func_006f4b80.c` | 117 |
-| 0x006F4C10 | `src/mw4mercs/text/func_006f4c10.c` | 551 |
-| 0x006F4E40 | `src/mw4mercs/text/func_006f4e40.c` | 115 |
-| 0x006F5100 | `src/mw4mercs/text/func_006f5100.c` | 3 |
-| ... | 530 more | |
-
 ## ai / brain
 
-Core: 45, boundary: 53, shared: 67.
+Subsystem page: [ai](subsystems/ai.md). Core: 45, boundary: 53, shared: 67 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -196,75 +130,9 @@ Core: 45, boundary: 53, shared: 67.
 | 0x006F49A0 | `src/mw4mercs/text/func_006f49a0.c` | 67 |
 | 0x00707E70 | `src/mw4mercs/text/func_00707e70.c` | 26 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x00414FD0 | `src/mw4mercs/text/func_00414fd0.c` | 72 |
-| 0x004152B0 | `src/mw4mercs/text/func_004152b0.c` | 16 |
-| 0x00415410 | `src/mw4mercs/text/func_00415410.c` | 42 |
-| 0x00415BB0 | `src/mw4mercs/text/func_00415bb0.c` | 12 |
-| 0x00415C40 | `src/mw4mercs/text/func_00415c40.c` | 38 |
-| 0x00415CA0 | `src/mw4mercs/text/func_00415ca0.c` | 13 |
-| 0x00416B80 | `src/mw4mercs/text/func_00416b80.c` | 54 |
-| 0x00416E20 | `src/mw4mercs/text/func_00416e20.c` | 44 |
-| 0x00416E50 | `src/mw4mercs/text/func_00416e50.c` | 67 |
-| 0x00416F20 | `src/mw4mercs/text/func_00416f20.c` | 53 |
-| 0x00417230 | `src/mw4mercs/text/func_00417230.c` | 46 |
-| 0x00419F30 | `src/mw4mercs/text/func_00419f30.c` | 30 |
-| 0x0041D780 | `src/mw4mercs/text/func_0041d780.c` | 61 |
-| 0x004B6CA0 | `src/mw4mercs/text/func_004b6ca0.c` | 217 |
-| 0x004D67D0 | `src/mw4mercs/text/func_004d67d0.c` | 16 |
-| 0x004DA580 | `src/mw4mercs/text/func_004da580.c` | 8 |
-| 0x004E27B0 | `src/mw4mercs/text/func_004e27b0.c` | 50 |
-| 0x00500E00 | `src/mw4mercs/text/func_00500e00.c` | 44 |
-| 0x00500E30 | `src/mw4mercs/text/func_00500e30.c` | 25 |
-| 0x00500E50 | `src/mw4mercs/text/func_00500e50.c` | 105 |
-| 0x005015F0 | `src/mw4mercs/text/func_005015f0.c` | 44 |
-| 0x00501620 | `src/mw4mercs/text/func_00501620.c` | 25 |
-| 0x00501640 | `src/mw4mercs/text/func_00501640.c` | 105 |
-| 0x005CB670 | `src/mw4mercs/text/func_005cb670.c` | 68 |
-| 0x005FD400 | `src/mw4mercs/text/func_005fd400.c` | 45 |
-| 0x005FD430 | `src/mw4mercs/text/func_005fd430.c` | 160 |
-| 0x0065E630 | `src/mw4mercs/text/func_0065e630.c` | 2127 |
-| 0x00660010 | `src/mw4mercs/text/func_00660010.c` | 26 |
-| 0x00660110 | `src/mw4mercs/text/func_00660110.c` | 26 |
-| 0x00660210 | `src/mw4mercs/text/func_00660210.c` | 36 |
-| 0x00660320 | `src/mw4mercs/text/func_00660320.c` | 75 |
-| 0x00660460 | `src/mw4mercs/text/func_00660460.c` | 36 |
-| 0x00660640 | `src/mw4mercs/text/func_00660640.c` | 71 |
-| 0x00660700 | `src/mw4mercs/text/func_00660700.c` | 33 |
-| 0x00660780 | `src/mw4mercs/text/func_00660780.c` | 71 |
-| 0x00660830 | `src/mw4mercs/text/func_00660830.c` | 95 |
-| 0x006608D0 | `src/mw4mercs/text/func_006608d0.c` | 33 |
-| 0x006609A0 | `src/mw4mercs/text/func_006609a0.c` | 95 |
-| 0x00660AA0 | `src/mw4mercs/text/func_00660aa0.c` | 95 |
-| 0x00660B50 | `src/mw4mercs/text/func_00660b50.c` | 95 |
-| 0x00660C40 | `src/mw4mercs/text/func_00660c40.c` | 79 |
-| 0x00660D40 | `src/mw4mercs/text/func_00660d40.c` | 25 |
-| 0x00660DA0 | `src/mw4mercs/text/func_00660da0.c` | 32 |
-| 0x00660E10 | `src/mw4mercs/text/func_00660e10.c` | 71 |
-| 0x00660EA0 | `src/mw4mercs/text/func_00660ea0.c` | 18 |
-| 0x00661DA0 | `src/mw4mercs/text/func_00661da0.c` | 108 |
-| 0x00662B40 | `src/mw4mercs/text/func_00662b40.c` | 241 |
-| 0x00662C40 | `src/mw4mercs/text/func_00662c40.c` | 24 |
-| 0x00662C60 | `src/mw4mercs/text/func_00662c60.c` | 227 |
-| 0x00662E90 | `src/mw4mercs/text/func_00662e90.c` | 28 |
-| 0x00662EB0 | `src/mw4mercs/text/func_00662eb0.c` | 37 |
-| 0x00683D00 | `src/mw4mercs/text/func_00683d00.c` | 49 |
-| 0x006A22A0 | `src/mw4mercs/text/func_006a22a0.c` | 13 |
-| 0x006A2400 | `src/mw4mercs/text/func_006a2400.c` | 34 |
-| 0x006A24C0 | `src/mw4mercs/text/func_006a24c0.c` | 25 |
-| 0x006A2800 | `src/mw4mercs/text/func_006a2800.c` | 34 |
-| 0x006A28D0 | `src/mw4mercs/text/func_006a28d0.c` | 25 |
-| 0x006A2C30 | `src/mw4mercs/text/func_006a2c30.c` | 78 |
-| 0x006A2E50 | `src/mw4mercs/text/func_006a2e50.c` | 102 |
-| 0x006A3590 | `src/mw4mercs/text/func_006a3590.c` | 50 |
-| ... | 7 more | |
-
 ## ai / combat
 
-Core: 9, boundary: 14, shared: 69.
+Subsystem page: [ai](subsystems/ai.md). Core: 9, boundary: 14, shared: 69 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -285,75 +153,9 @@ Core: 9, boundary: 14, shared: 69.
 | 0x006A4AE0 | `src/mw4mercs/text/func_006a4ae0.c` | 32 |
 | 0x006A4DA0 | `src/mw4mercs/text/func_006a4da0.c` | 256 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0040CB00 | `src/mw4mercs/text/func_0040cb00.c` | 31 |
-| 0x0040CBB0 | `src/mw4mercs/text/func_0040cbb0.c` | 37 |
-| 0x004114B0 | `src/mw4mercs/text/func_004114b0.c` | 76 |
-| 0x00411670 | `src/mw4mercs/text/func_00411670.c` | 399 |
-| 0x00547BC0 | `src/mw4mercs/text/func_00547bc0.c` | 18 |
-| 0x00566570 | `src/mw4mercs/text/func_00566570.c` | 229 |
-| 0x0058EA70 | `src/mw4mercs/text/func_0058ea70.c` | 25 |
-| 0x005CB200 | `src/mw4mercs/text/func_005cb200.c` | 14 |
-| 0x005D2900 | `src/mw4mercs/text/func_005d2900.c` | 26 |
-| 0x005DA4B0 | `src/mw4mercs/text/func_005da4b0.c` | 14 |
-| 0x00662F10 | `src/mw4mercs/text/func_00662f10.c` | 149 |
-| 0x00662FB0 | `src/mw4mercs/text/func_00662fb0.c` | 801 |
-| 0x006632E0 | `src/mw4mercs/text/func_006632e0.c` | 47 |
-| 0x00663310 | `src/mw4mercs/text/func_00663310.c` | 117 |
-| 0x00663390 | `src/mw4mercs/text/func_00663390.c` | 24 |
-| 0x00664B10 | `src/mw4mercs/text/func_00664b10.c` | 9 |
-| 0x00664B40 | `src/mw4mercs/text/func_00664b40.c` | 9 |
-| 0x006651C0 | `src/mw4mercs/text/func_006651c0.c` | 12 |
-| 0x00665910 | `src/mw4mercs/text/func_00665910.c` | 382 |
-| 0x00665AA0 | `src/mw4mercs/text/func_00665aa0.c` | 14 |
-| 0x00665AB0 | `src/mw4mercs/text/func_00665ab0.c` | 18 |
-| 0x006A2340 | `src/mw4mercs/text/func_006a2340.c` | 178 |
-| 0x006A2500 | `src/mw4mercs/text/func_006a2500.c` | 494 |
-| 0x006A26F0 | `src/mw4mercs/text/func_006a26f0.c` | 269 |
-| 0x006A4A40 | `src/mw4mercs/text/func_006a4a40.c` | 157 |
-| 0x006A4B00 | `src/mw4mercs/text/func_006a4b00.c` | 37 |
-| 0x006A4EA0 | `src/mw4mercs/text/func_006a4ea0.c` | 27 |
-| 0x006A4EC0 | `src/mw4mercs/text/func_006a4ec0.c` | 27 |
-| 0x006A5190 | `src/mw4mercs/text/func_006a5190.c` | 61 |
-| 0x006A51D0 | `src/mw4mercs/text/func_006a51d0.c` | 71 |
-| 0x006A5700 | `src/mw4mercs/text/func_006a5700.c` | 107 |
-| 0x006A5770 | `src/mw4mercs/text/func_006a5770.c` | 63 |
-| 0x006A57E0 | `src/mw4mercs/text/func_006a57e0.c` | 203 |
-| 0x006A58C0 | `src/mw4mercs/text/func_006a58c0.c` | 1683 |
-| 0x006A5F60 | `src/mw4mercs/text/func_006a5f60.c` | 574 |
-| 0x006A61A0 | `src/mw4mercs/text/func_006a61a0.c` | 419 |
-| 0x006A6350 | `src/mw4mercs/text/func_006a6350.c` | 97 |
-| 0x006A63C0 | `src/mw4mercs/text/func_006a63c0.c` | 55 |
-| 0x006A6400 | `src/mw4mercs/text/func_006a6400.c` | 452 |
-| 0x006A6600 | `src/mw4mercs/text/func_006a6600.c` | 39 |
-| 0x006A6940 | `src/mw4mercs/text/func_006a6940.c` | 267 |
-| 0x006A6AA0 | `src/mw4mercs/text/func_006a6aa0.c` | 371 |
-| 0x006A6CB0 | `src/mw4mercs/text/func_006a6cb0.c` | 32 |
-| 0x006A7150 | `src/mw4mercs/text/func_006a7150.c` | 25 |
-| 0x006A7510 | `src/mw4mercs/text/func_006a7510.c` | 50 |
-| 0x006A7570 | `src/mw4mercs/text/func_006a7570.c` | 60 |
-| 0x006A7CC0 | `src/mw4mercs/text/func_006a7cc0.c` | 24 |
-| 0x006A7CE0 | `src/mw4mercs/text/func_006a7ce0.c` | 22 |
-| 0x006A7D00 | `src/mw4mercs/text/func_006a7d00.c` | 227 |
-| 0x006A7DF0 | `src/mw4mercs/text/func_006a7df0.c` | 53 |
-| 0x006A7E30 | `src/mw4mercs/text/func_006a7e30.c` | 34 |
-| 0x006A7E60 | `src/mw4mercs/text/func_006a7e60.c` | 193 |
-| 0x006A7F30 | `src/mw4mercs/text/func_006a7f30.c` | 67 |
-| 0x006A7F80 | `src/mw4mercs/text/func_006a7f80.c` | 93 |
-| 0x006A7FE0 | `src/mw4mercs/text/func_006a7fe0.c` | 45 |
-| 0x006A8010 | `src/mw4mercs/text/func_006a8010.c` | 45 |
-| 0x006A8040 | `src/mw4mercs/text/func_006a8040.c` | 21 |
-| 0x006A8060 | `src/mw4mercs/text/func_006a8060.c` | 14 |
-| 0x006A8070 | `src/mw4mercs/text/func_006a8070.c` | 11 |
-| 0x006A8080 | `src/mw4mercs/text/func_006a8080.c` | 80 |
-| ... | 9 more | |
-
 ## ai / nav
 
-Core: 15, boundary: 26, shared: 3.
+Subsystem page: [ai](subsystems/ai.md). Core: 15, boundary: 26, shared: 3 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -386,17 +188,9 @@ Core: 15, boundary: 26, shared: 3.
 | 0x006FAB90 | `src/mw4mercs/text/func_006fab90.c` | 87 |
 | 0x00767430 | `src/mw4mercs/text/func_00767430.c` | 43 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0041ACB0 | `src/mw4mercs/text/func_0041acb0.c` | 226 |
-| 0x004DB210 | `src/mw4mercs/text/func_004db210.c` | 40 |
-| 0x004E2690 | `src/mw4mercs/text/func_004e2690.c` | 273 |
-
 ## ai / squad
 
-Core: 5, boundary: 14, shared: 118.
+Subsystem page: [ai](subsystems/ai.md). Core: 5, boundary: 14, shared: 118 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -417,75 +211,9 @@ Core: 5, boundary: 14, shared: 118.
 | 0x004D5C10 | `src/mw4mercs/text/func_004d5c10.c` | 263 |
 | 0x00637AC0 | `src/mw4mercs/text/func_00637ac0.c` | 66 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0040D9D0 | `src/mw4mercs/text/func_0040d9d0.c` | 29 |
-| 0x0040D9F0 | `src/mw4mercs/text/func_0040d9f0.c` | 397 |
-| 0x0040DB80 | `src/mw4mercs/text/func_0040db80.c` | 285 |
-| 0x0040DED0 | `src/mw4mercs/text/func_0040ded0.c` | 107 |
-| 0x0040DF40 | `src/mw4mercs/text/func_0040df40.c` | 1293 |
-| 0x0040E450 | `src/mw4mercs/text/func_0040e450.c` | 67 |
-| 0x0040E550 | `src/mw4mercs/text/func_0040e550.c` | 653 |
-| 0x0040E7E0 | `src/mw4mercs/text/func_0040e7e0.c` | 1098 |
-| 0x0040EC30 | `src/mw4mercs/text/func_0040ec30.c` | 139 |
-| 0x0040EDA0 | `src/mw4mercs/text/func_0040eda0.c` | 31 |
-| 0x0040EDC0 | `src/mw4mercs/text/func_0040edc0.c` | 292 |
-| 0x0040F080 | `src/mw4mercs/text/func_0040f080.c` | 17 |
-| 0x0040F0A0 | `src/mw4mercs/text/func_0040f0a0.c` | 13 |
-| 0x0040F0D0 | `src/mw4mercs/text/func_0040f0d0.c` | 13 |
-| 0x0040F0E0 | `src/mw4mercs/text/func_0040f0e0.c` | 13 |
-| 0x0040F0F0 | `src/mw4mercs/text/func_0040f0f0.c` | 45 |
-| 0x0040F120 | `src/mw4mercs/text/func_0040f120.c` | 84 |
-| 0x0040F180 | `src/mw4mercs/text/func_0040f180.c` | 14 |
-| 0x0040F190 | `src/mw4mercs/text/func_0040f190.c` | 45 |
-| 0x0040F220 | `src/mw4mercs/text/func_0040f220.c` | 45 |
-| 0x0040F250 | `src/mw4mercs/text/func_0040f250.c` | 19 |
-| 0x0040F270 | `src/mw4mercs/text/func_0040f270.c` | 35 |
-| 0x0040F2A0 | `src/mw4mercs/text/func_0040f2a0.c` | 48 |
-| 0x0040F2F0 | `src/mw4mercs/text/func_0040f2f0.c` | 16 |
-| 0x0040F300 | `src/mw4mercs/text/func_0040f300.c` | 16 |
-| 0x0040F310 | `src/mw4mercs/text/func_0040f310.c` | 78 |
-| 0x0040F360 | `src/mw4mercs/text/func_0040f360.c` | 1139 |
-| 0x0040F7E0 | `src/mw4mercs/text/func_0040f7e0.c` | 14 |
-| 0x0040F7F0 | `src/mw4mercs/text/func_0040f7f0.c` | 200 |
-| 0x0040F8C0 | `src/mw4mercs/text/func_0040f8c0.c` | 107 |
-| 0x0040F930 | `src/mw4mercs/text/func_0040f930.c` | 78 |
-| 0x0040F980 | `src/mw4mercs/text/func_0040f980.c` | 1139 |
-| 0x0040FE00 | `src/mw4mercs/text/func_0040fe00.c` | 200 |
-| 0x0040FED0 | `src/mw4mercs/text/func_0040fed0.c` | 107 |
-| 0x0040FF40 | `src/mw4mercs/text/func_0040ff40.c` | 1139 |
-| 0x004103C0 | `src/mw4mercs/text/func_004103c0.c` | 200 |
-| 0x00410490 | `src/mw4mercs/text/func_00410490.c` | 107 |
-| 0x00410500 | `src/mw4mercs/text/func_00410500.c` | 907 |
-| 0x00410890 | `src/mw4mercs/text/func_00410890.c` | 50 |
-| 0x004108D0 | `src/mw4mercs/text/func_004108d0.c` | 391 |
-| 0x00410A60 | `src/mw4mercs/text/func_00410a60.c` | 71 |
-| 0x00410AB0 | `src/mw4mercs/text/func_00410ab0.c` | 71 |
-| 0x00410B00 | `src/mw4mercs/text/func_00410b00.c` | 549 |
-| 0x00410D30 | `src/mw4mercs/text/func_00410d30.c` | 391 |
-| 0x00410EC0 | `src/mw4mercs/text/func_00410ec0.c` | 549 |
-| 0x004110F0 | `src/mw4mercs/text/func_004110f0.c` | 391 |
-| 0x00411280 | `src/mw4mercs/text/func_00411280.c` | 549 |
-| 0x00411500 | `src/mw4mercs/text/func_00411500.c` | 43 |
-| 0x00411530 | `src/mw4mercs/text/func_00411530.c` | 43 |
-| 0x00411560 | `src/mw4mercs/text/func_00411560.c` | 14 |
-| 0x00411570 | `src/mw4mercs/text/func_00411570.c` | 43 |
-| 0x004115A0 | `src/mw4mercs/text/func_004115a0.c` | 14 |
-| 0x004115B0 | `src/mw4mercs/text/func_004115b0.c` | 22 |
-| 0x004115D0 | `src/mw4mercs/text/func_004115d0.c` | 19 |
-| 0x004115F0 | `src/mw4mercs/text/func_004115f0.c` | 22 |
-| 0x00411610 | `src/mw4mercs/text/func_00411610.c` | 19 |
-| 0x00411630 | `src/mw4mercs/text/func_00411630.c` | 22 |
-| 0x00411650 | `src/mw4mercs/text/func_00411650.c` | 19 |
-| 0x00411800 | `src/mw4mercs/text/func_00411800.c` | 30 |
-| 0x00411820 | `src/mw4mercs/text/func_00411820.c` | 30 |
-| ... | 58 more | |
-
 ## ai / targeting
 
-Core: 15, boundary: 7, shared: 0.
+Subsystem page: [ai](subsystems/ai.md). Core: 15, boundary: 7, shared: 0 (shared listed in [shared.md](subsystems/shared.md#ai)).
 
 **Outbound boundary**
 
@@ -501,7 +229,7 @@ Core: 15, boundary: 7, shared: 0.
 
 ## combat / fire-damage
 
-Core: 31, boundary: 21, shared: 71.
+Subsystem page: [combat](subsystems/combat.md). Core: 31, boundary: 21, shared: 71 (shared listed in [shared.md](subsystems/shared.md#combat)).
 
 **Outbound boundary**
 
@@ -529,75 +257,9 @@ Core: 31, boundary: 21, shared: 71.
 | 0x00629290 | `src/mw4mercs/text/func_00629290.c` | 286 |
 | 0x0063D510 | `src/mw4mercs/text/func_0063d510.c` | 13 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0040D560 | `src/mw4mercs/text/func_0040d560.c` | 67 |
-| 0x00411F20 | `src/mw4mercs/text/func_00411f20.c` | 43 |
-| 0x00411FD0 | `src/mw4mercs/text/func_00411fd0.c` | 43 |
-| 0x00412080 | `src/mw4mercs/text/func_00412080.c` | 43 |
-| 0x00415C10 | `src/mw4mercs/text/func_00415c10.c` | 35 |
-| 0x00415D40 | `src/mw4mercs/text/func_00415d40.c` | 37 |
-| 0x00415E80 | `src/mw4mercs/text/func_00415e80.c` | 93 |
-| 0x00416130 | `src/mw4mercs/text/func_00416130.c` | 15 |
-| 0x00416470 | `src/mw4mercs/text/func_00416470.c` | 59 |
-| 0x00417640 | `src/mw4mercs/text/func_00417640.c` | 34 |
-| 0x004176A0 | `src/mw4mercs/text/func_004176a0.c` | 5 |
-| 0x00417700 | `src/mw4mercs/text/func_00417700.c` | 20 |
-| 0x00417890 | `src/mw4mercs/text/func_00417890.c` | 59 |
-| 0x0041F230 | `src/mw4mercs/text/func_0041f230.c` | 57 |
-| 0x0041F3A0 | `src/mw4mercs/text/func_0041f3a0.c` | 44 |
-| 0x0041F430 | `src/mw4mercs/text/func_0041f430.c` | 80 |
-| 0x0041F500 | `src/mw4mercs/text/func_0041f500.c` | 99 |
-| 0x0041FC20 | `src/mw4mercs/text/func_0041fc20.c` | 35 |
-| 0x0048C160 | `src/mw4mercs/text/func_0048c160.c` | 686 |
-| 0x004C4140 | `src/mw4mercs/text/func_004c4140.c` | 67 |
-| 0x004E1800 | `src/mw4mercs/text/func_004e1800.c` | 16 |
-| 0x004E8DC0 | `src/mw4mercs/text/func_004e8dc0.c` | 66 |
-| 0x004EBDE0 | `src/mw4mercs/text/func_004ebde0.c` | 97 |
-| 0x004EBEE0 | `src/mw4mercs/text/func_004ebee0.c` | 57 |
-| 0x004EC2E0 | `src/mw4mercs/text/func_004ec2e0.c` | 29 |
-| 0x004EC5F0 | `src/mw4mercs/text/func_004ec5f0.c` | 215 |
-| 0x004F29B0 | `src/mw4mercs/text/func_004f29b0.c` | 101 |
-| 0x00502DF0 | `src/mw4mercs/text/func_00502df0.c` | 59 |
-| 0x005564B0 | `src/mw4mercs/text/func_005564b0.c` | 68 |
-| 0x00558AF0 | `src/mw4mercs/text/func_00558AF0.c` | 2045 |
-| 0x00559BE0 | `src/mw4mercs/text/func_00559be0.c` | 4547 |
-| 0x0055AF90 | `src/mw4mercs/text/func_0055AF90.c` | 214 |
-| 0x0055B070 | `src/mw4mercs/text/func_0055b070.c` | 63 |
-| 0x0055B0B0 | `src/mw4mercs/text/func_0055b0b0.c` | 122 |
-| 0x0055B130 | `src/mw4mercs/text/func_0055b130.c` | 63 |
-| 0x0055B170 | `src/mw4mercs/text/func_0055b170.c` | 93 |
-| 0x0055B1D0 | `src/mw4mercs/text/func_0055b1d0.c` | 45 |
-| 0x0055B200 | `src/mw4mercs/text/func_0055b200.c` | 120 |
-| 0x0055B280 | `src/mw4mercs/text/func_0055b280.c` | 122 |
-| 0x0055B300 | `src/mw4mercs/text/func_0055b300.c` | 45 |
-| 0x0055B330 | `src/mw4mercs/text/func_0055b330.c` | 45 |
-| 0x0055B360 | `src/mw4mercs/text/func_0055b360.c` | 45 |
-| 0x0055B390 | `src/mw4mercs/text/func_0055B390.c` | 170 |
-| 0x0055B440 | `src/mw4mercs/text/func_0055b440.c` | 63 |
-| 0x0055B480 | `src/mw4mercs/text/func_0055b480.c` | 63 |
-| 0x0055B4C0 | `src/mw4mercs/text/func_0055b4c0.c` | 63 |
-| 0x0055B500 | `src/mw4mercs/text/func_0055b500.c` | 139 |
-| 0x0055E240 | `src/mw4mercs/text/func_0055e240.c` | 22 |
-| 0x005BA040 | `src/mw4mercs/text/func_005ba040.c` | 95 |
-| 0x005BA2D0 | `src/mw4mercs/text/func_005ba2d0.c` | 216 |
-| 0x00621FD0 | `src/mw4mercs/text/func_00621fd0.c` | 303 |
-| 0x00627D40 | `src/mw4mercs/text/func_00627d40.c` | 701 |
-| 0x00628000 | `src/mw4mercs/text/func_00628000.c` | 580 |
-| 0x00628250 | `src/mw4mercs/text/func_00628250.c` | 35 |
-| 0x00628280 | `src/mw4mercs/text/func_00628280.c` | 35 |
-| 0x006282B0 | `src/mw4mercs/text/func_006282b0.c` | 35 |
-| 0x006282E0 | `src/mw4mercs/text/func_006282e0.c` | 35 |
-| 0x00628310 | `src/mw4mercs/text/func_00628310.c` | 21 |
-| 0x00628330 | `src/mw4mercs/text/func_00628330.c` | 116 |
-| 0x006283B0 | `src/mw4mercs/text/func_006283b0.c` | 484 |
-| ... | 11 more | |
-
 ## net / gamespy
 
-Core: 37, boundary: 16, shared: 0.
+Subsystem page: [net](subsystems/net.md). Core: 37, boundary: 16, shared: 0 (shared listed in [shared.md](subsystems/shared.md#net)).
 
 **Outbound boundary**
 
@@ -622,7 +284,7 @@ Core: 37, boundary: 16, shared: 0.
 
 ## net / session
 
-Core: 45, boundary: 41, shared: 149.
+Subsystem page: [net](subsystems/net.md). Core: 45, boundary: 41, shared: 149 (shared listed in [shared.md](subsystems/shared.md#net)).
 
 **Outbound boundary**
 
@@ -670,79 +332,15 @@ Core: 45, boundary: 41, shared: 149.
 | 0x0072DCF0 | `src/mw4mercs/text/func_0072DCF0.c` | 124 |
 | 0x0075DC60 | `src/mw4mercs/text/func_0075dc60.c` | 52 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0041EC50 | `src/mw4mercs/text/func_0041ec50.c` | 239 |
-| 0x004EC300 | `src/mw4mercs/text/func_004ec300.c` | 75 |
-| 0x0053A0C0 | `src/mw4mercs/text/func_0053a0c0.c` | 443 |
-| 0x0053A4C0 | `src/mw4mercs/text/func_0053a4c0.c` | 258 |
-| 0x0053A6C0 | `src/mw4mercs/text/func_0053a6c0.c` | 1190 |
-| 0x005429E0 | `src/mw4mercs/text/func_005429e0.c` | 282 |
-| 0x005444A0 | `src/mw4mercs/text/func_005444a0.c` | 60 |
-| 0x005445F0 | `src/mw4mercs/text/func_005445f0.c` | 40 |
-| 0x00544680 | `src/mw4mercs/text/func_00544680.c` | 7 |
-| 0x006B4A90 | `src/mw4mercs/text/func_006b4a90.c` | 140 |
-| 0x006B4B20 | `src/mw4mercs/text/func_006b4b20.c` | 25023 |
-| 0x006BAF60 | `src/mw4mercs/text/func_006baf60.c` | 1894 |
-| 0x006BF2C0 | `src/mw4mercs/text/func_006bf2c0.c` | 479 |
-| 0x006BF6C0 | `src/mw4mercs/text/func_006bf6c0.c` | 903 |
-| 0x006BFE50 | `src/mw4mercs/text/func_006bfe50.c` | 337 |
-| 0x006BFFB0 | `src/mw4mercs/text/func_006bffb0.c` | 337 |
-| 0x006C0230 | `src/mw4mercs/text/func_006c0230.c` | 185 |
-| 0x006C02F0 | `src/mw4mercs/text/func_006c02f0.c` | 1225 |
-| 0x006C07C0 | `src/mw4mercs/text/func_006c07c0.c` | 69 |
-| 0x006C0870 | `src/mw4mercs/text/func_006c0870.c` | 194 |
-| 0x006C0940 | `src/mw4mercs/text/func_006c0940.c` | 2464 |
-| 0x006C12E0 | `src/mw4mercs/text/func_006c12e0.c` | 4774 |
-| 0x006C2E70 | `src/mw4mercs/text/func_006c2e70.c` | 584 |
-| 0x006C30C0 | `src/mw4mercs/text/func_006c30c0.c` | 317 |
-| 0x006C3200 | `src/mw4mercs/text/func_006c3200.c` | 529 |
-| 0x006C3420 | `src/mw4mercs/text/func_006c3420.c` | 34 |
-| 0x006C3450 | `src/mw4mercs/text/func_006c3450.c` | 129 |
-| 0x006C34E0 | `src/mw4mercs/text/func_006c34e0.c` | 9235 |
-| 0x006C5A30 | `src/mw4mercs/text/func_006c5a30.c` | 45 |
-| 0x006C5A60 | `src/mw4mercs/text/func_006c5a60.c` | 1552 |
-| 0x006C6070 | `src/mw4mercs/text/func_006c6070.c` | 627 |
-| 0x006C62F0 | `src/mw4mercs/text/func_006c62f0.c` | 432 |
-| 0x006C64A0 | `src/mw4mercs/text/func_006c64a0.c` | 397 |
-| 0x006C6630 | `src/mw4mercs/text/func_006c6630.c` | 186 |
-| 0x006C66F0 | `src/mw4mercs/text/func_006c66f0.c` | 3814 |
-| 0x006C7600 | `src/mw4mercs/text/func_006c7600.c` | 24 |
-| 0x006C7620 | `src/mw4mercs/text/func_006c7620.c` | 17 |
-| 0x006C7640 | `src/mw4mercs/text/func_006c7640.c` | 24 |
-| 0x006C7660 | `src/mw4mercs/text/func_006c7660.c` | 10 |
-| 0x006C7670 | `src/mw4mercs/text/func_006c7670.c` | 10 |
-| 0x006C7680 | `src/mw4mercs/text/func_006c7680.c` | 409 |
-| 0x006C7900 | `src/mw4mercs/text/func_006c7900.c` | 106 |
-| 0x006C7970 | `src/mw4mercs/text/func_006c7970.c` | 391 |
-| 0x006C7B00 | `src/mw4mercs/text/func_006c7b00.c` | 149 |
-| 0x006C7BA0 | `src/mw4mercs/text/func_006c7ba0.c` | 901 |
-| 0x006C7F30 | `src/mw4mercs/text/func_006c7f30.c` | 102 |
-| 0x006C7FA0 | `src/mw4mercs/text/func_006c7fa0.c` | 563 |
-| 0x006C8280 | `src/mw4mercs/text/func_006c8280.c` | 515 |
-| 0x006C8490 | `src/mw4mercs/text/func_006c8490.c` | 16 |
-| 0x006C84A0 | `src/mw4mercs/text/func_006c84a0.c` | 16 |
-| 0x006C84B0 | `src/mw4mercs/text/func_006c84b0.c` | 16 |
-| 0x006C84C0 | `src/mw4mercs/text/func_006c84c0.c` | 57 |
-| 0x006C8500 | `src/mw4mercs/text/func_006c8500.c` | 67 |
-| 0x006C8550 | `src/mw4mercs/text/func_006c8550.c` | 57 |
-| 0x006C8590 | `src/mw4mercs/text/func_006c8590.c` | 10 |
-| 0x006C85A0 | `src/mw4mercs/text/func_006c85a0.c` | 27 |
-| 0x006C85C0 | `src/mw4mercs/text/func_006c85c0.c` | 51 |
-| 0x006C8630 | `src/mw4mercs/text/func_006c8630.c` | 17 |
-| 0x006C8650 | `src/mw4mercs/text/func_006c8650.c` | 12 |
-| 0x006C8660 | `src/mw4mercs/text/func_006c8660.c` | 10 |
-| ... | 89 more | |
-
 ## net / transport
 
-Core: 33, boundary: 0, shared: 0.
+Subsystem page: [net](subsystems/net.md). Core: 33, boundary: 0, shared: 0 (shared listed in [shared.md](subsystems/shared.md#net)).
+
+No outbound boundary calls recorded.
 
 ## net / zonematch
 
-Core: 19, boundary: 28, shared: 13.
+Subsystem page: [net](subsystems/net.md). Core: 19, boundary: 28, shared: 13 (shared listed in [shared.md](subsystems/shared.md#net)).
 
 **Outbound boundary**
 
@@ -777,27 +375,9 @@ Core: 19, boundary: 28, shared: 13.
 | 0x00742830 | `src/mw4mercs/text/func_00742830.c` | 26 |
 | 0x0075DBBE | `src/mw4mercs/text/func_0075dbbe.c` | 18 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x006F5300 | `src/mw4mercs/text/func_006f5300.c` | 17 |
-| 0x006F5320 | `src/mw4mercs/text/func_006f5320.c` | 15 |
-| 0x006F5C10 | `src/mw4mercs/text/func_006f5c10.c` | 17 |
-| 0x006F5F60 | `src/mw4mercs/text/func_006f5f60.c` | 71 |
-| 0x006F6490 | `src/mw4mercs/text/func_006f6490.c` | 17 |
-| 0x006F68C0 | `src/mw4mercs/text/func_006f68c0.c` | 24 |
-| 0x006F6DB0 | `src/mw4mercs/text/func_006f6db0.c` | 125 |
-| 0x006F75F0 | `src/mw4mercs/text/func_006f75f0.c` | 128 |
-| 0x006F7940 | `src/mw4mercs/text/func_006f7940.c` | 10 |
-| 0x006F8480 | `src/mw4mercs/text/func_006f8480.c` | 17 |
-| 0x0074C710 | `src/mw4mercs/text/func_0074c710.c` | 784 |
-| 0x0074D120 | `src/mw4mercs/text/func_0074d120.c` | 52 |
-| 0x0075DB92 | `src/mw4mercs/text/func_0075db92.c` | 44 |
-
 ## render / 2d
 
-Core: 8, boundary: 5, shared: 3.
+Subsystem page: [render](subsystems/render.md). Core: 8, boundary: 5, shared: 3 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -809,17 +389,9 @@ Core: 8, boundary: 5, shared: 3.
 | 0x00482BD0 | `src/mw4mercs/text/func_00482bd0.c` | 41 |
 | 0x004A9720 | `src/mw4mercs/text/func_004a9720.c` |  |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x004870D0 | `src/mw4mercs/text/func_004870d0.c` | 22 |
-| 0x004870F0 | `src/mw4mercs/text/func_004870f0.c` | 22 |
-| 0x004AC110 | `src/mw4mercs/text/func_004ac110.c` | 177 |
-
 ## render / animation
 
-Core: 20, boundary: 40, shared: 11.
+Subsystem page: [render](subsystems/render.md). Core: 20, boundary: 40, shared: 11 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -866,25 +438,9 @@ Core: 20, boundary: 40, shared: 11.
 | 0x006A75C0 | `src/mw4mercs/text/func_006a75c0.c` | 328 |
 | 0x00767D20 | `src/mw4mercs/text/func_00767d20.c` | 48 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x00604DF0 | `src/mw4mercs/text/func_00604df0.c` | 86 |
-| 0x00605410 | `src/mw4mercs/text/func_00605410.c` | 80 |
-| 0x00606AA0 | `src/mw4mercs/text/func_00606AA0.c` | 344 |
-| 0x00606C00 | `src/mw4mercs/text/func_00606c00.c` | 151 |
-| 0x00606CA0 | `src/mw4mercs/text/func_00606ca0.c` | 90 |
-| 0x0066BE20 | `src/mw4mercs/text/func_0066be20.c` | 43 |
-| 0x0066BEF0 | `src/mw4mercs/text/func_0066bef0.c` | 143 |
-| 0x0066C320 | `src/mw4mercs/text/func_0066c320.c` | 79 |
-| 0x0066C370 | `src/mw4mercs/text/func_0066c370.c` | 79 |
-| 0x00699140 | `src/mw4mercs/text/func_00699140.c` | 30 |
-| 0x00699190 | `src/mw4mercs/text/func_00699190.c` | 53 |
-
 ## render / camera
 
-Core: 24, boundary: 35, shared: 35.
+Subsystem page: [render](subsystems/render.md). Core: 24, boundary: 35, shared: 35 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -926,49 +482,9 @@ Core: 24, boundary: 35, shared: 35.
 | 0x00717650 | `src/mw4mercs/text/func_00717650.c` | 596 |
 | 0x00766050 | `src/mw4mercs/text/func_00766050.c` | 108 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0040CB70 | `src/mw4mercs/text/func_0040cb70.c` | 57 |
-| 0x00412AB0 | `src/mw4mercs/text/func_00412ab0.c` | 115 |
-| 0x00416970 | `src/mw4mercs/text/func_00416970.c` | 17 |
-| 0x00422110 | `src/mw4mercs/text/func_00422110.c` | 237 |
-| 0x00422510 | `src/mw4mercs/text/func_00422510.c` | 153 |
-| 0x004801F0 | `src/mw4mercs/text/func_004801f0.c` | 136 |
-| 0x004883E0 | `src/mw4mercs/text/func_004883e0.c` | 567 |
-| 0x0048A8A0 | `src/mw4mercs/text/func_0048a8a0.c` | 26 |
-| 0x0048B960 | `src/mw4mercs/text/func_0048b960.c` | 231 |
-| 0x0048BA50 | `src/mw4mercs/text/func_0048ba50.c` | 258 |
-| 0x0048BC10 | `src/mw4mercs/text/func_0048bc10.c` | 55 |
-| 0x0048BDE0 | `src/mw4mercs/text/func_0048bde0.c` | 659 |
-| 0x0048EFC0 | `src/mw4mercs/text/func_0048efc0.c` | 246 |
-| 0x0048F0C0 | `src/mw4mercs/text/func_0048f0c0.c` | 67 |
-| 0x0048F640 | `src/mw4mercs/text/func_0048f640.c` | 491 |
-| 0x004906F0 | `src/mw4mercs/text/func_004906f0.c` | 138 |
-| 0x00491B20 | `src/mw4mercs/text/func_00491b20.c` | 35 |
-| 0x00491B50 | `src/mw4mercs/text/func_00491b50.c` | 63 |
-| 0x00491D50 | `src/mw4mercs/text/func_00491d50.c` | 47 |
-| 0x00491D80 | `src/mw4mercs/text/func_00491d80.c` | 41 |
-| 0x004B83E0 | `src/mw4mercs/text/func_004b83e0.c` | 54 |
-| 0x004C3590 | `src/mw4mercs/text/func_004c3590.c` | 20 |
-| 0x004C39D0 | `src/mw4mercs/text/func_004c39d0.c` | 35 |
-| 0x004C46B0 | `src/mw4mercs/text/func_004c46b0.c` | 23 |
-| 0x004F0CE0 | `src/mw4mercs/text/func_004f0ce0.c` | 302 |
-| 0x004F1050 | `src/mw4mercs/text/func_004f1050.c` | 35 |
-| 0x004F1100 | `src/mw4mercs/text/func_004f1100.c` | 19 |
-| 0x004F21B0 | `src/mw4mercs/text/func_004f21b0.c` | 92 |
-| 0x005CBF80 | `src/mw4mercs/text/func_005cbf80.c` | 266 |
-| 0x005CC0F0 | `src/mw4mercs/text/func_005cc0f0.c` | 51 |
-| 0x005DDDB0 | `src/mw4mercs/text/func_005dddb0.c` | 258 |
-| 0x005E1C30 | `src/mw4mercs/text/func_005e1c30.c` | 18 |
-| 0x00625110 | `src/mw4mercs/text/func_00625110.c` | 57 |
-| 0x0067B110 | `src/mw4mercs/text/func_0067b110.c` | 131 |
-| 0x0067C040 | `src/mw4mercs/text/func_0067c040.c` | 98 |
-
 ## render / device
 
-Core: 8, boundary: 2, shared: 0.
+Subsystem page: [render](subsystems/render.md). Core: 8, boundary: 2, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -979,7 +495,7 @@ Core: 8, boundary: 2, shared: 0.
 
 ## render / draw
 
-Core: 7, boundary: 4, shared: 1.
+Subsystem page: [render](subsystems/render.md). Core: 7, boundary: 4, shared: 1 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -990,15 +506,9 @@ Core: 7, boundary: 4, shared: 1.
 | 0x004911E0 | `src/mw4mercs/text/func_004911e0.c` | 16 |
 | 0x00491CD0 | `src/mw4mercs/text/func_00491cd0.c` | 4 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x004919A0 | `src/mw4mercs/text/func_004919a0.c` | 17 |
-
 ## render / font
 
-Core: 4, boundary: 2, shared: 1.
+Subsystem page: [render](subsystems/render.md). Core: 4, boundary: 2, shared: 1 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1007,15 +517,9 @@ Core: 4, boundary: 2, shared: 1.
 | 0x006C8950 | `src/mw4mercs/text/func_006c8950.c` | 200 |
 | 0x006CB160 | `src/mw4mercs/text/func_006cb160.c` | 224 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x006C9210 | `src/mw4mercs/text/func_006c9210.c` | 63 |
-
 ## render / frame
 
-Core: 1, boundary: 1, shared: 0.
+Subsystem page: [render](subsystems/render.md). Core: 1, boundary: 1, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1025,7 +529,7 @@ Core: 1, boundary: 1, shared: 0.
 
 ## render / lighting
 
-Core: 94, boundary: 41, shared: 22.
+Subsystem page: [render](subsystems/render.md). Core: 94, boundary: 41, shared: 22 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1073,36 +577,9 @@ Core: 94, boundary: 41, shared: 22.
 | 0x004ADF70 | `src/mw4mercs/text/func_004adf70.c` | 50 |
 | 0x0070F090 | `src/mw4mercs/text/func_0070f090.c` | 3 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x0041E110 | `src/mw4mercs/text/func_0041e110.c` | 18 |
-| 0x0041E720 | `src/mw4mercs/text/func_0041e720.c` | 52 |
-| 0x0041F3D0 | `src/mw4mercs/text/func_0041f3d0.c` | 84 |
-| 0x004225B0 | `src/mw4mercs/text/func_004225b0.c` | 108 |
-| 0x0047EC00 | `src/mw4mercs/text/func_0047ec00.c` | 25 |
-| 0x0047FEC0 | `src/mw4mercs/text/func_0047fec0.c` | 33 |
-| 0x00480AB0 | `src/mw4mercs/text/func_00480ab0.c` | 148 |
-| 0x0048F830 | `src/mw4mercs/text/func_0048f830.c` | 426 |
-| 0x00490780 | `src/mw4mercs/text/func_00490780.c` | 153 |
-| 0x00491C20 | `src/mw4mercs/text/func_00491c20.c` | 92 |
-| 0x00492C20 | `src/mw4mercs/text/func_00492c20.c` | 200 |
-| 0x00717A10 | `src/mw4mercs/text/func_00717a10.c` | 72 |
-| 0x0072E000 | `src/mw4mercs/text/func_0072E000.c` | 1278 |
-| 0x00735F00 | `src/mw4mercs/text/func_00735f00.c` | 177 |
-| 0x00735FC0 | `src/mw4mercs/text/func_00735FC0.c` | 743 |
-| 0x007362D0 | `src/mw4mercs/text/func_007362D0.c` | 1529 |
-| 0x00753980 | `src/mw4mercs/text/func_00753980.c` | 91 |
-| 0x00753BC0 | `src/mw4mercs/text/func_00753bc0.c` | 193 |
-| 0x00753CC0 | `src/mw4mercs/text/func_00753cc0.c` | 699 |
-| 0x0075BA00 | `src/mw4mercs/text/func_0075ba00.c` | 305 |
-| 0x0075BB60 | `src/mw4mercs/text/func_0075BB60.c` | 1249 |
-| 0x0075C150 | `src/mw4mercs/text/func_0075c150.c` | 233 |
-
 ## render / mesh
 
-Core: 187, boundary: 118, shared: 59.
+Subsystem page: [render](subsystems/render.md). Core: 187, boundary: 118, shared: 59 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1170,73 +647,9 @@ Core: 187, boundary: 118, shared: 59.
 | 0x004C8EB0 | `src/mw4mercs/text/func_004c8eb0.c` | 33 |
 | ... | 58 more | |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x00412020 | `src/mw4mercs/text/func_00412020.c` | 83 |
-| 0x00415BC0 | `src/mw4mercs/text/func_00415bc0.c` | 1 |
-| 0x004169C0 | `src/mw4mercs/text/func_004169c0.c` | 41 |
-| 0x004172A0 | `src/mw4mercs/text/func_004172a0.c` | 32 |
-| 0x004174D0 | `src/mw4mercs/text/func_004174d0.c` | 30 |
-| 0x004176C0 | `src/mw4mercs/text/func_004176c0.c` | 12 |
-| 0x00417740 | `src/mw4mercs/text/func_00417740.c` | 14 |
-| 0x0041F480 | `src/mw4mercs/text/func_0041f480.c` | 125 |
-| 0x004555E0 | `src/mw4mercs/text/func_004555e0.c` | 93 |
-| 0x00480890 | `src/mw4mercs/text/func_00480890.c` | 387 |
-| 0x00480A20 | `src/mw4mercs/text/func_00480a20.c` | 137 |
-| 0x004B8420 | `src/mw4mercs/text/func_004b8420.c` | 5439 |
-| 0x004B99A0 | `src/mw4mercs/text/func_004b99a0.c` | 30 |
-| 0x004C6A50 | `src/mw4mercs/text/func_004c6a50.c` | 1157 |
-| 0x004CC130 | `src/mw4mercs/text/func_004cc130.c` | 26 |
-| 0x004CC1D0 | `src/mw4mercs/text/func_004cc1d0.c` | 163 |
-| 0x004CC8E0 | `src/mw4mercs/text/func_004cc8e0.c` | 72 |
-| 0x004CCAA0 | `src/mw4mercs/text/func_004ccaa0.c` | 87 |
-| 0x004CDFF0 | `src/mw4mercs/text/func_004cdff0.c` | 416 |
-| 0x004CE5A0 | `src/mw4mercs/text/func_004ce5a0.c` | 904 |
-| 0x004CE9D0 | `src/mw4mercs/text/func_004ce9d0.c` | 108 |
-| 0x004CEC10 | `src/mw4mercs/text/func_004cec10.c` | 86 |
-| 0x004CED60 | `src/mw4mercs/text/func_004ced60.c` | 35 |
-| 0x004DFBB0 | `src/mw4mercs/text/func_004dfbb0.c` | 64 |
-| 0x004DFCD0 | `src/mw4mercs/text/func_004dfcd0.c` | 48 |
-| 0x004FC100 | `src/mw4mercs/text/func_004fc100.c` | 100 |
-| 0x004FD3C0 | `src/mw4mercs/text/func_004fd3c0.c` | 352 |
-| 0x004FD730 | `src/mw4mercs/text/func_004fd730.c` | 236 |
-| 0x00502E50 | `src/mw4mercs/text/func_00502e50.c` | 151 |
-| 0x00502F80 | `src/mw4mercs/text/func_00502f80.c` | 126 |
-| 0x005052A0 | `src/mw4mercs/text/func_005052a0.c` | 115 |
-| 0x0050A730 | `src/mw4mercs/text/func_0050a730.c` | 995 |
-| 0x0050B260 | `src/mw4mercs/text/func_0050b260.c` | 93 |
-| 0x0050CE70 | `src/mw4mercs/text/func_0050ce70.c` | 24 |
-| 0x0050DE50 | `src/mw4mercs/text/func_0050de50.c` | 165 |
-| 0x00531F40 | `src/mw4mercs/text/func_00531f40.c` | 227 |
-| 0x00532030 | `src/mw4mercs/text/func_00532030.c` | 230 |
-| 0x00607E80 | `src/mw4mercs/text/func_00607e80.c` | 257 |
-| 0x00608070 | `src/mw4mercs/text/func_00608070.c` | 13 |
-| 0x00608740 | `src/mw4mercs/text/func_00608740.c` | 430 |
-| 0x006088F0 | `src/mw4mercs/text/func_006088f0.c` | 214 |
-| 0x00609590 | `src/mw4mercs/text/func_00609590.c` | 120 |
-| 0x00609700 | `src/mw4mercs/text/func_00609700.c` | 117 |
-| 0x006097F0 | `src/mw4mercs/text/func_006097f0.c` | 639 |
-| 0x00609D10 | `src/mw4mercs/text/func_00609d10.c` | 4 |
-| 0x00614210 | `src/mw4mercs/text/func_00614210.c` | 208 |
-| 0x006B4950 | `src/mw4mercs/text/func_006b4950.c` | 310 |
-| 0x006FB800 | `src/mw4mercs/text/func_006fb800.c` | 124 |
-| 0x006FB880 | `src/mw4mercs/text/func_006fb880.c` | 124 |
-| 0x006FB900 | `src/mw4mercs/text/func_006fb900.c` | 27 |
-| 0x006FB920 | `src/mw4mercs/text/func_006fb920.c` | 389 |
-| 0x006FBAB0 | `src/mw4mercs/text/func_006fbab0.c` | 385 |
-| 0x006FBC40 | `src/mw4mercs/text/func_006fbc40.c` | 27 |
-| 0x0070E4D0 | `src/mw4mercs/text/func_0070e4d0.c` | 2247 |
-| 0x0070EDA0 | `src/mw4mercs/text/func_0070eda0.c` | 74 |
-| 0x0070EDF0 | `src/mw4mercs/text/func_0070edf0.c` | 79 |
-| 0x0070EE40 | `src/mw4mercs/text/func_0070ee40.c` | 37 |
-| 0x0070EE70 | `src/mw4mercs/text/func_0070ee70.c` | 49 |
-| 0x007224D0 | `src/mw4mercs/text/func_007224d0.c` | 220 |
-
 ## render / present
 
-Core: 22, boundary: 43, shared: 11.
+Subsystem page: [render](subsystems/render.md). Core: 22, boundary: 43, shared: 11 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1286,25 +699,9 @@ Core: 22, boundary: 43, shared: 11.
 | 0x0074A5E0 | `src/mw4mercs/text/func_0074a5e0.c` | 60 |
 | 0x007536A0 | `src/mw4mercs/text/func_007536a0.c` | 69 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x00417430 | `src/mw4mercs/text/func_00417430.c` | 63 |
-| 0x00417530 | `src/mw4mercs/text/func_00417530.c` | 58 |
-| 0x004B6D80 | `src/mw4mercs/text/func_004b6d80.c` | 184 |
-| 0x004BF010 | `src/mw4mercs/text/func_004bf010.c` | 136 |
-| 0x004CEC70 | `src/mw4mercs/text/func_004cec70.c` | 44 |
-| 0x004CECD0 | `src/mw4mercs/text/func_004cecd0.c` | 28 |
-| 0x004DA360 | `src/mw4mercs/text/func_004da360.c` | 97 |
-| 0x004DC260 | `src/mw4mercs/text/func_004dc260.c` | 251 |
-| 0x004FCB90 | `src/mw4mercs/text/func_004fcb90.c` | 70 |
-| 0x004FCBE0 | `src/mw4mercs/text/func_004fcbe0.c` | 23 |
-| 0x006D2C10 | `src/mw4mercs/text/func_006d2c10.c` | 72 |
-
 ## render / records
 
-Core: 5, boundary: 7, shared: 0.
+Subsystem page: [render](subsystems/render.md). Core: 5, boundary: 7, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1320,7 +717,7 @@ Core: 5, boundary: 7, shared: 0.
 
 ## render / terrain
 
-Core: 12, boundary: 9, shared: 3.
+Subsystem page: [render](subsystems/render.md). Core: 12, boundary: 9, shared: 3 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1336,17 +733,9 @@ Core: 12, boundary: 9, shared: 3.
 | 0x00547BA0 | `src/mw4mercs/text/func_00547ba0.c` | 21 |
 | 0x005634E0 | `src/mw4mercs/text/func_005634e0.c` | 58 |
 
-**Shared**
-
-| VA | Source | Size |
-|----|--------|------|
-| 0x00458360 | `src/mw4mercs/text/func_00458360.c` | 477 |
-| 0x00458610 | `src/mw4mercs/text/func_00458610.c` | 63 |
-| 0x00458B50 | `src/mw4mercs/text/func_00458b50.c` | 83 |
-
 ## render / texture
 
-Core: 10, boundary: 4, shared: 0.
+Subsystem page: [render](subsystems/render.md). Core: 10, boundary: 4, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1359,7 +748,7 @@ Core: 10, boundary: 4, shared: 0.
 
 ## render / vertex
 
-Core: 9, boundary: 5, shared: 0.
+Subsystem page: [render](subsystems/render.md). Core: 9, boundary: 5, shared: 0 (shared listed in [shared.md](subsystems/shared.md#render)).
 
 **Outbound boundary**
 
@@ -1375,12 +764,12 @@ Core: 9, boundary: 5, shared: 0.
 
 | Module | Surface | Contract |
 |--------|---------|----------|
-| `ZlogLib.dll` | `GetngLogAPI` (0x10001C6E) | 8-slot log-method table; lifecycle, emit, MD5, memory. |
-| `Language.dll` | module handle + string IDs | Codepage-aware string-table lookup; no named exports. |
-| `MissionLang_MERCS.dll` | module handle + string IDs | Mission/string-table lookup mirroring Language.dll. |
-| `blade.dll` | DirectDraw exports (0x5E001040+) | Lazy `ddraw.dll` loader, COM wrappers, facade, caps, software rasterizer. |
-| `GunDll.dll` | `DllGetClassObject` (0x100010B0) | COM class factory -> lobby object model -> HTTP/sockets/hash-list/crypto. |
-| `MW4Stats.dll` | `MW4StatsDll_*` exports | Recording -> XML serializer -> Zone upload -> Gun auth ticket. |
+| [`ZlogLib.dll`](subsystems/zloglib.md) | `GetngLogAPI` (0x10001C6E) | 8-slot log-method table; lifecycle, emit, MD5, memory. |
+| [`Language.dll`](subsystems/language.md) | module handle + string IDs | Codepage-aware string-table lookup; no named exports. |
+| [`MissionLang_MERCS.dll`](subsystems/missionlang.md) | module handle + string IDs | Mission/string-table lookup mirroring Language.dll. |
+| [`blade.dll`](subsystems/blade.md) | DirectDraw exports (0x5E001040+) | Lazy `ddraw.dll` loader, COM wrappers, facade, caps, software rasterizer. |
+| [`GunDll.dll`](subsystems/gundll.md) | `DllGetClassObject` (0x100010B0) | COM class factory -> lobby object model -> HTTP/sockets/hash-list/crypto. |
+| [`MW4Stats.dll`](subsystems/mw4stats.md) | `MW4StatsDll_*` exports | Recording -> XML serializer -> Zone upload -> Gun auth ticket. |
 
 ## Module internal seams
 

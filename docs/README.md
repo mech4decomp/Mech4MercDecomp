@@ -9,9 +9,10 @@ Start here:
 | [VERIFICATION.md](VERIFICATION.md) | Byte gates, diff/no-mask verification, hashes |
 | [ORACLE_STATUS.md](ORACLE_STATUS.md) | Target inventory and completeness status |
 | [MODULE_NOTES.md](MODULE_NOTES.md) | Oracle summaries for the six game DLLs |
-| [MASTER_INDEX.md](MASTER_INDEX.md) | Per-VA subsystem indexes for every target |
-| [SUBSYSTEM_CATALOG.md](SUBSYSTEM_CATALOG.md) | System catalog and per-detail counts |
-| [SUBSYSTEM_SEAMS.md](SUBSYSTEM_SEAMS.md) | Boundary/shared functions and module seams |
+| [subsystems/](subsystems/) | How each subsystem works, key entry points, and VA lists |
+| [MASTER_INDEX.md](MASTER_INDEX.md) | Exhaustive per-VA subsystem indexes |
+| [SUBSYSTEM_CATALOG.md](SUBSYSTEM_CATALOG.md) | Stable subsystem entry point |
+| [SUBSYSTEM_SEAMS.md](SUBSYSTEM_SEAMS.md) | Boundary calls and cross-system dependencies |
 | [data_annotation.md](data_annotation.md) | EXE data-section annotation index |
 | [module_data_annotation/](module_data_annotation/) | Per-module data annotation indexes |
 | [editor_tools/](editor_tools/) | Shipped editor/config tool RE records |
