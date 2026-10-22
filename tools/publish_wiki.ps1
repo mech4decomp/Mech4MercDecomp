@@ -50,7 +50,7 @@ $env:GIT_TERMINAL_PROMPT = "0"
 
 try {
     $wikiRepo = Join-Path $tmp "wiki"
-    git clone "https://github.com/$Repo.wiki.git" $wikiRepo
+    git -c credential.helper= clone "https://github.com/$Repo.wiki.git" $wikiRepo
     if ($LASTEXITCODE -ne 0) { throw "wiki clone failed (is the wiki enabled?)" }
 
     Copy-Item (Join-Path $WikiDir "*.md") $wikiRepo -Force
