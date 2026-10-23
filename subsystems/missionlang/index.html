@@ -1438,10 +1438,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mission-string-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission string model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codepage-and-case-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codepage and case handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String arena
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-and-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime and data layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2616,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mission-string-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission string model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codepage-and-case-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codepage and case handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String arena
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-and-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime and data layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,10 +2755,212 @@
 <p><strong>Classified VAs:</strong> 69 | <strong>Exhaustive index:</strong> <a href="../../va_index/MissionLang_MERCS_dll/">MissionLang_MERCS.dll</a></p>
 </blockquote>
 <p>Mission/string-table loader mirroring Language.dll.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The module has no named exports. It loads mission string tables through the same codepage/arena/lock shape as Language.dll, with mission-specific lookup paths.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p><code>MissionLang_MERCS.dll</code> is the mission-side localization module. It mirrors
+<code>Language.dll</code>: it has no call-level API beyond the DLL entry point, imports
+only KERNEL32, and carries a statically linked VC6 LIBCMT runtime with the
+codepage and string-table machinery compiled in.</p>
+<p>The module's <code>.rsrc</code> section is the mission text source. It is roughly
+<code>0x37000</code> bytes (about 220 KB), substantially larger than Language.dll's
+resource block. The game loads the module and resolves mission/logistics
+strings by module handle and string id; the module's codepage, case, arena, and
+error tables provide the lookup behavior.</p>
+<h2 id="mission-string-model">Mission string model<a class="headerlink" href="#mission-string-model" title="Permanent link">&para;</a></h2>
+<p>The loader has the same shape as Language.dll:</p>
+<ul>
+<li>a codepage state block and lead-byte bitmap;</li>
+<li>a case-fold table and character-class table;</li>
+<li>a string-table arena for copied/converted strings;</li>
+<li>a runtime error-message table;</li>
+<li>per-thread state and critical-section locks.</li>
+</ul>
+<p>The mission-specific parts are the string table at <code>0x10005248</code>, the codepage
+state at <code>0x10005590</code>, and the mission text in <code>.rsrc</code>. The loader is not a
+separate protocol; it is the same id-based localization contract applied to the
+mission id-space.</p>
+<h2 id="codepage-and-case-handling">Codepage and case handling<a class="headerlink" href="#codepage-and-case-handling" title="Permanent link">&para;</a></h2>
+<p><code>FUN_1000205B</code> builds the lookup table and lead-byte bitmap. <code>FUN_10002208</code>
+resolves the special codepage values, <code>FUN_10002252</code> maps display codepages,
+<code>FUN_10002285</code> resets the state, and <code>FUN_100022AE</code> builds the case-fold table
+using <code>GetStringType</code> (<code>FUN_10003422</code>) and <code>LCMapString</code> (<code>FUN_100031D3</code>).
+<code>FUN_10002433</code> performs the one-time ACP initialization and sets the flag at
+<code>0x100058C8</code>.</p>
+<p>The codepage state is at <code>0x10005590</code>; the initialization state is at
+<code>0x10005568</code>; the lookup table is at <code>0x10005248</code>; the bitmap is at
+<code>0x100056A0</code>; and the case table is at <code>0x100055A0</code>. The character-class table
+is at <code>0x100056A1</code>.</p>
+<h2 id="string-arena">String arena<a class="headerlink" href="#string-arena" title="Permanent link">&para;</a></h2>
+<p>MissionLang uses a buddy-style arena rather than Language.dll's paged arena:</p>
+<ul>
+<li><code>FUN_10002785</code> initializes a 0x140-byte arena header and the state at
+  <code>0x10005568</code>;</li>
+<li><code>FUN_100027C3</code> scans the 0x14-byte entry array;</li>
+<li><code>FUN_100027EE</code> frees an entry;</li>
+<li><code>FUN_10002B19</code> allocates a block;</li>
+<li><code>FUN_10002E22</code> grows an allocation with <code>HeapReAlloc</code>, a <code>0x41C4</code>-byte
+  header, and a 1 MB <code>VirtualAlloc</code> region;</li>
+<li><code>FUN_10002ED3</code> initializes an arena.</li>
+</ul>
+<p>The arena header and entry array live in module data, not in a caller-owned
+object. The allocator is protected by the module's critical-section helpers
+(<code>FUN_10001C77</code>, <code>FUN_10001CA0</code>, <code>FUN_10001D0C</code>, <code>FUN_10001D6D</code>).</p>
+<h2 id="runtime-errors">Runtime errors<a class="headerlink" href="#runtime-errors" title="Permanent link">&para;</a></h2>
+<p>The mission-side runtime error table is at <code>0x10005060</code>. <code>FUN_10001B24</code> looks
+up an id and writes the message to <code>stderr</code> or displays a <code>Runtime Error!</code>
+message box. <code>FUN_10001AEB</code> dispatches the load (<code>0xFC</code>) and finalize (<code>0xFF</code>)
+callbacks, with the callback pointer at <code>0x10005538</code>. <code>FUN_10002FCE</code> is the lazy
+<code>user32</code> MessageBox wrapper.</p>
+<h2 id="runtime-and-data-layout">Runtime and data layout<a class="headerlink" href="#runtime-and-data-layout" title="Permanent link">&para;</a></h2>
+<p>The module's <code>.text</code> is about 10.9 KB and contains roughly 65-67 functions. The
+CRT portion covers startup, exit/atexit, TLS, stdio, environment, command-line,
+private heap, allocation, string primitives, <code>memmove</code>, <code>_alloca_probe</code>, and
+SEH. The localization portion covers codepage lookup, case folding, the arena,
+and error reporting.</p>
+<p>Important data:</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x10005248</code></td>
+<td>string-table lookup table</td>
+</tr>
+<tr>
+<td><code>0x10005568</code></td>
+<td>arena initialization state</td>
+</tr>
+<tr>
+<td><code>0x10005590</code></td>
+<td>codepage state block</td>
+</tr>
+<tr>
+<td><code>0x100055A0</code></td>
+<td>case-fold table</td>
+</tr>
+<tr>
+<td><code>0x1000557C</code></td>
+<td>0x14-byte entry array</td>
+</tr>
+<tr>
+<td><code>0x100056A0</code></td>
+<td>codepage bitmap</td>
+</tr>
+<tr>
+<td><code>0x100056A1</code></td>
+<td>character-class table</td>
+</tr>
+<tr>
+<td><code>0x100057A8</code></td>
+<td>private heap</td>
+</tr>
+<tr>
+<td><code>0x100058C8</code></td>
+<td>one-time init flag</td>
+</tr>
+<tr>
+<td><code>0x10005060</code></td>
+<td>runtime error-message table</td>
+</tr>
+<tr>
+<td><code>0x10005538</code></td>
+<td>error callback pointer</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>.rdata</code> block at <code>0x10004000</code> holds the import table, strings, and
+constants; the <code>.data</code> block at <code>0x10005000</code> holds the writable tables, arena
+metadata, and globals.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The module has no callable string API; callers use the loaded module handle
+  and a mission string id.</li>
+<li>Codepage values <code>-2</code>, <code>-3</code>, and <code>-4</code> are sentinels resolved through the same
+  path as Language.dll.</li>
+<li>The arena is buddy-backed and must be freed through its own entry/free path,
+  not the CRT heap.</li>
+<li>The case table and bitmap are one-time state; the reset path is required
+  before changing codepages.</li>
+<li>The mission text lives in <code>.rsrc</code>; the code does not embed the localized
+  strings in <code>.text</code>.</li>
+<li>The module's state is global and lock-protected; there is no per-caller
+  loader object.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
-<p>No single function is representative; use the detail map below and the per-VA index.</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Detail</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x10001006</code></td>
+<td>crt</td>
+<td>DLL entry dispatcher</td>
+</tr>
+<tr>
+<td><code>0x1000205B</code></td>
+<td>codepage</td>
+<td>lookup table and bitmap builder</td>
+</tr>
+<tr>
+<td><code>0x10002208</code></td>
+<td>codepage</td>
+<td>special-codepage resolver</td>
+</tr>
+<tr>
+<td><code>0x10002252</code></td>
+<td>codepage</td>
+<td>display-codepage map</td>
+</tr>
+<tr>
+<td><code>0x100022AE</code></td>
+<td>codepage</td>
+<td>case-fold table builder</td>
+</tr>
+<tr>
+<td><code>0x10002433</code></td>
+<td>codepage</td>
+<td>one-time ACP initialization</td>
+</tr>
+<tr>
+<td><code>0x10002785</code></td>
+<td>arena</td>
+<td>arena initialization</td>
+</tr>
+<tr>
+<td><code>0x10002B19</code></td>
+<td>arena</td>
+<td>block allocation</td>
+</tr>
+<tr>
+<td><code>0x10002E22</code></td>
+<td>arena</td>
+<td>grow allocation</td>
+</tr>
+<tr>
+<td><code>0x10001B24</code></td>
+<td>error</td>
+<td>runtime message lookup/display</td>
+</tr>
+<tr>
+<td><code>0x10001AEB</code></td>
+<td>error</td>
+<td>load/finalize callback dispatch</td>
+</tr>
+<tr>
+<td><code>0x10002FCE</code></td>
+<td>error</td>
+<td>lazy MessageBox wrapper</td>
+</tr>
+</tbody>
+</table>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

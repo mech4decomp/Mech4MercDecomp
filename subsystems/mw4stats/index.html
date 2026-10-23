@@ -1354,10 +1354,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#createlog-session-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CreateLog: session setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statsrec-and-the-recording-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatsRec and the recording pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-and-serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary and serialization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gun-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gun authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2638,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#createlog-session-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CreateLog: session setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statsrec-and-the-recording-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatsRec and the recording pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-and-serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary and serialization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gun-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gun authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,11 +2799,516 @@
 <p><strong>Classified VAs:</strong> 1091 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Stats_dll/">MW4Stats.dll</a></p>
 </blockquote>
 <p>Stats recording, XML serialization, Zone upload, and Gun authentication.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The <code>MW4StatsDll_*</code> exports are the public API. Recording collects match/player events; the serializer turns them into XML; upload sends the payload to Zone; gunauth obtains/attaches the Gun auth ticket.</p>
-<p>Support and CRT details are the shared infrastructure used by those four stages.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p><code>MW4Stats.dll</code> is loaded at runtime, not linked. The EXE's loader at
+<code>FUN_00564950</code> calls <code>LoadLibraryA("MW4Stats.dll")</code>, resolves the eight
+<code>MW4StatsDll_*</code> exports, and caches their addresses in
+<code>0x007EEBD8</code>-<code>0x007EEBF4</code>. Any failed resolution clears the cache, frees the
+module, and returns <code>0x80004005</code>; there is no fallback path.</p>
+<p>The module is a stateful service rather than a set of stateless helpers. Its
+load-time constructors build three module-global objects, and <code>CreateLog</code> then
+attaches a per-session configuration and uploader to them. The exports use
+those globals directly; callers never receive a session handle.</p>
+<p>All eight exports are <code>__stdcall</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>VA</th>
+<th>Stack contract</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MW4StatsDll_CreateLog</code></td>
+<td><code>0x100014B0</code></td>
+<td>9 params, <code>RET 0x24</code></td>
+<td>Build the log/session pipeline</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_FreeTicket</code></td>
+<td><code>0x100030B0</code></td>
+<td>1 param, <code>RET 0x4</code></td>
+<td>Release a Gun-auth ticket</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_RecordGameSummary</code></td>
+<td><code>0x10002430</code></td>
+<td>23 dwords, <code>RET 0x5C</code></td>
+<td>Commit the session summary</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_UploadLog</code></td>
+<td><code>0x10002930</code></td>
+<td>no params</td>
+<td>Upload the queued XML</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_UserGunAuth</code></td>
+<td><code>0x10002AF0</code></td>
+<td>5 params, <code>RET 0x14</code></td>
+<td>Fetch a Gun-auth ticket</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_writeBotStats</code></td>
+<td><code>0x10002040</code></td>
+<td>26 dwords, <code>RET 0x68</code></td>
+<td>Commit one bot record</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_writePlayerStats</code></td>
+<td><code>0x10001AA0</code></td>
+<td>31 dwords, <code>RET 0x7C</code></td>
+<td>Commit one player record</td>
+</tr>
+<tr>
+<td><code>MW4StatsDll_writeTeamStats</code></td>
+<td><code>0x10001790</code></td>
+<td>22 dwords, <code>RET 0x58</code></td>
+<td>Commit one team record</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>write*</code> functions return <code>0</code> on success. <code>UploadLog</code> returns <code>S_OK</code>,
+<code>0x80004005</code> for a setup failure, <code>0x80040270</code> for a timeout/finalize failure,
+or <code>0x80040290</code> when the uploader is not initialized. <code>RecordGameSummary</code>
+returns the finalize HRESULT.</p>
+<h2 id="module-state">Module state<a class="headerlink" href="#module-state" title="Permanent link">&para;</a></h2>
+<p>The module's writable state starts at <code>0x10027000</code> and is built by load-time
+constructors before any export can run:</p>
+<table>
+<thead>
+<tr>
+<th>Global</th>
+<th>Object</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>g_10027058</code></td>
+<td><code>LogObject</code></td>
+<td>Host name, user agent, cookie, session id, uploader pointer</td>
+</tr>
+<tr>
+<td><code>g_10027080</code></td>
+<td><code>ZoneStatsClient</code></td>
+<td>Record manager, serialization buffers, queue, uploader</td>
+</tr>
+<tr>
+<td><code>g_10026BA0</code></td>
+<td><code>BigRecord</code> / <code>StatsRec</code></td>
+<td>Session accumulator used by <code>RecordGameSummary</code></td>
+</tr>
+<tr>
+<td><code>g_10026BB0</code></td>
+<td>string slot</td>
+<td>Session-name string</td>
+</tr>
+<tr>
+<td><code>g_10026C54</code></td>
+<td>small type cell</td>
+<td>Session mode/type value</td>
+</tr>
+<tr>
+<td><code>g_10026E5C</code>-<code>0x10026FA8</code></td>
+<td>counter block</td>
+<td>Per-session totals accumulated by the writers</td>
+</tr>
+<tr>
+<td><code>g_100274F0</code></td>
+<td>coordinator slot</td>
+<td>Registration/uploader factory target</td>
+</tr>
+<tr>
+<td><code>g_10027520</code>/<code>28</code>/<code>30</code>/<code>38</code></td>
+<td><code>Arr</code> objects</td>
+<td>Small integer arrays used by record selection</td>
+</tr>
+</tbody>
+</table>
+<p>The constructors install the vtables, allocate the fixed-capacity string
+buffers, and register <code>_onexit</code> cleanup callbacks. The cleanup path releases
+the uploader, destroys the string buffers, and tears down the session
+accumulator. The module does not expose a destroy/close export; teardown is
+process-exit only.</p>
+<h2 id="createlog-session-setup">CreateLog: session setup<a class="headerlink" href="#createlog-session-setup" title="Permanent link">&para;</a></h2>
+<p><code>MW4StatsDll_CreateLog</code> is the only way to initialize a session. It builds a
+local configuration block and passes it to <code>FUN_10003980</code>, which initializes
+<code>g_10027058</code>:</p>
+<ul>
+<li>The server FQDN is <code>L"mw4.stats.zone.msn.com"</code> (<code>0x10024040</code>).</li>
+<li>The user agent is <code>MW4</code> (<code>0x100242AC</code>).</li>
+<li>The configured session id is copied into <code>+0x1C</code>; the FQDN pointer is stored
+  at <code>+0x20</code>; the fixed flags are <code>+0x0C = 0</code>, <code>+0x10 = 0x80</code>, <code>+0x14 = 0x65</code>.</li>
+<li>If <code>g_10027058 + 4</code> is already non-NULL, initialization returns
+  <code>0x80040210</code> instead of replacing the live uploader.</li>
+</ul>
+<p>The parameters are positional and partly inferred from their use:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Observed use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p1</code></td>
+<td>Session/player identifier stored in the log object</td>
+</tr>
+<tr>
+<td><code>p2</code></td>
+<td>Server/mode selector; the jump table maps <code>0,1,2 -&gt; 0,1,2</code>, <code>3 -&gt; 4</code>, default <code>3</code></td>
+</tr>
+<tr>
+<td><code>p3</code></td>
+<td>Comment string</td>
+</tr>
+<tr>
+<td><code>p4</code></td>
+<td>Session name stored in <code>g_10026BB0</code></td>
+</tr>
+<tr>
+<td><code>p5</code></td>
+<td>Player key; copied into two string slots</td>
+</tr>
+<tr>
+<td><code>p6</code>-<code>p9</code></td>
+<td>Session-configuration block copied into <code>g_10027080</code></td>
+</tr>
+</tbody>
+</table>
+<p>The remainder of the function:</p>
+<ol>
+<li>Constructs the session-config object at <code>g_10027080</code> with
+   <code>FUN_10005BF0</code>, which copies the comment/player/affiliation strings and
+   binds the uploader.</li>
+<li>Builds the global <code>BigRecord</code> at <code>g_10026BA0</code> and stores the session name.</li>
+<li>Initializes the small type cell at <code>g_10026C54</code>.</li>
+<li>Emits the first record through the uploader path.</li>
+</ol>
+<p><code>CreateLog</code> returns <code>0</code> on success. It is not re-entrant: a second call while
+the first session is live is rejected by the busy check.</p>
+<h2 id="statsrec-and-the-recording-pipeline">StatsRec and the recording pipeline<a class="headerlink" href="#statsrec-and-the-recording-pipeline" title="Permanent link">&para;</a></h2>
+<p>Every <code>write*</code> export constructs a fresh <code>StatsRec</code> on its stack, fills it,
+commits it to the manager, and destroys it. The record is approximately
+<code>0x4B4</code> bytes and has two embedded vtable views:</p>
+<ul>
+<li><code>+0x00</code>: <code>0x1002126C</code>, the full record; slot 0 is the XML serializer.</li>
+<li><code>+0xA8</code>: <code>0x10021260</code>, the base sub-view.</li>
+</ul>
+<p>The fields used by all three writers include:</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+0x0C</code></td>
+<td>Commit gate; must be non-zero</td>
+</tr>
+<tr>
+<td><code>+0x10</code></td>
+<td>Record name</td>
+</tr>
+<tr>
+<td><code>+0xB0</code></td>
+<td>Win-type selector (<code>0</code>, <code>2</code>, or <code>4</code>) copied to the manager at commit</td>
+</tr>
+<tr>
+<td><code>+0xB4</code></td>
+<td>Type sub-id (ctor value <code>5</code>; <code>4</code> selects the Gun-auth element)</td>
+</tr>
+<tr>
+<td><code>+0xB8</code></td>
+<td>Record type: <code>1</code> bot, <code>2</code> team, <code>3</code> player, <code>4</code> player with affiliation</td>
+</tr>
+<tr>
+<td><code>+0x2BC</code>/<code>+0x2C8</code>/<code>+0x2CC</code></td>
+<td>Component damage given/received/self</td>
+</tr>
+<tr>
+<td><code>+0x2D0</code>/<code>+0x2DC</code>/<code>+0x2E0</code></td>
+<td>Damage given/received/self (<code>_ftol</code> of doubles)</td>
+</tr>
+<tr>
+<td><code>+0x2E4</code>/<code>+0x2EC</code>/<code>+0x334</code></td>
+<td>Deaths/kills/suicides</td>
+</tr>
+<tr>
+<td><code>+0x2F4</code></td>
+<td>Minutes in game (double)</td>
+</tr>
+<tr>
+<td><code>+0x2FC</code>/<code>+0x300</code></td>
+<td>Score / score per hour</td>
+</tr>
+<tr>
+<td><code>+0x304</code>/<code>+0x3D8</code></td>
+<td>Score-vs-time and team-score-vs-time point lists</td>
+</tr>
+<tr>
+<td><code>+0x338</code></td>
+<td>Team name</td>
+</tr>
+<tr>
+<td><code>+0x3D0</code>/<code>+0x3D4</code>/<code>+0x4A8</code></td>
+<td>Team deaths/team kills/team win</td>
+</tr>
+<tr>
+<td><code>+0x408</code></td>
+<td>Time to live in seconds</td>
+</tr>
+<tr>
+<td><code>+0x40C</code></td>
+<td>Tonnage</td>
+</tr>
+<tr>
+<td><code>+0x4A4</code>/<code>+0x4AC</code>/<code>+0x4B0</code></td>
+<td>Win, objectives accomplished, turrets destroyed</td>
+</tr>
+</tbody>
+</table>
+<p>The team writer (<code>0x10001790</code>) names the record and team from <code>p1 + 1</code>,
+stores the four doubles and the component-damage integers, and computes the
+guarded ratios:</p>
+<ul>
+<li><code>DamageRatio = c / (d + e)</code> when <code>d + e != 0</code>, else <code>0</code>.</li>
+<li><code>ComponentDamageRatio = f / (g + h)</code> when <code>g + h != 0</code>, else <code>0</code>.</li>
+<li><code>ScorePerHour = (int)(i * 60 / b)</code> when <code>b != 0</code>.</li>
+<li><code>Efficiency = (int)(k * 100 / (k + j + l + m))</code> when the denominator is
+  non-zero.</li>
+<li><code>TimeToLiveInSeconds = (int)(b * 60 / (j + l + 1))</code> when the denominator is
+  non-zero.</li>
+</ul>
+<p>The win flag sets <code>+0x4A4 = 1</code> and <code>+0x2F0 = 0</code>; a loss sets the opposite.
+The per-player score array is appended as <code>(score, index)</code> pairs to the
+<code>ScoreVsTime</code> list.</p>
+<p>The bot writer (<code>0x10002040</code>) has the same shape with type <code>1</code>. It adds a
+second name string, formats a float with <code>%.*g</code>, and uses <code>L"? "</code> for the team
+when the team flag is clear. It appends scores to <code>+0x314</code> and has no mode-4
+path.</p>
+<p>The player writer (<code>0x10001AA0</code>) adds identity and context. A non-NULL
+affiliation string is stored in the <code>+0x15C</code> sub-object and changes the type
+to <code>4</code>; otherwise the type is <code>3</code>. A team-game flag selects the team string or
+<code>L"? "</code>. Mode <code>4</code> additionally stores turrets destroyed at <code>+0x4B0</code> and
+objectives accomplished at <code>+0x4AC</code>. The final string parameter drives a
+six-cell lookup table and writes the commit gate at <code>+0x0C</code>.</p>
+<p>All three writers also add their counters to the module-global session
+accumulators: score, kills, deaths, suicides, team kills/win/deaths, damage,
+component damage, and minutes in game. Team-game-only counters are gated by
+the team flag.</p>
+<h2 id="summary-and-serialization">Summary and serialization<a class="headerlink" href="#summary-and-serialization" title="Permanent link">&para;</a></h2>
+<p><code>MW4StatsDll_RecordGameSummary</code> closes the session:</p>
+<ol>
+<li>Tags the global record's team-name slot with <code>L"40904b0"</code>.</li>
+<li>Reduces the accumulated counters into summary ratios:
+   damage given / (received + self), component damage given / (received +
+   self), kills / total, score per hour, and minutes / (suicides + deaths + 1).</li>
+<li>Commits the accumulated <code>BigRecord</code> through the manager.</li>
+<li>Builds a fresh game-options record with 17 <code>Enabled</code>/<code>Disabled</code> fields plus
+   integer and string options.</li>
+<li>Finalizes the record and returns the HRESULT.</li>
+</ol>
+<p>Commit and finalize are thin manager operations:</p>
+<ul>
+<li><code>FUN_10005D50</code> copies the record's <code>+0xB0</code> selector to <code>manager + 0x454</code>,
+  then calls <code>FUN_10003D90</code>.</li>
+<li><code>FUN_10005D20</code> copies <code>record + 4</code>, then calls <code>FUN_10003C00</code>.</li>
+</ul>
+<p>The commit path validates the record before serializing it: <code>+0x0C</code> must be
+non-zero and the name at <code>+0x10</code> must be non-empty. Failure returns
+<code>0x80070057</code>. It then calls the record's vtable slot 0, the XML serializer
+<code>FUN_10005100</code>, and hands the resulting string to the manager's queue at
+<code>+0x1C8</code> through vtable slot 5. The finalize path builds the header record
+with the cookie <code>L"FCh=HpR[6PHp=P"</code> and dispatches through slot 4.</p>
+<p>The serializer emits elements in a fixed order: Gun auth (only for type sub-id
+<code>4</code>), affiliation, chassis, component damage given/ratio/received/self, damage
+given/ratio/received/self, deaths, efficiency, kills, loss, minutes in game,
+score, score per hour, score-vs-time, suicides, team, team deaths, team kills,
+team score-vs-time, time to live, tonnage, and win. Selector <code>0</code> or <code>2</code> then
+appends team win; selector <code>4</code> appends objectives, team win, and turrets.</p>
+<p>Element writers use the XML literals <code>&lt;</code>, <code>v="</code>, <code>"/&gt;</code>, <code>&lt;/</code>, <code>&gt;</code>, and
+<code>/&gt;</code>. String values are escaped for <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>'</code>, and <code>"</code>. Point lists
+are emitted only when non-empty.</p>
+<h2 id="upload-path">Upload path<a class="headerlink" href="#upload-path" title="Permanent link">&para;</a></h2>
+<p><code>MW4StatsDll_UploadLog</code> is synchronous at the API boundary but asynchronous
+inside:</p>
+<ol>
+<li>Creates the named manual-reset event <code>"Reporting Sample"</code>.</li>
+<li>Builds a kick-off descriptor with mode <code>4</code>, a 5000 ms timeout, and the
+   event handle.</li>
+<li>Calls <code>FUN_10003B20</code> on the log object. If the uploader pointer at <code>+4</code> is
+   NULL, it returns <code>0x80040290</code>.</li>
+<li>Waits up to 5000 ms on the event. Timeout or a non-signaled result returns
+   <code>0x80040270</code>.</li>
+<li>Calls <code>FUN_10003B60</code> to finalize. An async failure returns <code>0x80040270</code>;
+   otherwise the export returns <code>S_OK</code>.</li>
+</ol>
+<p>The uploader is an asynchronous COM-style object with slots for start,
+record-send, finalize, and kick-off. It starts worker threads with
+<code>CreateThread</code>, protects state with critical sections, and uses a done byte to
+prevent duplicate starts. The queue is drained under lock.</p>
+<p>The HTTP client uses WinInet:</p>
+<ul>
+<li><code>InternetOpenW</code> and <code>InternetSetStatusCallbackA</code> create the session.</li>
+<li><code>InternetConnectW</code> opens the connection.</li>
+<li><code>HttpOpenRequestW</code> creates the request; the body is sent with
+  <code>HttpSendRequestExW</code>.</li>
+<li><code>InternetWriteFile</code> writes the chunks; the helper resets a per-write event
+  and waits up to 500 ms when the asynchronous mode is active.</li>
+<li><code>HttpEndRequestW</code> completes the request.</li>
+<li><code>InternetReadFileExA</code>/<code>InternetReadFile</code> read the response.</li>
+<li><code>InternetCloseHandle</code> releases the handles.</li>
+</ul>
+<p>The sender builds a <code>Content-Type: text/xml</code> header and writes a <code>&lt;clr&gt;</code>
+document. The header includes the XML declaration, <code>&lt;cmd v="query"/&gt;</code>, a
+connection descriptor (<code>g</code>, <code>s</code>, <code>z</code>, <code>t</code>, <code>U</code>), and optional client counters
+(<code>cs</code>, <code>ca</code>, <code>qs</code>, <code>qa</code>, <code>bs</code>, <code>br</code>). The footer optionally appends
+<code>&lt;debug_server_response v="1"/&gt;</code> and always appends <code>&lt;/clr&gt;</code>. Queued records
+are written between them, then the request is ended.</p>
+<h2 id="gun-authentication">Gun authentication<a class="headerlink" href="#gun-authentication" title="Permanent link">&para;</a></h2>
+<p><code>MW4StatsDll_UserGunAuth</code> obtains a Zone Gun-auth ticket through COM:</p>
+<ul>
+<li>CLSID <code>{563702B6-B019-477E-A1AA-F441AE78F17E}</code></li>
+<li>IID <code>{0BA68363-C26C-4E63-84B8-6A0A2AD77819}</code></li>
+<li><code>CoInitialize</code> followed by <code>CoCreateInstance</code> with <code>CLSCTX_INPROC_SERVER</code>.</li>
+</ul>
+<p>The function builds <code>http://&lt;server&gt;/ZoneAccessService...</code> in a 256-wide
+character buffer, using bounded <code>wcsncat</code> appends. It then runs two async step
+objects and queries the COM object:</p>
+<ul>
+<li>vtable <code>+0x38</code>: <code>GetTicketProperty("sessionKey", ...)</code>.</li>
+<li>vtable <code>+0x3C</code>: <code>GetSanitizedTicket(...)</code>.</li>
+</ul>
+<p>The ticket is not a structure. On success it allocates
+<code>(wcslen(ticket) + 1) * 2</code> bytes with <code>malloc</code>, copies the wide string, and
+writes the pointer to the caller's out-parameter. Failure returns the COM
+HRESULT or <code>0x80004005</code>; an empty ticket leaves the out-parameter untouched.</p>
+<p><code>MW4StatsDll_FreeTicket</code> takes the same out-parameter slot, calls <code>free</code> on the
+pointed-to buffer, writes NULL back, and returns <code>0</code>.</p>
+<h2 id="support-layer">Support layer<a class="headerlink" href="#support-layer" title="Permanent link">&para;</a></h2>
+<p>The public flows depend on three internal layers:</p>
+<ul>
+<li><strong>Allocator and buffers.</strong> <code>AllocObj</code> is a two-slot virtual allocator
+  (<code>alloc</code>, <code>free</code>). <code>WordBuffer</code> is <code>{allocator, buffer, count}</code> and grows by
+  <code>n*2+2</code> bytes. <code>StrBuffer</code> is 24 bytes with data, length, capacity, and
+  granularity; it grows linearly and reserves a double-NUL terminator. Every
+  serialized record and the uploader's temporary header/footer buffers use
+  this type.</li>
+<li><strong>XML parser.</strong> The parser is a pull parser over a UTF-16 cursor with a
+  sink, flags, tokenizer, and cursor. It validates the XML prolog, attributes,
+  names, and character data, and decodes the five predefined entities
+  (<code>amp</code>, <code>apos</code>, <code>lt</code>, <code>gt</code>, <code>quot</code>). The writer escapes the same set.</li>
+<li><strong>Containers and registry.</strong> The record queue is a critical-section-guarded
+  list with a count, head, and tail; its iterator advances the head before
+  reading the value (eat-next semantics). Reference-counted coordinator and
+  uploader objects use an interlocked decrement for release. The module's
+  globals form a fixed BSS registry constructed at load and never reallocated.</li>
+</ul>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>CreateLog</code> is one-shot per process; a live uploader rejects re-entry with
+  <code>0x80040210</code>.</li>
+<li>A record must have a non-zero commit gate and a non-empty name.</li>
+<li>Ratio fields are zero when their denominators are zero; they never produce
+  a divide-by-zero.</li>
+<li>The uploader must exist before <code>UploadLog</code>; otherwise the call returns
+  <code>0x80040290</code>.</li>
+<li>Upload timeout is 5000 ms. Timeout, async failure, or finalize failure all
+  map to <code>0x80040270</code>.</li>
+<li>A Gun-auth ticket is owned by the caller and must be released with
+  <code>FreeTicket</code>; the module does not track it.</li>
+<li>The XML writer escapes strings but does not validate them; invalid
+  characters pass through as wide characters.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
-<p>No single function is representative; use the detail map below and the per-VA index.</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Detail</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x100014B0</code></td>
+<td>api</td>
+<td><code>CreateLog</code> session factory</td>
+</tr>
+<tr>
+<td><code>0x10001790</code></td>
+<td>recording</td>
+<td>team record writer and commit</td>
+</tr>
+<tr>
+<td><code>0x10001AA0</code></td>
+<td>recording</td>
+<td>player record writer and commit</td>
+</tr>
+<tr>
+<td><code>0x10002040</code></td>
+<td>recording</td>
+<td>bot record writer and commit</td>
+</tr>
+<tr>
+<td><code>0x10002430</code></td>
+<td>recording</td>
+<td>session summary and finalize</td>
+</tr>
+<tr>
+<td><code>0x10002930</code></td>
+<td>upload</td>
+<td>synchronous wrapper around the async upload</td>
+</tr>
+<tr>
+<td><code>0x10002AF0</code></td>
+<td>gunauth</td>
+<td>COM ticket acquisition</td>
+</tr>
+<tr>
+<td><code>0x100030B0</code></td>
+<td>gunauth</td>
+<td>ticket release</td>
+</tr>
+<tr>
+<td><code>0x10005100</code></td>
+<td>recording</td>
+<td>record-to-XML serializer</td>
+</tr>
+<tr>
+<td><code>0x10003D90</code></td>
+<td>recording</td>
+<td>validate, serialize, and queue a record</td>
+</tr>
+<tr>
+<td><code>0x10003C00</code></td>
+<td>recording</td>
+<td>build and queue the finalize header</td>
+</tr>
+<tr>
+<td><code>0x1001E490</code></td>
+<td>upload</td>
+<td>chunked XML body sender</td>
+</tr>
+<tr>
+<td><code>0x1001E7F0</code></td>
+<td>upload</td>
+<td><code>&lt;clr&gt;</code> header builder</td>
+</tr>
+<tr>
+<td><code>0x1001EB80</code></td>
+<td>upload</td>
+<td><code>&lt;clr&gt;</code> footer builder</td>
+</tr>
+</tbody>
+</table>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

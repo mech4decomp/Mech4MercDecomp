@@ -1127,10 +1127,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2572,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,8 +2667,56 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 2 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>LZW compression/decompression and related byte codecs.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The LZW compressor is 0x006FBE80; the decompressor is 0x006FC220. They are shared by the #VBD archive and by texture formats 5/6/7.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The codec subsystem is the shared LZW primitive used by the <code>#VBD</code> archive and
+by texture formats 5/6/7. It is a pure byte codec: it has no game state and no
+dependency on the archive or texture objects.</p>
+<p>The two entry points are:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x006FBE80</code></td>
+<td>LZW compressor (<code>__stdcall</code>, <code>RET 0x10</code>, four params)</td>
+</tr>
+<tr>
+<td><code>0x006FC220</code></td>
+<td>LZW decompressor (<code>__stdcall</code>, <code>RET 0xC</code>, three params: out, in, in_size)</td>
+</tr>
+</tbody>
+</table>
+<p>The compressor uses a global dictionary at <code>0x00849EC8</code> and a set of globals in
+<code>0x008567xx</code>. It is pure computation with <code>rep stosb</code>/<code>stosw</code>/<code>lodsb</code>; it makes
+no external calls.</p>
+<p>The decompressor is GIF-style LZW: variable 9-12-bit codes, LSB-first, with a
+dictionary of 3-byte entries at <code>0x849EC8</code>. It reads codes from the input
+stream, walks the dictionary, writes the decoded run to the output buffer, and
+returns the number of output bytes.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>The archive uses the compressor when writing an entry and the decompressor when
+<code>stored_size &lt; uncompressed_size</code>. The texture decoders use the same primitive
+for the compressed texture formats. Because the codec is shared, a change to
+the dictionary/bit order affects both archive members and textures.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The code stream is LSB-first with 9-12-bit codes; a different bit order
+  produces garbage.</li>
+<li>The dictionary is global and reset per stream; a decoder must start from the
+  initial dictionary state.</li>
+<li>The decompressor returns the output byte count; a short return means the
+  input ended before a complete run.</li>
+<li>The compressor and decompressor must agree on the dictionary size and code
+  width growth.</li>
+<li>The codec does not validate the output buffer size; the caller must provide
+  enough space for the uncompressed data.</li>
+<li>The codec is not a general-purpose file compressor; it is tuned for the
+  game's archive/texture payloads.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2636,14 +2728,14 @@
 </thead>
 <tbody>
 <tr>
-<td>0x006FBE80</td>
+<td><code>0x006FBE80</code></td>
 <td>lzw</td>
-<td>LZW compressor</td>
+<td>compressor</td>
 </tr>
 <tr>
-<td>0x006FC220</td>
+<td><code>0x006FC220</code></td>
 <td>lzw</td>
-<td>LZW decompressor</td>
+<td>decompressor</td>
 </tr>
 </tbody>
 </table>

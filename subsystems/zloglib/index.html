@@ -1466,10 +1466,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emit-and-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emit and dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestamps-and-filenames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timestamps and filenames
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#md5-and-byte-codecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MD5 and byte codecs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#child-process-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Child-process status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-and-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State and data layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationship-to-the-exe-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relationship to the EXE logger
       
     </span>
   </a>
@@ -2550,10 +2649,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emit-and-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emit and dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestamps-and-filenames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timestamps and filenames
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#md5-and-byte-codecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MD5 and byte codecs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#child-process-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Child-process status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-and-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State and data layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationship-to-the-exe-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relationship to the EXE logger
       
     </span>
   </a>
@@ -2623,8 +2821,309 @@
 <p><strong>Classified VAs:</strong> 33 | <strong>Exhaustive index:</strong> <a href="../../va_index/ZlogLib_dll/">ZlogLib.dll</a></p>
 </blockquote>
 <p>Logging API (<code>GetngLogAPI</code>) with lifecycle, emit, MD5, and memory helpers.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p><code>GetngLogAPI</code> at 0x10001C6E returns an 8-slot method table. The lifecycle detail initializes/shuts down the log; emit writes messages; md5 and mem are support helpers.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p><code>ZlogLib.dll</code> is a small, self-contained logging module. Its entire public
+surface is one export, <code>GetngLogAPI</code> at <code>0x10001C6E</code> (ordinal 1). The module
+has no imports of game DLLs and no dependency on the EXE; it uses the shared
+MSVC runtime (<code>msvcrt.dll</code>) plus a small KERNEL32 surface for file and child
+process operations.</p>
+<p>The retail EXE does not import or load this DLL. Its own log formatter lives in
+the EXE at <code>0x006F91D0</code>, and the <code>-zlogname</code>/<code>-zlogstyle</code> switches feed that
+path. ZlogLib is therefore an independent logging API rather than a required
+part of the game's startup sequence.</p>
+<p>The module is <code>/MD</code>, not statically linked. Its small <code>crt</code> detail is runtime
+glue around the shared runtime, not a bundled C library; the rest of the
+module is game logging, codec, and file-lifecycle code.</p>
+<h2 id="public-api">Public API<a class="headerlink" href="#public-api" title="Permanent link">&para;</a></h2>
+<p><code>GetngLogAPI</code> takes a two-dword context source and a pointer to the caller's
+API table, allocates an eight-byte context with <code>calloc(1, 8)</code>, copies the two
+dwords into it, stores the context in <code>g_10027098</code>, and returns <code>1</code>.</p>
+<p>The API table is an array of function pointers with a hole at <code>+0x1C</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>VA</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+0x00</code></td>
+<td><code>0x10001CD2</code></td>
+<td>release/free preamble</td>
+</tr>
+<tr>
+<td><code>+0x04</code></td>
+<td><code>0x10001CD8</code></td>
+<td>release/free preamble</td>
+</tr>
+<tr>
+<td><code>+0x08</code></td>
+<td><code>0x100018A6</code></td>
+<td>log init / header</td>
+</tr>
+<tr>
+<td><code>+0x0C</code></td>
+<td><code>0x10001C28</code></td>
+<td>child-process status</td>
+</tr>
+<tr>
+<td><code>+0x10</code></td>
+<td><code>0x10001707</code></td>
+<td>game-end flush</td>
+</tr>
+<tr>
+<td><code>+0x14</code></td>
+<td><code>0x100016D9</code></td>
+<td>game-start record</td>
+</tr>
+<tr>
+<td><code>+0x18</code></td>
+<td><code>0x10001796</code></td>
+<td>message emit</td>
+</tr>
+<tr>
+<td><code>+0x1C</code></td>
+<td>-</td>
+<td>unused hole</td>
+</tr>
+<tr>
+<td><code>+0x20</code></td>
+<td><code>0x100017C8</code></td>
+<td>player-connect record</td>
+</tr>
+</tbody>
+</table>
+<p>All slot functions are <code>__cdecl</code>. The context's second dword (<code>context + 4</code>) is
+the optional callback used by the record slots; when it is NULL, the slots use
+the fallback string <code>99.999</code>.</p>
+<h2 id="log-lifecycle">Log lifecycle<a class="headerlink" href="#log-lifecycle" title="Permanent link">&para;</a></h2>
+<p>The lifecycle is split between configuration, file creation, header emission,
+and close:</p>
+<ul>
+<li><code>FUN_10001A1D</code> applies a caller configuration block. The block is about
+  <code>0xCB4</code> bytes and supplies the log mode, directory/name strings, snapshot
+  naming, flush cadence, and an array of extra information strings. It copies
+  the fields into module globals (<code>g_10004014</code>, <code>g_10004304</code>, <code>g_10004300</code>,
+  <code>g_10004010</code>, <code>g_10005108</code>) and builds the primary and secondary path
+  strings.</li>
+<li><code>FUN_10001000</code> is the init core. It probes/creates the log file, chooses the
+  open mode, formats the initial timestamp, and opens the primary and optional
+  secondary sinks. It supports five observed modes; modes 3 and 4 build both a
+  live log name and a permanent snapshot name, and mode 4 renames the primary
+  on close.</li>
+<li><code>FUN_100018A6</code> is the API's init/header entry. A NULL argument disables
+  logging, copies <code>DISABLED</code> into the log-name buffer, and returns that buffer.
+  Otherwise it applies the configuration, emits the header block, and returns
+  the active log-name buffer.</li>
+<li><code>FUN_10001357</code> closes the sinks. It flushes and closes the primary and
+  secondary files, performs the mode-4 rename, builds the permanent snapshot
+  name for the secondary, and optionally spawns the stats collector.</li>
+</ul>
+<p>The header block is a sequence of formatted lines: <code>Log_Standard</code>,
+<code>Log_Version</code>, <code>Log_Info_URL</code>, four configuration dwords, the extra-information
+array, and a <code>Game_Init</code> timestamp. When logging is disabled, the header path
+emits <code>DISABLED</code> instead.</p>
+<p>The close path spawns the collector with the current directory and a
+<code>zWorldStats</code> command line in the form <code>"%s -d %s -g %s"</code>. A spawn failure
+records thread id <code>-0x457</code>; a successful child is monitored through the
+child-status slot.</p>
+<h2 id="emit-and-dispatch">Emit and dispatch<a class="headerlink" href="#emit-and-dispatch" title="Permanent link">&para;</a></h2>
+<p><code>FUN_10001201</code> is the low-level emitter. It copies the message into a
+<code>0x7D00</code>-byte stack buffer, appends the configured separator, and writes to the
+active sinks:</p>
+<ul>
+<li>The primary sink receives <code>fprintf(file, "%s", message)</code> when the mode is
+  enabled, the primary file is open, and the level is not <code>2</code>.</li>
+<li>The secondary sink receives the same message after XOR-obfuscation with
+  <code>0xA7</code>, written with <code>fwrite</code>, when the secondary is enabled, open, and the
+  level is not <code>1</code>.</li>
+<li>The key MD5 advances identically for both sinks.</li>
+<li>Flush counters are per-sink. In flush mode <code>1</code>, a counter is incremented and
+  the file is flushed when the configured cadence is exceeded; the counter
+  then resets to zero.</li>
+</ul>
+<p><code>FUN_10001BE9</code> is the dispatcher. It does nothing when logging is inactive or
+the message is empty; otherwise it routes level <code>1</code> when the primary mode is
+enabled and level <code>2</code> when the secondary mode is enabled.</p>
+<p>The API slots wrap this core:</p>
+<ul>
+<li><code>FUN_100016D9</code> emits a game-start line (<code>%s\tGame_Start</code>) using the context
+  callback or the <code>99.999</code> fallback, then dispatches it.</li>
+<li><code>FUN_10001796</code> emits a general message (<code>%s\t%s</code>) through the same path.</li>
+<li><code>FUN_10001707</code> emits the game-end lines, including the key hex string, then
+  closes the log.</li>
+<li><code>FUN_100017C8</code> emits a player-connect line. It dumps a non-empty data blob as
+  hex; an empty blob becomes <code>\tNO_PARTICIPATION</code>; a negative length becomes
+  <code>(null)</code>.</li>
+</ul>
+<p>The ring formatter <code>FUN_10002931</code> uses four rotating <code>0x7D00</code>-byte buffers
+starting at <code>0x10007C20</code>. Each call returns a pointer into the current buffer
+and advances <code>g_10027020</code> modulo four. A returned pointer is only valid until
+the next ring call; callers that need to retain the text copy it immediately.</p>
+<h2 id="timestamps-and-filenames">Timestamps and filenames<a class="headerlink" href="#timestamps-and-filenames" title="Permanent link">&para;</a></h2>
+<p><code>FUN_10001561</code> formats the current time with <code>_ftime</code>, <code>time</code>, <code>localtime</code>, and
+the timezone global. The format is
+<code>%d.%.2d.%.2d.%.2d.%.2d.%.2d.%.2d.%+2.1f</code>: year, month, day, hour, minute,
+second, milliseconds, and signed timezone offset. The result is copied into
+the caller's buffer with a trailing NUL.</p>
+<p><code>FUN_100016A6</code> probes a file with <code>fopen</code>. It returns <code>1</code> on success, <code>0</code> when
+<code>errno</code> is <code>ENOENT</code>, and <code>3</code> for any other error.</p>
+<p><code>FUN_100015FB</code> builds a non-colliding filename. It strips the extension,
+appends a numeric suffix, and retries until the file probe reports no
+collision. The candidate is formatted through the ring formatter, so the
+result must be copied before the next ring call.</p>
+<h2 id="md5-and-byte-codecs">MD5 and byte codecs<a class="headerlink" href="#md5-and-byte-codecs" title="Permanent link">&para;</a></h2>
+<p>The module contains a complete in-DLL MD5 implementation:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x10001E84</code></td>
+<td>context init: four magic state words; zero count fields</td>
+</tr>
+<tr>
+<td><code>0x10001EAC</code></td>
+<td>update: append data to the running context</td>
+</tr>
+<tr>
+<td><code>0x10001F4A</code></td>
+<td>final: pad, append the 64-bit length, write the digest</td>
+</tr>
+<tr>
+<td><code>0x10001FAE</code></td>
+<td>64-round block transform (2,219 bytes)</td>
+</tr>
+</tbody>
+</table>
+<p>The context is <code>0x58</code> bytes: four state words, two count words, and a 64-byte
+block buffer. The final step zeroes the context after producing the digest.</p>
+<p>The surrounding codecs are used for log names and data blobs:</p>
+<ul>
+<li><code>FUN_10001CF5</code> hashes a string into the key MD5 context and XOR-obfuscates
+  the buffer with <code>0xA7</code>.</li>
+<li><code>FUN_10001D24</code> decodes a range, computes the MD5 of the 16-byte key, and
+  produces a lowercase hex string.</li>
+<li><code>FUN_10001DB9</code> hex-encodes a byte range with <code>%02x</code> into a shared output
+  buffer and returns its address.</li>
+<li><code>FUN_10001E01</code> decodes a byte range into a hex string; decoded NUL bytes are
+  dropped because the output is built with string concatenation.</li>
+</ul>
+<p>The byte helpers are deliberately simple and overlap-safe:</p>
+<ul>
+<li><code>FUN_10002859</code> writes each source dword as four little-endian bytes.</li>
+<li><code>FUN_1000289E</code> reads each source dword as a big-endian value.</li>
+<li><code>FUN_100028E4</code> performs a forward byte copy.</li>
+<li><code>FUN_10002902</code> fills a range with a byte value.</li>
+</ul>
+<h2 id="child-process-status">Child-process status<a class="headerlink" href="#child-process-status" title="Permanent link">&para;</a></h2>
+<p><code>FUN_10001C28</code> wraps <code>GetExitCodeProcess</code> for the collector child:</p>
+<ul>
+<li>If the exit code is <code>0x103</code>, it returns <code>2</code>.</li>
+<li>Otherwise it returns <code>((code &gt; 0) - 1 &amp; ~2) + 3</code>, which maps the signed
+  comparison to <code>1</code> or <code>3</code>.</li>
+<li>If the status query fails, it returns <code>0</code>.</li>
+</ul>
+<p>This is the value exposed through API slot <code>+0x0C</code>; the log lifecycle uses it
+to decide whether the collector completed normally.</p>
+<h2 id="state-and-data-layout">State and data layout<a class="headerlink" href="#state-and-data-layout" title="Permanent link">&para;</a></h2>
+<p>The module's writable state is a fixed global block, not a heap-allocated
+object:</p>
+<table>
+<thead>
+<tr>
+<th>Global</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>g_10027098</code></td>
+<td>API context pointer (eight bytes: two caller dwords)</td>
+</tr>
+<tr>
+<td><code>g_10027020</code></td>
+<td>ring-buffer index (<code>0</code>-<code>3</code>)</td>
+</tr>
+<tr>
+<td><code>g_10004014</code></td>
+<td>log mode/level</td>
+</tr>
+<tr>
+<td><code>g_100042F8</code> / <code>g_100042FC</code></td>
+<td>primary/secondary open state</td>
+</tr>
+<tr>
+<td><code>g_10004304</code></td>
+<td>secondary sink enable</td>
+</tr>
+<tr>
+<td><code>g_10004300</code></td>
+<td>flush mode</td>
+</tr>
+<tr>
+<td><code>g_10004010</code></td>
+<td>flush cadence</td>
+</tr>
+<tr>
+<td><code>g_10005108</code></td>
+<td>configuration value copied from the caller block</td>
+</tr>
+<tr>
+<td><code>g_10027040</code></td>
+<td>key MD5 context</td>
+</tr>
+<tr>
+<td><code>g_10006C10</code></td>
+<td>hex output buffer</td>
+</tr>
+<tr>
+<td><code>g_100274A0</code>-<code>g_100274A8</code></td>
+<td>range-decode metadata</td>
+</tr>
+<tr>
+<td><code>g_10004D08</code>, <code>g_1000590C</code>, <code>g_1000658C</code></td>
+<td>per-file name buffers</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>.rdata</code> block at <code>0x10003000</code> holds the import table, the API/function
+pointers, format strings, and constants. The <code>.data</code> block at <code>0x10004000</code>
+holds the writable name buffers and log strings; the ring formatter uses a
+separate global area at <code>0x10007C20</code>. The code uses fixed module-relative
+addresses, and there is no per-session allocation for the logger itself.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>GetngLogAPI</code> always allocates a fresh eight-byte context and returns <code>1</code>;
+  it does not reject repeated calls. The old context is not freed by the
+  module.</li>
+<li>Logging is active only when the mode is non-zero; the dispatcher also
+  requires a non-empty message.</li>
+<li>The primary and secondary sinks are independent. A level-1 message skips the
+  secondary; a level-2 message skips the primary.</li>
+<li>The secondary payload is XOR-obfuscated with <code>0xA7</code>; the primary payload is
+  plain text.</li>
+<li>File-open failure does not abort the module. The init core returns <code>-1</code> when
+  the required sink cannot be opened and <code>0</code> otherwise.</li>
+<li>The ring formatter's return value is transient; use-after-next-call is a
+  bug in the caller, not a module error.</li>
+<li>A NULL init argument disables logging and returns the <code>DISABLED</code> buffer
+  rather than failing.</li>
+<li>The collector child is optional; a spawn failure is recorded but does not
+  prevent the log from closing.</li>
+</ul>
+<h2 id="relationship-to-the-exe-logger">Relationship to the EXE logger<a class="headerlink" href="#relationship-to-the-exe-logger" title="Permanent link">&para;</a></h2>
+<p>The EXE's own logger (<code>0x006F91D0</code> and its <code>FUN_006FA880</code>/<code>FUN_006FA8F0</code>
+helpers) is a separate implementation with its own formatting and file
+handling. ZlogLib's API and file format are not shared with that path. The two
+should be documented and tested independently; a change to one does not
+imply a change to the other.</p>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2636,9 +3135,124 @@
 </thead>
 <tbody>
 <tr>
-<td>0x10001C6E</td>
+<td><code>0x10001C6E</code></td>
 <td>api</td>
-<td>GetngLogAPI</td>
+<td><code>GetngLogAPI</code> export</td>
+</tr>
+<tr>
+<td><code>0x100018A6</code></td>
+<td>lifecycle</td>
+<td>init and header emission</td>
+</tr>
+<tr>
+<td><code>0x10001A1D</code></td>
+<td>lifecycle</td>
+<td>apply the caller configuration</td>
+</tr>
+<tr>
+<td><code>0x10001000</code></td>
+<td>lifecycle</td>
+<td>open the log files</td>
+</tr>
+<tr>
+<td><code>0x10001357</code></td>
+<td>lifecycle</td>
+<td>close, rename, and spawn the collector</td>
+</tr>
+<tr>
+<td><code>0x10001201</code></td>
+<td>emit</td>
+<td>format and write one message</td>
+</tr>
+<tr>
+<td><code>0x10001BE9</code></td>
+<td>emit</td>
+<td>route a message to the active sinks</td>
+</tr>
+<tr>
+<td><code>0x100016D9</code></td>
+<td>api</td>
+<td>game-start slot</td>
+</tr>
+<tr>
+<td><code>0x10001796</code></td>
+<td>api</td>
+<td>message-emit slot</td>
+</tr>
+<tr>
+<td><code>0x10001707</code></td>
+<td>api</td>
+<td>game-end slot</td>
+</tr>
+<tr>
+<td><code>0x100017C8</code></td>
+<td>api</td>
+<td>player-connect slot</td>
+</tr>
+<tr>
+<td><code>0x10001561</code></td>
+<td>emit</td>
+<td>timestamp formatter</td>
+</tr>
+<tr>
+<td><code>0x100015FB</code></td>
+<td>lifecycle</td>
+<td>filename uniquifier</td>
+</tr>
+<tr>
+<td><code>0x100016A6</code></td>
+<td>lifecycle</td>
+<td>file-exists probe</td>
+</tr>
+<tr>
+<td><code>0x10001E84</code></td>
+<td>md5</td>
+<td>MD5 init</td>
+</tr>
+<tr>
+<td><code>0x10001EAC</code></td>
+<td>md5</td>
+<td>MD5 update</td>
+</tr>
+<tr>
+<td><code>0x10001F4A</code></td>
+<td>md5</td>
+<td>MD5 final</td>
+</tr>
+<tr>
+<td><code>0x10001FAE</code></td>
+<td>md5</td>
+<td>MD5 transform</td>
+</tr>
+<tr>
+<td><code>0x10001CF5</code></td>
+<td>md5</td>
+<td>XOR/key-MD5 obfuscation</td>
+</tr>
+<tr>
+<td><code>0x10001DB9</code></td>
+<td>md5</td>
+<td>lowercase hex encoder</td>
+</tr>
+<tr>
+<td><code>0x10001D24</code></td>
+<td>md5</td>
+<td>key hex string</td>
+</tr>
+<tr>
+<td><code>0x10001E01</code></td>
+<td>md5</td>
+<td>range decode</td>
+</tr>
+<tr>
+<td><code>0x10002931</code></td>
+<td>emit</td>
+<td>four-buffer ring formatter</td>
+</tr>
+<tr>
+<td><code>0x10001C28</code></td>
+<td>lifecycle</td>
+<td>child exit-code mapping</td>
 </tr>
 </tbody>
 </table>
@@ -2680,7 +3294,7 @@
 <tr>
 <td>crt</td>
 <td>2</td>
-<td>Statically linked C runtime.</td>
+<td>Shared-runtime jump thunks.</td>
 </tr>
 <tr>
 <td>data</td>

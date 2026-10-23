@@ -1099,10 +1099,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sound-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio-init-and-shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audio init and shutdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#speaker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speaker configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2594,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sound-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio-init-and-shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audio init and shutdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#speaker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speaker configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,10 +2711,103 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 8 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Sound, music, and audio-device delivery.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The audio surface is small; most content is data-driven and the device delivery goes through the platform layer. The detail table records the sound/music entry points that remain in the EXE; the per-VA index has their addresses.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The audio surface in the EXE is small. Most sound content is data-driven, and
+the device delivery goes through the platform layer (DirectSound and the
+Windows audio APIs). The EXE-side code owns the sound-channel objects, their
+per-frame update, and the game's audio init/shutdown hooks.</p>
+<p>The module-level audio path is not a separate DLL; it is part of the EXE and is
+called from gameplay, UI, and mission code.</p>
+<h2 id="sound-channels">Sound channels<a class="headerlink" href="#sound-channels" title="Permanent link">&para;</a></h2>
+<p><code>FUN_00505A40</code> is the sound-channel object constructor/initializer. The channel
+object owns a five-slot vtable array at <code>+0x24</code>-<code>+0x30</code>; the small helpers in
+the <code>0x505D5F</code> block iterate that array and call vtable <code>+0x0C</code> on each
+non-null slot. This is the per-channel service/update interface.</p>
+<p><code>FUN_00505E10</code> is the sound-channel update. It performs panning and
+spatialization with FPU comparisons and calls the audio helpers at
+<code>FUN_00722660</code>, <code>FUN_007225B0</code>, and <code>FUN_00505D30</code>. The channel's position and
+listener state determine the pan/volume applied to the voice.</p>
+<p><code>FUN_00559810</code> and <code>FUN_00559960</code> are object methods that check flags and
+dispatch sound-related calls. They are mirror implementations with different
+field offsets; one is used by the normal object path and the other by its
+variant.</p>
+<h2 id="audio-init-and-shutdown">Audio init and shutdown<a class="headerlink" href="#audio-init-and-shutdown" title="Permanent link">&para;</a></h2>
+<p>The game init <code>FUN_00532970</code> initializes audio along with the decal system,
+window/display settings, and global state. The cleanup <code>FUN_005309A0</code> stops
+audio, releases resources, frees allocations, and resets global state.</p>
+<p>These functions are the EXE-side lifecycle hooks. They do not own the
+DirectSound device itself; the device and buffer creation are handled by the
+platform/audio delivery layer.</p>
+<h2 id="speaker-configuration">Speaker configuration<a class="headerlink" href="#speaker-configuration" title="Permanent link">&para;</a></h2>
+<p><code>FUN_00752680</code> builds a DirectSound speaker-configuration string into the
+<code>0x008B9150</code> buffer. It selects the <code>DSSPEAKER_*</code> name strings from the bit
+flags in its argument and returns the buffer address. The result is used when
+describing or selecting the speaker layout.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The channel object's five vtable slots are independent; a null slot is
+  skipped, not treated as an error.</li>
+<li>The channel update expects a valid listener/position state; an uninitialized
+  channel produces invalid pan/spatialization values.</li>
+<li>The audio init path must run before any channel update; the cleanup path
+  stops audio before releasing the channel objects.</li>
+<li>Speaker flags are a bitmask; an unknown bit does not select a valid
+  <code>DSSPEAKER_*</code> name.</li>
+<li>The EXE does not own the device buffers; device loss/restore is a platform
+  concern, not a sound-channel concern.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
-<p>No single entry point is representative; use the detail map below and the per-VA index.</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Detail</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00505A40</code></td>
+<td>channel</td>
+<td>sound-channel constructor/initializer</td>
+</tr>
+<tr>
+<td><code>0x00505D5F</code></td>
+<td>channel</td>
+<td>five-slot vtable iteration/query block</td>
+</tr>
+<tr>
+<td><code>0x00505E10</code></td>
+<td>channel</td>
+<td>panning/spatialization update</td>
+</tr>
+<tr>
+<td><code>0x005309A0</code></td>
+<td>lifecycle</td>
+<td>game cleanup/shutdown (stops audio)</td>
+</tr>
+<tr>
+<td><code>0x00532970</code></td>
+<td>lifecycle</td>
+<td>game init/setup (starts audio)</td>
+</tr>
+<tr>
+<td><code>0x00559810</code></td>
+<td>channel</td>
+<td>sound-related object method</td>
+</tr>
+<tr>
+<td><code>0x00559960</code></td>
+<td>channel</td>
+<td>sound-related object method (mirror)</td>
+</tr>
+<tr>
+<td><code>0x00752680</code></td>
+<td>device</td>
+<td>DirectSound speaker-config string</td>
+</tr>
+</tbody>
+</table>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

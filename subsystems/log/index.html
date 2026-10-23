@@ -959,10 +959,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buffer-append-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer append primitives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-main-errorlog-formatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The main error/log formatter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assertion-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assertion path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-and-loading-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic and loading helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-and-log-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error and log flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2627,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buffer-append-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer append primitives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-main-errorlog-formatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The main error/log formatter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assertion-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assertion path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-and-loading-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic and loading helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-and-log-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error and log flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2777,179 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 192 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Logging, assertions, error reporting, and diagnostic output.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The log buffer, level filtering, emit, and assert code sit in 0x006F9000-0x006FB000; error dispatch is at 0x006BF9E0. ZlogLib exposes the same facility through <code>GetngLogAPI</code>.</p>
-<p>Logging is called from runtime, UI, net, and archive code. It writes diagnostic output and is one of the main observability seams in the game.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The EXE-side log subsystem is the game's diagnostic and error-reporting layer.
+It is separate from <code>ZlogLib.dll</code>: the EXE does not load ZlogLib, and the
+<code>-zlogname</code>/<code>-zlogstyle</code> switches feed this in-EXE formatter. The two systems
+have different buffers, formatting, and file handling.</p>
+<p>The subsystem covers three related jobs:</p>
+<ul>
+<li><strong>Emission:</strong> append formatted text and numbers to a growable buffer and
+  forward the result to registered log targets.</li>
+<li><strong>Assertions:</strong> format an assertion message, optionally force a crash, and
+  dispatch it to the error reporter.</li>
+<li><strong>Error reporting:</strong> build a file/line-prefixed message, show it through the
+  error dialog/OutputDebugString path, and handle the user's response.</li>
+</ul>
+<p>The code is concentrated in <code>0x006F9000</code>-<code>0x006FB000</code>, with the general error
+entry at <code>0x006BFA50</code>. The band also contains FPU diagnostic checks and
+background file-loading helpers that share the same module data; not every VA
+in the range is a log emitter.</p>
+<h2 id="log-targets">Log targets<a class="headerlink" href="#log-targets" title="Permanent link">&para;</a></h2>
+<p>The subsystem keeps a linked list of log targets at <code>0x008493C8</code>. The target
+objects are vtable-based and receive different notifications:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FUN_006F9000</code></td>
+<td>Walks the list and calls vtable <code>+0x20</code> on each node; returns true only if every call returns true</td>
+</tr>
+<tr>
+<td><code>FUN_006F9050</code></td>
+<td>Repeatedly calls vtable <code>+0x08</code> on the head until the list is empty; returns 1</td>
+</tr>
+<tr>
+<td><code>FUN_006F9070</code></td>
+<td>Sets <code>0x007B6ECC</code>, walks the list calling vtable <code>+0x14</code>, clears the flag if any call fails, then calls <code>FUN_006F90E0</code></td>
+</tr>
+<tr>
+<td><code>FUN_006F90E0</code></td>
+<td>Stores its argument in <code>0x008493CC</code> and calls vtable <code>+0x24</code> on every node</td>
+</tr>
+<tr>
+<td><code>FUN_006F90D0</code></td>
+<td>Returns the dword at <code>0x008493CC</code></td>
+</tr>
+</tbody>
+</table>
+<p>A second list at <code>0x00849EC0</code> holds registered log/source nodes.
+<code>FUN_006FA970</code> builds a 0x18-byte key, searches the list with <code>repe cmpsb</code>,
+and inserts a new node when no match exists. <code>FUN_006FAA00</code> walks the list and
+frees each node; <code>FUN_006FAC50</code> frees both this list and the allocation list at
+<code>0x00849EBC</code>.</p>
+<h2 id="buffer-append-primitives">Buffer append primitives<a class="headerlink" href="#buffer-append-primitives" title="Permanent link">&para;</a></h2>
+<p>The formatter builds its report in a custom string buffer with this layout:</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+0x00</code></td>
+<td>capacity</td>
+</tr>
+<tr>
+<td><code>+0x04</code></td>
+<td>cursor (write offset)</td>
+</tr>
+<tr>
+<td><code>+0x08</code></td>
+<td>buffer base</td>
+</tr>
+</tbody>
+</table>
+<p><code>FUN_006FA880</code> appends a NUL-terminated string. It computes <code>strlen(src)</code>,
+clamps the copy to the remaining capacity, copies <code>strlen + 1</code> bytes (including
+the source terminator), writes a terminator, and advances the cursor to
+<code>cursor + copied - 1</code>. A NULL source leaves the buffer unchanged.</p>
+<p><code>FUN_006FA8F0</code> converts an integer to decimal with <code>_itoa(value, buf, 10)</code> and
+appends the resulting string through the same clamped-copy logic. Both
+functions return the buffer pointer in <code>EAX</code> and are the primitive writers used
+by the large formatter.</p>
+<h2 id="the-main-errorlog-formatter">The main error/log formatter<a class="headerlink" href="#the-main-errorlog-formatter" title="Permanent link">&para;</a></h2>
+<p><code>FUN_006F91D0</code> is the 5,797-byte output function. It is <code>__stdcall</code> with two
+parameters (<code>RET 0x8</code>): a mode/flags word and the message string. It builds a
+report containing:</p>
+<ul>
+<li>the caller's message;</li>
+<li>a stack walk / return-address listing;</li>
+<li>system and process details;</li>
+<li>formatting and diagnostic text.</li>
+</ul>
+<p>It then presents the report through <code>MessageBoxA</code> and/or
+<code>OutputDebugStringA</code>, depending on the mode and the current diagnostic state.
+The user's response selects continue, exit, or debugger attachment. The function
+returns an integer result; callers use that result to decide whether to break
+into the debugger or abort.</p>
+<p>The two main callers are:</p>
+<ul>
+<li><code>FUN_006FAB90</code> - the assertion helper. It formats a message into a 256-byte
+  stack buffer with <code>_vsnprintf</code>, optionally writes to address 0 when the global
+  at <code>0x00849EA8</code> is set, then calls <code>FUN_006F91D0</code> with mode <code>0x183</code>.</li>
+<li><code>FUN_006BFA50</code> - the general error-log entry. It builds a <code>file(line) :</code>
+  prefix when source information is available, or <code>Unknown File :</code> otherwise,
+  appends the formatted message, and calls <code>FUN_006F91D0</code> with mode <code>0x201</code>.
+  If the formatter returns non-zero, it executes <code>INT3</code>.</li>
+</ul>
+<p><code>FUN_006BFA50</code> chooses the prefix from <code>0x0082F338</code>, <code>0x0082F330</code>, and the
+source path/line globals. When the path is available it calls
+<code>GetFullPathNameA</code> (<code>FUN_006FBC60</code>) and extracts the filename after the last
+backslash before formatting <code>%s(%d) :</code>.</p>
+<h2 id="assertion-path">Assertion path<a class="headerlink" href="#assertion-path" title="Permanent link">&para;</a></h2>
+<p><code>FUN_006FAB90</code> is the assertion/error utility used by vtable assertions such as
+<code>FUN_00415B70</code>. It reads the format string and varargs from the caller's stack,
+formats into a 256-byte buffer, and checks the global <code>0x00849EA8</code>:</p>
+<ul>
+<li>when non-zero, it deliberately dereferences NULL to force a crash;</li>
+<li>otherwise it calls the main formatter with mode <code>0x183</code>.</li>
+</ul>
+<p>The formatted buffer is always NUL-terminated at <code>buffer[0xFF]</code>, so a
+truncated assertion is still a valid string.</p>
+<h2 id="diagnostic-and-loading-helpers">Diagnostic and loading helpers<a class="headerlink" href="#diagnostic-and-loading-helpers" title="Permanent link">&para;</a></h2>
+<p>The same address band contains diagnostics and file loading that support the
+log/error path:</p>
+<ul>
+<li><code>FUN_006FAA30</code> sets the FPU control word and the global at <code>0x00849EAC</code>;
+  <code>FUN_006FAAB0</code> validates the control word and raises an assertion if math
+  exceptions or precision have been reset.</li>
+<li><code>FUN_006FACA0</code> opens a file, reads it into a heap buffer, and returns the
+  buffer/size through out-parameters. It normalizes UNC paths and supports the
+  callback at <code>0x00858A44</code>.</li>
+<li><code>FUN_006FAE50</code> is a background file-loader thread: it waits on two events,
+  opens/maps each pending node in <code>0x00856710</code>, reads it, and marks it loaded.</li>
+</ul>
+<p>These are not text-formatting functions, but they share the module's globals
+and are part of the diagnostic/file-support band.</p>
+<h2 id="error-and-log-flow">Error and log flow<a class="headerlink" href="#error-and-log-flow" title="Permanent link">&para;</a></h2>
+<p>The typical flow is:</p>
+<div class="highlight"><pre><span></span><code>assert / error call
+    -&gt; format message into a local buffer
+    -&gt; FUN_006FAB90 (assert) or FUN_006BFA50 (error_log)
+    -&gt; add source prefix (error_log only)
+    -&gt; FUN_006F91D0 (mode 0x183 or 0x201)
+    -&gt; append message + stack/system details to the report buffer
+    -&gt; show dialog / OutputDebugString
+    -&gt; return continue/exit/debugger result
+</code></pre></div>
+<p>The log-target list is used for registered observers, not for the primary error
+dialog. <code>FUN_006F9000</code>/<code>FUN_006F9050</code>/<code>FUN_006F9070</code>/<code>FUN_006F90E0</code> notify
+those targets through their vtable slots; the formatter's dialog path is
+independent.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The buffer append clamps to capacity but always copies the source terminator;
+  the cursor update is <code>cursor + copied - 1</code>, not <code>cursor + copied</code>.</li>
+<li>A NULL string source is a no-op; an integer append always formats.</li>
+<li><code>FUN_006F91D0</code> has two stack parameters and returns <code>RET 0x8</code>; callers must
+  use the <code>__stdcall</code> convention.</li>
+<li>The assertion helper deliberately crashes when <code>0x00849EA8</code> is non-zero; this
+  is an intentional failure path, not memory corruption.</li>
+<li><code>FUN_006BFA50</code> executes <code>INT3</code> when the formatter returns non-zero, so a
+  debugger sees the error at the source site.</li>
+<li>The log-target list and the source-node list are separate; clearing one does
+  not clear the other.</li>
+<li>The FPU checks are diagnostics, not logging; they raise assertions when the
+  control word no longer matches the expected state.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,14 +2961,79 @@
 </thead>
 <tbody>
 <tr>
-<td>0x006F9000-0x006FB000</td>
-<td>(general)</td>
-<td>log buffer/emit/assert</td>
+<td><code>0x006F9000</code></td>
+<td>targets</td>
+<td>notify log targets via vtable <code>+0x20</code></td>
 </tr>
 <tr>
-<td>0x006BF9E0</td>
-<td>(general)</td>
-<td>error dispatch</td>
+<td><code>0x006F9050</code></td>
+<td>targets</td>
+<td>drain targets via vtable <code>+0x08</code></td>
+</tr>
+<tr>
+<td><code>0x006F9070</code></td>
+<td>targets</td>
+<td>notify targets via vtable <code>+0x14</code></td>
+</tr>
+<tr>
+<td><code>0x006F90E0</code></td>
+<td>targets</td>
+<td>store state and notify via vtable <code>+0x24</code></td>
+</tr>
+<tr>
+<td><code>0x006F91D0</code></td>
+<td>formatter</td>
+<td>build and present the error/log report</td>
+</tr>
+<tr>
+<td><code>0x006FA880</code></td>
+<td>buffer</td>
+<td>append a string</td>
+</tr>
+<tr>
+<td><code>0x006FA8F0</code></td>
+<td>buffer</td>
+<td>append an integer</td>
+</tr>
+<tr>
+<td><code>0x006FA970</code></td>
+<td>targets</td>
+<td>insert a 0x18-byte source node</td>
+</tr>
+<tr>
+<td><code>0x006FAA00</code></td>
+<td>targets</td>
+<td>free the source-node list</td>
+</tr>
+<tr>
+<td><code>0x006FAB90</code></td>
+<td>assert</td>
+<td>format and dispatch an assertion</td>
+</tr>
+<tr>
+<td><code>0x006BFA50</code></td>
+<td>error</td>
+<td>build the file/line prefix and dispatch an error</td>
+</tr>
+<tr>
+<td><code>0x006FACA0</code></td>
+<td>file</td>
+<td>open/read a file into a heap buffer</td>
+</tr>
+<tr>
+<td><code>0x006FAE50</code></td>
+<td>file</td>
+<td>background file-loader thread</td>
+</tr>
+<tr>
+<td><code>0x006FAA30</code></td>
+<td>diagnostic</td>
+<td>set the FPU control word</td>
+</tr>
+<tr>
+<td><code>0x006FAAB0</code></td>
+<td>diagnostic</td>
+<td>validate the FPU control word</td>
 </tr>
 </tbody>
 </table>

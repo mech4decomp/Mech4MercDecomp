@@ -819,10 +819,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-search-and-red-black-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary-search and red-black trees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-lists-and-iterators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked lists and iterators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-and-item-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers and item pools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-wrappers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database wrappers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2616,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-search-and-red-black-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary-search and red-black trees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-lists-and-iterators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked lists and iterators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-and-item-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers and item pools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-wrappers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database wrappers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2755,369 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 691 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Object/container model: binary-search trees, linked lists, iterators, hash tables, object tables, and database wrappers.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The main container island is 0x00410000-0x00417BFF. It contains the tree/list/iterator implementations and the object tables used throughout the game; 0x004179B0 is a representative list append.</p>
-<p>Wrappers at 0x004D2B00 bridge archive and database access. These containers are used by gameplay, render records, UI lists, and archive entries, so many of their VAs are shared.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The database subsystem is the game's object/container model. It provides the
+trees, lists, iterators, string tables, item pools, and object-table wrappers
+that gameplay, render records, UI lists, and archive entries use.</p>
+<p>The main container island is <code>0x00410000</code>-<code>0x00417BFF</code>. The database wrappers
+at <code>0x004D2B00</code>-<code>0x004D3200</code> bridge archive and database access. Most of the
+VAs are shared helpers rather than a single database class.</p>
+<h2 id="binary-search-and-red-black-trees">Binary-search and red-black trees<a class="headerlink" href="#binary-search-and-red-black-trees" title="Permanent link">&para;</a></h2>
+<p>The tree implementation is a red-black tree with string-keyed and
+pointer-keyed variants:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0040F980</code></td>
+<td>binary-search-tree insertion (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x0040FE00</code></td>
+<td>binary-search-tree lookup by string</td>
+</tr>
+<tr>
+<td><code>0x0040FED0</code></td>
+<td>binary-search-tree lookup by string (variant)</td>
+</tr>
+<tr>
+<td><code>0x0040FF40</code></td>
+<td>binary-search-tree insertion (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x004103C0</code></td>
+<td>binary-search-tree lookup by string</td>
+</tr>
+<tr>
+<td><code>0x00410490</code></td>
+<td>binary-search-tree lookup by string (sibling)</td>
+</tr>
+<tr>
+<td><code>0x00410500</code></td>
+<td>red-black tree node deletion with rebalancing</td>
+</tr>
+<tr>
+<td><code>0x004108D0</code></td>
+<td>red-black tree node insertion with rebalancing</td>
+</tr>
+<tr>
+<td><code>0x00410B00</code></td>
+<td>binary-search-tree insertion (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x00410D30</code></td>
+<td>binary tree insertion + rebalance (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x00410EC0</code></td>
+<td>binary-search-tree insertion (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x004110F0</code></td>
+<td>binary tree insertion + rebalance (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x00411280</code></td>
+<td>binary-search-tree insertion (string-keyed)</td>
+</tr>
+<tr>
+<td><code>0x004114B0</code></td>
+<td>binary tree "next" node finder</td>
+</tr>
+<tr>
+<td><code>0x00411500</code>/<code>0x00411530</code></td>
+<td>allocate + initialize a tree node from a key</td>
+</tr>
+<tr>
+<td><code>0x00411670</code></td>
+<td>red-black tree delete fixup</td>
+</tr>
+<tr>
+<td><code>0x00415720</code></td>
+<td>BST-style lookup</td>
+</tr>
+<tr>
+<td><code>0x004157A0</code></td>
+<td>remove a node</td>
+</tr>
+<tr>
+<td><code>0x004158E0</code></td>
+<td>BST lookup</td>
+</tr>
+<tr>
+<td><code>0x00415A80</code></td>
+<td>return the BST root node</td>
+</tr>
+<tr>
+<td><code>0x00415A90</code></td>
+<td>BST iterator</td>
+</tr>
+<tr>
+<td><code>0x00415AD0</code></td>
+<td>BST root check</td>
+</tr>
+</tbody>
+</table>
+<p>The trees are used for string tables, config sections, class registries, and
+object lookup. Insertion and deletion maintain the red-black invariants; the
+lookup functions compare keys and walk the tree.</p>
+<h2 id="linked-lists-and-iterators">Linked lists and iterators<a class="headerlink" href="#linked-lists-and-iterators" title="Permanent link">&para;</a></h2>
+<p>The list layer provides doubly-linked and singly-linked nodes:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00410A60</code></td>
+<td>doubly-linked list node insertion</td>
+</tr>
+<tr>
+<td><code>0x00410AB0</code></td>
+<td>doubly-linked list node insertion (mirror)</td>
+</tr>
+<tr>
+<td><code>0x00415C10</code></td>
+<td>doubly-linked list prepend</td>
+</tr>
+<tr>
+<td><code>0x00415D00</code></td>
+<td>unlink an item from a singly-linked circular list</td>
+</tr>
+<tr>
+<td><code>0x00415D40</code></td>
+<td>item initializer / linked-list inserter</td>
+</tr>
+<tr>
+<td><code>0x00417890</code></td>
+<td>recursive node-destroy helper (doubly-linked unlink)</td>
+</tr>
+<tr>
+<td><code>0x00417910</code></td>
+<td>node-destroy continuation</td>
+</tr>
+<tr>
+<td><code>0x00417950</code></td>
+<td>insert a node into a list</td>
+</tr>
+<tr>
+<td><code>0x004179B0</code></td>
+<td>sub-object initializer at <code>owner+0x2C</code></td>
+</tr>
+<tr>
+<td><code>0x00417A10</code></td>
+<td>return the Nth node's value</td>
+</tr>
+<tr>
+<td><code>0x00417A40</code></td>
+<td>linked-list length counter</td>
+</tr>
+<tr>
+<td><code>0x00417A60</code></td>
+<td>allocate/insert a node</td>
+</tr>
+<tr>
+<td><code>0x00417AA0</code></td>
+<td>walk a linked list</td>
+</tr>
+<tr>
+<td><code>0x00417AD0</code></td>
+<td>pop the node at <code>[ECX+8]</code></td>
+</tr>
+<tr>
+<td><code>0x00417B00</code></td>
+<td>insert a node into a container</td>
+</tr>
+</tbody>
+</table>
+<p>The iterator implementation is vtable-based. <code>0x417170</code> is the iterator
+constructor, <code>0x4171B0</code> its destructor thunk, <code>0x417230</code> the "get next"
+method, and <code>0x417260</code>/<code>0x417280</code> the index accessors. <code>0x4172A0</code> is the
+container element accessor; <code>0x4172C0</code> releases an element.</p>
+<h2 id="containers-and-item-pools">Containers and item pools<a class="headerlink" href="#containers-and-item-pools" title="Permanent link">&para;</a></h2>
+<p>The container layer adds array-backed behavior on top of the list nodes:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00416F90</code></td>
+<td>grow the item array and append</td>
+</tr>
+<tr>
+<td><code>0x00417030</code></td>
+<td>insertion-sort pass on the item array</td>
+</tr>
+<tr>
+<td><code>0x004170A0</code></td>
+<td>binary search by name in a sorted item array</td>
+</tr>
+<tr>
+<td><code>0x004170F0</code></td>
+<td>linear search for an item's index</td>
+</tr>
+<tr>
+<td><code>0x00417120</code></td>
+<td>remove an item at an index</td>
+</tr>
+<tr>
+<td><code>0x00417430</code></td>
+<td><code>Stuff::SafeChainLink</code> constructor</td>
+</tr>
+<tr>
+<td><code>0x00417470</code></td>
+<td><code>Stuff::SafeChainLink</code> destructor</td>
+</tr>
+<tr>
+<td><code>0x004174D0</code></td>
+<td>container constructor</td>
+</tr>
+<tr>
+<td><code>0x004174F0</code></td>
+<td>container element-list release</td>
+</tr>
+<tr>
+<td><code>0x00417530</code></td>
+<td>container element insert</td>
+</tr>
+<tr>
+<td><code>0x00417600</code></td>
+<td>insert before a given element</td>
+</tr>
+<tr>
+<td><code>0x00417640</code></td>
+<td>container/iterator node constructor</td>
+</tr>
+<tr>
+<td><code>0x00417670</code></td>
+<td>container/iterator node copy-constructor</td>
+</tr>
+</tbody>
+</table>
+<p>The item-pool/singleton family is used for fixed-size objects:</p>
+<ul>
+<li><code>0x415D70</code> - singleton constructor;</li>
+<li><code>0x415E30</code> - singleton destructor;</li>
+<li><code>0x415E80</code> - bump allocator;</li>
+<li><code>0x416110</code> - get an item from the pool;</li>
+<li><code>0x416130</code> - return an item to the pool;</li>
+<li><code>0x416470</code>/<code>0x416530</code>/<code>0x4165B0</code>/<code>0x416820</code>/<code>0x416840</code> - item/pool
+  helpers.</li>
+</ul>
+<h2 id="string-tables">String tables<a class="headerlink" href="#string-tables" title="Permanent link">&para;</a></h2>
+<p>The string system provides refcounted strings, hashing, and path helpers:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00412A00</code></td>
+<td>refcounted-string read</td>
+</tr>
+<tr>
+<td><code>0x00412A50</code></td>
+<td>refcounted-string write</td>
+</tr>
+<tr>
+<td><code>0x00412AB0</code></td>
+<td>rotating string hash</td>
+</tr>
+<tr>
+<td><code>0x00412B30</code></td>
+<td>string-system constructor</td>
+</tr>
+<tr>
+<td><code>0x00412B60</code></td>
+<td>string-system destructor</td>
+</tr>
+<tr>
+<td><code>0x00412B80</code></td>
+<td>string-system method</td>
+</tr>
+<tr>
+<td><code>0x00412BF0</code> / <code>0x00412CA0</code></td>
+<td>string-system parser</td>
+</tr>
+<tr>
+<td><code>0x00412D50</code></td>
+<td>string-system iterator</td>
+</tr>
+<tr>
+<td><code>0x00412800</code></td>
+<td>case-insensitive equality</td>
+</tr>
+<tr>
+<td><code>0x00412820</code></td>
+<td>tokenizer</td>
+</tr>
+<tr>
+<td><code>0x004128B0</code></td>
+<td>uppercase</td>
+</tr>
+<tr>
+<td><code>0x004128E0</code></td>
+<td>lowercase</td>
+</tr>
+<tr>
+<td><code>0x00412910</code></td>
+<td>space-to-underscore</td>
+</tr>
+<tr>
+<td><code>0x00412950</code></td>
+<td>extension strip</td>
+</tr>
+<tr>
+<td><code>0x00412980</code></td>
+<td>path directory</td>
+</tr>
+<tr>
+<td><code>0x004129C0</code></td>
+<td>basename</td>
+</tr>
+</tbody>
+</table>
+<p>The string table is the common key/value storage used by the loader, config,
+archive directory, and object registry. The string hash is a rotating dword hash; equality is a separate
+case-insensitive comparison.</p>
+<h2 id="database-wrappers">Database wrappers<a class="headerlink" href="#database-wrappers" title="Permanent link">&para;</a></h2>
+<p>The wrappers at <code>0x004D2B00</code>-<code>0x004D3200</code> bridge archive and database access.
+They convert archive entries and object records into the container model and
+are shared by gameplay, render, UI, and archive code. They do not implement a
+separate storage format; they use the tree/list/string primitives above.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Red-black tree insertion/deletion must maintain the color/rotation
+  invariants; a partial rebalance corrupts every later lookup.</li>
+<li>String-keyed trees compare the hash first, then the string; collisions must
+  still compare the full key.</li>
+<li>Doubly-linked list nodes have separate forward/back links; a node can only
+  be unlinked once.</li>
+<li>The iterator's current index is <code>-1</code> when invalid; accessing an invalid
+  iterator is not a valid operation.</li>
+<li>Container array growth invalidates element pointers; re-fetch after growth.</li>
+<li>Item-pool objects must be returned to the pool, not freed with the general
+  allocator.</li>
+<li>Refcounted strings are shared; releasing one reference does not free the
+  buffer until the count reaches zero.</li>
+<li>The database wrappers consume records exposed by the archive/database
+  layers; lazy archive fetch is handled by the archive layer.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,19 +3129,149 @@
 </thead>
 <tbody>
 <tr>
-<td>0x00410000-0x00417BFF</td>
-<td>containers</td>
-<td>tree/list/iterator island</td>
+<td><code>0x0040F980</code></td>
+<td>trees</td>
+<td>string-keyed BST insertion</td>
 </tr>
 <tr>
-<td>0x004179B0</td>
-<td>containers</td>
-<td>list append</td>
+<td><code>0x0040FE00</code></td>
+<td>trees</td>
+<td>string-keyed BST lookup</td>
 </tr>
 <tr>
-<td>0x004D2B00-0x004D3200</td>
+<td><code>0x00410500</code></td>
+<td>trees</td>
+<td>red-black node deletion</td>
+</tr>
+<tr>
+<td><code>0x004108D0</code></td>
+<td>trees</td>
+<td>red-black node insertion</td>
+</tr>
+<tr>
+<td><code>0x00410B00</code></td>
+<td>trees</td>
+<td>string-keyed BST insertion</td>
+</tr>
+<tr>
+<td><code>0x00411670</code></td>
+<td>trees</td>
+<td>red-black delete fixup</td>
+</tr>
+<tr>
+<td><code>0x004157A0</code></td>
+<td>trees</td>
+<td>remove a node</td>
+</tr>
+<tr>
+<td><code>0x00415A90</code></td>
+<td>trees</td>
+<td>BST iterator</td>
+</tr>
+<tr>
+<td><code>0x00410A60</code></td>
+<td>lists</td>
+<td>doubly-linked node insertion</td>
+</tr>
+<tr>
+<td><code>0x00417950</code></td>
+<td>lists</td>
+<td>insert a node</td>
+</tr>
+<tr>
+<td><code>0x004179B0</code></td>
+<td>lists</td>
+<td>sub-object initializer</td>
+</tr>
+<tr>
+<td><code>0x00417A40</code></td>
+<td>lists</td>
+<td>list length</td>
+</tr>
+<tr>
+<td><code>0x00417A60</code></td>
+<td>lists</td>
+<td>allocate/insert a node</td>
+</tr>
+<tr>
+<td><code>0x00417AD0</code></td>
+<td>lists</td>
+<td>pop head</td>
+</tr>
+<tr>
+<td><code>0x00417170</code></td>
+<td>iterators</td>
+<td>iterator constructor</td>
+</tr>
+<tr>
+<td><code>0x00417230</code></td>
+<td>iterators</td>
+<td>get next</td>
+</tr>
+<tr>
+<td><code>0x004172A0</code></td>
+<td>iterators</td>
+<td>element accessor</td>
+</tr>
+<tr>
+<td><code>0x00416F90</code></td>
 <td>containers</td>
-<td>database wrappers</td>
+<td>grow/append</td>
+</tr>
+<tr>
+<td><code>0x004170A0</code></td>
+<td>containers</td>
+<td>binary search by name</td>
+</tr>
+<tr>
+<td><code>0x00417120</code></td>
+<td>containers</td>
+<td>remove at index</td>
+</tr>
+<tr>
+<td><code>0x00415D70</code></td>
+<td>pools</td>
+<td>singleton constructor</td>
+</tr>
+<tr>
+<td><code>0x00415E80</code></td>
+<td>pools</td>
+<td>bump allocator</td>
+</tr>
+<tr>
+<td><code>0x00416110</code></td>
+<td>pools</td>
+<td>get item</td>
+</tr>
+<tr>
+<td><code>0x00416130</code></td>
+<td>pools</td>
+<td>return item</td>
+</tr>
+<tr>
+<td><code>0x00412A50</code></td>
+<td>strings</td>
+<td>refcounted-string write</td>
+</tr>
+<tr>
+<td><code>0x00412AB0</code></td>
+<td>strings</td>
+<td>string hash</td>
+</tr>
+<tr>
+<td><code>0x00412BF0</code></td>
+<td>strings</td>
+<td>string-system parser</td>
+</tr>
+<tr>
+<td><code>0x00412820</code></td>
+<td>strings</td>
+<td>tokenizer</td>
+</tr>
+<tr>
+<td><code>0x004D2B00</code></td>
+<td>wrappers</td>
+<td>archive/database bridge</td>
 </tr>
 </tbody>
 </table>

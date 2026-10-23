@@ -735,10 +735,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-and-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory and allocation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#engine-initialization-and-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Engine initialization and strings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-model-and-registered-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object model and registered classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#threads-locks-and-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threads, locks, and dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2605,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-and-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory and allocation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#engine-initialization-and-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Engine initialization and strings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-model-and-registered-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object model and registered classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#threads-locks-and-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threads, locks, and dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2733,96 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 2626 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Engine/runtime services: memory, reference counting, threads and locks, object lifetime, and virtual/command dispatch.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>Allocation wrappers at 0x004084D0 and 0x004084E0 sit under most object construction. Reference-counted buffers, vtable helpers, and object-lifetime code make up the <code>object</code> detail; dispatch and jump-table glue make up <code>dispatch</code>.</p>
-<p>Threads, critical sections, events, and message queues are grouped under the general runtime band. This is the shared service layer used by gameplay, render, UI, and the archive/database code.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The runtime subsystem is the shared service layer beneath gameplay, render, UI,
+network, archive, and database code. It is broad by VA count because it
+includes object constructors/destructors and vtable glue for most of the
+engine. Its recognizable services are:</p>
+<ul>
+<li>allocation and free wrappers;</li>
+<li>reference-counted buffers and shared strings;</li>
+<li>object lifetime and vtable initialization;</li>
+<li>engine initialization, string tables, and configuration;</li>
+<li>threads, critical sections, events, and message queues;</li>
+<li>dispatch and jump-table glue.</li>
+</ul>
+<p>The runtime does not own game rules or content. It provides the allocation,
+ownership, and object-model conventions that the other subsystems use.</p>
+<h2 id="memory-and-allocation">Memory and allocation<a class="headerlink" href="#memory-and-allocation" title="Permanent link">&para;</a></h2>
+<p>The primary allocation wrappers are:</p>
+<ul>
+<li><code>FUN_004084D0</code> - realloc-style wrapper; calls <code>FUN_006F3C80(size, -1)</code>;</li>
+<li><code>FUN_004084E0</code> - free/dealloc wrapper.</li>
+</ul>
+<p>The small node helpers around <code>0x00408410</code>-<code>0x00408470</code> allocate, initialize,
+free, and recursively tear down linked-list nodes. <code>FUN_00410890</code> releases a
+shared buffer by decrementing its refcount and freeing the storage when it
+reaches zero.</p>
+<p>The <code>memory</code> detail (130 VAs) covers these wrappers plus reference-counted
+buffer ownership. The <code>object</code> detail (2,200 VAs) covers the constructors,
+destructors, vtables, and scalar-deleting destructors that make up most of the
+engine's object model.</p>
+<h2 id="engine-initialization-and-strings">Engine initialization and strings<a class="headerlink" href="#engine-initialization-and-strings" title="Permanent link">&para;</a></h2>
+<p>The engine init band includes:</p>
+<ul>
+<li><code>FUN_00408330</code> - copies the command-line string into the engine state;</li>
+<li><code>FUN_00408500</code> - builds a large set of string-table/config entries;</li>
+<li><code>FUN_00408F60</code> - engine/config initializer;</li>
+<li><code>FUN_004098F0</code> - builds a 50-entry table;</li>
+<li><code>FUN_0040A330</code> / <code>FUN_0040AD60</code> - build 0x32-entry tables;</li>
+<li><code>FUN_0040B670</code> - loader/engine initialization;</li>
+<li><code>FUN_0040D690</code> - GameOS string-table helper;</li>
+<li><code>FUN_0040F980</code> / <code>FUN_0040FE00</code> / <code>FUN_0040FF40</code> - string-keyed
+  binary-search-tree insertion and lookup used by the loader/config layer.</li>
+</ul>
+<p>These functions are shared by the config, archive, and database layers. They
+build the string tables and lookup structures that later object construction
+uses.</p>
+<h2 id="object-model-and-registered-classes">Object model and registered classes<a class="headerlink" href="#object-model-and-registered-classes" title="Permanent link">&para;</a></h2>
+<p>The runtime's object detail is dominated by constructors, destructors, and
+vtable installers. A few patterns recur:</p>
+<ul>
+<li>base-object initialization <code>FUN_00415180</code>;</li>
+<li>scalar-deleting destructors that call the base destructor and then free;</li>
+<li>vtable setters that install a class vtable at <code>[this]</code>;</li>
+<li>registered-class constructors at <code>0x4151C0</code>/<code>0x415200</code> that fill an id/name
+  and link the class into the class table;</li>
+<li>list membership and teardown helpers in the <code>0x415230</code>-<code>0x416100</code> range;</li>
+<li>item-pool constructors/destructors and bump allocation at
+  <code>0x415D70</code>/<code>0x415E30</code>/<code>0x415E80</code>.</li>
+</ul>
+<p>The registered-class subsystem is the runtime's type registry: it stores the
+class id, name, vtable, and factory/link information used by the loader and
+database. The item pool is a separate allocation optimization for fixed-size
+objects.</p>
+<h2 id="threads-locks-and-dispatch">Threads, locks, and dispatch<a class="headerlink" href="#threads-locks-and-dispatch" title="Permanent link">&para;</a></h2>
+<p>The general runtime band includes thread creation, critical sections, events,
+and message queues used by the network, audio, input, and file-loading paths.
+The archive and database layers also use the runtime's refcounted strings and
+locks.</p>
+<p>Dispatch is vtable-based. The runtime supplies the base-object/vtable helpers;
+the higher-level command dispatcher (<code>FUN_004D5B70</code>) and per-subsystem command
+tables are gameplay/UI objects, not runtime services.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The allocation wrappers use the shared engine heap; memory freed by
+  <code>FUN_004084E0</code> must not be freed again with <code>free</code>.</li>
+<li>Reference-counted buffers are released through their refcount helper; a raw
+  <code>free</code> bypasses the ownership check.</li>
+<li>Constructors install the vtable before any virtual call; a partially
+  constructed object must not be used virtually.</li>
+<li>Scalar-deleting destructors free the object after the base destructor; a
+  caller must not reuse the pointer.</li>
+<li>The registered-class table is keyed by class id/name; duplicate registration
+  is not a valid state.</li>
+<li>Item-pool objects come from the pool, not the general heap, and must be
+  returned to the pool.</li>
+<li>The string tables built during engine init are read by the loader and config
+  layers; rebuilding them while objects hold references invalidates those
+  references.</li>
+<li>Thread-shared state must be protected by the runtime locks; the engine does
+  not make object fields atomic.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,19 +2834,104 @@
 </thead>
 <tbody>
 <tr>
-<td>0x004084D0</td>
+<td><code>0x004084D0</code></td>
 <td>memory</td>
-<td>allocation wrapper</td>
+<td>realloc wrapper</td>
 </tr>
 <tr>
-<td>0x004084E0</td>
+<td><code>0x004084E0</code></td>
 <td>memory</td>
 <td>free wrapper</td>
 </tr>
 <tr>
-<td>0x00415100-0x00417BFF</td>
+<td><code>0x00408430</code></td>
+<td>memory</td>
+<td>allocate a 0x18-byte list node</td>
+</tr>
+<tr>
+<td><code>0x00408460</code></td>
+<td>memory</td>
+<td>free a list node</td>
+</tr>
+<tr>
+<td><code>0x00408470</code></td>
+<td>memory</td>
+<td>recursive list teardown</td>
+</tr>
+<tr>
+<td><code>0x00410890</code></td>
+<td>memory</td>
+<td>release a shared buffer</td>
+</tr>
+<tr>
+<td><code>0x00408330</code></td>
+<td>init</td>
+<td>command-line string init</td>
+</tr>
+<tr>
+<td><code>0x00408500</code></td>
+<td>init</td>
+<td>string-table/config init</td>
+</tr>
+<tr>
+<td><code>0x00408F60</code></td>
+<td>init</td>
+<td>engine/config initializer</td>
+</tr>
+<tr>
+<td><code>0x0040B670</code></td>
+<td>init</td>
+<td>loader/engine initialization</td>
+</tr>
+<tr>
+<td><code>0x0040D690</code></td>
+<td>init</td>
+<td>GameOS string table</td>
+</tr>
+<tr>
+<td><code>0x0040F980</code></td>
+<td>init</td>
+<td>string-keyed BST insertion</td>
+</tr>
+<tr>
+<td><code>0x0040FE00</code></td>
+<td>init</td>
+<td>string-keyed BST lookup</td>
+</tr>
+<tr>
+<td><code>0x00415180</code></td>
 <td>object</td>
-<td>database/object helpers</td>
+<td>base-object initializer</td>
+</tr>
+<tr>
+<td><code>0x004151C0</code></td>
+<td>object</td>
+<td>registered-class constructor</td>
+</tr>
+<tr>
+<td><code>0x00415200</code></td>
+<td>object</td>
+<td>registered-class constructor</td>
+</tr>
+<tr>
+<td><code>0x00415D70</code></td>
+<td>object</td>
+<td>singleton constructor</td>
+</tr>
+<tr>
+<td><code>0x00415E80</code></td>
+<td>object</td>
+<td>item-pool bump allocator</td>
+</tr>
+<tr>
+<td><code>0x00416110</code></td>
+<td>object</td>
+<td>get item from pool</td>
+</tr>
+<tr>
+<td><code>0x00416130</code></td>
+<td>object</td>
+<td>return item to pool</td>
 </tr>
 </tbody>
 </table>

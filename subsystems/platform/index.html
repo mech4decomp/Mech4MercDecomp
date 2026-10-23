@@ -931,10 +931,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-thunks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import thunks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safediscanti-tamper-tail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SafeDisc/anti-tamper tail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#com-dll-and-registry-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COM, DLL, and registry glue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directdrawd3d-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DirectDraw/D3D glue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2605,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-thunks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import thunks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safediscanti-tamper-tail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SafeDisc/anti-tamper tail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#com-dll-and-registry-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COM, DLL, and registry glue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directdrawd3d-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DirectDraw/D3D glue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2733,75 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 256 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Win32/COM/DLL/registry glue, DirectDraw/D3D wrappers, import thunks, and the in-image SafeDisc/anti-tamper wrapper.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The IAT jump thunks occupy 0x0075DB4A-0x0076015C. The SafeDisc/anti-tamper tail runs from the end of the thunks through <code>.txt2</code> (0x0076015C-0x0076A381); representative functions include 0x00762410 (anti-tamper jump chains) and 0x00760530 (SafeDisc call setup).</p>
-<p>COM, DLL loading, registry access, and DirectDraw/D3D glue also live here. This is the OS boundary used by render, audio, input, and net.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The platform subsystem is the EXE's OS boundary. It contains:</p>
+<ul>
+<li>the IAT jump thunks that route imported Win32/DirectX calls;</li>
+<li>the in-image SafeDisc/anti-tamper wrapper and its jump chains;</li>
+<li>COM/DLL loading and class-factory glue;</li>
+<li>registry access;</li>
+<li>DirectDraw/D3D wrapper glue;</li>
+<li>the runtime DLL load/resolve helpers used by module clients.</li>
+</ul>
+<p>It is used by render, audio, input, net, and the module loaders. The external
+SafeDisc/DRM DLLs and the bundled DRM components are out of scope; only the
+in-image wrapper/tail is part of the platform surface.</p>
+<h2 id="import-thunks">Import thunks<a class="headerlink" href="#import-thunks" title="Permanent link">&para;</a></h2>
+<p>The IAT jump thunks occupy <code>0x0075DB4A</code>-<code>0x0076015C</code>. Each thunk is a short
+jump through an IAT slot; the imported functions are the standard Win32,
+DirectDraw/D3D, COM, registry, and CRT entry points used by the EXE.</p>
+<p>The tail contains the 31 IAT jump thunks listed in
+<code>src/mw4mercs/artifacts/extra_functions.csv</code>. These are not game functions;
+they are the import trampolines that the compiler/linker emitted in the
+platform tail.</p>
+<h2 id="safediscanti-tamper-tail">SafeDisc/anti-tamper tail<a class="headerlink" href="#safediscanti-tamper-tail" title="Permanent link">&para;</a></h2>
+<p>The SafeDisc/anti-tamper tail runs from the end of the thunks through
+<code>.txt2</code> (<code>0x0076015C</code>-<code>0x0076A381</code>). Representative functions include:</p>
+<ul>
+<li><code>0x00762410</code> - anti-tamper jump-chain function;</li>
+<li><code>0x00760530</code> - SafeDisc call setup.</li>
+</ul>
+<p>The tail contains jump chains, anti-tamper checks, and the in-image wrapper
+that the original DRM left in the binary. The <code>.txt2</code> section
+(<code>0x00769000</code>-<code>0x0076A7C5</code>) is preserved as committed bytes for layout; it is
+not decompiled and is not a gameplay target.</p>
+<p>The DRM wrapper is part of the platform surface because it is in the EXE image.
+External SafeDisc components and the bundled DRM DLLs are not targets.</p>
+<h2 id="com-dll-and-registry-glue">COM, DLL, and registry glue<a class="headerlink" href="#com-dll-and-registry-glue" title="Permanent link">&para;</a></h2>
+<p>The platform layer provides the COM/DLL/registry helpers used by the module
+loaders:</p>
+<ul>
+<li>runtime DLL load/resolve glue (<code>0x00701030</code> is the module-loader entry used
+  by the GunDll client);</li>
+<li>COM class-factory helpers (<code>FUN_006FCDD0</code> resolves <code>DllGetClassObject</code> and
+  creates the instance);</li>
+<li>registry read/write helpers used by configuration, DRM, and module
+  registration;</li>
+<li>DirectDraw/D3D wrapper glue used by the render/display path.</li>
+</ul>
+<p>The COM/DLL helpers are generic; the module-specific CLSIDs, IIDs, and export
+names live in the module pages (<code>GunDll.dll</code>, <code>MW4Stats.dll</code>, etc.).</p>
+<h2 id="directdrawd3d-glue">DirectDraw/D3D glue<a class="headerlink" href="#directdrawd3d-glue" title="Permanent link">&para;</a></h2>
+<p>The render path reaches DirectDraw through <code>blade.dll</code>, not through the EXE's
+platform layer. The EXE-side platform glue covers the display-mode/window
+setup, the device creation calls, and the import thunks those paths use. The
+D3D immediate-mode wrappers themselves are in the render subsystem
+(<code>0x713A70</code>-<code>0x713C80</code>).</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The IAT thunks are not game logic; changing one changes the imported call
+  target for every caller.</li>
+<li>The SafeDisc/anti-tamper tail is part of the image layout; removing or
+  rewriting it changes the PE structure and may break the byte-identical build.</li>
+<li><code>.txt2</code> is preserved data, not executable game code; it must not be treated
+  as a decompilation target.</li>
+<li>The external DRM DLLs are out of scope; only the in-image wrapper is part of
+  the platform surface.</li>
+<li>COM/DLL helpers assume the module and export exist; a missing export is a
+  load failure, not a silent no-op.</li>
+<li>Registry helpers assume the key/value exists or that the caller handles the
+  missing-value case; the platform layer does not invent defaults.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,24 +2813,34 @@
 </thead>
 <tbody>
 <tr>
-<td>0x0075DB4A-0x0076015C</td>
+<td><code>0x0075DB4A</code>-<code>0x0076015C</code></td>
 <td>imports</td>
 <td>IAT jump thunks</td>
 </tr>
 <tr>
-<td>0x0076015C-0x0076A381</td>
+<td><code>0x0076015C</code>-<code>0x0076A381</code></td>
 <td>drm</td>
 <td>SafeDisc/anti-tamper tail</td>
 </tr>
 <tr>
-<td>0x00762410</td>
+<td><code>0x00762410</code></td>
 <td>drm</td>
 <td>anti-tamper jump-chain function</td>
 </tr>
 <tr>
-<td>0x00760530</td>
+<td><code>0x00760530</code></td>
 <td>drm</td>
 <td>SafeDisc call setup</td>
+</tr>
+<tr>
+<td><code>0x00701030</code></td>
+<td>dll</td>
+<td>runtime DLL load/resolve entry</td>
+</tr>
+<tr>
+<td><code>0x006FCDD0</code></td>
+<td>dll</td>
+<td>COM class-factory helper</td>
 </tr>
 </tbody>
 </table>

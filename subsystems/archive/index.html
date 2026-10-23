@@ -903,10 +903,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#header-and-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Header and directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lazy-member-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy member fetch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writer-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-close-and-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open, close, and naming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streams-and-path-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streams and path handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2616,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#header-and-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Header and directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lazy-member-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy member fetch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writer-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-close-and-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open, close, and naming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streams-and-path-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streams and path handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2755,168 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 285 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p><code>#VBD</code> archives, streams, file I/O, and path handling.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The archive layer owns the #VBD directory, entry hash chains, lazy member fetch/decompression, and the stream vtable. Open and close are at 0x004145E0 and 0x004148F0; open-from-stream is 0x00414820; the empty-archive initializer is 0x00413E90.</p>
-<p>Member fetch is 0x00413830; the by-index, by-name, and iterator dispatchers are 0x00413BE0, 0x00413C70, and 0x00413D20. The writer path is 0x00413540; the LZW compressor/decompressor are 0x006FBE80 and 0x006FC220.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The archive layer owns the game's <code>#VBD</code> container format, its directory and
+hash chains, lazy member fetch/decompression, the stream interface, and the
+file/path handling around archives. It is used by gameplay, render, UI, and the
+database for content loading.</p>
+<p>The archive is a directory plus member blobs:</p>
+<ul>
+<li>the header identifies the file as <code>#VBD</code> (signature <code>0x44425623</code>) and stores
+  the format version, maximum entry count, directory offset, and two keys;</li>
+<li>the directory is a serialized list of entries, each with a file time,
+  uncompressed size, stored size, data offset, entry index, and name;</li>
+<li>member data is stored either uncompressed or LZW-compressed, depending on
+  whether compression was favorable.</li>
+</ul>
+<h2 id="header-and-directory">Header and directory<a class="headerlink" href="#header-and-directory" title="Permanent link">&para;</a></h2>
+<p>The empty-archive initializer <code>FUN_00413E90</code> sets:</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+0x00</code></td>
+<td>header pointer</td>
+</tr>
+<tr>
+<td><code>+0x04</code></td>
+<td>signature <code>0x44425623</code> (<code>#VBD</code>)</td>
+</tr>
+<tr>
+<td><code>+0x08</code></td>
+<td>version (4)</td>
+</tr>
+<tr>
+<td><code>+0x0C</code></td>
+<td>maximum entries</td>
+</tr>
+<tr>
+<td><code>+0x10</code></td>
+<td>file/directory base</td>
+</tr>
+<tr>
+<td><code>+0x14</code></td>
+<td>key 1</td>
+</tr>
+<tr>
+<td><code>+0x16</code></td>
+<td>key 2</td>
+</tr>
+</tbody>
+</table>
+<p>It also zeroes two hash tables at <code>+0x18</code> and <code>+0x100C</code>; each is 1021 dwords
+(0x3FD buckets). The bucket count is fixed.</p>
+<p>The reader opener <code>FUN_00413EE0</code> validates the signature and version (version
+must be <code>&lt;= 4</code>), reads the directory blob, initializes a stream over it, and
+calls the directory populator <code>FUN_00414110</code>. If validation fails or the file
+has fewer entries than requested, it creates an empty archive context instead.</p>
+<p>The writer opener <code>FUN_00414040</code> is the twin for a pre-initialized stream. It
+reads the same header fields and calls the populator with absolute-offset
+computation enabled; it does not allocate a directory buffer or perform file
+I/O.</p>
+<p><code>FUN_00414110</code> reads each directory entry, allocates an internal entry record,
+populates it with <code>FUN_00413480</code>, and inserts it into both hash tables:</p>
+<ul>
+<li>table 1 at <code>+0x18</code>, indexed by <code>entry_index % 1021</code>, chained through
+  <code>entry-&gt;field_0C</code>;</li>
+<li>table 2 at <code>+0x100C</code>, indexed by <code>name_hash % 1021</code>, chained through
+  <code>entry-&gt;field_10</code>.</li>
+</ul>
+<p>The name hash <code>FUN_00413500</code> is a modified ELF hash: it folds the low nibble of
+each character, XOR-folds the high nibble into the low nibble when set, and
+forces bit 31 in the result. The fold makes ASCII letters case-insensitive.
+Name lookup compares the hash first, then uses <code>_stricmp</code> for collisions.</p>
+<h2 id="lazy-member-fetch">Lazy member fetch<a class="headerlink" href="#lazy-member-fetch" title="Permanent link">&para;</a></h2>
+<p><code>FUN_00413830</code> is the member-fetch routine. For a file-backed archive:</p>
+<ol>
+<li>Seek to <code>header-&gt;field_10 + entry-&gt;data_off</code>.</li>
+<li>Allocate <code>entry-&gt;stored_size</code> bytes.</li>
+<li>Read the stored bytes into the buffer.</li>
+<li>Store the buffer in <code>entry-&gt;field_08</code> and set <code>entry-&gt;field_26 = 1</code>.</li>
+</ol>
+<p>For an in-memory archive, it computes
+<code>entry-&gt;field_08 = header-&gt;field_10 + context-&gt;dir_file_offset + entry-&gt;data_off</code>
+instead.</p>
+<p>If <code>entry-&gt;stored_size &lt; entry-&gt;uncompressed_size</code>, the member is compressed:
+the loader allocates an <code>uncompressed_size</code> buffer and calls the LZW
+decompressor <code>FUN_006FC220</code> to produce the final bytes. The raw reader
+<code>FUN_004138D0</code> performs the same seek/read but never decompresses; it is used
+by the writer serializer.</p>
+<p>The fetch dispatchers all share this loader:</p>
+<ul>
+<li><code>FUN_00413BE0</code> - find by entry index in table 1, then load if requested;</li>
+<li><code>FUN_00413C70</code> - find by name in table 2, then load if requested;</li>
+<li><code>FUN_00413D20</code> - iterator fetch; always loads when the guard conditions are
+  met and has no load-flag parameter.</li>
+</ul>
+<p>The iterator advance helpers <code>FUN_00413D60</code>/<code>FUN_00413D80</code> load the current
+entry and copy <code>entry-&gt;field_08</code> into the iterator's data slot.</p>
+<h2 id="writer-path">Writer path<a class="headerlink" href="#writer-path" title="Permanent link">&para;</a></h2>
+<p><code>FUN_00413540</code> serializes one entry. It calls the LZW compressor
+<code>FUN_006FBE80</code> when the compression ratio is favorable, then writes the entry
+metadata and member bytes to the stream.</p>
+<p><code>FUN_00414260</code> serializes the whole archive:</p>
+<ol>
+<li>Walk all 0x3FD buckets and sum the serialized size
+   (<code>name_len + 0x17</code> per entry plus <code>stored_size</code>).</li>
+<li>Build a stream with <code>FUN_0041EE70</code>/<code>FUN_0041E690</code>.</li>
+<li>Write the header fields through the stream's vtable write method.</li>
+<li>Iterate entries by index (<code>FUN_00413BE0</code>) and serialize each with
+   <code>FUN_00413540</code>.</li>
+<li>Finalize with <code>FUN_004149C0</code> and release the streams.</li>
+</ol>
+<p><code>FUN_004143D0</code> is the writer variant. <code>FUN_00414970</code>/<code>FUN_00414990</code>/
+<code>FUN_004149A0</code> are flush-on-demand helpers.</p>
+<h2 id="open-close-and-naming">Open, close, and naming<a class="headerlink" href="#open-close-and-naming" title="Permanent link">&para;</a></h2>
+<p><code>FUN_004145E0</code> is the primary file-backed opener. It stores the archive name
+with refcounting (<code>FUN_00412780</code>), resolves the file path (including the CD
+path from the registry), checks existence, and opens the file. <code>FUN_00414820</code>
+is the stream-based opener: it stores the name, initializes the global
+database object on first use, registers the archive name, and opens from the
+existing stream.</p>
+<p><code>FUN_004148F0</code> closes an archive:</p>
+<ol>
+<li>Free all directory entries and the header.</li>
+<li>Close the file handle, or the alternate stream object.</li>
+<li>Decrement the archive-name refcount.</li>
+<li>Decrement the global archive refcount; at zero, release the global
+   database object.</li>
+<li>Release the name buffer when its refcount reaches zero.</li>
+</ol>
+<h2 id="streams-and-path-handling">Streams and path handling<a class="headerlink" href="#streams-and-path-handling" title="Permanent link">&para;</a></h2>
+<p>The <code>stream</code> detail is the stream vtable used by the archive and database
+layers: read/write, seek, advance/retreat, and bit-buffer variants. The
+stream object is initialized by <code>FUN_0041E690</code>; read/write are <code>FUN_0041E720</code>/
+<code>FUN_0041E950</code>; bit operations are <code>FUN_0041EA60</code>/<code>FUN_0041EAE0</code> and
+<code>FUN_0041EB40</code>/<code>FUN_0041EC50</code>.</p>
+<p>Path handling lives in the archive opener and its helpers: archive name
+storage, <code>_mbsrchr</code> filename extraction, CD-path lookup, and the path
+normalization helpers around <code>FUN_00412570</code>/<code>FUN_004125E0</code>.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <code>#VBD</code> signature is <code>0x44425623</code>; a mismatched signature is not a valid
+  archive.</li>
+<li>The format version must be <code>&lt;= 4</code>; later versions are not accepted by the
+  reader.</li>
+<li>The directory hash tables have 1021 buckets; the writer and reader must
+  agree on the bucket count and hash function.</li>
+<li>The name hash is case-insensitive by construction; lookup still resolves
+  collisions with <code>_stricmp</code>.</li>
+<li>A member is decompressed only when <code>stored_size &lt; uncompressed_size</code>; equal
+  sizes mean the member is stored raw.</li>
+<li><code>entry-&gt;data_off == -1</code> means the entry has no data and must not be loaded.</li>
+<li>Lazy fetch caches the buffer in <code>entry-&gt;field_08</code> and marks it with
+  <code>field_26</code>; a second fetch reuses the cached buffer.</li>
+<li>The in-memory archive path computes offsets from the header base plus the
+  directory offset; it does not perform file I/O.</li>
+<li>The writer's size pass and write pass must use the same bucket count and
+  entry order, or the directory offsets are wrong.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,49 +2928,124 @@
 </thead>
 <tbody>
 <tr>
-<td>0x004145E0</td>
-<td>vbd</td>
-<td>archive open</td>
-</tr>
-<tr>
-<td>0x00414820</td>
-<td>stream</td>
-<td>open from stream</td>
-</tr>
-<tr>
-<td>0x004148F0</td>
-<td>vbd</td>
-<td>archive close</td>
-</tr>
-<tr>
-<td>0x00413E90</td>
+<td><code>0x00413E90</code></td>
 <td>vbd</td>
 <td>empty-archive initializer</td>
 </tr>
 <tr>
-<td>0x00413830</td>
+<td><code>0x00413EE0</code></td>
+<td>vbd</td>
+<td>reader opener</td>
+</tr>
+<tr>
+<td><code>0x00414040</code></td>
+<td>vbd</td>
+<td>writer opener</td>
+</tr>
+<tr>
+<td><code>0x00414110</code></td>
+<td>vbd</td>
+<td>directory populator</td>
+</tr>
+<tr>
+<td><code>0x00413480</code></td>
+<td>vbd</td>
+<td>per-entry directory parser</td>
+</tr>
+<tr>
+<td><code>0x00413500</code></td>
+<td>vbd</td>
+<td>entry-name hash</td>
+</tr>
+<tr>
+<td><code>0x00413830</code></td>
 <td>vbd</td>
 <td>lazy member fetch/decompress</td>
 </tr>
 <tr>
-<td>0x00413BE0</td>
+<td><code>0x004138D0</code></td>
+<td>vbd</td>
+<td>raw member read</td>
+</tr>
+<tr>
+<td><code>0x00413BE0</code></td>
 <td>vbd</td>
 <td>fetch by index</td>
 </tr>
 <tr>
-<td>0x00413C70</td>
+<td><code>0x00413C70</code></td>
 <td>vbd</td>
 <td>fetch by name</td>
 </tr>
 <tr>
-<td>0x00413D20</td>
+<td><code>0x00413D20</code></td>
 <td>vbd</td>
-<td>archive iterator</td>
+<td>iterator fetch</td>
 </tr>
 <tr>
-<td>0x00413540</td>
+<td><code>0x00413D60</code>/<code>0x00413D80</code></td>
+<td>vbd</td>
+<td>iterator advance/load</td>
+</tr>
+<tr>
+<td><code>0x00413540</code></td>
+<td>vbd</td>
+<td>entry serializer</td>
+</tr>
+<tr>
+<td><code>0x00414260</code></td>
 <td>vbd</td>
 <td>archive writer</td>
+</tr>
+<tr>
+<td><code>0x004143D0</code></td>
+<td>vbd</td>
+<td>archive writer variant</td>
+</tr>
+<tr>
+<td><code>0x004145E0</code></td>
+<td>vbd</td>
+<td>file-backed archive open</td>
+</tr>
+<tr>
+<td><code>0x00414820</code></td>
+<td>stream</td>
+<td>archive open from stream</td>
+</tr>
+<tr>
+<td><code>0x004148F0</code></td>
+<td>vbd</td>
+<td>archive close</td>
+</tr>
+<tr>
+<td><code>0x00414A70</code></td>
+<td>vbd</td>
+<td>entry data hash/digest</td>
+</tr>
+<tr>
+<td><code>0x006FBE80</code></td>
+<td>codec</td>
+<td>LZW compressor</td>
+</tr>
+<tr>
+<td><code>0x006FC220</code></td>
+<td>codec</td>
+<td>LZW decompressor</td>
+</tr>
+<tr>
+<td><code>0x0041E690</code></td>
+<td>stream</td>
+<td>stream initializer</td>
+</tr>
+<tr>
+<td><code>0x0041E720</code></td>
+<td>stream</td>
+<td>stream read</td>
+</tr>
+<tr>
+<td><code>0x0041E950</code></td>
+<td>stream</td>
+<td>stream write</td>
 </tr>
 </tbody>
 </table>

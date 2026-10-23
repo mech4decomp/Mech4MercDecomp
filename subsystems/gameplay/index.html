@@ -763,10 +763,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#player-and-mech-object-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Player and mech object graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collision-and-geometry-island" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collision and geometry island
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gameplay-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gameplay state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-stream-and-serialization-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object, stream, and serialization helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2605,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#player-and-mech-object-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Player and mech object graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collision-and-geometry-island" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collision and geometry island
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gameplay-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gameplay state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-stream-and-serialization-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object, stream, and serialization helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2733,267 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 2525 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Simulation state and rules: mechs, movers, pilots, missions, objectives, teams, sensors, vehicles, and the collision and geometry queries they use.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>Gameplay owns the object state that AI, combat, UI, and render read. The physics island at 0x00418000-0x0041DFFF contains collision, OBB/sphere tests, and ray/geometric queries; mission, objective, team, pilot, and vehicle state sits in the general gameplay band.</p>
-<p>The subsystem is boundary-heavy: it calls render for presentation, AI for control, combat for fire resolution, and archive/database for content and object storage. Save/load and game-state flags are grouped under <code>state</code>.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>Gameplay owns the simulation state that AI, combat, UI, and render consume. It
+is the largest subsystem by VA count, but most of it is object state and
+mission plumbing rather than a single algorithm. The recognizable islands are:</p>
+<ul>
+<li>the collision/geometry island at <code>0x00418000</code>-<code>0x0041DFFF</code>;</li>
+<li>the mission, objective, team, pilot, and vehicle state in the general
+  gameplay band;</li>
+<li>the game-state/save-load helpers grouped under <code>state</code>;</li>
+<li>the session/player table shared with the network layer;</li>
+<li>object and stream helpers that bridge gameplay data to the database and
+  archive layers.</li>
+</ul>
+<p>Gameplay is boundary-heavy. It calls render for presentation, AI for control,
+combat for fire and damage resolution, and archive/database for content and
+object storage. It should not be treated as a single self-contained module.</p>
+<h2 id="player-and-mech-object-graph">Player and mech object graph<a class="headerlink" href="#player-and-mech-object-graph" title="Permanent link">&para;</a></h2>
+<p>The in-mission player graph is shared by gameplay, combat, and network code:</p>
+<div class="highlight"><pre><span></span><code>playerObj = [netinfo + slot*0x2038 + 0x3584]
+mech      = [playerObj + 0x170]       // damage receiver
+worldObj  = [playerObj + 0xD8]        // position/world entity
+position  = [worldObj + 0x8C/+0x9C/+0xAC]
+</code></pre></div>
+<p>The player table is a fixed-stride array of <code>0x2038</code> bytes per slot. The
+per-slot flags at <code>+0x3538</code>, <code>+0x353B</code>, and <code>+0x3544</code> control state sync,
+player-event broadcast eligibility, and the state-sent marker. A slot can be
+flagged active without a player object; the network layer relies on that.</p>
+<p>The mech object is the damage receiver for the combat damage map. The world
+object is the position/velocity source used by missile guidance and camera
+code. The <code>+0x170</code> and <code>+0xD8</code> links are the stable gameplay-to-combat and
+gameplay-to-render handoffs.</p>
+<h2 id="collision-and-geometry-island">Collision and geometry island<a class="headerlink" href="#collision-and-geometry-island" title="Permanent link">&para;</a></h2>
+<p>The <code>0x00418000</code>-<code>0x0041DFFF</code> island contains collision math and the geometry
+queries used by movement, hit tests, and placement. It is mostly shared math,
+not mission rules:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00418880</code></td>
+<td>transform a vector through the geometry helper</td>
+</tr>
+<tr>
+<td><code>0x004188E0</code></td>
+<td>sphere/OBB merge and bounds computation</td>
+</tr>
+<tr>
+<td><code>0x00418A80</code></td>
+<td>OBB-vs-OBB separating-axis collision test</td>
+</tr>
+<tr>
+<td><code>0x00418F00</code></td>
+<td>OBB-vs-OBB separating-axis test, second variant</td>
+</tr>
+<tr>
+<td><code>0x004194E0</code></td>
+<td>OBB/sphere cluster collision resolution</td>
+</tr>
+<tr>
+<td><code>0x00419AD0</code></td>
+<td>sphere-vs-sphere collision resolution</td>
+</tr>
+<tr>
+<td><code>0x00419C00</code></td>
+<td>sphere/point collision test</td>
+</tr>
+<tr>
+<td><code>0x00419F90</code></td>
+<td>Euler-angle to rotation-matrix conversion</td>
+</tr>
+<tr>
+<td><code>0x0041A070</code></td>
+<td>Euler-angle to rotation-matrix conversion, second form</td>
+</tr>
+<tr>
+<td><code>0x0041A160</code></td>
+<td>quaternion-to-rotation-matrix conversion</td>
+</tr>
+<tr>
+<td><code>0x0041A2C0</code></td>
+<td>3x3 matrix inverse (adjugate + determinant)</td>
+</tr>
+<tr>
+<td><code>0x0041A460</code></td>
+<td>4x4 matrix multiply</td>
+</tr>
+<tr>
+<td><code>0x0041AA10</code></td>
+<td>quaternion-to-Euler-angles conversion</td>
+</tr>
+<tr>
+<td><code>0x0041ABB0</code></td>
+<td>3-component vector interpolation</td>
+</tr>
+<tr>
+<td><code>0x0041AFD0</code></td>
+<td>4-vector normalization</td>
+</tr>
+<tr>
+<td><code>0x0041B140</code></td>
+<td>rotate a 4-vector by an angle</td>
+</tr>
+<tr>
+<td><code>0x0041B320</code></td>
+<td>Hamilton product of two 4-vectors</td>
+</tr>
+<tr>
+<td><code>0x0041B3B0</code></td>
+<td>4x4 matrix multiply (rotation + translation)</td>
+</tr>
+<tr>
+<td><code>0x0041B680</code></td>
+<td>fast 4-vector normalization</td>
+</tr>
+<tr>
+<td><code>0x0041B720</code></td>
+<td>fast quaternion normalization</td>
+</tr>
+<tr>
+<td><code>0x0041BB80</code></td>
+<td>quaternion slerp</td>
+</tr>
+<tr>
+<td><code>0x0041BD00</code></td>
+<td>quaternion lerp</td>
+</tr>
+<tr>
+<td><code>0x0041C340</code></td>
+<td>quaternion from a 3-vector</td>
+</tr>
+<tr>
+<td><code>0x0041C540</code></td>
+<td>squared-distance comparison</td>
+</tr>
+<tr>
+<td><code>0x0041C610</code></td>
+<td>quaternion from Euler angles</td>
+</tr>
+<tr>
+<td><code>0x0041C680</code></td>
+<td>3x3 matrix times vector</td>
+</tr>
+<tr>
+<td><code>0x0041C6E0</code></td>
+<td>transposed 3x3 matrix times vector</td>
+</tr>
+<tr>
+<td><code>0x0041C7D0</code></td>
+<td>3x4 matrix times vector</td>
+</tr>
+<tr>
+<td><code>0x0041C830</code></td>
+<td>quaternion/matrix multiply</td>
+</tr>
+<tr>
+<td><code>0x0041C9B0</code></td>
+<td>quaternion Hamilton product</td>
+</tr>
+<tr>
+<td><code>0x0041CA30</code></td>
+<td>4x4 matrix times quaternion</td>
+</tr>
+<tr>
+<td><code>0x0041CAC0</code></td>
+<td>3x4 matrix times 3-vector</td>
+</tr>
+<tr>
+<td><code>0x0041CB30</code></td>
+<td>transform a 3-vector by a 4x4 matrix</td>
+</tr>
+<tr>
+<td><code>0x0041CFE0</code></td>
+<td>4x4 matrix multiply</td>
+</tr>
+<tr>
+<td><code>0x0041D3B0</code></td>
+<td>3x4 matrix multiply with translation</td>
+</tr>
+<tr>
+<td><code>0x0041D570</code></td>
+<td>4x4 matrix construction from six floats</td>
+</tr>
+<tr>
+<td><code>0x0041D780</code></td>
+<td>angle normalization</td>
+</tr>
+<tr>
+<td><code>0x0041D810</code></td>
+<td>angle interpolation</td>
+</tr>
+</tbody>
+</table>
+<p>The collision tests are separating-axis and sphere-based; the matrix and
+quaternion helpers are the shared transform layer used by gameplay, combat,
+and camera code. This island does not contain the mission rules or the mech
+damage model; those live in the gameplay state and combat paths.</p>
+<h2 id="gameplay-state">Gameplay state<a class="headerlink" href="#gameplay-state" title="Permanent link">&para;</a></h2>
+<p>The general gameplay band owns the mission and object state consumed by the
+rest of the engine:</p>
+<ul>
+<li>mission and scenario state;</li>
+<li>objectives and completion flags;</li>
+<li>teams and affiliations;</li>
+<li>pilots and pilot-to-mech bindings;</li>
+<li>vehicles, movers, sensors, and other world objects;</li>
+<li>save/load and game-state flags;</li>
+<li>the database/session wrappers at <code>0x004D2B00</code>-<code>0x004D3200</code>.</li>
+</ul>
+<p>The state is object-oriented and vtable-driven. Many objects are created
+through the shared allocation wrappers and registered in the database; the
+gameplay code holds pointers and IDs rather than a single global state block.
+The network layer's player table is one view of that state; combat's damage
+map and render's scene nodes are others.</p>
+<h2 id="object-stream-and-serialization-helpers">Object, stream, and serialization helpers<a class="headerlink" href="#object-stream-and-serialization-helpers" title="Permanent link">&para;</a></h2>
+<p>The upper end of the physics band and the following block contain shared
+object and stream infrastructure used by gameplay data:</p>
+<ul>
+<li><code>0x0041D890</code> - object/collection constructor;</li>
+<li><code>0x0041DAC0</code> - destructor/cleanup;</li>
+<li><code>0x0041DC10</code> - stream/transform helper;</li>
+<li><code>0x0041DE50</code> - stream object constructor;</li>
+<li><code>0x0041DE80</code>/<code>0x0041DEC0</code> - writer open/close;</li>
+<li><code>0x0041E690</code> - StreamReader initializer;</li>
+<li><code>0x0041E720</code>/<code>0x0041E950</code> - StreamReader read/write;</li>
+<li><code>0x0041EA60</code>/<code>0x0041EAE0</code> - bit read/write;</li>
+<li><code>0x0041EB40</code>/<code>0x0041EC50</code> - multi-bit read/write;</li>
+<li><code>0x0041F230</code>/<code>0x0041F270</code>/<code>0x0041F290</code> - int/string/float serializers;</li>
+<li><code>0x0041F3D0</code>/<code>0x0041F430</code> - vector serializers;</li>
+<li><code>0x0041F480</code>/<code>0x0041F500</code> - yaw/pitch/roll serializers;</li>
+<li><code>0x0041F570</code> - unit-quaternion parser;</li>
+<li><code>0x0041F680</code>/<code>0x0041F6E0</code> - motion parser/writer;</li>
+<li><code>0x0041F750</code>/<code>0x0041F7B0</code> - RGB color parser/writer;</li>
+<li><code>0x0041F800</code> - RGBA color parser;</li>
+<li><code>0x0041F8D0</code>/<code>0x0041FA70</code> - tree/section save-load.</li>
+</ul>
+<p>These helpers are shared by the database and archive layers. They are not
+gameplay rules, but they define how gameplay records are read and written.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The player table stride is <code>0x2038</code>; a slot's flags are independent of
+  whether a player object is present.</li>
+<li>The mech is <code>[playerObj+0x170]</code>; the world object is <code>[playerObj+0xD8]</code>.
+  Using one in place of the other produces wrong damage or guidance targets.</li>
+<li>Collision queries operate on transformed geometry; an uninitialized matrix
+  or quaternion produces false hits or misses.</li>
+<li>The OBB tests use a separating-axis path; a degenerate axis (zero-length
+  normal) is not a valid input.</li>
+<li>Sphere tests compare squared distances; the caller must not compare the
+  result against a linear distance without squaring.</li>
+<li>The stream helpers are bit-oriented; a reader and writer must agree on the
+  bit order and the flush state.</li>
+<li>The gameplay state is shared across subsystems; mutation must go through the
+  owning object, not a cached pointer in another subsystem.</li>
+<li>The network player table and the gameplay object graph are views of the same
+  state; they can diverge if one side is updated without the other.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,14 +3005,114 @@
 </thead>
 <tbody>
 <tr>
-<td>0x00418000-0x0041DFFF</td>
+<td><code>0x004188E0</code></td>
 <td>physics</td>
-<td>collision and geometry island</td>
+<td>sphere/OBB bounds merge</td>
 </tr>
 <tr>
-<td>0x004D2B00-0x004D3200</td>
-<td>state</td>
-<td>database/session wrappers</td>
+<td><code>0x00418A80</code></td>
+<td>physics</td>
+<td>OBB-vs-OBB collision test</td>
+</tr>
+<tr>
+<td><code>0x00418F00</code></td>
+<td>physics</td>
+<td>OBB-vs-OBB collision test variant</td>
+</tr>
+<tr>
+<td><code>0x004194E0</code></td>
+<td>physics</td>
+<td>OBB/sphere cluster resolution</td>
+</tr>
+<tr>
+<td><code>0x00419AD0</code></td>
+<td>physics</td>
+<td>sphere-vs-sphere resolution</td>
+</tr>
+<tr>
+<td><code>0x00419C00</code></td>
+<td>physics</td>
+<td>sphere/point test</td>
+</tr>
+<tr>
+<td><code>0x0041A2C0</code></td>
+<td>physics</td>
+<td>3x3 matrix inverse</td>
+</tr>
+<tr>
+<td><code>0x0041A460</code></td>
+<td>physics</td>
+<td>4x4 matrix multiply</td>
+</tr>
+<tr>
+<td><code>0x0041BB80</code></td>
+<td>physics</td>
+<td>quaternion slerp</td>
+</tr>
+<tr>
+<td><code>0x0041C540</code></td>
+<td>physics</td>
+<td>squared-distance comparison</td>
+</tr>
+<tr>
+<td><code>0x0041CB30</code></td>
+<td>physics</td>
+<td>transform 3-vector by 4x4</td>
+</tr>
+<tr>
+<td><code>0x0041CFE0</code></td>
+<td>physics</td>
+<td>4x4 matrix multiply</td>
+</tr>
+<tr>
+<td><code>0x0041D570</code></td>
+<td>physics</td>
+<td>matrix construction from six floats</td>
+</tr>
+<tr>
+<td><code>0x0041D890</code></td>
+<td>objects</td>
+<td>object/collection constructor</td>
+</tr>
+<tr>
+<td><code>0x0041E690</code></td>
+<td>stream</td>
+<td>StreamReader initializer</td>
+</tr>
+<tr>
+<td><code>0x0041E720</code></td>
+<td>stream</td>
+<td>StreamReader read</td>
+</tr>
+<tr>
+<td><code>0x0041E950</code></td>
+<td>stream</td>
+<td>StreamReader write</td>
+</tr>
+<tr>
+<td><code>0x0041EA60</code></td>
+<td>stream</td>
+<td>bit read</td>
+</tr>
+<tr>
+<td><code>0x0041EAE0</code></td>
+<td>stream</td>
+<td>bit write</td>
+</tr>
+<tr>
+<td><code>0x0041F230</code></td>
+<td>stream</td>
+<td>integer serializer</td>
+</tr>
+<tr>
+<td><code>0x0041F290</code></td>
+<td>stream</td>
+<td>float serializer</td>
+</tr>
+<tr>
+<td><code>0x0041F8D0</code></td>
+<td>stream</td>
+<td>tree/section save-load</td>
 </tr>
 </tbody>
 </table>

@@ -1326,10 +1326,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#com-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COM surface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gun-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gun authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lobby-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lobby protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#socket-and-peer-to-peer-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Socket and peer-to-peer layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-model-and-memory-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object model and memory infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crt-seh-and-code-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CRT, SEH, and code layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2638,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#com-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COM surface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gun-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gun authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lobby-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lobby protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#socket-and-peer-to-peer-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Socket and peer-to-peer layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-model-and-memory-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object model and memory infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crt-seh-and-code-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CRT, SEH, and code layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2799,198 @@
 <p><strong>Classified VAs:</strong> 3213 | <strong>Exhaustive index:</strong> <a href="../../va_index/GunDll_dll/">GunDll.dll</a></p>
 </blockquote>
 <p>COM lobby/account client: registration, string/GUID and hash tables, crypto, HTTP, sockets, and the lobby object model.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p><code>DllGetClassObject</code> at 0x100010B0 exposes the COM class factory. Registration and the shared registration/teardown handler are around 0x10001970; the string/GUID/codepage helpers are around 0x10001450.</p>
-<p>The lobby object model is the large 0x1002C970 family. It drives HTTP (0x100080D0), sockets (0x100303E0), the hash-list object, and the crypto/MD5 helpers (0x10007470). SEH and CRT ranges are separate details in the detail table.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p><code>GunDll.dll</code> is an in-process COM server and the client half of the Gun 2.0
+lobby/account system. It combines several services in one module:</p>
+<ul>
+<li>COM registration and a class factory;</li>
+<li>account login, password, friend, ignore, room, and tournament commands;</li>
+<li>Gun authentication through the Windows CryptoAPI;</li>
+<li>an HTTP client for Zone/Gun service requests;</li>
+<li>a raw Winsock peer-to-peer lobby transport;</li>
+<li>a large command/event object hierarchy that serializes to a text protocol;</li>
+<li>its own allocator, node pool, hash-list, string-table, and base64 codecs;</li>
+<li>a statically linked MSVC6 CRT and the associated SEH machinery.</li>
+</ul>
+<p>The module is loaded at runtime through the EXE's COM loader, not through the
+import table. The loader calls <code>LoadLibraryA("gundll.dll")</code>, falls back to
+<code>Assets\Binaries\gundll.dll</code>, resolves <code>DllGetClassObject</code>, and creates the
+session object. The EXE caches the resulting interface pointers in its global
+session state.</p>
+<h2 id="com-surface">COM surface<a class="headerlink" href="#com-surface" title="Permanent link">&para;</a></h2>
+<p>The module exports the standard COM entry points:</p>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>VA</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DllRegisterServer</code></td>
+<td><code>0x10001020</code></td>
+<td>Returns <code>E_NOTIMPL</code> (<code>0x80004005</code>)</td>
+</tr>
+<tr>
+<td><code>DllUnregisterServer</code></td>
+<td><code>0x10001030</code></td>
+<td>Walks the two-row class table and unregisters each entry</td>
+</tr>
+<tr>
+<td><code>DllCanUnloadNow</code></td>
+<td><code>0x100010A0</code></td>
+<td>Returns <code>S_OK</code></td>
+</tr>
+<tr>
+<td><code>DllGetClassObject</code></td>
+<td><code>0x100010B0</code></td>
+<td>Validates the GUIDs and returns an <code>IClassFactory</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>DllGetClassObject</code> checks the requested interface against the known
+<code>IClassFactory</code> and <code>IUnknown</code> values, then scans the class table at
+<code>0x10050040</code> for the requested CLSID. Each table row is 0x10 bytes and carries
+a CLSID string, a dispatch function, a description, and a threading model. On a
+match it allocates a 0xC-byte factory object through <code>FUN_10001D50</code>,
+initializes it with <code>FUN_10001180</code>, and returns the factory through the vtable
+QueryInterface/AddRef path. A missing output pointer returns <code>0x80070057</code>; an
+unknown class returns <code>0x80040111</code>.</p>
+<p>The class table identifies the module as <code>GUN 2.0 API Object</code> with threading
+model <code>Both</code> and the <code>\InprocServer32</code> suffix. <code>DllUnregisterServer</code> uses
+<code>FUN_10002260</code> to obtain the ProgID and <code>FUN_10001450</code> / <code>FUN_10001D60</code> to
+remove the registry entries. <code>DllRegisterServer</code> is deliberately a stub; the
+registration is expected to be performed elsewhere.</p>
+<h2 id="gun-authentication">Gun authentication<a class="headerlink" href="#gun-authentication" title="Permanent link">&para;</a></h2>
+<p>The authentication path uses the Windows CryptoAPI rather than a bundled
+cipher. The core flow is:</p>
+<ol>
+<li>Initialize a crypto object with the registry key name <code>Gun2Key</code>
+   (<code>FUN_100074C0</code>).</li>
+<li>Import or generate the key (<code>CryptImportKey</code>, <code>CryptGenRandom</code>).</li>
+<li>Encrypt the request data (<code>CryptEncrypt</code> / <code>CryptDeriveKey</code>).</li>
+<li>Export the key blob (<code>CryptExportKey</code>) and encode it.</li>
+<li>Submit the encoded blob through the HTTP or lobby transport.</li>
+</ol>
+<p>The registry value is the persistent half of the identity. The module also
+uses <code>CryptAcquireContextA</code>, <code>CryptReleaseContext</code>, and <code>CryptDestroyKey</code> for
+the CryptoAPI context lifetime. The authentication object is wired through the
+same shared registration/teardown handler at <code>FUN_10001970</code> that the other
+service objects use.</p>
+<p>The HTTP downloader behind the auth path (<code>FUN_10002D80</code>) sends a <code>GET</code> with
+user agent <code>GUN</code> and expects HTTP status <code>200</code>. The response is returned as a
+wide string through the caller's result object; non-200 responses are surfaced
+as an error result rather than parsed as a payload.</p>
+<h2 id="lobby-protocol">Lobby protocol<a class="headerlink" href="#lobby-protocol" title="Permanent link">&para;</a></h2>
+<p>The lobby protocol is an XML-like text protocol. Messages are elements with
+attributes; the framing templates use only <code>%hs</code> (ANSI tag/field names), <code>%ls</code>
+(wide values), <code>%d</code> (decimal), and <code>%x</code> (lowercase hex). Typical shapes are:</p>
+<div class="highlight"><pre><span></span><code>&lt;Tag Attr=&quot;value&quot; /&gt;
+&lt;Tag Attr=&quot;0x1234&quot; /&gt;
+&lt;Tag&gt;&lt;Child Val=&quot;...&quot; /&gt;&lt;/Tag&gt;
+&lt;/Tag&gt;
+</code></pre></div>
+<p>The field and event names are stored as plain NUL-terminated ANSI strings in
+<code>.rdata</code>; they are not interleaved or encrypted. The module uses the names via
+<code>%hs</code>, while values are wide strings or numbers. The custom base64 alphabet is
+<code>a-z A-Z 0-9 ! .</code> (not the standard <code>+/</code> alphabet). Blob values are
+HTML-escaped for <code>"</code>, <code>&amp;</code>, <code>&lt;</code>, and <code>&gt;</code> before framing, then base64-encoded.</p>
+<p>The serializer path is:</p>
+<ol>
+<li>The object's vtable <code>+0x30</code> emits its payload fields.</li>
+<li>The object's vtable <code>+0x08</code> finalizes the payload.</li>
+<li><code>FUN_10002660</code> / <code>FUN_10002790</code> encode or decode the base64 blob.</li>
+<li><code>FUN_1002E090</code> frames the tag and value with the wide template
+   <code>&lt;%hs %hs="%hs"/&gt;</code>; the common shape is <code>&lt;Tag Val="&lt;base64&gt;"/&gt;</code>.</li>
+<li><code>FUN_1002B140</code> concatenates the framed elements.</li>
+</ol>
+<p>The confirmed login-family elements include <code>&lt;Connect ...&gt;</code>,
+<code>&lt;ConnectRes ...&gt;&lt;RSAKey Val="..."/&gt;&lt;/ConnectRes&gt;</code>, <code>&lt;ConInfo ...&gt;</code>,
+<code>&lt;Login ...&gt;&lt;Password Val="..."/&gt;&lt;/Login&gt;</code>, <code>&lt;LoginRes ...&gt;</code>, and the
+friend/room/tournament families. Each class's <code>+0x30</code> method is a sequence of
+command-setup helpers that append one field through a fixed template; the
+resulting <code>(template, field, value)</code> sequence is the wire contract.</p>
+<h2 id="http-client">HTTP client<a class="headerlink" href="#http-client" title="Permanent link">&para;</a></h2>
+<p>The HTTP layer is a separate object family built on WinINet:</p>
+<ul>
+<li><code>InternetOpenA</code> creates the session.</li>
+<li><code>InternetConnectA</code> opens the server connection.</li>
+<li><code>HttpOpenRequestA</code> creates the request; <code>HttpSendRequestA</code> sends it.</li>
+<li><code>HttpQueryInfoA</code> reads the status and headers.</li>
+<li><code>InternetQueryDataAvailable</code> / <code>InternetReadFile</code> read the body.</li>
+<li><code>InternetCloseHandle</code> releases each handle.</li>
+</ul>
+<p>The downloader expects HTTP 200 and returns the response as a wide string. The
+request object is reference-counted and has an explicit teardown path that
+closes every handle even on error.</p>
+<h2 id="socket-and-peer-to-peer-layer">Socket and peer-to-peer layer<a class="headerlink" href="#socket-and-peer-to-peer-layer" title="Permanent link">&para;</a></h2>
+<p>The socket layer uses Winsock directly through thunks in <code>.text</code>
+(<code>socket</code>, <code>bind</code>, <code>getsockname</code>, <code>closesocket</code>, <code>ntohs</code>). It provides:</p>
+<ul>
+<li>socket creation and binding;</li>
+<li>local endpoint discovery (<code>getsockname</code> + <code>ntohs</code>);</li>
+<li>IPv4 dotted-quad formatting (<code>%d.%d.%d.%d</code>);</li>
+<li>host name/port exchange;</li>
+<li>packet framing, buffering, and a send/receive queue;</li>
+<li>event objects and connection/list management;</li>
+<li><code>CoCreateInstance</code> for the device/direct-play helper objects used by the
+  lobby transport.</li>
+</ul>
+<p>The socket object model has its own session/queue/lock layer. The queue is a
+critical-section-guarded list with priority insertion at the head when the
+low bit of the flags is set, FIFO otherwise. A signal event is raised when the
+queue becomes non-empty and reset when it drains. The packet layer maintains
+sequence/timing state and dispatches received headers to per-type handlers.</p>
+<h2 id="object-model-and-memory-infrastructure">Object model and memory infrastructure<a class="headerlink" href="#object-model-and-memory-infrastructure" title="Permanent link">&para;</a></h2>
+<p>The lobby client is a large C++ object hierarchy with three shared base
+families. The command/event classes are hand-wired vtables rather than RTTI
+classes; each class supplies a payload emitter and a finalizer. The object
+graph is rooted in the session object and the two-row class table.</p>
+<p>The module carries its own memory infrastructure:</p>
+<ul>
+<li>an allocator with a <code>ZmMe</code>/<code>dEnZ</code> header (<code>FUN_1000C1B0</code>);</li>
+<li>a node pool with <code>PFRE</code>/<code>POOL</code>/<code>PEND</code> tags (<code>FUN_1000C410</code>/<code>FUN_1000C4C0</code>);</li>
+<li>0x3C-byte hash-list/string-table objects;</li>
+<li>a <code>ZONE</code>-tagged packed string table;</li>
+<li>a custom base64 encoder/decoder.</li>
+</ul>
+<p>These are real module services, not wrappers around the CRT. The hash-list is
+used for the lobby's name/id tables and the object registry; the pool reduces
+allocation churn for the command/event nodes.</p>
+<h2 id="crt-seh-and-code-layout">CRT, SEH, and code layout<a class="headerlink" href="#crt-seh-and-code-layout" title="Permanent link">&para;</a></h2>
+<p>Roughly 40-45% of the module's functions are statically linked MSVC6 CRT code:
+printf/wprintf/scanf/strftime/float formatting, <code>memmove</code>, the buddy-block
+heap, stdio handle tables, locale/NLS, TLS, and SEH support. The <code>seh</code> detail
+contains the compiler-generated funclets; the <code>crt</code> detail contains the
+runtime. These are support code, not lobby behavior.</p>
+<p>The module's <code>.text</code> starts at RVA <code>0x1000</code>; the main client code and the
+string/GUID/hash helpers occupy the low range, while the socket and object
+model code extends to the end of <code>.text</code>. <code>.rdata</code> starts at RVA <code>0x49000</code> and
+contains the IAT (140 slots), vtables, format strings, GUIDs, and protocol
+tables. <code>.data</code> starts at RVA <code>0x50000</code> and contains the class table, mutable
+state, and module globals. <code>.rsrc</code> and <code>.reloc</code> follow.</p>
+<p>The import surface covers registry, CryptoAPI, synchronization, heap/MM,
+WinINet, OLE/COM, winsock, and CRT. The module does not import game DLLs.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>DllRegisterServer</code> is intentionally unimplemented; registration is handled
+  by the unregister path or an external installer.</li>
+<li><code>DllCanUnloadNow</code> always returns <code>S_OK</code>; the module does not track external
+  references for unload.</li>
+<li><code>DllGetClassObject</code> rejects a NULL output pointer with <code>0x80070057</code> and an
+  unknown class with <code>0x80040111</code>.</li>
+<li>The HTTP downloader requires status 200; other statuses become error results.</li>
+<li>The lobby protocol requires the custom base64 alphabet and HTML escaping;
+  standard base64 or unescaped values produce different wire bytes.</li>
+<li>The socket queue is lock-protected and signal-driven; priority insertion is
+  controlled by the low flag bit.</li>
+<li>The auth key is persistent registry state (<code>Gun2Key</code>); deleting or replacing
+  it changes the identity presented to the service.</li>
+<li>The statically linked CRT and SEH ranges are runtime support and should not
+  be treated as lobby behavior when reading the per-VA index.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,39 +3002,114 @@
 </thead>
 <tbody>
 <tr>
-<td>0x100010B0</td>
+<td><code>0x10001020</code></td>
 <td>com</td>
-<td>DllGetClassObject</td>
+<td><code>DllRegisterServer</code> (E_NOTIMPL)</td>
 </tr>
 <tr>
-<td>0x10001970</td>
+<td><code>0x10001030</code></td>
+<td>com</td>
+<td><code>DllUnregisterServer</code></td>
+</tr>
+<tr>
+<td><code>0x100010A0</code></td>
+<td>com</td>
+<td><code>DllCanUnloadNow</code></td>
+</tr>
+<tr>
+<td><code>0x100010B0</code></td>
+<td>com</td>
+<td><code>DllGetClassObject</code></td>
+</tr>
+<tr>
+<td><code>0x10001180</code></td>
+<td>object</td>
+<td>class factory initialization</td>
+</tr>
+<tr>
+<td><code>0x10001450</code></td>
+<td>registry</td>
+<td>registry value writer</td>
+</tr>
+<tr>
+<td><code>0x10001970</code></td>
 <td>objects</td>
 <td>shared registration/teardown</td>
 </tr>
 <tr>
-<td>0x10001450</td>
-<td>string</td>
-<td>string/GUID/codepage helpers</td>
+<td><code>0x10001D50</code></td>
+<td>object</td>
+<td>module allocator front door</td>
 </tr>
 <tr>
-<td>0x1002C970</td>
-<td>objects</td>
-<td>lobby object model</td>
+<td><code>0x10002660</code></td>
+<td>codec</td>
+<td>custom base64 decode</td>
 </tr>
 <tr>
-<td>0x100080D0</td>
+<td><code>0x10002790</code></td>
+<td>codec</td>
+<td>custom base64 encode</td>
+</tr>
+<tr>
+<td><code>0x10002D80</code></td>
 <td>http</td>
-<td>HTTP client</td>
+<td>HTTP GET downloader</td>
 </tr>
 <tr>
-<td>0x100303E0</td>
-<td>sockets</td>
-<td>socket layer</td>
-</tr>
-<tr>
-<td>0x10007470</td>
+<td><code>0x10007470</code></td>
 <td>crypto</td>
-<td>crypto/MD5 helpers</td>
+<td>crypto object initialization</td>
+</tr>
+<tr>
+<td><code>0x100074C0</code></td>
+<td>crypto</td>
+<td>Gun2Key crypto setup</td>
+</tr>
+<tr>
+<td><code>0x100080D0</code></td>
+<td>http</td>
+<td>HTTP client object factory</td>
+</tr>
+<tr>
+<td><code>0x1000C1B0</code></td>
+<td>objects</td>
+<td>allocator with ZmMe/dEnZ header</td>
+</tr>
+<tr>
+<td><code>0x1000C410</code></td>
+<td>pool</td>
+<td>node pool allocation</td>
+</tr>
+<tr>
+<td><code>0x1000C4C0</code></td>
+<td>pool</td>
+<td>node pool free</td>
+</tr>
+<tr>
+<td><code>0x1002AF80</code></td>
+<td>codec</td>
+<td>HTML escape</td>
+</tr>
+<tr>
+<td><code>0x1002C970</code></td>
+<td>objects</td>
+<td>object/collection builder</td>
+</tr>
+<tr>
+<td><code>0x1002E090</code></td>
+<td>codec</td>
+<td>tag/value framing</td>
+</tr>
+<tr>
+<td><code>0x100303E0</code></td>
+<td>sockets</td>
+<td>socket event post</td>
+</tr>
+<tr>
+<td><code>0x10033680</code></td>
+<td>sockets</td>
+<td>socket event dispatch</td>
 </tr>
 </tbody>
 </table>

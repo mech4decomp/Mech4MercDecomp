@@ -1410,10 +1410,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#localization-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Localization model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codepage-and-case-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codepage and case handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String arena
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-and-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime and data layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2616,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#localization-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Localization model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codepage-and-case-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codepage and case handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String arena
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-and-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime and data layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,10 +2755,292 @@
 <p><strong>Classified VAs:</strong> 104 | <strong>Exhaustive index:</strong> <a href="../../va_index/Language_dll/">Language.dll</a></p>
 </blockquote>
 <p>Codepage-aware localizable string-table loader.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The module has no named exports. The game loads it and looks up string IDs; the loader converts codepages and stores strings in an arena protected by locks. CRT/string/codepage/arena/locks/error details are listed in the detail table.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p><code>Language.dll</code> is a resource and localization module, not a call-level API. It
+has no named exports beyond the DLL entry point. The game loads the module,
+uses its module handle to reach the STRINGTABLE resources, and resolves string
+ids through the module's codepage-aware lookup layer.</p>
+<p>The DLL is built with a statically linked VC6 LIBCMT runtime and imports only
+KERNEL32. The language/codepage machinery is compiled into the module; it does
+not forward to the host CRT's locale layer. Roughly 95% of the code is runtime
+support, with the localization contract concentrated in the codepage, arena,
+string-table, and error-message paths.</p>
+<h2 id="localization-model">Localization model<a class="headerlink" href="#localization-model" title="Permanent link">&para;</a></h2>
+<p>The localizable text lives in the module's <code>.rsrc</code> STRINGTABLE blocks. The
+code around those resources provides:</p>
+<ul>
+<li>codepage resolution and conversion;</li>
+<li>lead-byte and character-class tables;</li>
+<li>case folding and case-insensitive comparison;</li>
+<li>a string-table arena for copied or converted strings;</li>
+<li>runtime error-message lookup and display;</li>
+<li>per-thread state and locks around the shared tables.</li>
+</ul>
+<p>The lookup model is id-based. The module does not expose a public
+<code>GetString</code>-style export; the caller uses the loaded module and the string id,
+and the module's internal table/arena layer supplies the text. The exact
+pointer lifetime is tied to the module's scratch/arena state, so callers must
+not retain a returned pointer across unrelated lookups.</p>
+<h2 id="codepage-and-case-handling">Codepage and case handling<a class="headerlink" href="#codepage-and-case-handling" title="Permanent link">&para;</a></h2>
+<p>The codepage layer resolves special values to the host codepages:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-2</code></td>
+<td><code>GetOEMCP()</code></td>
+</tr>
+<tr>
+<td><code>-3</code></td>
+<td><code>GetACP()</code></td>
+</tr>
+<tr>
+<td><code>-4</code></td>
+<td>display codepage from the module's configuration</td>
+</tr>
+</tbody>
+</table>
+<p><code>FUN_1000248B</code> builds the lead-byte table and initializes the codepage state.
+<code>FUN_10002638</code> resolves the special values, <code>FUN_10002682</code> maps display
+codepages (<code>0x3A4 -&gt; 0x411</code>, <code>0x3A8 -&gt; 0x804</code>, <code>0x3B5 -&gt; 0x412</code>,
+<code>0x3B6 -&gt; 0x404</code>), and <code>FUN_100026DE</code> builds the case-fold table from
+<code>GetCPInfo</code> and the character-type helpers.</p>
+<p>The case/locale wrappers are the usual Win32 pair:</p>
+<ul>
+<li><code>FUN_100041E8</code> - <code>LCMapStringW</code>/<code>LCMapStringA</code>;</li>
+<li><code>FUN_10004437</code> - <code>GetStringTypeW</code>/<code>GetStringTypeA</code>;</li>
+<li><code>FUN_100046C4</code> - character-type lookup;</li>
+<li><code>FUN_100045F8</code>/<code>FUN_10004E55</code> - single-character upper/lower mapping;</li>
+<li><code>FUN_10004589</code> - <code>toupper</code>;</li>
+<li><code>FUN_10004B90</code>/<code>FUN_10004C60</code> - <code>stricmp</code>/<code>strnicmp</code>.</li>
+</ul>
+<p>These wrappers are the observable case-mapping contract. They use the same
+codepage state as the string-table layer, so changing the codepage changes both
+conversion and comparison behavior.</p>
+<h2 id="string-arena">String arena<a class="headerlink" href="#string-arena" title="Permanent link">&para;</a></h2>
+<p>The string arena is a paged allocator, not the CRT heap:</p>
+<ul>
+<li><code>FUN_10002F9F</code> initializes a 0x140-byte arena header;</li>
+<li><code>FUN_10002FE7</code> scans the 0x14-byte entry array;</li>
+<li><code>FUN_10003012</code> maintains the 0x204-byte bucket free-lists and the
+  <code>0x44</code>/<code>0xC4</code> allocation bitmaps;</li>
+<li><code>FUN_1000333B</code> allocates a block;</li>
+<li><code>FUN_10003644</code> grows an allocation;</li>
+<li><code>FUN_100036F5</code> creates a new <code>0x8000</code>-byte page;</li>
+<li><code>FUN_100037F0</code> creates a new 4 MB <code>VirtualAlloc</code> arena;</li>
+<li><code>FUN_10003934</code>/<code>FUN_1000398A</code> free and trim;</li>
+<li><code>FUN_10003A4C</code> resolves an entry;</li>
+<li><code>FUN_10003AA3</code> accrues accounting;</li>
+<li><code>FUN_10003AE8</code>/<code>FUN_10003CF0</code> allocate blocks and runs.</li>
+</ul>
+<p>The arena header is static at <code>0x10006340</code>; entries are 0x14 bytes. The
+allocator uses <code>VirtualFree</code> with <code>0x8000</code> pages and keeps the free-list
+metadata in the same module data. It is protected by the module's lock family,
+so lookups and insertions are safe across threads.</p>
+<h2 id="runtime-errors">Runtime errors<a class="headerlink" href="#runtime-errors" title="Permanent link">&para;</a></h2>
+<p>The module carries a runtime error-message table at <code>0x10006060</code>. Each entry is
+eight bytes: a message id and a character pointer. <code>FUN_10001D5E</code> looks up an
+id and either writes the message to <code>stderr</code> or builds a <code>Runtime Error!</code> message
+box. <code>FUN_10001D25</code> dispatches the load (<code>0xFC</code>) and finalize (<code>0xFF</code>) callbacks;
+<code>FUN_10003E14</code> is a lazy <code>user32</code> MessageBox wrapper.</p>
+<p>The module-name override is <code>g_10009118</code>; the replaceable callback is
+<code>g_1000911C</code>. These are the points where a host can replace the default error
+presentation without changing the message table.</p>
+<h2 id="runtime-and-data-layout">Runtime and data layout<a class="headerlink" href="#runtime-and-data-layout" title="Permanent link">&para;</a></h2>
+<p>The module's <code>.text</code> is about 16 KB and contains roughly 100 functions. The
+localization code is a small part of that; the rest is CRT startup, TLS, heap,
+stdio, environment, command-line, exit, string, and SEH support.</p>
+<p>Important data:</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x10006340</code></td>
+<td>arena header</td>
+</tr>
+<tr>
+<td><code>0x10008EE0</code></td>
+<td>codepage lead-byte bitmap (0x41 dwords)</td>
+</tr>
+<tr>
+<td><code>0x10008EE1</code></td>
+<td>codepage flags</td>
+</tr>
+<tr>
+<td><code>0x10008DE0</code></td>
+<td>case-fold table</td>
+</tr>
+<tr>
+<td><code>0x100084E8</code></td>
+<td>character-class table</td>
+</tr>
+<tr>
+<td><code>0x10006060</code></td>
+<td>runtime error-message table</td>
+</tr>
+<tr>
+<td><code>0x10008DB0</code>/<code>0x10008DB4</code></td>
+<td>arena state</td>
+</tr>
+<tr>
+<td><code>0x10008DCC</code>/<code>0x10008DC0</code>-<code>0x10008DC8</code></td>
+<td>codepage state</td>
+</tr>
+<tr>
+<td><code>0x10008FE4</code>/<code>0x10008FE8</code></td>
+<td>private heap state</td>
+</tr>
+<tr>
+<td><code>0x10008FEC</code></td>
+<td>heap-select value</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>.rdata</code> block at <code>0x10005000</code> holds the import table, strings, and
+constants; the <code>.data</code> blocks at <code>0x10006000</code>, <code>0x10007000</code>, and <code>0x10008000</code>
+hold the writable tables and arena metadata.</p>
+<p>The TLS block is 0x74 bytes. It holds the per-thread data pointer at <code>+0x50</code>,
+a flag at <code>+0x14</code>, and several owned pointers freed by the thread teardown
+path. The module's locks are the CRT <code>_lock</code>/<code>_unlock</code> family, including the
+nine small leave wrappers in the <code>0x10002055</code>-<code>0x100022E6</code> range.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The module has no callable string API; callers must use the loaded module
+  handle and the resource/string id.</li>
+<li>Codepage values <code>-2</code>, <code>-3</code>, and <code>-4</code> are sentinels, not table indices.</li>
+<li>The case-fold table and lead-byte table are built once per codepage; changing
+  the codepage requires the reset/init path.</li>
+<li>Arena allocations are page/arena backed and freed through the arena, not
+  through <code>free</code>.</li>
+<li>Runtime error lookup is id-based; the table contains the module's known
+  messages, and there is no general-purpose string API.</li>
+<li>The module is single-instance state: the arena, codepage tables, and error
+  table are module globals, protected by locks rather than per-caller objects.</li>
+<li>The <code>.rsrc</code> STRINGTABLE blocks are the text source; the code does not embed
+  the localized strings in <code>.text</code>.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
-<p>No single function is representative; use the detail map below and the per-VA index.</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Detail</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x100010E9</code></td>
+<td>crt</td>
+<td>DLL entry dispatcher</td>
+</tr>
+<tr>
+<td><code>0x1000248B</code></td>
+<td>codepage</td>
+<td>lead-byte table/state setup</td>
+</tr>
+<tr>
+<td><code>0x10002638</code></td>
+<td>codepage</td>
+<td>special-codepage resolver</td>
+</tr>
+<tr>
+<td><code>0x10002682</code></td>
+<td>codepage</td>
+<td>display-codepage map</td>
+</tr>
+<tr>
+<td><code>0x100026DE</code></td>
+<td>codepage</td>
+<td>case-fold table builder</td>
+</tr>
+<tr>
+<td><code>0x10002863</code></td>
+<td>codepage</td>
+<td>one-time ACP initialization</td>
+</tr>
+<tr>
+<td><code>0x100041E8</code></td>
+<td>codepage</td>
+<td><code>LCMapString</code> wrapper</td>
+</tr>
+<tr>
+<td><code>0x10004437</code></td>
+<td>codepage</td>
+<td><code>GetStringType</code> wrapper</td>
+</tr>
+<tr>
+<td><code>0x100046C4</code></td>
+<td>codepage</td>
+<td>character-type lookup</td>
+</tr>
+<tr>
+<td><code>0x100045F8</code>/<code>0x10004E55</code></td>
+<td>codepage</td>
+<td>upper/lower mapping</td>
+</tr>
+<tr>
+<td><code>0x10004B90</code>/<code>0x10004C60</code></td>
+<td>string</td>
+<td>case-insensitive compare</td>
+</tr>
+<tr>
+<td><code>0x10002F9F</code></td>
+<td>arena</td>
+<td>arena initialization</td>
+</tr>
+<tr>
+<td><code>0x1000333B</code></td>
+<td>arena</td>
+<td>block allocation</td>
+</tr>
+<tr>
+<td><code>0x10003644</code></td>
+<td>arena</td>
+<td>grow allocation</td>
+</tr>
+<tr>
+<td><code>0x100036F5</code></td>
+<td>arena</td>
+<td>new page</td>
+</tr>
+<tr>
+<td><code>0x100037F0</code></td>
+<td>arena</td>
+<td>new 4 MB arena</td>
+</tr>
+<tr>
+<td><code>0x10003A4C</code></td>
+<td>arena</td>
+<td>entry resolution</td>
+</tr>
+<tr>
+<td><code>0x10001D5E</code></td>
+<td>error</td>
+<td>runtime message lookup/display</td>
+</tr>
+<tr>
+<td><code>0x10001D25</code></td>
+<td>error</td>
+<td>load/finalize callback dispatch</td>
+</tr>
+<tr>
+<td><code>0x10003E14</code></td>
+<td>error</td>
+<td>lazy MessageBox wrapper</td>
+</tr>
+</tbody>
+</table>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -1155,10 +1155,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callers-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Callers and validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2572,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callers-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Callers and validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,8 +2667,68 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 6 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>MD5, hashing, and base64 helpers.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The MD5 primitive island is 0x0070E380-0x0070E480; the in-game MD5 caller/validator is 0x0060C12D. Base64 and related byte helpers are used by the network and stats/auth paths.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The crypto surface in the EXE is a small set of primitives: MD5, base64, and
+the callers that use them for data validation and authentication. The heavy
+protocol crypto (Gun authentication) lives in <code>GunDll.dll</code>; this subsystem is
+the in-EXE primitive layer.</p>
+<p>The MD5 island is <code>0x0070E380</code>-<code>0x0070E480</code>:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0070E390</code></td>
+<td>MD5 context init (four magic state words; zero count fields)</td>
+</tr>
+<tr>
+<td><code>0x0070E3C0</code></td>
+<td>MD5 update (append data to the running context)</td>
+</tr>
+<tr>
+<td><code>0x0070E460</code></td>
+<td>MD5 final (pad, append length, write digest)</td>
+</tr>
+<tr>
+<td><code>0x0070E4D0</code></td>
+<td>MD5 compression function (state update + finalize)</td>
+</tr>
+</tbody>
+</table>
+<p>The context uses the standard MD5 state/count/block layout. The update and
+final functions are the usual RFC 1321 flow; the compression function performs
+the 64-round block transform.</p>
+<h2 id="callers-and-validation">Callers and validation<a class="headerlink" href="#callers-and-validation" title="Permanent link">&para;</a></h2>
+<p><code>FUN_0060C12D</code> is a large gameplay load/validate routine. It reads an object
+list, validates entries, builds C++ strings, and hashes data through the MD5
+primitives (<code>0x70E390</code>/<code>0x70E3C0</code>/<code>0x70E460</code>). The hash is used as part of the
+load/validation path, not as a general-purpose public API.</p>
+<p>The base64 helpers are <code>FUN_0050D9D0</code> and <code>FUN_0050DA00</code>:</p>
+<ul>
+<li><code>FUN_0050D9D0</code> maps a 6-bit value to the standard base64 alphabet
+  (<code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>/</code>);</li>
+<li><code>FUN_0050DA00</code> is the base64 encoder that consumes the input bytes and emits
+  the encoded characters.</li>
+</ul>
+<p>These helpers are used by the network and stats/auth paths. They are not the
+custom alphabet used by <code>GunDll.dll</code>; that module has its own base64 variant.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>MD5 context init must precede update/final; an uninitialized context produces
+  an invalid digest.</li>
+<li>The final step writes the digest and zeroes the context state; a second
+  final on the same context is not valid.</li>
+<li>The compression function expects a full 64-byte block; the update function
+  handles buffering.</li>
+<li>The base64 encoder uses the standard alphabet; a caller expecting the
+  GunDll custom alphabet must use that module's codec instead.</li>
+<li>The validation caller treats a hash mismatch as a load/validation failure,
+  not as a recoverable warning.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2636,14 +2740,39 @@
 </thead>
 <tbody>
 <tr>
-<td>0x0070E380-0x0070E480</td>
+<td><code>0x0070E390</code></td>
 <td>md5</td>
-<td>MD5 primitive helpers</td>
+<td>context init</td>
 </tr>
 <tr>
-<td>0x0060C12D</td>
+<td><code>0x0070E3C0</code></td>
 <td>md5</td>
-<td>MD5 caller/validator</td>
+<td>update</td>
+</tr>
+<tr>
+<td><code>0x0070E460</code></td>
+<td>md5</td>
+<td>final</td>
+</tr>
+<tr>
+<td><code>0x0070E4D0</code></td>
+<td>md5</td>
+<td>compression transform</td>
+</tr>
+<tr>
+<td><code>0x0060C12D</code></td>
+<td>md5</td>
+<td>load/validate caller</td>
+</tr>
+<tr>
+<td><code>0x0050D9D0</code></td>
+<td>base64</td>
+<td>6-bit-to-character map</td>
+</tr>
+<tr>
+<td><code>0x0050DA00</code></td>
+<td>base64</td>
+<td>encoder</td>
 </tr>
 </tbody>
 </table>

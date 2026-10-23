@@ -1071,10 +1071,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyboard-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#window-procedure-and-command-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Window procedure and command dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mouse-and-directinput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mouse and DirectInput
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bindings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2605,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyboard-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#window-procedure-and-command-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Window procedure and command dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mouse-and-directinput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mouse and DirectInput
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bindings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2733,73 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 11 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>Keyboard/mouse/joystick state and command bindings.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The window procedure is 0x0072E580. Keyboard and mouse state is kept in a 256-bit bitmap: 0x007238D0 sets a bit, 0x007239A0 clears it, and 0x007239F0 copies the per-frame snapshot. Queries are 0x00723A30 and 0x00723B40.</p>
-<p>The command table at 0x0077B9D8 maps command IDs to handlers. Bindings are loaded from the pilot's <code>options.mw4</code> control entry. DirectInput is used for mouse motion/wheel and joysticks, not for the keyboard.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The input subsystem collects keyboard, mouse, and joystick state and turns it
+into action/command state for gameplay, UI, and combat. It is deliberately
+small in the EXE: the keyboard is tracked in a bitmap, while mouse motion,
+wheel, and joysticks go through DirectInput.</p>
+<p>Input feeds three consumers:</p>
+<ul>
+<li>the command table, which maps action ids to gameplay/UI handlers;</li>
+<li>the normalized cursor used by the frontend and HUD;</li>
+<li>the movement/aim state consumed by gameplay and combat.</li>
+</ul>
+<h2 id="keyboard-state">Keyboard state<a class="headerlink" href="#keyboard-state" title="Permanent link">&para;</a></h2>
+<p>Keyboard state is kept in two 8-dword (256-bit) bitmaps:</p>
+<ul>
+<li><code>0x0087DDC4</code> - current state;</li>
+<li><code>0x0087DDA4</code> - per-frame snapshot.</li>
+</ul>
+<p><code>FUN_007238D0</code> sets a bit indexed by <code>param_1 &gt;&gt; 3</code> and also maintains the
+keyboard-state ring/value at <code>0x0087E5F4</code> using <code>GetKeyboardType</code>. The ring
+value is used by the keyboard/action layer, not by the bitmap lookup itself.</p>
+<p><code>FUN_007239A0</code> clears bit <code>(param_1 &amp; 7)</code> in the current bitmap; if the bit was
+not set in the snapshot bitmap, it sets it there. This preserves edge state
+between the current and previous frame.</p>
+<p><code>FUN_007239F0</code> copies the 8 dwords from the current bitmap to the snapshot with
+<code>rep movsd</code>. <code>FUN_00723A30</code> tests a bit in either bitmap and returns the flag
+state; <code>FUN_00723B40</code> is the virtual-key query.</p>
+<h2 id="window-procedure-and-command-dispatch">Window procedure and command dispatch<a class="headerlink" href="#window-procedure-and-command-dispatch" title="Permanent link">&para;</a></h2>
+<p><code>FUN_0072E580</code> is the 2,103-byte window/message dispatch routine. It dispatches
+on a message/command id in <code>EBX</code> through three jump tables
+(<code>0x72EDB8</code>, <code>0x72EDEC</code>, <code>0x72EEF0</code>) and two byte-index tables
+(<code>0x72EDD8</code>, <code>0x72EE08</code>). It is <code>__stdcall</code> with four stack parameters and
+handles input and display commands.</p>
+<p>The command table at <code>0x0077B9D8</code> has 131 entries with ids 6 through 136. Each
+entry is <code>{id, name, handler}</code>; the generic dispatcher calls the handler with
+the receiver in <code>ECX</code>. The fire/weapon handlers are described in the combat
+page; the same table also contains movement, UI, and system commands.</p>
+<h2 id="mouse-and-directinput">Mouse and DirectInput<a class="headerlink" href="#mouse-and-directinput" title="Permanent link">&para;</a></h2>
+<p>DirectInput is used for mouse motion/wheel and joysticks, not for the keyboard.
+The per-frame input entry is <code>FUN_00722730</code>; the mouse update <code>FUN_00723590</code>
+writes the normalized cursor to <code>0x0087DD38</code>/<code>0x0087DD3C</code>/<code>0x0087DD28</code>/
+<code>0x0087DD4C</code>. The mouse delta is <code>0x00858A4C</code>. The keyboard ring is
+<code>0x0087E5F4</code>.</p>
+<p>The DirectInput device enumeration/GUID-name helper is <code>FUN_007506F3</code>. Device
+state is polled each frame and converted into the bitmap/cursor/action state.</p>
+<h2 id="bindings">Bindings<a class="headerlink" href="#bindings" title="Permanent link">&para;</a></h2>
+<p>Action bindings come from the pilot's <code>options.mw4</code> control entry. The bindings
+map physical keys/buttons to command ids; the command table then maps the id to
+the handler. A missing or invalid binding leaves the command unhandled rather
+than inventing a default.</p>
+<p>The input layer does not own the command handlers. It only produces the action
+state and dispatches the command; gameplay, UI, and combat implement the
+handlers.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The keyboard bitmap is 256 bits (8 dwords); an index outside <code>0..255</code> is not
+  valid.</li>
+<li>The current and snapshot bitmaps are separate; edge detection depends on the
+  snapshot copy.</li>
+<li>Clearing a bit only updates the snapshot when the bit was not already set
+  there; the edge state must not be lost.</li>
+<li>DirectInput is not used for the keyboard; keyboard state comes from the
+  window messages and the bitmap.</li>
+<li>The normalized cursor is updated once per frame; reading it mid-frame gives
+  the previous position.</li>
+<li>Command ids are table indices/ids, not arbitrary handler pointers.</li>
+<li>Bindings are data-driven; an unbound action is a no-op, not an error.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,34 +2811,54 @@
 </thead>
 <tbody>
 <tr>
-<td>0x0072E580</td>
+<td><code>0x0072E580</code></td>
 <td>window</td>
-<td>window procedure/message routing</td>
+<td>window procedure/message dispatch</td>
 </tr>
 <tr>
-<td>0x007238D0</td>
+<td><code>0x007238D0</code></td>
 <td>keyboard</td>
-<td>set key state bit</td>
+<td>set key state bit and ring state</td>
 </tr>
 <tr>
-<td>0x007239A0</td>
+<td><code>0x007239A0</code></td>
 <td>keyboard</td>
-<td>clear key state bit</td>
+<td>clear/snapshot bit</td>
 </tr>
 <tr>
-<td>0x007239F0</td>
+<td><code>0x007239F0</code></td>
 <td>keyboard</td>
-<td>per-frame key snapshot</td>
+<td>per-frame snapshot copy</td>
 </tr>
 <tr>
-<td>0x00723A30</td>
+<td><code>0x00723A30</code></td>
 <td>keyboard</td>
-<td>action state query</td>
+<td>bitmap flag lookup</td>
 </tr>
 <tr>
-<td>0x00723B40</td>
+<td><code>0x00723B40</code></td>
 <td>keyboard</td>
 <td>virtual-key query</td>
+</tr>
+<tr>
+<td><code>0x00722730</code></td>
+<td>input</td>
+<td>per-frame input entry</td>
+</tr>
+<tr>
+<td><code>0x00723590</code></td>
+<td>input</td>
+<td>mouse update / normalized cursor</td>
+</tr>
+<tr>
+<td><code>0x007506F3</code></td>
+<td>directinput</td>
+<td>device enumeration/GUID-name helper</td>
+</tr>
+<tr>
+<td><code>0x0077B9D8</code></td>
+<td>command</td>
+<td>131-entry command table</td>
 </tr>
 </tbody>
 </table>

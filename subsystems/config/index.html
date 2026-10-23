@@ -1043,10 +1043,93 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-ini-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic INI tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-binding-and-the-lod-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option binding and the LOD path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option binding and the LOD path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lod-bias-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOD bias model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optionsini-call-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        options.ini call sites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-names-and-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option names and consumers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2633,93 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-ini-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic INI tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-binding-and-the-lod-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option binding and the LOD path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option binding and the LOD path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lod-bias-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOD bias model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optionsini-call-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        options.ini call sites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-names-and-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option names and consumers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2789,220 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 13 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>options.ini/config-file framework, option registry, and persistence.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The option registry and options.ini load/save path sit at 0x00406ED7-0x00407BD8; the generic INI tree and section/key lookup are at 0x0040DCA0-0x0040E4A0.</p>
-<p>Config feeds input bindings and render/gameplay settings, including LOD bias and display options.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The config subsystem owns the game's text configuration file, <code>options.ini</code>,
+and the generic INI tree behind it. It has two layers:</p>
+<ul>
+<li>the options layer at <code>0x00406ED7</code>-<code>0x00407BD8</code>, which loads/saves the game's
+  settings and binds named keys to option globals;</li>
+<li>the generic INI framework at <code>0x0040DCA0</code>-<code>0x0040E4A0</code>, which parses a file
+  into a section/key tree, looks up or creates entries, and serializes the tree
+  back to disk.</li>
+</ul>
+<p>The file lives in the game directory. The game rewrites it from the in-memory
+tree when an option changes, so a value edited by hand is only persistent until
+the next automatic save.</p>
+<h2 id="file-format">File format<a class="headerlink" href="#file-format" title="Permanent link">&para;</a></h2>
+<p><code>options.ini</code> is a conventional sectioned text file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[graphics options]</span>
+<span class="na">lod</span><span class="o">=</span><span class="s">-1000000</span>
+<span class="na">...</span>
+<span class="k">[sound options]</span>
+<span class="na">...</span>
+<span class="k">[special commands]</span>
+<span class="na">...</span>
+<span class="k">[server]</span>
+<span class="na">allowed</span><span class="o">=</span><span class="s">...</span>
+</code></pre></div>
+<p>The observed game-written file has seven sections: graphics options, sound
+options, special commands, server, joystick, MSR spectator, and network
+options. Values are typed by the option registry:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Encoding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td><code>true</code> / <code>false</code></td>
+</tr>
+<tr>
+<td>int</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>float</td>
+<td><code>%.6f</code></td>
+</tr>
+<tr>
+<td>hex</td>
+<td>lowercase hexadecimal, no <code>0x</code> prefix</td>
+</tr>
+<tr>
+<td>text</td>
+<td>raw string</td>
+</tr>
+</tbody>
+</table>
+<p>The parser reads the last duplicate of a key; the serializer emits every
+section in tree order. Line endings are CRLF. Comments and blank lines are not
+semantic to the loader, though the file writer preserves a stable layout.</p>
+<h2 id="generic-ini-tree">Generic INI tree<a class="headerlink" href="#generic-ini-tree" title="Permanent link">&para;</a></h2>
+<p><code>FUN_0040DCA0</code> is the config-file load constructor. Its arguments are the
+filename, a mode, and a flag; it stores the path at <code>[this+0]</code> and the mode at
+<code>[this+8]</code>. The loader calls <code>FUN_006FC4D0</code> to read the file and
+<code>FUN_0041DEE0</code> to build the tree through <code>FUN_00412BF0</code>. Mode <code>1</code> is the
+"required" mode: an empty tree asserts with <code>"%s is missing or empty!"</code>.</p>
+<p>The tree operations are:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0040ECC0</code></td>
+<td>look up a named entry/section</td>
+</tr>
+<tr>
+<td><code>0x0040EDA0</code></td>
+<td>look up or create a section</td>
+</tr>
+<tr>
+<td><code>0x00411A10</code></td>
+<td>find a key node</td>
+</tr>
+<tr>
+<td><code>0x00411B00</code></td>
+<td>create a key node</td>
+</tr>
+<tr>
+<td><code>0x00411C40</code></td>
+<td>set a key's string value (<code>__thiscall</code>, <code>RET 8</code>)</td>
+</tr>
+<tr>
+<td><code>0x00411D60</code></td>
+<td>bind a tree key to a global variable</td>
+</tr>
+<tr>
+<td><code>0x00411DC0</code></td>
+<td>set a value (used by the LOD teardown write-back)</td>
+</tr>
+</tbody>
+</table>
+<p><code>FUN_0040E4A0</code> saves the tree. It checks the dirty flag at <code>[this+4]</code> and the
+path at <code>[this+0]</code>, opens a writer with <code>FUN_0041DE80</code>, serializes every
+section through <code>FUN_0040E450</code> and <code>FUN_00411940</code>, closes with
+<code>FUN_0041DEC0</code>, and clears the dirty flag.</p>
+<h2 id="option-binding-and-the-lod-path">Option binding and the LOD path<a class="headerlink" href="#option-binding-and-the-lod-path" title="Permanent link">&para;</a></h2>
+<p>The options layer registers and binds named keys. <code>FUN_00411D60</code> is the live
+binding path: it associates a section/key with a global so that a loaded value
+propagates into game state. The LOD teardown <code>FUN_004BC4A0</code> writes the global
+back through <code>FUN_00411DC0</code>.</p>
+<p>The LOD registration at <code>FUN_004BC290</code> also calls <code>FUN_0070F090</code> to expose four
+gosScript variables. <code>FUN_0070F090</code> is a <code>RET 0x14</code> no-op, so those four
+getter/setter pairs are dead code: the gosScript variables are never created,
+and the game has no in-session LOD control. The live value comes from
+<code>options.ini</code> or <code>autoconfig_MERCS.exe</code>.</p>
+<h3 id="lod-bias-model">LOD bias model<a class="headerlink" href="#lod-bias-model" title="Permanent link">&para;</a></h3>
+<p>The renderer's LOD bias is applied as:</p>
+<div class="highlight"><pre><span></span><code>d2_biased = dx*dx + dy*dy + dz*dz + lod
+</code></pre></div>
+<p>A LOD band matches while <code>lo &lt;= d2_biased &lt;= hi</code>. A positive bias makes the
+object switch to a coarser LOD sooner; a negative bias keeps it finer for
+longer. A very negative value such as <code>lod=-1000000</code> clamps everything nearer
+than <code>sqrt(|bias|)</code> to <code>d2 = 0</code>, selecting the finest band. It does not extend
+the object cull radius.</p>
+<p>The game's in-session LOD checkboxes write <code>0</code>, <code>625</code>, <code>2500</code>, and <code>10000</code>.
+<code>autoconfig_MERCS.exe</code> writes Low <code>2500</code>, Medium <code>900</code>, High <code>400</code>, and
+Ultra High <code>-25000</code> through its switch table at <code>0x00402110</code>.</p>
+<p>The bias feeds the scan/fade and sub-object variant paths, including
+<code>0x004B40B0</code>/<code>0x004B4230</code>, <code>0x004B5950</code>/<code>0x004B5B80</code>, and
+<code>0x004B0BB0</code>/<code>0x004B1590</code>/<code>0x004B252B</code>/<code>0x004B49CB</code>.</p>
+<h2 id="optionsini-call-sites">options.ini call sites<a class="headerlink" href="#optionsini-call-sites" title="Permanent link">&para;</a></h2>
+<p>The string <code>"options.ini"</code> appears at <code>0x0076C6B4</code> and <code>0x0077826C</code>. Load/save
+calls are spread across the options function <code>FUN_00406ED7</code> (the large
+<code>0x00406ED7</code>-<code>0x00407BD8</code> block) and the network, render, input, and session
+paths. Representative call sites include <code>0x00401E03</code>/<code>0x00401E27</code>,
+<code>0x00402DAB</code>/<code>0x00402E44</code>, <code>0x00403046</code>/<code>0x004037FE</code>, <code>0x004046E0</code>/
+<code>0x0040478C</code>, <code>0x004066A1</code>/<code>0x0040671D</code>, <code>0x00406F7F</code>/<code>0x00406FC7</code>,
+<code>0x00407586</code>, <code>0x0040793D</code>/<code>0x004079CE</code>, <code>0x00407A08</code>/<code>0x00407B09</code>,
+<code>0x0050A639</code>/<code>0x0050A695</code>, <code>0x0050B5CF</code>, <code>0x0050C9DD</code>/<code>0x0050CB13</code>,
+<code>0x005264A3</code>, <code>0x005265DA</code>, <code>0x00536857</code>/<code>0x005368B9</code>, <code>0x0053FB63</code>,
+<code>0x005449AE</code>, and <code>0x0061A36E</code>.</p>
+<p>The load constructor's third argument selects the required mode. <code>options.ini</code>
+is loaded with mode <code>1</code> at several sites, including <code>0x00401D10</code> and
+<code>0x00406ED7</code>.</p>
+<h2 id="option-names-and-consumers">Option names and consumers<a class="headerlink" href="#option-names-and-consumers" title="Permanent link">&para;</a></h2>
+<p>Known option names and sections include:</p>
+<table>
+<thead>
+<tr>
+<th>Name / section</th>
+<th>Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LOD</code> / <code>Graphics Options</code></td>
+<td>LOD bias and shape selection</td>
+</tr>
+<tr>
+<td><code>MaxLights</code></td>
+<td>render lighting</td>
+</tr>
+<tr>
+<td><code>EffectLOD</code></td>
+<td>effect detail</td>
+</tr>
+<tr>
+<td><code>Compositing</code></td>
+<td>render compositing</td>
+</tr>
+<tr>
+<td><code>Sound Options</code></td>
+<td>audio settings</td>
+</tr>
+<tr>
+<td><code>Network Options</code></td>
+<td>connection defaults</td>
+</tr>
+<tr>
+<td><code>DefaultConnection</code></td>
+<td>network selection</td>
+</tr>
+<tr>
+<td><code>allowzoom</code></td>
+<td>zoom eligibility</td>
+</tr>
+<tr>
+<td><code>[server] allowed*</code></td>
+<td>server-side masks (hex)</td>
+</tr>
+</tbody>
+</table>
+<p>The option registry is the schema the UI and the file writer share. A key that
+is not in the registry is still preserved as raw text when the file is
+rewritten, but it has no typed normalization or game binding.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The file is rewritten from the in-memory tree; manual edits do not survive an
+  automatic save.</li>
+<li>The loader reads the last duplicate key in a section.</li>
+<li>Mode <code>1</code> requires a non-empty tree; an empty file asserts rather than silently
+  loading defaults.</li>
+<li>The dirty flag and path must both be set for a save to write anything.</li>
+<li>The LOD gosScript registration is dead code; do not treat the four
+  getter/setter pairs as a live control path.</li>
+<li>LOD bias changes LOD selection, not the cull radius.</li>
+<li>Hex values are written lowercase without a <code>0x</code> prefix.</li>
+<li>Float values are written with six decimal places.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,14 +3014,89 @@
 </thead>
 <tbody>
 <tr>
-<td>0x00406ED7-0x00407BD8</td>
+<td><code>0x0040DCA0</code></td>
+<td>ini</td>
+<td>config-file load constructor</td>
+</tr>
+<tr>
+<td><code>0x0040E4A0</code></td>
+<td>ini</td>
+<td>save the dirty tree</td>
+</tr>
+<tr>
+<td><code>0x0040E450</code></td>
+<td>ini</td>
+<td>serialize one section</td>
+</tr>
+<tr>
+<td><code>0x0040ECC0</code></td>
+<td>ini</td>
+<td>look up a named entry</td>
+</tr>
+<tr>
+<td><code>0x0040EDA0</code></td>
+<td>ini</td>
+<td>look up or create a section</td>
+</tr>
+<tr>
+<td><code>0x00411A10</code></td>
+<td>ini</td>
+<td>find a key node</td>
+</tr>
+<tr>
+<td><code>0x00411B00</code></td>
+<td>ini</td>
+<td>create a key node</td>
+</tr>
+<tr>
+<td><code>0x00411C40</code></td>
+<td>ini</td>
+<td>set a key value</td>
+</tr>
+<tr>
+<td><code>0x00411D60</code></td>
+<td>options</td>
+<td>bind a key to a global</td>
+</tr>
+<tr>
+<td><code>0x00411DC0</code></td>
+<td>options</td>
+<td>write a value back</td>
+</tr>
+<tr>
+<td><code>0x00406ED7</code></td>
 <td>options</td>
 <td>options.ini registry/load/save</td>
 </tr>
 <tr>
-<td>0x0040DCA0-0x0040E4A0</td>
+<td><code>0x004BC290</code></td>
+<td>options</td>
+<td>LOD registration (dead gos path)</td>
+</tr>
+<tr>
+<td><code>0x004BC4A0</code></td>
+<td>options</td>
+<td>LOD teardown write-back</td>
+</tr>
+<tr>
+<td><code>0x006FC4D0</code></td>
 <td>ini</td>
-<td>generic INI tree</td>
+<td>raw file read</td>
+</tr>
+<tr>
+<td><code>0x0041DEE0</code></td>
+<td>ini</td>
+<td>parse into the tree</td>
+</tr>
+<tr>
+<td><code>0x0041DE80</code></td>
+<td>ini</td>
+<td>open the writer</td>
+</tr>
+<tr>
+<td><code>0x0041DEC0</code></td>
+<td>ini</td>
+<td>close the writer</td>
 </tr>
 </tbody>
 </table>

@@ -791,10 +791,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-objects-and-globals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core objects and globals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-controller-and-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI controller and brain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigation-and-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation and movement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perception-and-targeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perception and targeting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weapon-and-combat-behaviors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapon and combat behaviors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abl-script-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ABL script interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squad-and-lance-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Squad and lance coordination
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2638,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-objects-and-globals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core objects and globals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-controller-and-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI controller and brain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigation-and-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation and movement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perception-and-targeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perception and targeting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weapon-and-combat-behaviors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapon and combat behaviors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abl-script-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ABL script interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squad-and-lance-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Squad and lance coordination
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2799,308 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 1308 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>AI decision layer, ABL script runtime, navigation, targeting, squad control, and AI combat decisions.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>ABL is the largest detail (the 0x0056 cluster) and executes script-visible behavior. Brain code around 0x005A-0x005C selects goals and behaviors; squad code at 0x005DD coordinates lancemates.</p>
-<p>Navigation and targeting produce movement and aim inputs. The <code>combat</code> detail decides when to engage; the actual weapon resolution lives in the combat subsystem.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>The AI is a layered system:</p>
+<ul>
+<li>C++ primitives: per-unit controller, perception, targeting/aim, pathfinding,
+  and squad coordination.</li>
+<li>ABL scripts: the high-level tactical behavior (attack, flee, cover, range)
+  is script-driven and configured through the <code>0x0056xxxx</code> ABL opcode handlers.</li>
+</ul>
+<p>The ABL interpreter is the largest detail. The C++ layer supplies the
+perception, movement, targeting, and combat primitives that the scripts call.
+The actual weapon resolution lives in the combat subsystem; AI only decides
+when and how to engage.</p>
+<h2 id="core-objects-and-globals">Core objects and globals<a class="headerlink" href="#core-objects-and-globals" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x007F23B0</code></td>
+<td><code>CombatAI</code> singleton (per-unit controller)</td>
+</tr>
+<tr>
+<td><code>0x00787980</code></td>
+<td><code>CombatAI</code>/unit vtable (210 slots)</td>
+</tr>
+<tr>
+<td><code>0x007F243C</code></td>
+<td><code>CRailGraph</code> global (pathfinding)</td>
+</tr>
+<tr>
+<td><code>0x007F251C</code></td>
+<td><code>LancemateManager</code> global (squad coordination)</td>
+</tr>
+<tr>
+<td><code>0x00788634</code></td>
+<td><code>LancemateManager</code> vtable</td>
+</tr>
+<tr>
+<td><code>0x007F22B8</code></td>
+<td><code>PlayerAI</code> singleton</td>
+</tr>
+<tr>
+<td><code>0x007F2140</code></td>
+<td><code>Sensor</code> singleton</td>
+</tr>
+<tr>
+<td><code>0x007F2468</code></td>
+<td>AI command block (0x19 dwords)</td>
+</tr>
+<tr>
+<td><code>0x00805908</code> / <code>0x00805918</code></td>
+<td>ABL interpreter opcode/token stream globals</td>
+</tr>
+<tr>
+<td><code>0x0080D970</code></td>
+<td>ABL module table base</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>CombatAI</code> object is the per-unit controller. Its vtable has 210 slots,
+covering state queries, target selection, movement, and weapon decisions. The
+<code>LancemateManager</code> is a separate squad object with a 0x74-byte child node type.</p>
+<h2 id="ai-controller-and-brain">AI controller and brain<a class="headerlink" href="#ai-controller-and-brain" title="Permanent link">&para;</a></h2>
+<p>The main combat dispatch is <code>FUN_005C2790</code>. It builds the target list
+(<code>FUN_005C3DA0</code>), runs the vector processor (<code>FUN_005C2960</code>), and performs the
+visibility/target check (<code>FUN_005C77D0</code>). This is the single highest-level
+combat decision path.</p>
+<p>The controller lifecycle is:</p>
+<ul>
+<li><code>FUN_005C0EE0</code> - global <code>CombatAI</code> singleton initializer;</li>
+<li><code>FUN_005C0F50</code> - singleton destroyer;</li>
+<li><code>FUN_005C0FE0</code> - <code>CombatAI</code> constructor (installs vtable <code>0x787980</code>);</li>
+<li><code>FUN_005CD950</code> - base constructor (initializes float fields to <code>-1.0</code>
+  sentinels);</li>
+<li><code>FUN_005C9800</code> / <code>FUN_005C9900</code> / <code>FUN_005C9850</code> - boolean state/behavior
+  getters.</li>
+</ul>
+<p>The per-unit decision loop is split across several state machines:</p>
+<ul>
+<li><code>FUN_005DC370</code> and <code>FUN_005DC4A0</code> - per-unit complex/large state-machine
+  updates;</li>
+<li><code>FUN_005A61E0</code> - execution-state handler with jump table <code>0x5A62FC</code>;</li>
+<li><code>FUN_005A1040</code> - update switch on <code>this+0x528</code> cases 0-4;</li>
+<li><code>FUN_005DF62B</code> - run a state machine.</li>
+</ul>
+<p><code>PlayerAI</code> has its own initialization pair at <code>FUN_005BFDF0</code>/<code>FUN_005BFCF0</code>.
+The AI subsystem init/shutdown is <code>FUN_005DAAE0</code>/<code>FUN_005DAC30</code>; state
+serialization is <code>FUN_005DAD30</code>/<code>FUN_005DAFE0</code>.</p>
+<h2 id="navigation-and-movement">Navigation and movement<a class="headerlink" href="#navigation-and-movement" title="Permanent link">&para;</a></h2>
+<p>The <code>CRailGraph</code> is a rail-graph pathfinder, not a full navmesh:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x005D8030</code></td>
+<td>allocate the global rail graph (0x47C bytes)</td>
+</tr>
+<tr>
+<td><code>0x005D8350</code></td>
+<td>add a node</td>
+</tr>
+<tr>
+<td><code>0x005D8820</code></td>
+<td>closest node to a point within a radius</td>
+</tr>
+<tr>
+<td><code>0x005D8530</code></td>
+<td>candidate list near a point, filtered by radius</td>
+</tr>
+<tr>
+<td><code>0x005D8CC0</code></td>
+<td>grid-cell direction / walk line of cells</td>
+</tr>
+<tr>
+<td><code>0x005D9030</code></td>
+<td>line-of-sight check over grid cells</td>
+</tr>
+<tr>
+<td><code>0x005B2BB0</code></td>
+<td>LOS-gated movement (normalized direction + virtual method + <code>0x5D9030</code>)</td>
+</tr>
+<tr>
+<td><code>0x005B1AD0</code></td>
+<td>physics/aim update (clamps heading, integrates velocity, builds transform)</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Adept::Mover</code> motion state is updated by <code>0x004FACD0</code>/<code>0x004FAE10</code>;
+integration is <code>0x004FAED0</code>/<code>0x004FAFC0</code>; velocity update is <code>0x004FB1E0</code>.</p>
+<p>The rail graph is grid-based: nodes and candidate lists are filtered by radius,
+and the LOS check walks the grid cells between endpoints. Movement is only
+committed when the LOS check passes.</p>
+<h2 id="perception-and-targeting">Perception and targeting<a class="headerlink" href="#perception-and-targeting" title="Permanent link">&para;</a></h2>
+<p>The <code>Sensor</code> singleton is initialized by <code>FUN_005B9020</code>, constructed by
+<code>FUN_005B9140</code>, and updated by <code>FUN_005B9390</code>. Its scan <code>FUN_005B9560</code> returns
+the candidate list at <code>this+0x1D4</code>.</p>
+<p>Target acquisition is a two-stage path:</p>
+<ul>
+<li><code>FUN_005C72D0</code> scans the candidate list for visible objects and appends them
+  to the target array;</li>
+<li><code>FUN_005C77D0</code> selects a target with visibility/angle gating.</li>
+</ul>
+<p><code>FUN_005C7170</code> is the visibility/angle check; it returns <code>1</code> when the candidate
+is inside the view cone. <code>FUN_005C8790</code> is the aim/angle and fire-mode decision
+(returns <code>0</code>, <code>1</code>, or <code>2</code>). <code>FUN_005C8BE0</code> applies the random aim gate, and
+<code>FUN_005C8DE0</code> blends the interpolated aim value. <code>FUN_005CAEB0</code> updates the
+two aim angles.</p>
+<p>The orientation/aim path also includes <code>FUN_005E5E30</code> (large orientation/aim
+computation), <code>FUN_005E5280</code> (look-at basis), <code>FUN_005E4CF0</code> (missile target
+tracking/lock-on), and <code>FUN_005E49F0</code> (missile homing/guidance).</p>
+<h2 id="weapon-and-combat-behaviors">Weapon and combat behaviors<a class="headerlink" href="#weapon-and-combat-behaviors" title="Permanent link">&para;</a></h2>
+<p>The AI weapon subsystems are shared with the combat subsystem:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Subsystem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x005E2DC0</code></td>
+<td>SRM weapon</td>
+</tr>
+<tr>
+<td><code>0x005E3240</code></td>
+<td>missile weapon</td>
+</tr>
+<tr>
+<td><code>0x005E6A40</code></td>
+<td>projectile weapon</td>
+</tr>
+<tr>
+<td><code>0x005B6850</code></td>
+<td>flare weapon</td>
+</tr>
+<tr>
+<td><code>0x005BA830</code></td>
+<td>narc weapon</td>
+</tr>
+<tr>
+<td><code>0x005E8A80</code></td>
+<td>beam entity</td>
+</tr>
+<tr>
+<td><code>0x005ECBD0</code></td>
+<td>weapon mover</td>
+</tr>
+<tr>
+<td><code>0x005E9DB0</code></td>
+<td>torso object initialization</td>
+</tr>
+<tr>
+<td><code>0x006A33A0</code></td>
+<td>virtual behavior selection</td>
+</tr>
+</tbody>
+</table>
+<p>The AI selects a behavior and weapon, but the projectile flight, hit test, and
+damage application are combat-owned. The AI's <code>combat</code> detail is the
+engagement decision, not the damage model.</p>
+<h2 id="abl-script-interface">ABL script interface<a class="headerlink" href="#abl-script-interface" title="Permanent link">&para;</a></h2>
+<p>ABL scripts configure the AI through opcode handlers. The main knobs are:</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>Opcode handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0056AC20</code></td>
+<td>set threat target</td>
+</tr>
+<tr>
+<td><code>0x0056A580</code></td>
+<td>find nearest/greatest threat</td>
+</tr>
+<tr>
+<td><code>0x0056A8B0</code></td>
+<td>find least threat</td>
+</tr>
+<tr>
+<td><code>0x0056A0E0</code></td>
+<td>nearest point on path</td>
+</tr>
+<tr>
+<td><code>0x0056B000</code></td>
+<td>set AI group skills</td>
+</tr>
+<tr>
+<td><code>0x0056B210</code></td>
+<td>set AI skills (pilot/gunnery/elite)</td>
+</tr>
+<tr>
+<td><code>0x0056B430</code></td>
+<td>set AI group id</td>
+</tr>
+<tr>
+<td><code>0x0056B5A0</code></td>
+<td>set AI attack throttle</td>
+</tr>
+<tr>
+<td><code>0x0056BA00</code></td>
+<td>set AI target priority</td>
+</tr>
+<tr>
+<td><code>0x0056BB80</code></td>
+<td>set AI firing delay (min/max)</td>
+</tr>
+<tr>
+<td><code>0x0056BD00</code></td>
+<td>set AI target position</td>
+</tr>
+<tr>
+<td><code>0x0056C300</code></td>
+<td>set AI team</td>
+</tr>
+<tr>
+<td><code>0x0056B920</code></td>
+<td>set ignore-friendly-fire</td>
+</tr>
+</tbody>
+</table>
+<p>These handlers write the per-unit/per-group state that the C++ controller reads.
+The ABL runtime itself is the <code>0x0056xxxx</code> interpreter and module table; the
+opcode handlers are the script-visible configuration surface.</p>
+<h2 id="squad-and-lance-coordination">Squad and lance coordination<a class="headerlink" href="#squad-and-lance-coordination" title="Permanent link">&para;</a></h2>
+<p><code>FUN_005DDEF0</code> allocates the global 0x20-byte <code>LancemateManager</code>.
+<code>FUN_005DDF60</code> is its constructor, <code>FUN_005DE000</code> its destructor, and
+<code>FUN_005DE210</code> constructs a 0x74-byte lancemate child node (vtable
+<code>0x788640</code>). <code>FUN_005DE750</code> reads the pilot/mech AI configuration fields.</p>
+<p>The manager coordinates lancemates: it holds the child nodes, their group ids,
+and the shared target/threat state. It does not own the per-unit controller;
+each unit still runs its own <code>CombatAI</code> state machine.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The ABL script layer configures behavior; it does not replace the C++
+  perception/movement/targeting primitives.</li>
+<li><code>CombatAI</code> is a singleton at <code>0x007F23B0</code>; per-unit controllers are
+  separate objects, not additional singletons.</li>
+<li>The sensor candidate list is at <code>this+0x1D4</code>; the target array is built from
+  it, not directly from the world.</li>
+<li>Target acquisition requires both visibility and the view-cone angle check.</li>
+<li>The rail graph is grid-based; movement is committed only after the LOS walk
+  succeeds.</li>
+<li>The <code>LancemateManager</code> child nodes are 0x74 bytes and use vtable <code>0x788640</code>.</li>
+<li>The AI's weapon selection is separate from combat's projectile/damage
+  resolution.</li>
+<li>The AI state serializer reads/writes the same per-unit fields the controller
+  uses; a partial save loses the state-machine phase.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,19 +3112,139 @@
 </thead>
 <tbody>
 <tr>
-<td>0x00568EA0</td>
-<td>abl</td>
-<td>ABL script runtime core</td>
-</tr>
-<tr>
-<td>0x005A1040</td>
+<td><code>0x005C2790</code></td>
 <td>brain</td>
-<td>AI decision/brain entry</td>
+<td>top-level combat dispatch</td>
 </tr>
 <tr>
-<td>0x005DDEF0</td>
+<td><code>0x005C3DA0</code></td>
+<td>brain</td>
+<td>target-list build</td>
+</tr>
+<tr>
+<td><code>0x005C2960</code></td>
+<td>brain</td>
+<td>vector processor</td>
+</tr>
+<tr>
+<td><code>0x005C0FE0</code></td>
+<td>brain</td>
+<td><code>CombatAI</code> constructor</td>
+</tr>
+<tr>
+<td><code>0x005A1040</code></td>
+<td>brain</td>
+<td>update state switch</td>
+</tr>
+<tr>
+<td><code>0x005A61E0</code></td>
+<td>brain</td>
+<td>execution-state handler</td>
+</tr>
+<tr>
+<td><code>0x005DC370</code></td>
+<td>brain</td>
+<td>per-unit state-machine update</td>
+</tr>
+<tr>
+<td><code>0x005D8030</code></td>
+<td>nav</td>
+<td>rail-graph allocation</td>
+</tr>
+<tr>
+<td><code>0x005D8820</code></td>
+<td>nav</td>
+<td>closest-node query</td>
+</tr>
+<tr>
+<td><code>0x005D9030</code></td>
+<td>nav</td>
+<td>grid LOS check</td>
+</tr>
+<tr>
+<td><code>0x005B2BB0</code></td>
+<td>nav</td>
+<td>LOS-gated movement</td>
+</tr>
+<tr>
+<td><code>0x005B1AD0</code></td>
+<td>nav</td>
+<td>heading/velocity/transform update</td>
+</tr>
+<tr>
+<td><code>0x005B9020</code></td>
+<td>targeting</td>
+<td>Sensor singleton init</td>
+</tr>
+<tr>
+<td><code>0x005B9560</code></td>
+<td>targeting</td>
+<td>sensor scan</td>
+</tr>
+<tr>
+<td><code>0x005C72D0</code></td>
+<td>targeting</td>
+<td>visible-object scan</td>
+</tr>
+<tr>
+<td><code>0x005C77D0</code></td>
+<td>targeting</td>
+<td>target acquisition</td>
+</tr>
+<tr>
+<td><code>0x005C7170</code></td>
+<td>targeting</td>
+<td>view-cone check</td>
+</tr>
+<tr>
+<td><code>0x005C8790</code></td>
+<td>targeting</td>
+<td>aim/fire-mode decision</td>
+</tr>
+<tr>
+<td><code>0x005E5E30</code></td>
+<td>targeting</td>
+<td>orientation/aim computation</td>
+</tr>
+<tr>
+<td><code>0x005E49F0</code></td>
+<td>targeting</td>
+<td>missile guidance</td>
+</tr>
+<tr>
+<td><code>0x005DDEF0</code></td>
 <td>squad</td>
-<td>squad/lance coordination</td>
+<td><code>LancemateManager</code> allocation</td>
+</tr>
+<tr>
+<td><code>0x005DDF60</code></td>
+<td>squad</td>
+<td><code>LancemateManager</code> constructor</td>
+</tr>
+<tr>
+<td><code>0x005DE210</code></td>
+<td>squad</td>
+<td>lancemate child constructor</td>
+</tr>
+<tr>
+<td><code>0x0056AC20</code></td>
+<td>abl</td>
+<td>set threat target</td>
+</tr>
+<tr>
+<td><code>0x0056B210</code></td>
+<td>abl</td>
+<td>set AI skills</td>
+</tr>
+<tr>
+<td><code>0x0056BB80</code></td>
+<td>abl</td>
+<td>set firing delay</td>
+</tr>
+<tr>
+<td><code>0x0056C300</code></td>
+<td>abl</td>
+<td>set team</td>
 </tr>
 </tbody>
 </table>

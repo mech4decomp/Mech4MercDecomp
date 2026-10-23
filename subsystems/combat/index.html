@@ -987,10 +987,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-and-command-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input and command layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fire-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fire driver
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-transform-and-missile-spawn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch transform and missile spawn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missile-flight-and-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Missile flight and guidance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hit-resolution-and-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hit resolution and damage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combat-state-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combat state replication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2550,10 +2627,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#role-and-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Role and boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-and-command-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input and command layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fire-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fire driver
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-transform-and-missile-spawn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch transform and missile spawn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missile-flight-and-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Missile flight and guidance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hit-resolution-and-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hit resolution and damage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combat-state-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combat state replication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invariants-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invariants and failure modes
       
     </span>
   </a>
@@ -2623,9 +2777,365 @@
 <p><strong>Binary:</strong> <code>MW4Mercs.exe</code> | <strong>Classified VAs:</strong> 141 | <strong>Exhaustive index:</strong> <a href="../../va_index/MW4Mercs_exe/">MW4Mercs.exe</a></p>
 </blockquote>
 <p>In-mission weapon fire, launch/guidance, hit resolution, and damage application.</p>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The fire path starts with weapon eligibility and the launch transform, then missile/projectile guidance and hit tests. Damage is applied to gameplay state; the AI <code>combat</code> detail only decides when to engage.</p>
-<p>The main fire/damage cluster is around 0x005523B0; 0x0058D930 is a representative damage-application entry. Combat is a boundary-heavy subsystem: it reads gameplay state and emits render effects.</p>
+<h2 id="role-and-boundary">Role and boundary<a class="headerlink" href="#role-and-boundary" title="Permanent link">&para;</a></h2>
+<p>Combat owns the player-mech fire pipeline and the damage path it feeds:</p>
+<div class="highlight"><pre><span></span><code>input -&gt; command -&gt; fire eligibility -&gt; weapon update
+      -&gt; missile spawn -&gt; flight/guidance -&gt; hit resolution
+      -&gt; damage application -&gt; combat state
+</code></pre></div>
+<p>The AI uses the same missile, guidance, and damage primitives; the AI combat
+detail only decides when to engage. Combat publishes events to the renderer
+for muzzle flashes and explosions but does not own presentation. The network
+layer owns the wire carriers; combat owns the payload semantics those carriers
+transport.</p>
+<h2 id="input-and-command-layer">Input and command layer<a class="headerlink" href="#input-and-command-layer" title="Permanent link">&para;</a></h2>
+<p>The input path starts at the window procedure <code>FUN_0072E580</code>, which maintains
+a 256-bit key/mouse bitmap at <code>0x0087DDC4</code>. <code>FUN_007238D0</code>/<code>FUN_007239A0</code>
+set and clear bits; <code>FUN_007239F0</code> copies the bitmap to <code>0x0087DDA4</code> once per
+frame. <code>FUN_00723A30</code>/<code>FUN_00723B40</code> query the action state for a virtual key.</p>
+<p>Commands are dispatched through the generic dispatcher <code>FUN_004D5B70</code>. It
+reads the table object at <code>[this+4]</code>, whose entries are 12 bytes
+<code>{id, name, handler}</code> and are indexed by <code>event[+4] - 1</code>; it calls the handler
+with the receiver in <code>ECX</code>. The command table is at <code>0x0077B9D8</code>: 131 entries
+with ids 6 through 136.</p>
+<p>The fire-related command handlers are state trackers, not firing code:</p>
+<table>
+<thead>
+<tr>
+<th>Command (id)</th>
+<th>Handler</th>
+<th>Counter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FireWeapon</code> (82)</td>
+<td><code>0x00556D80</code></td>
+<td><code>[this+0x46C]</code></td>
+</tr>
+<tr>
+<td><code>WeaponGroup1</code> (42)</td>
+<td><code>0x00554BF0</code></td>
+<td><code>[this+0x470]</code></td>
+</tr>
+<tr>
+<td><code>WeaponGroup2</code> (43)</td>
+<td><code>0x00554C70</code></td>
+<td><code>[this+0x474]</code></td>
+</tr>
+<tr>
+<td><code>WeaponGroup3</code> (44)</td>
+<td><code>0x00554CF0</code></td>
+<td><code>[this+0x478]</code></td>
+</tr>
+<tr>
+<td>fourth group</td>
+<td>-</td>
+<td><code>[this+0x47C]</code></td>
+</tr>
+<tr>
+<td><code>ToggleGroupWeaponMode</code> (143)</td>
+<td><code>0x00554B90</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>NextWeaponGroup</code> / <code>PrevWeaponGroup</code> (48/49)</td>
+<td><code>0x005553D0</code> / <code>0x00555590</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>NextEnemy</code> (67)</td>
+<td><code>0x00555E30</code></td>
+<td>target designator</td>
+</tr>
+</tbody>
+</table>
+<p>The group handlers test the byte at <code>[this+0x589]</code>. When it is zero they apply
+the weapon-control gate (<code>FUN_0061ACF0</code>/<code>FUN_0061AD20</code>, mask <code>8</code> of the object
+at <code>0x007F2938</code>) and increment/decrement the counter; when it is non-zero they
+take the ungated decrement/clamp path. The byte is only cleared by the
+init/reset functions <code>FUN_0054A880</code> and <code>FUN_00549A70</code>.</p>
+<h2 id="fire-driver">Fire driver<a class="headerlink" href="#fire-driver" title="Permanent link">&para;</a></h2>
+<p><code>FUN_005541C0</code> is the per-frame fire driver. For each group counter greater
+than zero it calls <code>FUN_00553F20(group)</code>. That function dispatches through
+<code>[this+0x8E0 + group*4]</code>: zero selects <code>FUN_00553F90</code>, one selects
+<code>FUN_00553DB0</code>.</p>
+<p>The driver is gated by <code>FUN_00553D20</code> ("any trigger active") and by the update
+chain in <code>FUN_0054E988</code>:</p>
+<ul>
+<li><code>[+0x4AC] != 0</code>;</li>
+<li>low byte of <code>[+0x4B0] == 0</code>;</li>
+<li><code>FUN_00553D20() != 0</code>;</li>
+<li><code>[*(+0xE0)+0x14] == 2</code>;</li>
+<li><code>[*(+0x384)+0x10] &amp; 0x80000 == 0</code>;</li>
+<li><code>[*(+0x384)+0x2F8] == 0</code>;</li>
+<li>low byte of <code>[+0x5AC] == 0</code>.</li>
+</ul>
+<p><code>FUN_00553BC0</code> is the group-select action. If any gate fails, the counters
+remain set but no missile is spawned.</p>
+<h2 id="launch-transform-and-missile-spawn">Launch transform and missile spawn<a class="headerlink" href="#launch-transform-and-missile-spawn" title="Permanent link">&para;</a></h2>
+<p>The launch transform is <code>FUN_005E219B</code> (<code>__thiscall</code>, <code>RET 8</code>; <code>this</code> is the
+weapon entity). It builds a launch configuration on a 0x1C4-byte frame and
+dispatches the spawn. Its inputs are:</p>
+<ul>
+<li>the weapon record from the pool at <code>[this+0x198]</code> (via <code>0x00507F90</code>);</li>
+<li>the target reference at <code>[this+0x214]</code> (via <code>0x0041FD80</code>; target id at
+  <code>+0x14</code>/<code>+0x16</code>);</li>
+<li>the cached target position at <code>[this+0x228..0x230]</code>;</li>
+<li>the launcher object at <code>[this+0x1D4]</code> for the no-target fallback (position
+  from the launcher frame <code>+0xC</code> and scalar <code>+0x18</code> via <code>0x0040CA40</code> and
+  <code>0x0040CBB0</code>);</li>
+<li>the fire-mode flag at <code>[this+0x224]</code>, which selects config flag <code>2</code> or
+  <code>0x800002</code>;</li>
+<li>the sub-object via <code>0x005F07C0</code>.</li>
+</ul>
+<p>The spawn dispatch is <code>FUN_004D9910</code> (34 bytes). It takes the config object
+from <code>[param_1]</code>'s vtable <code>+4</code>, reads the type id at <code>+0x10</code>, the aim point at
+<code>+0xB8..+0xC4</code>, and the pool key at <code>+0x54</code>, maps the type id through the
+global table at <code>0x007B8C0C</code>, and calls the registered factory at
+<code>[descriptor+0x20]</code>.</p>
+<p>The missile factory is <code>FUN_005E3FF0</code> (registered id <code>0x43D</code> through
+<code>0x005E3E3E</code>). It looks up the pool by <code>config+0x54</code>: a hit reuses the object
+through <code>FUN_005E4400</code>, a miss allocates <code>0x2D4</code> bytes and calls
+<code>FUN_005E4080</code>.</p>
+<p><code>FUN_005E4080</code> is the missile constructor. It copies the aim block
+<code>+0xB8/+0xBC/+0xC0</code> into the missile's target-position cache
+<code>+0x26C..+0x274</code>, copies the timer <code>+0xC4</code> into <code>+0x294</code>, and reads the id
+pair <code>+0xB4</code> (u8) / <code>+0xB6</code> (u16). When the pair equals the default sentinel
+pair at <code>0x007DC694</code>/<code>0x007DC696</code>, the constructor skips target resolution:
+a no-lock missile has no target link. A real pair resolves through the roster
+lookup <code>0x004CDFA0</code> -&gt; <code>0x004CEEB0</code>, copies the target's world position from
+<code>[object+0xD8]+0x80</code>, and registers the link through <code>0x005E6590</code>.</p>
+<p>The aim point is therefore the target position when locked, or the
+launcher-derived muzzle point when not. The config carries the target id pair,
+the aim point, the timer, and the fire-mode flag.</p>
+<h2 id="missile-flight-and-guidance">Missile flight and guidance<a class="headerlink" href="#missile-flight-and-guidance" title="Permanent link">&para;</a></h2>
+<p><code>FUN_005E45E0</code> is the per-frame missile tick (<code>__thiscall</code>, <code>RET 8</code>, one
+double <code>now</code>). It updates the timer at <code>+0x290</code> by adding
+<code>(float)(now - +0xE4)</code>, then dispatches on <code>[[missile+0xE0]+0x14] - 6</code> through
+the table at <code>0x005E49CC</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Step bodies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td><code>0x5E5700</code> + <code>0x5E5280</code> + <code>0x5E49F0</code> + <code>0x5E4CF0</code> -&gt; terminal</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>0x5E5BD0</code> -&gt; after-switch</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>0x5E58B0</code> -&gt; after-switch</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>0x5E5AF0</code> -&gt; after-switch</td>
+</tr>
+<tr>
+<td>10</td>
+<td>timed body: if <code>+0x290 &lt; lifetime</code> (<code>[owner+0x7C]</code> via the <code>+0x78</code> getter) -&gt; <code>0x5E5BD0</code> + after-switch; otherwise vtable <code>+0x18</code> (destroy) and return</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>0x5E59B0</code> -&gt; after-switch</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>0x5E5A50</code> -&gt; after-switch</td>
+</tr>
+<tr>
+<td>other</td>
+<td>straight to the terminal block</td>
+</tr>
+</tbody>
+</table>
+<p>The after-switch path is <code>0x5E5280</code> + <code>0x5E49F0</code>: look-at and guidance.
+<code>FUN_005E49F0</code> is gated on <code>[missile+0x299] == 0</code> and
+<code>[missile+0x290] &lt; [missile+0x294]</code>; it steers toward
+<code>[[missile+0xD8]+0x8C/+0x9C/+0xAC]</code>.</p>
+<p>The terminal detonation gates are:</p>
+<ol>
+<li><code>[+0x299] != 0</code> -&gt; return.</li>
+<li><code>0x0041FD80(+0x258) != 0</code> (a guidance container is present) -&gt; return.</li>
+<li><code>|ref.y (+0x270) - prev.y (+0x288)| &gt; 1e-4</code> -&gt; return (the reference
+   point must be stable this tick).</li>
+<li><code>|len^2(ref - targetPos)| &lt;= 1e-4</code> -&gt; skip.</li>
+<li><code>|vel^2| &lt;= 1e-4</code> -&gt; skip.</li>
+<li><code>dot(dir, velDir) &lt; 0.999</code> -&gt; return.</li>
+</ol>
+<p>On detonation, <code>[+0x299]</code> is set to one; the exit point
+<code>targetPos + dir*1000</code> is written to both <code>+0x26C..+0x274</code> and
+<code>+0x284..+0x28C</code>; the impact snapshot copies 48 bytes from <code>[target+0x20]</code>,
+builds the offset vector from <code>prevRef - targetPos</code>, and calls
+<code>0x0041FDE0</code> and <code>0x004DAA20</code>. The rate fields are frozen:
+<code>+0x168/+0x16C = 0</code>, <code>+0x170 = approxSqrt(len^2(+0x168..))</code>,
+<code>+0x174..+0x17C = 0</code>, <code>+0x180/+0x184 = 0</code>, and
+<code>+0x188 = approxSqrt(len^2(+0x180..))</code>, where
+<code>approxSqrt(x) = (bits(x) &gt;&gt; 1) + 0x1FC00000</code>.</p>
+<h2 id="hit-resolution-and-damage">Hit resolution and damage<a class="headerlink" href="#hit-resolution-and-damage" title="Permanent link">&para;</a></h2>
+<p><code>FUN_0058D930</code> is the mech's damage-mode event handler. It is reached through
+the generic dispatcher <code>FUN_004D5B70</code> with the mech as the dispatcher's
+<code>this</code>. It switches on the signed byte at <code>msg[0x1C] - 5</code> over types 5..12
+through the jump table at <code>0x0058DC5C</code>.</p>
+<p>The handler resolves the event against the mech's damage map at
+<code>mech+0x370</code>. The map is a sorted keyed list of damage-target parts; the part
+data is at node <code>+0xC</code> and the key at node <code>+0x18</code>. <code>FUN_00416B60</code> is the
+lookup. The types select the keys in this order:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>8, 5, 4, 6 (all appended) plus the ABL notify <code>0x00621FD0</code> when <code>[netinfo+0x17] == 1</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>1, 0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2 (else 5), then 0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>3 (else 4), then 1</td>
+</tr>
+<tr>
+<td>9</td>
+<td>6, 4, 5 when present</td>
+</tr>
+<tr>
+<td>10</td>
+<td>7 when present</td>
+</tr>
+<tr>
+<td>11</td>
+<td>none</td>
+</tr>
+<tr>
+<td>12</td>
+<td>1, 0</td>
+</tr>
+<tr>
+<td>other</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>The tail looks up keys 9 and 10, counts the appended entries
+(<code>FUN_00417A40</code>), and when the count is positive divides the event amount
+<code>msg+0x14</code> by the count in place. It then walks the entries and calls
+<code>entry-&gt;vtable[0x10](msg, 0)</code>. If <code>entry-&gt;[0x34] == part9-&gt;[0x50]</code> it also
+applies part 9; the same applies for part 10. A null entry stops the walk but
+still counts toward the split. The list is destroyed with <code>FUN_00417980</code>.</p>
+<p>The part objects are armor-attribute pools with vtable <code>0x7740BC</code>:</p>
+<ul>
+<li><code>+0x10</code> max, <code>+0x14</code> current;</li>
+<li><code>+0x18</code> type-3 scale, <code>+0x20</code> incoming-damage scale;</li>
+<li><code>+0x24</code> owner/zone object, <code>+0x28</code> parent object;</li>
+<li><code>+0x2C</code>/<code>+0x30</code> strings, <code>+0x34</code> id;</li>
+<li><code>+0x38</code>/<code>+0x3C</code>/<code>+0x40</code> mirror out-pointers;</li>
+<li><code>+0x44</code> state, <code>+0x48</code> fraction, <code>+0x4C</code> armor class.</li>
+</ul>
+<p>The apply method <code>FUN_004E6520</code> (<code>__thiscall</code>, <code>RET 8</code>) mutates the amount in
+place:</p>
+<ol>
+<li><code>msg+0x14 *= [part+0x20]</code>; clamp to <code>0.1</code> if below <code>0.1</code>.</li>
+<li>Notify the owner through <code>[part+0x24]-&gt;vtable[0x80](msg, part)</code>.</li>
+<li>On the gated path, if armor remains and the type/class pair matches the
+   damage-reduction matrix, scale by <code>0.667</code>; set the parent hit-flash time
+   when <code>cur == max</code>; apply the type-3 scale; subtract the amount from
+   <code>cur</code>; on underflow, forward the excess to the parent; then notify the
+   owner through <code>vtable[0x8C]</code>.</li>
+<li>Recompute the state with <code>FUN_004E6480</code> and the fraction (including the
+   parent's current/max when present).</li>
+</ol>
+<p><code>FUN_004E6480</code> maps the current/max fraction to a damage tier: <code>max == 0</code> or
+<code>frac &lt; 0.01</code> is wrecked/destroyed (<code>5</code> when both this zone and its parent are
+dead, else <code>4</code>); <code>frac &lt; 0.1</code> is <code>3</code>; <code>frac &lt; 0.5</code> is <code>2</code>; <code>frac &lt; 0.75</code> is
+<code>1</code>; otherwise <code>0</code>.</p>
+<p><code>FUN_006747E0</code> is the subsystem status readout. It exposes
+<code>ExecutionState</code>, <code>CriticalHitsTaken</code> (<code>+0x168</code>), <code>SubsystemIndex</code> (<code>+0x16C</code>),
+and <code>InternalLocation</code> (<code>+0x170</code>); the class constructor <code>0x005F0740</code> copies
+those from a 0x6C-byte record and <code>0x005F06F0</code> serializes them back.</p>
+<h2 id="combat-state-replication">Combat state replication<a class="headerlink" href="#combat-state-replication" title="Permanent link">&para;</a></h2>
+<p>Combat state rides the network session carriers:</p>
+<table>
+<thead>
+<tr>
+<th>Wire</th>
+<th>Carrier</th>
+<th>Send</th>
+<th>Apply</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x59</code></td>
+<td>per-frame element replication</td>
+<td><code>FUN_005BD3D0</code> -&gt; <code>FUN_006805F0</code></td>
+<td><code>FUN_00680B30</code> -&gt; <code>FUN_00680730</code> -&gt; <code>FUN_0067FDF0</code></td>
+</tr>
+<tr>
+<td><code>0x58</code></td>
+<td>per-slot world update</td>
+<td><code>FUN_0067D5E0</code></td>
+<td><code>FUN_0067E930</code></td>
+</tr>
+<tr>
+<td><code>0x18</code></td>
+<td>entity state update</td>
+<td><code>FUN_0053D160</code></td>
+<td><code>FUN_0053D0B0</code> (mech entity type <code>0x429</code>)</td>
+</tr>
+<tr>
+<td><code>0x47</code></td>
+<td>presence sync</td>
+<td>-</td>
+<td><code>FUN_00539160</code> / <code>FUN_005BE210</code></td>
+</tr>
+</tbody>
+</table>
+<p>The damage record is written by the mech element writer <code>FUN_005F79D0</code> and
+read by the loader <code>FUN_005F7ED0</code>. A pool record carries the class tag, max,
+current, name, id, state, class, and group; a component record carries the
+class tag, type id, name, key, pool key, auxiliary table, target id pair, and
+aim point. Both sections are framed as <code>[u32 count][records]</code> and are gated on
+the mech's damage/engaged bytes.</p>
+<h2 id="invariants-and-failure-modes">Invariants and failure modes<a class="headerlink" href="#invariants-and-failure-modes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fire handlers only change counters; the per-frame driver is the only path
+  that spawns missiles.</li>
+<li>The <code>[this+0x589]</code> byte selects the gated or ungated counter path; it is
+  cleared only by init/reset.</li>
+<li>A no-lock missile has no target link; the sentinel id pair suppresses
+  resolution.</li>
+<li>The launch aim point is target-derived when locked and launcher-derived when
+  not; the two cases must not be mixed.</li>
+<li>The missile timer is a float updated from a double delta; the type table
+  selects the per-tick step plan.</li>
+<li>Terminal detonation requires a stable reference Y, non-zero relative
+  distance and velocity, and a direction dot of at least <code>0.999</code>.</li>
+<li>Damage is split across the selected parts; the amount is divided in place
+  and a null entry stops the walk.</li>
+<li>Armor class and type select the damage-reduction matrix; the parent receives
+  only overflow.</li>
+<li>Damage tiers are fraction-based; <code>max == 0</code> is always wrecked/destroyed.</li>
+<li>The wire carriers are owned by the network layer; combat owns the payload
+  field meanings.</li>
+</ul>
 <h2 id="key-entry-points">Key entry points<a class="headerlink" href="#key-entry-points" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2637,14 +3147,104 @@
 </thead>
 <tbody>
 <tr>
-<td>0x005523B0</td>
-<td>fire-damage</td>
-<td>weapon fire/damage cluster</td>
+<td><code>0x0072E580</code></td>
+<td>input</td>
+<td>WndProc and key/mouse bitmap</td>
 </tr>
 <tr>
-<td>0x0058D930</td>
-<td>fire-damage</td>
-<td>damage application</td>
+<td><code>0x004D5B70</code></td>
+<td>command</td>
+<td>generic command dispatcher</td>
+</tr>
+<tr>
+<td><code>0x0077B9D8</code></td>
+<td>command</td>
+<td>131-entry command table</td>
+</tr>
+<tr>
+<td><code>0x00556D80</code></td>
+<td>command</td>
+<td><code>FireWeapon</code> counter</td>
+</tr>
+<tr>
+<td><code>0x00554BF0</code>/<code>0x00554C70</code>/<code>0x00554CF0</code></td>
+<td>command</td>
+<td>weapon-group counters</td>
+</tr>
+<tr>
+<td><code>0x005541C0</code></td>
+<td>fire</td>
+<td>per-frame fire driver</td>
+</tr>
+<tr>
+<td><code>0x00553F20</code></td>
+<td>fire</td>
+<td>per-group fire dispatch</td>
+</tr>
+<tr>
+<td><code>0x005E219B</code></td>
+<td>launch</td>
+<td>launch transform</td>
+</tr>
+<tr>
+<td><code>0x004D9910</code></td>
+<td>launch</td>
+<td>spawn dispatch</td>
+</tr>
+<tr>
+<td><code>0x005E3FF0</code></td>
+<td>launch</td>
+<td>missile factory</td>
+</tr>
+<tr>
+<td><code>0x005E4080</code></td>
+<td>launch</td>
+<td>missile constructor</td>
+</tr>
+<tr>
+<td><code>0x005E45E0</code></td>
+<td>flight</td>
+<td>missile tick</td>
+</tr>
+<tr>
+<td><code>0x005E49F0</code></td>
+<td>flight</td>
+<td>missile guidance</td>
+</tr>
+<tr>
+<td><code>0x005E49CC</code></td>
+<td>flight</td>
+<td>missile type table</td>
+</tr>
+<tr>
+<td><code>0x0058D930</code></td>
+<td>damage</td>
+<td>mech damage-mode handler</td>
+</tr>
+<tr>
+<td><code>0x004E6520</code></td>
+<td>damage</td>
+<td>armor-pool apply</td>
+</tr>
+<tr>
+<td><code>0x004E6480</code></td>
+<td>damage</td>
+<td>damage-tier state</td>
+</tr>
+<tr>
+<td><code>0x006747E0</code></td>
+<td>damage</td>
+<td>subsystem status readout</td>
+</tr>
+<tr>
+<td><code>0x005F79D0</code></td>
+<td>replication</td>
+<td>damage/component record writer</td>
+</tr>
+<tr>
+<td><code>0x005F7ED0</code></td>
+<td>replication</td>
+<td>damage/component record loader</td>
 </tr>
 </tbody>
 </table>
