@@ -112,7 +112,7 @@ oracle is frozen to preserve byte identity. Please read
 
 This project is for educational and interoperability purposes. It contains no
 original game executables, DLLs, art, audio, or maps; it does include
-transcribed code and derived data sections. MechWarrior, MechWarrior 4, and
-Mercenaries are trademarks of their respective owners. This project is not
-affiliated with or endorsed by any rights holder. See [`NOTICE.md`](NOTICE.md)
+transcribed code and derived data sections. This project is not affiliated with 
+or endorsed by Microsoft, FASA Interactive, Cyberlore Studios, The Topps Company, 
+or any current rights holder. See [`NOTICE.md`](NOTICE.md)
 and [`LICENSE`](LICENSE).
