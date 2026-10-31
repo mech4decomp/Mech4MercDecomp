@@ -138,6 +138,25 @@ uses the `MLR_Terrain2` manager's node list and the camera's cull matrix; the
 fixed 45-degree cull pyramid is the reason a widened horizontal field of view
 needs a corresponding side-plane update.
 
+The streamed cell format and the terrain render data are documented in
+[Terrain Rendering and Map Asset Formats](../terrain_formats.md). The main
+data-side findings are:
+
+- each 1280-unit cell is split into an 8x8 grid of 160x160 tiles; the cell
+  `.erf` stores the level-2 tile meshes, and a tile may have two records split
+  by geometry or material;
+- a terrain `#RLM` v18 record carries `[0, vertex_count, 0, 0, 0]`, float32
+  vertices, the baked page name, a one-byte triangle index list, per-triangle
+  `(nx, ny, nz, scalar)` records, the shared detail name, and the 173-byte
+  `MLR_Terrain2` tail with eight level rectangles;
+- the baked cell pages are stored 180 degrees rotated relative to the world
+  grid; the world atlas packs row = Z and column = X, and an anti-transpose is
+  wrong;
+- the baked page is pre-lit (albedo times a per-cell lightmap); the terrain
+  records do not reference the lightmap, which is composited at bake time;
+- the map definition's water metadata is not present in the shipped map
+  archive, so water level/texture cannot be recovered from the `.mw4` alone.
+
 ## Textures and image tables
 
 The `texture` detail covers `MLRTexture`, `ImageInstance`, `MLRLightMap`, the
@@ -168,7 +187,7 @@ Water uses `MLR_Water` and `MLR_BumpyWater`. The bumpy-water constructor is
 `0x424170`; the render/light-map vertex transform is `0x42C2C0`; the
 light-map lighting pass is `0x4276E0`.
 
-Clouds use the standalone constructors: point `0x486450`, sprite quad
+Clouds use the dedicated constructors: point `0x486450`, sprite quad
 `0x42A3A0`, ngon `0x4848C0`, affine compose `0x42B5A0`, and the card-cloud
 constructor `0x4A4E50`. The sprite quad is two triangles with UV pairs
 `01/23/45` and `01/45/67`.
@@ -207,7 +226,12 @@ constructor `0x4A4E50`. The sprite quad is two triangles with UV pairs
 | `0x004C40E0` | camera | tan-frustum head |
 | `0x00446ED0` | terrain | camera-source cull matrix copy |
 | `0x00447040` | terrain | terrain render/cull |
+| `0x004487D0` | terrain | `MLR_Terrain2` constructor |
 | `0x00448C70` | terrain | terrain manager factory |
+| `0x00448CC0` | terrain | `MLR_Terrain2` stream load |
+| `0x00448D80` | terrain | `MLR_Terrain2` level select |
+| `0x00448E00` | terrain | `MLR_Terrain2` set level mesh |
+| `0x00448E40`/`0x00448E50` | terrain | `MLR_Terrain2` map vertex |
 | `0x00445320` | terrain | streamed terrain node |
 | `0x00488BB0` | draw | draw submission driver |
 | `0x004887C0` | draw | context notify |

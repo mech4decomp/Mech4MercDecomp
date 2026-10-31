@@ -149,6 +149,11 @@ Two observations beyond `vbd.h`:
 So MapCreator itself never writes a #VBD — it writes the info-file definition +
 textures and lets **Tctd.exe** produce the packed archive.
 
+The shipped archive's terrain mesh records, baked page orientation, level-1
+quadrant pages, `.bid` color/mask/lightmap formats, and the missing water
+metadata are documented in
+[Terrain Rendering and Map Asset Formats](../terrain_formats.md).
+
 ## 8. Key functions
 
 | VA | Size | Role |

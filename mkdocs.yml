@@ -97,6 +97,7 @@ nav:
   - Reference:
       - Master index: MASTER_INDEX.md
       - Subsystem seams: SUBSYSTEM_SEAMS.md
+      - Terrain formats: terrain_formats.md
       - Game versioning: GAME_VERSIONING.md
       - Data annotation: data_annotation.md
       - Module data annotation:

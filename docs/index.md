@@ -28,6 +28,7 @@ not need the game binaries.
 |---|---|
 | [Master index](MASTER_INDEX.md) | Exhaustive per-VA subsystem indexes |
 | [Subsystem seams](SUBSYSTEM_SEAMS.md) | Boundary calls and cross-system dependencies |
+| [Terrain formats](terrain_formats.md) | Shipped map/terrain asset formats, page orientation, lightmaps, and water metadata |
 | [Data annotation](data_annotation.md) | EXE data-section annotation index |
 | [Module data annotation](module_data_annotation/blade.md) | Per-module data annotation indexes |
 | [Editor tools](editor_tools/README.md) | Shipped editor/config tool RE records |
