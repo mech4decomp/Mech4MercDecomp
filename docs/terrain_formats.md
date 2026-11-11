@@ -1,14 +1,43 @@
-# Terrain Rendering and Map Asset Formats
+# Map and Terrain Formats
 
-This page records the map/terrain data formats and the engine's terrain
-rendering behavior, derived from the shipped `Resource\Maps\*.mw4` archives
-and the `MW4Mercs.exe` MidLevelRenderer (MLR) terrain code. Byte offsets are
+This page records the map, terrain, water, and sky data formats and the
+engine's terrain rendering behavior, derived from the shipped
+`Resource\Maps\*.mw4` archives and the `MW4Mercs.exe` MidLevelRenderer (MLR)
+terrain code. Byte offsets are
 relative to the start of the named record unless stated otherwise. The
 examples use `thark04.mw4` (16-cell alpine map) and `fact02.mw4` (4-cell flat
 map).
 
 The render subsystem's VA inventory is in [Render](subsystems/render.md); this
-page is the data-format companion.
+page is the data-format companion. Archive/member layouts are in
+[Asset Loading and Archive Formats](assets.md), and scene assembly/material/
+lighting are in
+[Scene Construction and Object Rendering](scene_rendering.md).
+
+## How to read this page
+
+A map is a square world area split into **cells** (large squares), and each cell
+is split into **tiles** (smaller squares). The terrain is a triangle mesh: each
+record in a cell `.erf` stores the vertices around a patch of ground and an
+index list that says which triples of vertices form triangles.
+
+Terrain textures are **baked**: the lighting is already painted into the image,
+so the runtime does not have to compute it. A **page** is one baked image for a
+cell; an **atlas** packs several pages into one texture. The **detail texture**
+is a small grain image tiled over the ground to add close-up detail, and the
+**lightmap** is the separate lighting image used when the pages were baked.
+
+**UV** coordinates say which part of a texture belongs at a vertex. **LOD**
+(level of detail) means the engine can use a simpler mesh farther from the
+camera. A **record** here means one tagged chunk of render data: `#RLM` records
+carry a type code (`f2`) so the reader knows whether the body is terrain,
+water, sky, or a static shape. The cell `.erf` is a `#FRE` container: a small
+stream header followed by those `#RLM` records.
+
+A **BSP** (binary space partition) is a tree structure used for collision and
+visibility queries; the cell `.bsp` member holds that data. The `.material`
+member is a 256x256 index map into the `.fgd` palette, which is the terrain
+compiler's source data rather than a runtime texture.
 
 ## 1. Map archive contents
 
@@ -21,12 +50,17 @@ cell grid and texture tree:
 | `maps\<name>\<cell>.erf` | terrain mesh stream (`#FRE` v14 with `#RLM` v18 children) |
 | `maps\<name>\<cell>.bsp` | collision/BSP data for the cell |
 | `maps\<name>\<name>.erf` | root terrain stream (52 bytes for `thark04`) |
+| `maps\<name>\<name>.erf{zones}` | map zone-id list |
 | `maps\<name>\<name>.fgd` | terrain material palette (14,361 bytes for `thark04`, 8,155 for `fact02`) |
 | `maps\<name>\<name>.instance` | instance/zone metadata (100 bytes for both maps) |
 | `textures\maps\<name>\<cell>\<name>_<cell>_0_0000.tga` | level-0 baked cell page, 256x256 24-bit RGB |
 | `textures\maps\<name>\<cell>\<name>_<cell>_1_<xx><yy>.tga` | level-1 baked cell quadrant, 256x256 24-bit RGB, `xx`/`yy` in 0..1 |
 | `textures\maps\<name>\<detail>_active.tga` | shared detail texture, 256x256 32-bit RGBA |
-| `textures\composttexture\<name>_lightmap_active.bid` | per-cell lightmap atlas (1024x1024 for `thark04`) |
+| `textures\maps\<name>\*_waterNN.tga` | animated water-surface texture frames (64x64 24-bit in the observed sets) |
+| `textures\maps\<name>\*_water_detailNN.tga` | animated water-detail texture frames (64x64 32-bit in the observed sets) |
+| `textures\maps\<name>\*_underwater_detail_active.tga` | underwater detail texture, 256x256 32-bit RGBA |
+| `textures\sky<prefix>{f,u,l,b,r}<variant>.tga` | five-face sky set; variant 1 is the observed mission default, sides and up face may differ in size |
+| `textures\composttexture\<name>_lightmap_active.bid` / `<name>_light_active.bid` | per-cell lightmap atlas (1024x1024 for `thark04`) |
 | `textures\composttexture\<name>_mask_<layer>_active.bid` | 1024x1024 8-bit source mask |
 | `textures\composttexture\<set>_color_<layer>_active.bid` | 256x256 ARGB1555 source color layer |
 
@@ -133,11 +167,16 @@ FNV-1a (32-bit) over the assembled RGBA atlas:
 The cell `.erf` is a `#FRE` version-14 stream. The first child is a `#RLM`
 record at offset 16 that is not a terrain mesh; its payload header does not
 match the terrain form (for example, the `thark04` first record ends in
-`0xe0`). Terrain mesh records use a five-byte payload header of the form
+`0xe0`). A zero-size `#RLM` v18 record precedes each mesh record; it is a
+separator/header and must be skipped. Terrain mesh records carry
+`f1 = 0x4B` and `f2 = 0x6801` and use a five-byte payload header of the form
 `[0, vertex_count, 0, 0, 0]`; other `#RLM` records (lights, effects, cameras)
 use different payload headers and must not be parsed as terrain.
 
-A terrain `#RLM` version-18 mesh record has this layout:
+A terrain `#RLM` version-18 mesh record has this layout. The record's `f2`
+field at `+0x10` identifies the node type: `0x6801` is terrain, `0x6701` is a
+water surface (section 8), and `0x6606` is the sky node in the mission sky
+`.erf` (section 8):
 
 | Offset | Size | Field |
 |---|---:|---|
@@ -160,10 +199,13 @@ A terrain `#RLM` version-18 mesh record has this layout:
 | then | variable | detail texture name, NUL-terminated: `maps\<map>\<detail>_active` |
 | then | 173 | terrain2 manager tail (section 5) |
 
-The vertex array is followed by the 33-byte block in all 1,806 `thark04` mesh
-records; the block has 16 distinct values across those records (matching the
-16 cells) and is not decoded. The 24-byte block before the detail-name length
-is also constant in size and is not decoded.
+The vertex array is a convex patch boundary loop, not a strip; the one-byte
+triangle index list is the authoritative topology. A record without an index
+list can be fanned from its boundary loop, but the shipped records carry the
+index list. The vertex array is followed by the 33-byte block in all 1,806
+`thark04` mesh records; the block has 16 distinct values across those records
+(matching the 16 cells) and is not decoded. The 24-byte block before the
+detail-name length is also constant in size and is not decoded.
 
 `thark04` contains 1,806 mesh records with 64,257 source vertices and 78,378
 triangles; all 1,806 carry an index list. Expanding the indexed triangles to
@@ -193,7 +235,9 @@ of the engine's `MLR_Terrain2` manager:
 | `+0x20` | 128 | eight `(x0, y0, x1, y1)` float32 level rectangles |
 | `+0xA0` | 13 | trailer; the manager consumes one discarded dword and one enable byte, and the final 8 bytes are not consumed |
 
-The eight rectangles describe the level-of-detail regions for the tile:
+The eight rectangles describe the level-of-detail regions for the tile. Think
+of them as nested squares: the higher the level, the smaller and more detailed
+the region.
 
 - level 0: the whole 1280x1280 cell;
 - level 1: the 640x640 quadrant containing the tile;
@@ -220,6 +264,11 @@ and walks down to the nearest level that has a mesh. The constructor is
 `select_level` `0x448D80`, `set_level_mesh` `0x448E00`, and `map_vertex`
 `0x448E40`/`0x448E50`.
 
+Each terrain record carries its own world bounds, material/page, and triangle
+count, so records can be batched and culled independently. The eight level
+rectangles are the LOD selection input; the manager clamps the requested level
+to `level_count` and walks down to the nearest level that has a mesh.
+
 No `base_level_*` member exists in the shipped `core.mw4`, `props.mw4`,
 `textures.mw4`, or `maps\<name>.mw4` archives. The keys are runtime registry
 names derived from the loaded cell mesh name, not file names.
@@ -227,8 +276,10 @@ names derived from the loaded cell mesh name, not file names.
 ## 6. Baked lighting and the lightmap atlas
 
 The baked page is pre-lit: `page` is the product of albedo and a per-cell
-lightmap. The `thark04_lightmap_active.bid` image is a 4x4 atlas of 256x256
-per-cell lighting tiles. Dividing the level-0 page by the matching lightmap
+lightmap. In plain terms, the terrain artist tool took the surface color image
+and multiplied it by a lighting image, so the runtime page already looks lit.
+The `thark04_lightmap_active.bid` image is a 4x4 atlas of 256x256 per-cell
+lighting tiles. Dividing the level-0 page by the matching lightmap
 tile gives a world seam score of 0.01, versus 216.31 for the page alone, with
 the page using the 180-degree rotation and the lightmap using the identity
 orientation in the same cell order.
@@ -269,18 +320,77 @@ The `.bid` files begin with a raw mip 0 image at offset 0:
 The trailing bytes are mip and trailer data; sampling mip 0 does not require
 decoding them.
 
-## 8. Water metadata
+## 8. Water and sky
 
-The map definition info file, written by MapCreator into
-`Content\Maps\<name>\`, carries the water fields: `waterlevel`,
+### Water surface records
+
+Water is not a map-wide plane derived from a header field. The cell `.erf`
+streams contain explicit `#RLM` v18 records with `f2 = 0x6701`; their
+vertices carry the actual water level. A water-surface record has:
+
+| Offset | Size | Field |
+|---|---:|---|
+| `+0x14` | 5 | payload header `[0, vertex_count, 0, 0, 0]` |
+| `+0x19` | `12 * vertex_count` | float32 vertices `(x, y, z)` |
+| then | `8 * vertex_count` | float32 `(u, v)` pairs |
+| then | 33 | 29-byte material block + 4-byte name length |
+| then | variable | water material name, NUL-terminated: `maps\<map>\<water>` |
+| then | 4 | material word `0x10` |
+| then | 4 | index count (multiple of 3) |
+| then | `index_count` | one-byte triangle-list indices |
+| then | 4 | triangle count |
+| then | `16 * triangle_count` | per-triangle `(nx, ny, nz, scalar)` |
+| then | 28 | 24-byte block + 4-byte name length |
+| then | variable | water-detail material name: `maps\<map>\<water>_detail` |
+| then | 40 | water tail: dword frame count (16), dword 0, dword 0, float 1.0, float 1.0, float UV scroll u (`0.00667` = 1/150 on `carps01`, `0.00500` = 1/200 on `styk01`), float UV scroll v (`0.00167` = 1/600), dword 0, dword 132, dword 1155 (last two not decoded) |
+
+The vertices are a flat or sloped surface. `thark04` and `fact02` contain no
+`f2=0x6701` records (no water); `carps01` has 139 surface records (4,448
+triangles) all at y=24.0; `jung02` has 32 surface records (1,024 triangles)
+all at y=49.0; `styk01` has 303 surface records (9,696 triangles) all at
+y=5.0. The `*_underwater_detail_active` records are a separate underwater
+layer, not the water surface.
+
+**UVs.** The record UV array is a world-aligned ramp: `u` runs along Z and
+`v` along X, with six repeats per 160 m tile (`du = dz * 6/160`,
+`dv = dx * 6/160`). The first stored UV is a wrap anomaly at the tile origin;
+the remaining values are the same linear ramp. Both the base and detail passes
+sample this ramp (a live trace's base UVs are the unshifted 1.5-step grid and
+its detail UVs are that grid plus the detail scroll), so sampling with
+`vec2(world.z, world.x) * (6/160)` (plus the detail scroll) is equivalent
+modulo the 6-unit repeat and is seamless across adjacent records. Rebuilding
+the centered ramp from the vertex position also removes the compressed stripe
+the stored wrap column would otherwise interpolate at every tile edge.
+
+**Textures and animation.** The base set is
+`textures\maps\<map>\<water>NN.tga` (64x64 24-bit in the observed sets; 16
+frames per set, `01`..`16`, frame 16 looping to 1); the second material is a
+matching `textures\maps\<map>\<water>_detailNN.tga` set (64x64 32-bit RGBA,
+16 frames). The tail follows the detail material name: its first dword is the
+frame count and the two scroll floats are the per-frame UV scroll increments
+(1/150 and 1/600 on `carps01`; 1/200 and 1/600 on `styk01`). The base pass
+advances by its frame swap; the detail pass advances by its frame swap plus
+the scroll. The 29-byte water material block starts with a float scale of 3.0
+(not a UV multiplier: the trace's detail UVs use the same 6/160 ramp). The
+per-triangle `(nx, ny, nz, scalar)` is
+the water-plane equation: the shipped surfaces use `n = (0, -1, 0)` and
+`scalar = -water_level`. The underwater layer's shared detail texture is
+`textures\maps\<map>\*_underwater_detail_active.tga` (256x256 RGBA in the
+observed sets).
+
+The map definition info file format, written by MapCreator into
+`Content\Maps\<name>\`, defines the authoring fields `waterlevel`,
 `watertexture`, `underwatertexture`, and `waterdetailtexture`, alongside
 `grid`, `cull`, `class`, `texturedata`, `tcffilename`, `HudMap`, `MapCenter`,
 `SmoothingPasses`, `PolyCount`, and `DeltaY`. The shipped map archives do not
-include this info file, so the water level and water textures cannot be
-recovered from a `Resource\Maps\<name>.mw4` archive alone.
-
-For `thark04`, the float at `+0x24` of the first `#RLM` child record is not a
-water level. It varies per cell (for example 81.55 for `AA`, 72.32 for `AB`,
+include this info file; those fields are authoring metadata, and the runtime
+water surface geometry and level are the cell `.erf` records above. The
+map-info schema also registers `WaterSpecularFactor`, `WaterSpecularPower`,
+`WaterAtNightSpecularFactor`, `WaterAtNightSpecularPower`, and
+`IsNightMission` (EXE string table `0x77556c`..`0x7755c8`); these are
+authoring values and are absent from the shipped map archives. For
+`thark04`, the float at `+0x24` of the first `#RLM` child record is not a
+water level: it varies per cell (for example 81.55 for `AA`, 72.32 for `AB`,
 and 0.0 for `BC`) and does not define a map-wide water plane. The `_1_0000`
 page is a level-1 texture quadrant, not a water texture.
 
@@ -288,6 +398,94 @@ Water rendering uses `MLR_Water` (vtable `0x36E13C`) and `MLR_BumpyWater`
 (vtable `0x36DE4C`); the bumpy-water constructor is `0x424170`, the
 render/lightmap vertex transform is `0x42C2C0`, and the lightmap lighting pass
 is `0x4276E0`.
+
+A live device trace of the shipped water draws shows the surface is submitted
+as `FVF 0x1C4` (XYZRHW | DIFFUSE | SPECULAR | TEX1) in two passes:
+
+| Pass | Stage 0 | Stage 1 |
+|---|---|---|
+| base | `COLOROP/ALPHAOP = MODULATE` (D3DTOP 4), args `(TEXTURE, DIFFUSE)` | disabled |
+| detail | same stage 0 state | disabled |
+
+Both passes use `SRCALPHA/INVSRCALPHA`, depth test `LESSEQUAL` with z-write
+off, alpha test `NOTEQUAL 0`, and fog enabled with color `0x00EFEAEF`. The
+base pass's vertex diffuse is white and its specular is 0 (no fog); its UVs
+are the unshifted record ramp. The detail pass's diffuse alpha is observed
+`~0x72..0xd1`, its specular alpha carries the per-vertex fog factor
+(`~0x81..0xbf`), and its UVs are the same record ramp plus the tail scroll
+(not cell page UVs). The texture transforms are identity. The underwater
+detail draws use `SRCALPHA/ONE` (additive). The base and detail textures are
+separate 16-frame sets, and different tiles can use different frames in the
+same frame (observed base frames `01/06/07/11/12` and detail frames
+`02/04/06/13/16`), i.e. the animation phase is per batch; the batch grouping
+rule is not decoded.
+
+### Sky sets
+
+The map archive stores five sky faces per variant:
+`textures\sky<prefix>{f,u,l,b,r}<variant>.tga`, where `f/u/l/b/r` are front,
+up, left, back, and right. The observed mission sky nodes reference variant 1;
+variants 2..5 are alternate sets. The sides are usually 256x256 and the up
+face may be 512x512 (for example `fact02`'s `skyfcu1` is 512x512 while
+`skyfcf1` is 256x256); the TGA may be RLE-compressed.
+
+The mission archive contains the sky node in
+`skies\<sky>_sky\<name>.erf`. Its `#RLM` record has `f2 = 0x6606`; versions 17
+and 18 are observed. Version 17 stores indices as u16, version 18 as u8. The
+node has an 8-vertex box and a material list in the order `sky<prefix>f1`,
+`sky<prefix>u1`, `sky<prefix>l1`, `sky<prefix>b1`, `sky<prefix>r1`,
+`sky<prefix>f1`; the bottom face reuses the front texture. The front face uses
+the node's 8 vertices with 8 UVs and 12 indices (four triangles); the
+up/left/back/right/bottom faces each store four local vertices, four UVs and
+six indices. A side/up/bottom block contains `u32 0x66`, `u32 4`, four float3
+vertices, `u32 4`, then four UV pairs; the front block stores its eight UVs
+directly after the node vertices. The map archive contains the texture faces;
+the mission archive selects the set.
+
+A mission can carry both a day node and a `*night*.erf` node (for example the
+`carps01` sky nodes ship `arctic01_sky.erf` using `skya1*` and
+`arctic03_sky_night.erf` using `skyna3*`). The chosen node's material names map
+directly to `textures\<name>.tga`, so the mission node is the exact selector.
+Not every referenced set is present in every install: `jungle02`'s
+`jung03_sky.erf` names `skyjg3r0`/`skyjg3u0`, while the `jung02` map archive
+ships only `skyjgf*`/`skyjgu*`; a consumer must fall back to a set whose five
+textures all exist.
+
+The 8-vertex template is identical across missions apart from a uniform
+scale (`10.02` for `thark04`, `9.94` for the `carps01` day sky, `125.0` for
+the `carps01` night sky): four horizon corners, a nadir point at -scale/4,
+and two top-back corners. The front face's eight UVs are `(1,1)`, `(0.5,1)`,
+`(0,1)`, `(0,1)`, `(0,1)`, `(1,1)`, `(0,0)`, `(1,0)`; the side/up faces use
+a full quad (`(0,1)`, `(1,1)`, `(0,0)`, `(1,0)`), and the bottom uses
+`(0.5,1)`, `(1,1)`, `(1,1)`, `(0,1)`.
+
+The retail draw submits the node as pre-transformed `XYZRHW` triangles (FVF
+`0x1C4` = XYZRHW | DIFFUSE | SPECULAR | TEX1). A live vertex dump of the day
+`skysk1` set on a 1280x1024 backbuffer resolves the transform: the
+front/right corner lands at `(536.6, 512.0)` with `rhw = 0.071`, the visible
+front-face UV range is `u = 0.698..1`, and the visible right-face range is
+`u = 0..0.398`. The corner is 45 degrees from the box front and
+`rhw = 1/view-depth`, so the node is a **camera-centred perspective box**
+whose position follows the camera but whose orientation stays world-fixed
+(the box does not rotate with the camera). Solving the four corner depths
+gives an isotropic focal length of about 1185 px (about 47 degrees vertical
+FOV) and a level camera in that capture; the screen positions are ordinary
+perspective projections of the node vertices, clipped to the viewport. The
+box front is 2:1 wide relative to tall, so a 256x256 face is stretched 2:1
+horizontally at the face center. The painted moon's on-screen shape therefore
+depends on where it sits on the face: `skyna3f1` paints a tall vertical oval
+(bright core about 6x21 px) near the front-face center, so it stays tall; the
+`trop02` set paints a round moon split across the front/right face boundary
+(a half-disc at each edge, about 10x30 texels per half), and the perspective
+box's local texel aspect at that boundary is about 1.4:1, so the two halves
+join as a round disc. A map-archive set with no mission `.erf` node (for
+example `trop02`) is drawn with the engine's built-in box: the same
+camera-centred geometry with a 4-vertex front/up/left/back/right face and the
+below-horizon bowl, each face sampling its 256x256 (or 512x512 up) texture
+over `u,v = 0..1`. An earlier reading of the same `XYZRHW` stream as a flat
+screen-space backdrop with a 28.8-degree side band and a ~3.1:1 horizontal
+stretch is superseded by the vertex data. The face boundaries are texture
+seams in the shipped art.
 
 ## 9. Engine terrain render path
 
@@ -312,6 +510,12 @@ The MLR lightmap path is the render/lightmap vertex transform `0x42C2C0`
 The terrain records themselves reference only the baked page and the shared
 detail texture.
 
+The in-mission 3D path transforms and lights vertices in the MLR and submits
+pre-transformed `XYZRHW` vertices (FVF `0x1C4`/`0x2C4`) to the device. The D3D7
+fog factor is written into the specular alpha; the terrain page is pre-lit, so
+the terrain pass does not re-light its triangle normals. See
+[Scene Construction and Object Rendering](scene_rendering.md#6-terrain-rendering).
+
 ## 10. Verification summary
 
 | Property | `thark04` | `fact02` |
@@ -328,3 +532,9 @@ detail texture.
 
 The seam scores, page hashes, and record counts above are reproducible from
 the shipped map archives; they are data-derived, not renderer-dependent.
+
+Water and sky checks on other shipped maps: `carps01` has 139 water-surface
+records (4,448 triangles) all at y=24.0; `jung02` has 32 water-surface records
+(1,024 triangles) all at y=49.0; `thark04` and `fact02` have no water-surface
+records. Sky sets observed: `thark04` `skyth4`, `fact02` `skyfc` (256x256
+sides, 512x512 up), `carps01` `skya1`, `jung02` `skyjg`.

@@ -4,6 +4,32 @@
 
 `#VBD` archives, streams, file I/O, and path handling.
 
+This page covers the container and stream mechanics. Member layouts for maps,
+missions, mechs, images, and effects are in
+[Asset Loading and Archive Formats](../assets.md).
+
+## How to read this page
+
+An **archive** is one file that contains many named **members**, similar in
+spirit to a zip file. The archive subsystem has two sides:
+
+- the **on-disk container**: a header, a directory of member records, and the
+  member bytes;
+- the **runtime reader**: a stream cursor, two hash tables for fast lookup, and
+  a lazy fetch/decompress path.
+
+A **hash table** is a fast lookup structure: a name or index is hashed to a
+bucket, and the bucket's chain is searched for the exact match. A bucket is one
+slot in the table; entries that hash to the same slot form a short chain.
+**LZW** is a lossless compression scheme that replaces repeated byte sequences
+with shorter dictionary codes. **Lazy fetch** means the engine reads a member
+only when it is first requested, then caches it for later requests.
+
+The oracle's public headers for this subsystem are `include/mw4/vbd.h` (the
+on-disk header/entry) and `include/mw4/archive.h` (the runtime stream and loaded
+entry). The offset tables below describe the on-disk bytes; the runtime fields
+are listed in the source comments of those headers.
+
 ## Role and boundary
 
 The archive layer owns the game's `#VBD` container format, its directory and
@@ -37,6 +63,52 @@ The empty-archive initializer `FUN_00413E90` sets:
 It also zeroes two hash tables at `+0x18` and `+0x100C`; each is 1021 dwords
 (0x3FD buckets). The bucket count is fixed.
 
+### On-disk container layout
+
+The header is the archive's table of contents and the directory records are its
+entries. The file header is a separate packed structure from the runtime context
+above:
+
+| Offset | Size | Field |
+|---|---:|---|
+| `+0x00` | 4 | signature `0x44425623` (`#VBD`) |
+| `+0x04` | 4 | format version (4 in the shipped archives) |
+| `+0x08` | 4 | directory bucket count (named `entry_count` in `include/mw4/vbd.h`; 63 in the shipped archives); **not** the member count |
+| `+0x0C` | 4 | `dir_file_offset`: file offset where member data begins |
+| `+0x10` | 2 | key/seed 1 |
+| `+0x12` | 2 | key/seed 2 |
+| `+0x14` | 8 | archive FILETIME |
+| `+0x1C` | 4 | flags 1 (1) |
+| `+0x20` | 4 | flags 2 (1) |
+| `+0x24` | 6 | reserved (zero) |
+| `+0x2A` | 1 | archive path length |
+| `+0x2B` | var | archive path (`resource\<name>.mw4`), no terminator |
+
+Directory records follow the path and run up to `dir_file_offset`. Each is
+`23 + name_len` bytes:
+
+| Offset | Size | Field |
+|---|---:|---|
+| `+0x00` | 8 | member FILETIME |
+| `+0x08` | 4 | uncompressed size |
+| `+0x0C` | 4 | stored size |
+| `+0x10` | 4 | data offset relative to `dir_file_offset` |
+| `+0x14` | 2 | entry index (1-based) |
+| `+0x16` | 1 | name length |
+| `+0x17` | var | member name (backslash path, no terminator) |
+
+The `+0x08` field is easy to mistake for the entry count: the shipped
+`core.mw4` stores `63` there but contains 8,940 directory records. Member data
+is at `dir_file_offset + data_off` for `stored_size` bytes.
+
+### Archive roles and mount order
+
+The engine mounts the three global archives from `RESOURCE\` and then the
+per-map and per-mission archives. All mounted archives form one
+case-insensitive, slash-normalized namespace; lookup returns the first match
+in mount order. The archive roles and member layouts are in
+[Asset Loading and Archive Formats](../assets.md#1-install-layout-and-archive-roles).
+
 The reader opener `FUN_00413EE0` validates the signature and version (version
 must be `<= 4`), reads the directory blob, initializes a stream over it, and
 calls the directory populator `FUN_00414110`. If validation fails or the file
@@ -58,7 +130,9 @@ populates it with `FUN_00413480`, and inserts it into both hash tables:
 The name hash `FUN_00413500` is a modified ELF hash: it folds the low nibble of
 each character, XOR-folds the high nibble into the low nibble when set, and
 forces bit 31 in the result. The fold makes ASCII letters case-insensitive.
-Name lookup compares the hash first, then uses `_stricmp` for collisions.
+Name lookup compares the hash first, then uses `_stricmp` for collisions. The
+two tables are the "find by index" and "find by name" indexes over the same
+directory.
 
 ## Lazy member fetch
 
@@ -75,9 +149,9 @@ instead.
 
 If `entry->stored_size < entry->uncompressed_size`, the member is compressed:
 the loader allocates an `uncompressed_size` buffer and calls the LZW
-decompressor `FUN_006FC220` to produce the final bytes. The raw reader
-`FUN_004138D0` performs the same seek/read but never decompresses; it is used
-by the writer serializer.
+decompressor `FUN_006FC220` to produce the final bytes. The codec details are in
+[Codec Subsystem](codec.md). The raw reader `FUN_004138D0` performs the same
+seek/read but never decompresses; it is used by the writer serializer.
 
 The fetch dispatchers all share this loader:
 
@@ -88,6 +162,21 @@ The fetch dispatchers all share this loader:
 
 The iterator advance helpers `FUN_00413D60`/`FUN_00413D80` load the current
 entry and copy `entry->field_08` into the iterator's data slot.
+
+Lazy fetch is why the archive is cheap to mount: the engine reads the directory
+once, but does not read or decompress every member. A member's bytes are loaded
+on first use and cached in its entry; later uses reuse the cached buffer.
+
+## Map and mission members
+
+Map archives store `maps\<name>\` root files and per-cell `.material`/`.erf`/
+`.bsp` members plus the baked texture tree. Mission archives store
+`missions\<mission>\` scene/aspect members, the root `<instance>{NameTable}`,
+`dropzones\`, `skies\`, `.lights`, and ABL scripts. The member layouts are in
+[Asset Loading and Archive Formats](../assets.md#3-map-archive) and
+[Asset Loading and Archive Formats](../assets.md#4-mission-archive); the
+terrain record layouts are in
+[Map and Terrain Formats](../terrain_formats.md).
 
 ## Writer path
 

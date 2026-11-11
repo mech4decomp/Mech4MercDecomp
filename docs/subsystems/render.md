@@ -4,6 +4,25 @@
 
 Owns the MidLevelRenderer (MLR) scene pipeline and the D3D7 immediate-mode device boundary. It turns game state into sorted draw records, evaluates animation and lighting, streams terrain and textures, and hands final primitives to the device and present paths.
 
+Companion pages: [Asset loading and formats](../assets.md),
+[Map and terrain formats](../terrain_formats.md),
+[Mech models and animation](../mech_animation.md), and
+[Scene construction and rendering](../scene_rendering.md).
+
+## How to read this page
+
+The render subsystem is the **MidLevelRenderer (MLR)**: the layer between game
+state and the rasterizer. It walks the scene, decides what is visible, builds
+compact **draw records**, evaluates lighting and fog, transforms vertices, and
+hands the result to the device.
+
+A **draw record** is one per-frame draw instruction: which object, which
+transform, which material, and how it should be sorted. **Pre-transformed**
+means the MLR already computed the vertices' screen positions, so the
+rasterizer only has to clip and fill them. The D3D7 immediate-mode device is
+backed by `blade.dll`'s software rasterizer, which writes pixels into the
+attached framebuffer.
+
 ## Role and boundary
 
 The render subsystem is the EXE's MidLevelRenderer plus the D3D7 immediate-mode
@@ -68,6 +87,30 @@ vertical lens edges from the camera region. The camera element update
 `FUN_004C40E0` builds the tan-frustum head. The camera-element family at
 `0x4C32D0`-`0x4C46B0` supplies the state machine, primitives, and view setup.
 
+### Scene elements and draw records
+
+Every frame the MLR walks the scene's drawables. A drawable's producer
+assembles a per-drawable input (identity, material/state, flags, and the
+drawable's 3x4 view basis), and the scene-record builder composes that basis
+with the camera's world-to-clip matrix. The record is published into one of 16
+slot lists for the draw driver to sort and dispatch. The simple builder is
+`0x0048E890`; the rich terrain-family builder is `0x0048DD20`; the draw driver
+is `0x00488BB0`.
+
+The full field layout, light-matrix path, material blend, and slot semantics
+are in
+[Scene construction and rendering](../scene_rendering.md#3-scene-elements-and-draw-records).
+
+### In-mission geometry path
+
+The MLR transforms, lights, and fogs vertices itself, then submits
+pre-transformed `XYZRHW` vertices (FVF `0x1C4`/`0x2C4`). The D3D7
+immediate-mode boundary is backed by `blade.dll`'s software rasterizer
+(`FUN_5E0057C0` `DrawPrimitive`, `FUN_5E0093A0` `DrawIndexedPrimitive`), which
+clips and rasterizes the pre-transformed vertices into the framebuffer. See
+[blade.dll](blade.md#the-software-rasterizer) and
+[Scene construction and rendering](../scene_rendering.md#11-draw-submission-and-software-raster).
+
 ## Geometry and animation
 
 The `mesh` detail contains the primitive-base and indexed mesh families. The
@@ -82,6 +125,11 @@ The `animation` detail evaluates curves and feeds node transforms. The scene
 record producers (`0x48E890` for the scene-element record path and `0x48DD20`
 for the rich-record path) turn node state into render records. The `vertex`
 detail handles vertex buffers, transforms, and interpolation.
+
+Mech geometry is assembled from per-part indexed meshes and a fixed 47-joint
+armature; `.mw4anim` clips supply keyframed joint rotations and `.animscript`
+selects/blends the clips. The skeleton, clip container, and state-machine
+formats are documented in [Mech models and animation](../mech_animation.md).
 
 ## Lighting
 
@@ -99,6 +147,14 @@ array is used by the draw driver:
 The reference chooses which light-slot records reach the device per frame; that
 selection is part of the draw pipeline, not the light-object constructors.
 
+The mission `.lights` records supply the ambient and look-up lights (intensity,
+RGB color, and a unit direction at `+0x30`). Per-vertex diffuse is
+`ambient + lookup_color * max(0, N . L)`. The D3D7 fog factor is written into
+the **specular alpha** of each pre-transformed vertex, not into a separate fog
+channel; the rasterizer interpolates it and the pixel pass mixes the fog color.
+The terrain page is pre-lit, so terrain does not re-light its triangle normals.
+See [Scene construction and rendering](../scene_rendering.md#9-lighting-and-fog).
+
 ## Draw submission and device
 
 `FUN_00488BB0` is the draw submission driver. `FUN_004887C0` is the context
@@ -108,9 +164,10 @@ and dispatches through the drawable table.
 The D3D7 immediate-mode wrappers are at `0x713A70`-`0x713C80`, with the
 dispatcher `0x713CC0` and flush `0x713DE0`. These wrappers translate the MLR
 submission into device calls; the device state cache owns the current
-primitive/texture/render-state bindings. The present/blit handoff is
-`0x004B6C10`; display-mode normalization and backbuffer setup are
-`0x0070A6A0` and `0x0070B6C0`.
+primitive/texture/render-state bindings. The in-mission device is backed by
+`blade.dll`'s software rasterizer. The present/blit handoff is `0x004B6C10`;
+display-mode normalization and backbuffer setup are `0x0070A6A0` and
+`0x0070B6C0`.
 
 The `2d` detail draws screen-space clouds, sprites, and HUD-adjacent primitives.
 The `font` detail (`0x6CB0E0` family) renders glyphs and log text.
@@ -139,7 +196,7 @@ fixed 45-degree cull pyramid is the reason a widened horizontal field of view
 needs a corresponding side-plane update.
 
 The streamed cell format and the terrain render data are documented in
-[Terrain Rendering and Map Asset Formats](../terrain_formats.md). The main
+[Map and Terrain Formats](../terrain_formats.md). The main
 data-side findings are:
 
 - each 1280-unit cell is split into an 8x8 grid of 160x160 tiles; the cell
@@ -154,8 +211,12 @@ data-side findings are:
   wrong;
 - the baked page is pre-lit (albedo times a per-cell lightmap); the terrain
   records do not reference the lightmap, which is composited at bake time;
-- the map definition's water metadata is not present in the shipped map
-  archive, so water level/texture cannot be recovered from the `.mw4` alone.
+- water surfaces are separate `#RLM` records in the cell `.erf`
+  (`f2 = 0x6701`, `*_water` + `*_water_detail`, per-vertex UVs); their
+  vertices carry the water level, and maps without them have no water;
+- the map archive's sky is a five-face set
+  (`textures\sky<prefix>{f,u,l,b,r}<variant>.tga`; the mission sky `.erf`
+  lists f/u/l/b/r and reuses the front for the bottom).
 
 ## Textures and image tables
 
@@ -174,6 +235,9 @@ The decoders produce BGRA surfaces; the cache and blitter handle the
 16/24/32-bit formats and the GAF frame variants. The texture manager's cache
 record stores width/height at `+0x00`/`+0x02`, the system-memory surface at
 `+0x08`, the D3D surface at `+0x10`, and the owned name copy at `+0x14`.
+The image formats, archive member paths, and `.bid` layout are in
+[Asset loading and formats](../assets.md#6-image-and-effect-formats) and
+[Map and terrain formats](../terrain_formats.md#7-bid-image-format).
 
 ## Materials, effects, water, and clouds
 

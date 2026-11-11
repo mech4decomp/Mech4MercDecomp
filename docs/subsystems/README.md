@@ -2,6 +2,8 @@
 
 Each subsystem has its own page: what it is responsible for, how the main path works, and its key entry points. The exhaustive per-VA tables live in the per-binary indexes. Shared VAs are described once in [shared.md](shared.md); boundary calls are in [SUBSYSTEM_SEAMS.md](../SUBSYSTEM_SEAMS.md); the exhaustive lookup starts at [MASTER_INDEX.md](../MASTER_INDEX.md).
 
+Data-format and pipeline companions: [asset loading and formats](../assets.md), [map and terrain formats](../terrain_formats.md), [mech models and animation](../mech_animation.md), and [scene construction and rendering](../scene_rendering.md).
+
 ## EXE subsystems
 
 | Subsystem | VAs | What it covers |

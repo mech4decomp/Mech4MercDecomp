@@ -7,8 +7,10 @@ LZW compression/decompression and related byte codecs.
 ## Role and boundary
 
 The codec subsystem is the shared LZW primitive used by the `#VBD` archive and
-by texture formats 5/6/7. It is a pure byte codec: it has no game state and no
-dependency on the archive or texture objects.
+by texture formats 5/6/7. LZW is a lossless compression scheme: as it reads
+bytes, it builds a dictionary of repeated sequences and emits short codes for
+them. The decompressor reverses that process. The codec is a pure byte codec:
+it has no game state and no dependency on the archive or texture objects.
 
 The two entry points are:
 
@@ -21,10 +23,11 @@ The compressor uses a global dictionary at `0x00849EC8` and a set of globals in
 `0x008567xx`. It is pure computation with `rep stosb`/`stosw`/`lodsb`; it makes
 no external calls.
 
-The decompressor is GIF-style LZW: variable 9-12-bit codes, LSB-first, with a
-dictionary of 3-byte entries at `0x849EC8`. It reads codes from the input
-stream, walks the dictionary, writes the decoded run to the output buffer, and
-returns the number of output bytes.
+The decompressor is GIF-style LZW: variable 9-12-bit codes, LSB-first, with
+clear code `0x100`, end-of-data code `0x101`, and a 4,096-entry dictionary of
+3-byte entries at `0x849EC8`. It reads codes from the input stream, walks the
+dictionary, writes the decoded run to the output buffer, and returns the number
+of output bytes.
 
 ## Usage
 

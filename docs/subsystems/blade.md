@@ -162,6 +162,15 @@ through `FUN_5E005590` (set), `FUN_5E005630` (get), and `FUN_5E0056B0` (fill).
 
 ## The software rasterizer
 
+The in-mission MLR path that feeds this rasterizer is documented in
+[Scene construction and rendering](../scene_rendering.md#11-draw-submission-and-software-raster).
+
+A **software rasterizer** is code that draws triangles into a CPU memory buffer
+instead of asking a GPU to do it. The game uses this path for its in-mission 3D
+scene, which is why the MLR hands it vertices that are already transformed.
+**FVF** (Flexible Vertex Format) is a code that tells the rasterizer which
+fields each source vertex contains and in what order.
+
 The two master draw entries are:
 
 ```text

@@ -22,13 +22,26 @@ not need the game binaries.
 | [Shared VAs](subsystems/shared.md) | Helpers used by more than one subsystem |
 | [Oracle status](ORACLE_STATUS.md) | Target inventory and completeness status |
 
+## Engine reference map
+
+| I want to understand... | Read |
+|---|---|
+| How content is stored, mounted, and found | [Asset loading and formats](assets.md) and the [archive subsystem](subsystems/archive.md) |
+| Map/terrain geometry, pages, lightmaps, water, sky | [Map and terrain formats](terrain_formats.md) and the [render subsystem](subsystems/render.md) |
+| Mech skeletons, part meshes, clips, state machines | [Mech models and animation](mech_animation.md) |
+| How a frame is assembled, lit, and drawn | [Scene construction and rendering](scene_rendering.md) and the [render subsystem](subsystems/render.md) |
+| Every VA and subsystem classification | [Subsystem guides](subsystems/README.md) and the [master index](MASTER_INDEX.md) |
+
 ## Reference
 
 | Document | Purpose |
 |---|---|
 | [Master index](MASTER_INDEX.md) | Exhaustive per-VA subsystem indexes |
 | [Subsystem seams](SUBSYSTEM_SEAMS.md) | Boundary calls and cross-system dependencies |
-| [Terrain formats](terrain_formats.md) | Shipped map/terrain asset formats, page orientation, lightmaps, and water metadata |
+| [Asset loading and formats](assets.md) | Archive namespace, map/mission/mech member locations, image and effect formats |
+| [Map and terrain formats](terrain_formats.md) | Shipped map/terrain asset formats, page orientation, lightmaps, water, and sky |
+| [Mech models and animation](mech_animation.md) | Skeleton, part meshes, `.mw4anim` clips, and `.animscript` state machine |
+| [Scene construction and rendering](scene_rendering.md) | Scene graph, static objects, materials, lighting/fog, and draw submission |
 | [Data annotation](data_annotation.md) | EXE data-section annotation index |
 | [Module data annotation](module_data_annotation/blade.md) | Per-module data annotation indexes |
 | [Editor tools](editor_tools/README.md) | Shipped editor/config tool RE records |
