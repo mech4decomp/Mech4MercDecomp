@@ -138,8 +138,9 @@ separator/header and must be skipped. The common `f2` types are:
 Shape records use the 13-byte LOD marker and material-group layout described in
 [Scene Construction and Object Rendering](scene_rendering.md#51-prop-shape-records).
 Mech part records use the same format with a counted texture-page name; see
-[Mech Models and Animation](mech_animation.md#31-shape-record). The terrain and
-water record bodies are in [Map and Terrain Formats](terrain_formats.md).
+[Mech Models and Animation](mech_animation.md#31-shape-records-and-lods).
+The terrain and water record bodies are in
+[Map and Terrain Formats](terrain_formats.md).
 
 The oracle consumes these streams through the MLR node-stream reader and the
 terrain/mesh loaders; there is no public header for the individual record
@@ -359,11 +360,19 @@ pieces; the armature and animation script decide how those pieces move:
 The path names the chassis instance (`mechs\Argus\Argus.instance`). The part
 prefix is discovered from the first `<prefix>_torso.erf` under
 `mechs\<name>\`; the standard parts are torso, hip, left/right upper arm,
-upper/middle/lower leg, foot, and toe. The armature members store local
-rest-pose matrices; the animation script resolves the clip paths, which may
-point at another mech's shared animation set. See
-[Mech Models and Animation](mech_animation.md) for the skeleton, `.mw4anim`,
-and `.animscript` layouts.
+upper/middle/lower leg, foot, and toe. Each armature member is a sequence of
+280-byte child records: the child's parent-local 3x4 rest matrix is at
+record-relative `+0x1C`, and the child's name is at record-relative `+0x98`.
+The records define the transform tree; for a non-root joint, the member's own
+rest is the matrix in its parent's member. The 47-entry joint-cage name table
+is a name index, not the armature member list, and a chassis may carry extra
+members such as `joint_luarmabove`/`joint_ruarmabove`.
+
+The animation script resolves the clip paths, which may point at another
+mech's shared animation set. A `.mw4anim` clip carries its own chunk-1 joint
+slot table, so it is retargeted by joint name rather than by a global joint
+number. See [Mech Models and Animation](mech_animation.md) for the armature,
+`.mw4anim`, `.animscript`, and curve layouts.
 
 A chassis-table entry therefore has three pieces: the object path, a 16-bit
 flags word, and a display name. A part mesh has a part suffix, the joint it is

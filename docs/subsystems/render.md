@@ -126,10 +126,13 @@ record producers (`0x48E890` for the scene-element record path and `0x48DD20`
 for the rich-record path) turn node state into render records. The `vertex`
 detail handles vertex buffers, transforms, and interpolation.
 
-Mech geometry is assembled from per-part indexed meshes and a fixed 47-joint
-armature; `.mw4anim` clips supply keyframed joint rotations and `.animscript`
-selects/blends the clips. The skeleton, clip container, and state-machine
-formats are documented in [Mech models and animation](../mech_animation.md).
+Mech geometry is assembled from per-part indexed meshes and a per-chassis
+joint armature. The 47-entry joint-cage table at `0x7B5A9C` is a name index;
+the armature child records define the actual transform tree, and the
+`.mw4anim` clips carry their own per-clip joint slot tables so they can be
+retargeted by name. `.animscript` selects and blends the clips. The skeleton,
+clip container, curves, and state-machine formats are documented in
+[Mech models and animation](../mech_animation.md).
 
 ## Lighting
 
@@ -301,6 +304,13 @@ constructor `0x4A4E50`. The sprite quad is two triangles with UV pairs
 | `0x004887C0` | draw | context notify |
 | `0x0048E890` | records | scene-record producer |
 | `0x0048DD20` | records | rich-record producer |
+| `0x005F8BE0` | animation | per-frame model-update callback |
+| `0x00604780` | animation | state holder-chain update |
+| `0x00604C70` | animation | transition update |
+| `0x00604270` | animation | transition timing/weight pipeline |
+| `0x00604F30` | animation | overlap-curve evaluator |
+| `0x00605820` | animation | per-frame animation record dispatch |
+| `0x00605C80` | animation | animation hierarchy combine / clip sampler |
 | `0x00713A70` | device | D3D7-IM primitive submit |
 | `0x00713C80` | device | batched primitive submit |
 | `0x00713CC0` | device | device dispatcher |

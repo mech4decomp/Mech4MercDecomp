@@ -245,8 +245,14 @@ far-distance cull radius. The reference scene traversal (`0x00494440`) culls
 each node by that radius against the camera position.
 
 Mech part meshes use the same shape record, but their material sub-object
-carries a counted texture-page name and their UVs are used in stored order; see
-[Mech Models and Animation](mech_animation.md#31-shape-record).
+carries a counted texture-page name and their UVs are used in stored order. A
+part LOD may contain several material groups (the skin atlas, the `@team`
+overlay, the `@pilot` figure, and the cockpit cage page); a group either owns
+its own vertex/UV buffers or shares the LOD's first buffers. The close-range
+model is LOD0; later LODs repeat it at lower detail and some chassis carry
+degenerate later records. See
+[Mech Models and Animation](mech_animation.md#31-shape-records-and-lods) and
+[section 3.2](mech_animation.md#32-material-groups).
 
 ### 5.2 Cultural cards
 
