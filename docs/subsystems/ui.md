@@ -110,7 +110,8 @@ Menus read game data through the database and archive layers:
 
 The menu layer does not own the data; it queries the database and displays the
 result. The MechLab and pilot screens are the main consumers of the
-count/scanner helpers.
+count/scanner helpers. The MechLab's variant archive and loadout data path is
+documented in [Mech Variants and Loadout Data](../mech_variants.md).
 
 ## Invariants and failure modes
 

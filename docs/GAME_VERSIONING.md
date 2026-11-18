@@ -422,6 +422,9 @@ Notes:
 
 ### 9.1 The variant self-digest
 
+The variant archive layout, `{Mech}` fields, and subsystem/loadout stream are
+documented in [Mech Variants and Loadout Data](mech_variants.md).
+
 When a player-creation message is processed (`FUN_00534200` / `FUN_00533C30`),
 the receiver:
 

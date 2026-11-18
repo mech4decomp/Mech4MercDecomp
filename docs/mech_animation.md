@@ -10,7 +10,9 @@ records, the `.mw4anim` container, the `.animscript` state graph, the overlap
 curves, the playback semantics, and the runtime animation records. Asset
 locations are in [Asset Loading and Archive Formats](assets.md); the
 animation-to-render bridge is in
-[Scene Construction and Object Rendering](scene_rendering.md).
+[Scene Construction and Object Rendering](scene_rendering.md). Saved player
+variants and their subsystem/loadout streams are in
+[Mech Variants and Loadout Data](mech_variants.md).
 
 The data layouts below come from the shipped retail assets, the runtime
 animation records, and the reference binary. Offsets are measured from the

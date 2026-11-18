@@ -380,7 +380,9 @@ attached to, per-vertex positions and UVs, a triangle index list, and a
 material/texture-page name. The table is a shipped data file; the part mesh is
 an `.erf` shape record (section 2.2), not a public oracle structure. The joint
 names and armature members are described in
-[Mech Models and Animation](mech_animation.md).
+[Mech Models and Animation](mech_animation.md). Saved player variants and their
+subsystem/loadout streams are documented in
+[Mech Variants and Loadout Data](mech_variants.md).
 
 ## 6. Image and effect formats
 

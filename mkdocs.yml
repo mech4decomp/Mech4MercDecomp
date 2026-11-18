@@ -101,6 +101,7 @@ nav:
           - Asset loading and formats: assets.md
           - Map and terrain formats: terrain_formats.md
           - Mech models and animation: mech_animation.md
+          - Mech variants and loadout data: mech_variants.md
           - Scene construction and rendering: scene_rendering.md
       - Game versioning: GAME_VERSIONING.md
       - Data annotation: data_annotation.md
